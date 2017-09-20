@@ -1,0 +1,2 @@
+class Restriction(object):
+    pass
