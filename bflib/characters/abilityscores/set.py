@@ -4,13 +4,13 @@ from bflib.characters.abilityscores import Strength, Dexterity, Constitution, In
 class AbilityScoreSet(object):
     __slots__ = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
 
-    def __init__(self, strength=3, dexterity=3, constitution=3, intelligence=3, wisdom=3, charisma=3):
-        self.strength = Strength(strength)
-        self.dexterity = Dexterity(dexterity)
-        self.constitution = Constitution(constitution)
-        self.intelligence = Intelligence(intelligence)
-        self.wisdom = Wisdom(wisdom)
-        self.charisma = Charisma(charisma)
+    def __init__(self, strength=None, dexterity=None, constitution=None, intelligence=None, wisdom=None, charisma=None):
+        self.strength = Strength(strength) if strength else None
+        self.dexterity = Dexterity(dexterity) if dexterity else None
+        self.constitution = Constitution(constitution) if constitution else None
+        self.intelligence = Intelligence(intelligence) if intelligence else None
+        self.wisdom = Wisdom(wisdom) if wisdom else None
+        self.charisma = Charisma(charisma) if charisma else None
 
     @classmethod
     def from_merge(cls, first, other):

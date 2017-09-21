@@ -3,10 +3,8 @@ from core import components
 
 
 class CharacterFactory(object):
-    def __init__(self):
-        pass
-
-    def create_new(self, ability_score_set, base_classes, base_race):
+    @classmethod
+    def create_new(cls, ability_score_set, base_classes, base_race):
         new_character = GameObject()
         new_character.register_component(components.CharacterStats(ability_score_set))
         new_character.register_component(components.CharacterClass(base_classes))
@@ -17,8 +15,8 @@ class CharacterFactory(object):
               in new_character.character_class.base_classes)
         ))
         new_character.register_component(components.Equipment(
-            wear_locations=new_character.race.get_wear_locations(),
-            wield_locations=new_character.race.get_wield_locations(),
+            wear_locations=new_character.race.base_race.wear_locations,
+            wield_locations=new_character.race.base_race.wield_locations,
             armor_restrictions=new_character.restrictions.armor,
             weapon_restrictions=new_character.restrictions.weapons,
             weapon_size_restrictions=new_character.restrictions.weapon_size

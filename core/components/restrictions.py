@@ -14,3 +14,8 @@ class Restrictions(Component):
 
     def copy(self):
         return Restrictions(self.restrictions)
+
+    def __getattr__(self, item):
+        if hasattr(self.restrictions, item):
+            return getattr(self.restrictions, item)
+        raise AttributeError()

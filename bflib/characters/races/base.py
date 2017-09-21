@@ -5,6 +5,7 @@ from bflib import languages
 from bflib import restrictions
 from bflib import units
 from bflib.characters import specialabilities, savingthrows
+from bflib.keywords.items import WearLocation, WieldLocation
 
 
 class Race(object):
@@ -19,3 +20,29 @@ class Race(object):
     racial_language = languages.Common
     special_ability_set = specialabilities.SpecialAbilitySet()
     saving_throw_set = savingthrows.SavingThrowSet()
+
+    wear_locations = (
+        WearLocation.Head,
+        WearLocation.Face,
+        WearLocation.Neck,
+        WearLocation.Torso,
+        WearLocation.Arms,
+        WearLocation.Arms,
+        WearLocation.Hands,
+        WearLocation.Hands,
+        WearLocation.Rings,
+        WearLocation.Rings,
+        WearLocation.Legs,
+        WearLocation.Legs,
+        WearLocation.Feet,
+        WearLocation.Feet,
+        WearLocation.Bandolier,
+        WearLocation.Back,
+        WearLocation.Belt,
+        WearLocation.Waist,
+    )
+
+    wield_locations = (
+        WieldLocation.LeftHand,
+        WieldLocation.RightHand,
+    )

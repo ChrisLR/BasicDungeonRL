@@ -33,3 +33,12 @@ class ClassRestrictionSet(Restriction):
             excluded=excluded,
             access_combined=True if first.shields or other.shields else False
         )
+
+    def evaluate(self, character_class):
+        if self.included and character_class not in self.included:
+            return False
+
+        if self.excluded and character_class in self.excluded:
+            return False
+
+        return True
