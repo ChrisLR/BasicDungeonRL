@@ -7,12 +7,12 @@ from core.components.money import Money
 from core.components.race import Race
 from core.components.restrictions import Restrictions
 
-components_listing = {
-    CharacterClass,
-    CharacterStats,
-    Equipment,
-    Experience,
-    Money,
-    Race,
-    Restrictions
+component_names = {
+    CharacterClass.NAME,
+    CharacterStats.NAME,
+    Equipment.NAME,
+    Experience.NAME,
+    Money.NAME,
+    Race.NAME,
+    Restrictions.NAME
 }

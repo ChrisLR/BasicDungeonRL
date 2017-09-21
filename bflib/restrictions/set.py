@@ -12,7 +12,7 @@ class RestrictionSet(object):
 
     @classmethod
     def from_merge(cls, first, other):
-        cls(
+        return cls(
             ability_score=cls._merge_if_true(first.ability_score, other.ability_score),
             armor=cls._merge_if_true(first.armor, other.armor),
             classes=cls._merge_if_true(first.classes, other.classes),

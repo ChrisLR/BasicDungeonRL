@@ -13,7 +13,8 @@ class CharacterFactory(object):
         new_character.register_component(components.Race(base_race))
         new_character.register_component(components.Restrictions(
             base_race.restriction_set,
-            *(base_class.restriction_set for base_class in base_classes)
+            *(base_class.restriction_set for base_class
+              in new_character.character_class.base_classes)
         ))
         new_character.register_component(components.Equipment(
             wear_locations=new_character.race.get_wear_locations(),

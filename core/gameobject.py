@@ -1,4 +1,4 @@
-from core.components import components_listing
+from core.components import component_names
 
 
 class GameObject(object):
@@ -65,7 +65,7 @@ class GameObject(object):
             del self.components[component_name]
 
     def __getattr__(self, item):
-        if type(item) in components_listing:
+        if item in component_names:
             component = self.get_component(item)
             if component:
                 return component
