@@ -1,16 +1,16 @@
 from functools import partial
 
-from bearlibterminal import terminal
 from clubsandwich.ui import (
+    ButtonView,
     UIScene,
     KeyAssignedListView,
-    ButtonView,
     LayoutOptions,
     WindowView,
 )
 
 from bflib.characters import classes
 from core.factories.character import CharacterFactory
+from ui.controls import SelectableButtonView
 
 
 class ClassSelectionScene(UIScene):
@@ -29,9 +29,9 @@ class ClassSelectionScene(UIScene):
 
         self.buttons = {
             character_class:
-            ButtonView(
-                character_class.name, partial(self.set_character_class, character_class),
-                color_fg=self._inactive_fg if character_class in self.enabled_classes else self._disabled_fg
+                SelectableButtonView(
+                    character_class.name, partial(self.set_character_class, character_class),
+                    color_fg=self._inactive_fg if character_class in self.enabled_classes else self._disabled_fg
             )
             for character_class in self.sorted_classes
         }
@@ -66,14 +66,12 @@ class ClassSelectionScene(UIScene):
     def deselect_class(self, character_class):
         self.class_choices.remove(character_class)
         button = self.buttons[character_class]
-        button.color_fg = self._inactive_fg
-        button.label_view.color_fg = self._disabled_fg
+        button.deselect()
 
     def select_class(self, character_class):
         self.class_choices.append(character_class)
         button = self.buttons[character_class]
-        button.color_fg = self._active_fg
-        button.label_view.color_fg = button.color_fg
+        button.select()
 
     def set_character_class(self, value):
         if value not in self.disabled_classes:

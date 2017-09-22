@@ -1,6 +1,5 @@
 from functools import partial
 
-from bearlibterminal import terminal
 from clubsandwich.ui import (
     UIScene,
     KeyAssignedListView,
@@ -11,6 +10,7 @@ from clubsandwich.ui import (
 
 from bflib.characters import races
 from scenes.charactercreation.classes import ClassSelectionScene
+from ui.controls import SelectableButtonView
 
 
 class RaceSelectionScene(UIScene):
@@ -28,10 +28,10 @@ class RaceSelectionScene(UIScene):
 
         self.buttons = {
             race:
-            ButtonView(
-                race.name, partial(self.set_race, race),
-                color_fg=self._inactive_fg if race in self.enabled_races else self._disabled_fg
-            )
+                SelectableButtonView(
+                    race.name, partial(self.set_race, race),
+                    color_fg=self._inactive_fg if race in self.enabled_races else self._disabled_fg
+                )
             for race in self.sorted_races
         }
         self.race_choice = None
@@ -60,12 +60,12 @@ class RaceSelectionScene(UIScene):
     def deselect_race(self, race):
         self.race_choice = None
         button = self.buttons[race]
-        button.color_fg = self._inactive_fg
+        button.deselect()
 
     def select_race(self, race):
         self.race_choice = race
         button = self.buttons[race]
-        button.color_fg = self._active_fg
+        button.select()
 
     def set_race(self, value):
         if value not in self.disabled_races:
