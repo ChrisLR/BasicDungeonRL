@@ -7,7 +7,7 @@ class CharacterFactory(object):
     def create_new(cls, ability_score_set, base_classes, base_race):
         new_character = GameObject()
         new_character.register_component(components.CharacterStats(ability_score_set))
-        new_character.register_component(components.CharacterClass(base_classes))
+        new_character.register_component(components.CharacterClass(*base_classes))
         new_character.register_component(components.Race(base_race))
         new_character.register_component(components.Restrictions(
             base_race.restriction_set,

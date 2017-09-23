@@ -2,7 +2,10 @@ from core.components import component_names
 
 
 class GameObject(object):
-    def __init__(self):
+    __slots__ = ["blocking", "components", "observers", "responders"]
+
+    def __init__(self, blocking=False):
+        self.blocking = blocking
         self.components = {}
         self.observers = {}
         self.responders = {}
