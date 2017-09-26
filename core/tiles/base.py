@@ -4,6 +4,7 @@ from core.gameobject import GameObject
 class Tile(GameObject):
     name = ""
     blocking = True
+    opaque = True
     display = None
 
     def __init__(self):

@@ -7,3 +7,4 @@ class DungeonFloor(Tile):
     name = "Dungeon Floor"
     display = Display(Colors.GRAY, Colors.BLACK, ".")
     blocking = False
+    opaque = False

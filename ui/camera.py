@@ -51,4 +51,3 @@ class Camera(object):
         self.point = Point(*self.location.get_local_coords())
         self.view_rect = self.set_view_rect(self.point)
 
-

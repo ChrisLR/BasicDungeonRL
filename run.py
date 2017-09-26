@@ -1,5 +1,5 @@
-from core.game.manager import Game
+from core.game.manager import game
+
 
 if __name__ == '__main__':
-    game = Game()
     game.start()
