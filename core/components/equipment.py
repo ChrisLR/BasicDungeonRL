@@ -99,6 +99,10 @@ class Equipment(Component):
             return True
         return False
 
+    def get_total_armor_class(self):
+        # TODO Once items are implemented, this should query all worn items for AC.
+        return 0
+
     def get_worn_items(self):
         return self.worn_items.values()
 
