@@ -6,6 +6,8 @@ class AbilityScore(object):
     __slots__ = ["value"]
 
     _modifier_table = {
+        1: -5,
+        2: -4,
         3: -3,
         4: -2,
         5: -2,
@@ -22,13 +24,25 @@ class AbilityScore(object):
         16: 2,
         17: 2,
         18: 3,
+        19: 3,
+        20: 4,
+        21: 4,
+        22: 5,
+        23: 5,
+        24: 6,
+        25: 6,
+        26: 7,
+        27: 7,
+        28: 8,
+        29: 9,
+        30: 10,
     }
 
     def __init__(self, value):
         self.value = value
 
-    def modifier(self):
-        return self._modifier_table[self.value]
+    def modifier(self, modifiers=0):
+        return self._modifier_table[self.value + modifiers]
 
 
 class Strength(AbilityScore):

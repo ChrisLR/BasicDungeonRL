@@ -2,13 +2,14 @@ from core.components import component_names
 
 
 class GameObject(object):
-    __slots__ = ["blocking", "components", "observers", "responders"]
+    __slots__ = ["blocking", "components", "observers", "responders", "name"]
 
-    def __init__(self, blocking=False):
+    def __init__(self, blocking=False, name=""):
         self.blocking = blocking
         self.components = {}
         self.observers = {}
         self.responders = {}
+        self.name = name
 
     def copy_to(self, new_game_object):
         for component in self.components.values():

@@ -17,6 +17,16 @@ class Dice(object):
     def roll(self):
         return sum((random.randint(1, self.sides) for _ in range(0, self.amount))) + self.flat_bonus
 
+    @classmethod
+    def roll(cls, amount, flat_bonus=0):
+        return sum((random.randint(1, cls.sides) for _ in range(0, amount))) + flat_bonus
+
+    @staticmethod
+    def get_by_sides(sides):
+        for dice in dice_listing:
+            if dice.sides == sides:
+                return dice
+
 
 class D1(Dice):
     sides = 1
@@ -52,3 +62,15 @@ class D20(Dice):
 
 class D100(Dice):
     sides = 100
+
+dice_listing = (
+    D1,
+    D2,
+    D4,
+    D6,
+    D8,
+    D10,
+    D12,
+    D20,
+    D100,
+)

@@ -1,5 +1,5 @@
 from bflib import dice
-import bflib.movement
+from bflib import movement
 from bflib.characters import specialabilities
 from bflib.monsters.appearingset import AppearingSet
 from bflib.characters.classes.fighter import Fighter

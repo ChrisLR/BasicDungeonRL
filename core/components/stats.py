@@ -25,32 +25,62 @@ class CharacterStats(Component):
     @property
     def strength(self):
         modifiers = self.registered_modifiers[Strength]
-        return self.base_ability_score_set.strength + sum(modifiers)
+        return self.base_ability_score_set.strength.value + sum(modifiers)
+
+    @property
+    def strength_modifier(self):
+        modifiers = self.registered_modifiers[Strength]
+        return self.base_ability_score_set.strength.modifier(sum(modifiers))
 
     @property
     def dexterity(self):
         modifiers = self.registered_modifiers[Dexterity]
-        return self.base_ability_score_set.dexterity + sum(modifiers)
+        return self.base_ability_score_set.dexterity.value + sum(modifiers)
+
+    @property
+    def dexterity_modifier(self):
+        modifiers = self.registered_modifiers[Dexterity]
+        return self.base_ability_score_set.dexterity.modifier(sum(modifiers))
 
     @property
     def constitution(self):
         modifiers = self.registered_modifiers[Constitution]
-        return self.base_ability_score_set.constitution + sum(modifiers)
+        return self.base_ability_score_set.constitution.value + sum(modifiers)
+
+    @property
+    def constitution_modifier(self):
+        modifiers = self.registered_modifiers[Constitution]
+        return self.base_ability_score_set.constitution.modifier(sum(modifiers))
 
     @property
     def intelligence(self):
         modifiers = self.registered_modifiers[Intelligence]
-        return self.base_ability_score_set.intelligence + sum(modifiers)
+        return self.base_ability_score_set.intelligence.value + sum(modifiers)
+
+    @property
+    def intelligence_modifier(self):
+        modifiers = self.registered_modifiers[Intelligence]
+        return self.base_ability_score_set.intelligence.modifier(sum(modifiers))
 
     @property
     def wisdom(self):
         modifiers = self.registered_modifiers[Wisdom]
-        return self.base_ability_score_set.wisdom + sum(modifiers)
+        return self.base_ability_score_set.wisdom.value + sum(modifiers)
+
+    @property
+    def wisdom_modifier(self):
+        modifiers = self.registered_modifiers[Wisdom]
+        return self.base_ability_score_set.wisdom.modifier(sum(modifiers))
 
     @property
     def charisma(self):
         modifiers = self.registered_modifiers[Charisma]
-        return self.base_ability_score_set.charisma + sum(modifiers)
+        return self.base_ability_score_set.charisma.value + sum(modifiers)
+
+    @property
+    def charisma_modifier(self):
+        modifiers = self.registered_modifiers[Charisma]
+        return self.base_ability_score_set.charisma.modifier(sum(modifiers))
 
     def register_modifier(self, ability_score):
         self.registered_modifiers[type(ability_score)].append(ability_score)

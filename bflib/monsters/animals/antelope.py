@@ -1,5 +1,5 @@
 from bflib import dice
-import bflib.movement
+from bflib import movement
 from bflib import units
 from bflib.attacks import AttackSet, Headbutt
 from bflib.characters.classes.fighter import Fighter

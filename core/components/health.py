@@ -4,11 +4,8 @@ from core.components.base import Component
 class Health(Component):
     NAME = 'health'
 
-    def __init__(self, hit_dice=None, first_enforced_maximum=False):
+    def __init__(self, first_enforced_maximum=False):
         super().__init__()
-        if hit_dice:
-            self.update_hit_dice(hit_dice)
-            self.current = self.max
         self.first_enforced_maximum = first_enforced_maximum
         self._hit_dices = {}
         self._health_rolls = []
@@ -26,8 +23,8 @@ class Health(Component):
         return sum(hit_dice.amount for hit_dice in self._hit_dices.values())
 
     def update_hit_dice(self, new_hit_dice):
-        current_hit_dice = self._hit_dices[type(new_hit_dice)]
-        if not self._hit_dices:
+        current_hit_dice = self._hit_dices.get(type(new_hit_dice), None)
+        if not current_hit_dice:
             self._hit_dices[type(new_hit_dice)] = new_hit_dice
             if self.first_enforced_maximum:
                 self._base_max_health = new_hit_dice.sides * new_hit_dice.amount
@@ -58,13 +55,13 @@ class Health(Component):
 
     @property
     def max(self):
-        if self.host.experience_pool:
-            level = self.host.experience_pool.total_level
+        if self.host.experience:
+            level = self.host.experience.level
         else:
             level = 1
 
         if self.host.stats:
-            constitution_bonus = self.host.stats.constitution.modifier
+            constitution_bonus = self.host.stats.constitution_modifier
         else:
             constitution_bonus = 0
 
@@ -77,8 +74,9 @@ class Health(Component):
         self.maximum_modifiers.remove(health_modifier)
 
     def on_register(self, host):
-        if host.experience_pool:
-            level = host.experience_pool.total_level
+        super().on_register(host)
+        if host.experience:
+            level = host.experience.level
         else:
             level = 1
 
@@ -86,6 +84,9 @@ class Health(Component):
             hit_die = host.character_class.get_hit_dice(level)
         else:
             hit_die = 0
+
+        if host.monster:
+            hit_die = host.monster.base_monster.hit_dice
 
         self.update_hit_dice(hit_die)
         self.current = self.max

@@ -10,8 +10,11 @@ from core.components.location import Location
 from core.components.money import Money
 from core.components.monster import Monster
 from core.components.morale import Morale
+from core.components.movement import Movement
 from core.components.race import Race
 from core.components.restrictions import Restrictions
+from core.components.savingthrows import SavingThrows
+from core.components.spawninfo import SpawnInfo
 
 component_names = {
     CharacterClass.NAME,
@@ -25,6 +28,9 @@ component_names = {
     Money.NAME,
     Monster.NAME,
     Morale.NAME,
+    Movement.NAME,
     Race.NAME,
-    Restrictions.NAME
+    Restrictions.NAME,
+    SavingThrows.NAME,
+    SpawnInfo.NAME,
 }

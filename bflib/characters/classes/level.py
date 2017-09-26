@@ -19,3 +19,6 @@ class LevelTable(object):
 
     def __init__(self, levels=None):
         self.levels = {level.value: level for level in levels} if levels else {}
+
+    def get(self, level):
+        return self.levels.get(level, None)
