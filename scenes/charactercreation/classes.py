@@ -10,7 +10,10 @@ from clubsandwich.ui import (
 
 from bflib.characters import classes
 from core.factories.character import CharacterFactory
+from scenes.game.scene import GameScene
 from ui.controls import SelectableButtonView
+from core.util.colors import Colors
+from core.displaypriority import DisplayPriority
 
 
 class ClassSelectionScene(UIScene):
@@ -93,12 +96,14 @@ class ClassSelectionScene(UIScene):
         player = CharacterFactory.create_new(
             ability_score_set=self.ability_score_set,
             base_classes=self.class_choices,
-            base_race=self.race
+            base_race=self.race,
+            symbol="@",
+            fg_color=Colors.WHITE,
+            bg_color=Colors.BLACK,
+            display_priority=DisplayPriority.Player
         )
 
         self.game_context.player = player
-
-        player = self.game_context.player
         self.director.replace_scene(GameScene(self.game_context))
 
 

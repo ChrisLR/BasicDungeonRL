@@ -30,4 +30,6 @@ class Location(Component):
         return self.local_x, self.local_y
 
     def set_local_coords(self, coordinates):
+        if self.level:
+            self.level.adjust_coordinates_for_object(self.host, coordinates)
         self.local_x, self.local_y = coordinates

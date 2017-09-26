@@ -9,6 +9,7 @@ from scenes.mainmenu import MainMenuScene
 class Game(object):
     def __init__(self):
         self.game_context = GameContext()
+        self.game_context.game = self
         self.running = False
 
     def start(self):

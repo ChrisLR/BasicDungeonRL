@@ -4,7 +4,7 @@ from core import components
 
 class CharacterFactory(object):
     @classmethod
-    def create_new(cls, ability_score_set, base_classes, base_race):
+    def create_new(cls, ability_score_set, base_classes, base_race, symbol, fg_color, bg_color, display_priority=0):
         new_character = GameObject()
         new_character.register_component(components.CharacterStats(ability_score_set))
         new_character.register_component(components.CharacterClass(*base_classes))
@@ -25,5 +25,7 @@ class CharacterFactory(object):
             components.Experience(new_character.character_class.base_classes)
         )
         new_character.register_component(components.Money())
+        new_character.register_component(components.Location())
+        new_character.register_component(components.Display(fg_color, bg_color, symbol, display_priority))
 
         return new_character

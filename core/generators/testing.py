@@ -18,4 +18,5 @@ class TestingGenerator(object):
     @classmethod
     def place_player(cls, level, player):
         player.location.set_local_coords((24, 24))
+        player.location.level = level
         level.add_object(player)

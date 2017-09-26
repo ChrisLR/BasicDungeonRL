@@ -15,8 +15,8 @@ class Action(object):
         pass
 
     @abc.abstractclassmethod
-    def execute(self, character, selection):
+    def execute(self, character, selection=None):
         pass
 
-    def recall_execute(self, character, selection):
+    def recall_execute(self, character, selection=None):
         pass

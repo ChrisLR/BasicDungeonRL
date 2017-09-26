@@ -44,8 +44,8 @@ class Camera(object):
 
         self.location.area = game_object.location.area
         self.location.level = game_object.location.level
-        self.location.global_x = game_object.location.global_x
-        self.location.global_y = game_object.location.global_y
+        self.location.world_x = game_object.location.world_x
+        self.location.world_y = game_object.location.world_y
         self.location.local_x = game_object.location.local_x - int(self.screen_size.width / 2)
         self.location.local_y = game_object.location.local_y - int(self.screen_size.height / 2)
         self.point = Point(*self.location.get_local_coords())

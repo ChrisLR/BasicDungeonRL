@@ -6,7 +6,7 @@ from core.components.base import Component
 class Display(Component):
     NAME = "display"
 
-    def __init__(self, foreground_color, background_color, ascii_character, priority=0):
+    def __init__(self, foreground_color, background_color, ascii_character, priority=1):
         super().__init__()
         self.foreground_color = foreground_color
         self.background_color = background_color
