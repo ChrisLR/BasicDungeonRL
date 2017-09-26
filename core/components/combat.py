@@ -33,6 +33,14 @@ class Combat(Component):
 
     @property
     def attack_bonus(self):
+        level = 1
+        if self.host.experience_pool:
+            level = self.host.experience_pool.level
+
+        if self.host.character_class:
+            class_attack_bonus = self.host.character_class.base_class.level_table.get(level).attack_bonus
+            return class_attack_bonus
+
         return AttackBonusTable.get_by_hit_dice(self.host.health.total_hit_dice_value)
 
     @property
