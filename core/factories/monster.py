@@ -12,9 +12,11 @@ class MonsterFactory(object):
         new.register_component(components.Health())
         new.register_component(components.Combat())
         new.register_component(components.Morale())
-        new.register_component(components.Movement(monster_type.movement_set))
+        new.register_component(components.Movement(monster_type.movement))
         new.register_component(components.SpawnInfo(monster_type.no_appearing))
         new.register_component(components.SavingThrows(monster_type.save_as))
         new.register_component(components.Money())
         new.register_component(components.Location())
         new.register_component(components.Display(Colors.RED, Colors.BLACK, "D", DisplayPriority.Enemy))
+
+        return new

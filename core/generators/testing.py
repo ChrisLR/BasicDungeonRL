@@ -15,6 +15,7 @@ class TestingGenerator(object):
                 else:
                     level.add_tile((x, y), floors.DungeonFloor)
 
+        cls.place_monster(level)
         return level
 
     @classmethod

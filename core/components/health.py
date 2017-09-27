@@ -36,7 +36,7 @@ class Health(Component):
                 if delta_amount > 0:
                     health_gain = 0
                     for i in range(0, delta_amount):
-                        roll = new_hit_dice.roll(1, new_hit_dice.flat_bonus)
+                        roll = new_hit_dice.manual_roll(1, new_hit_dice.flat_bonus)
                         health_gain += roll
                         self._health_rolls.append(roll)
 

@@ -46,7 +46,7 @@ class GameView(RectView):
 
     def draw_displays(self, viewer_fov, ctx):
         current_level = self.camera.location.level
-        for priority in sorted(current_level.displays.keys()):
+        for priority in sorted(key for key in current_level.displays.keys()):
             for game_object in current_level.displays[priority]:
                 x, y = game_object.location.get_local_coords()
                 if (x, y) in viewer_fov:
