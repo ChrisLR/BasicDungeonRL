@@ -28,5 +28,6 @@ class CharacterFactory(object):
         new_character.register_component(components.Location())
         new_character.register_component(components.Display(fg_color, bg_color, symbol, display_priority))
         new_character.register_component(components.Health(True))
+        new_character.register_component(components.Combat())
 
         return new_character

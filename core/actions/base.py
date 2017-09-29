@@ -10,9 +10,8 @@ class Action(object):
     target_selection_type = None
     target_type = None
 
-    @abc.abstractclassmethod
     def can_execute(self, character, selection=None):
-        pass
+        return True
 
     @abc.abstractclassmethod
     def execute(self, character, selection=None):

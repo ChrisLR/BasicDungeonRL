@@ -1,4 +1,5 @@
 from core.actions.base import Action
+from core.actions.bump import Bump
 from core.direction import Direction, move_direction_mapping
 
 
@@ -37,8 +38,7 @@ class Walk(Action):
         if game_objects:
             for game_object in game_objects:
                 if game_object.blocking:
-                    # At this point we would evaluate a bump
-                    return False
+                    return Bump.execute(character, game_object)
 
         character.location.set_local_coords(new_coords)
         return True

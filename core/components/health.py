@@ -12,6 +12,7 @@ class Health(Component):
         self.current = 0
         self._base_max_health = 0
         self.maximum_modifiers = []
+        self.dead = False
 
     @property
     def largest_hit_dice(self):
@@ -21,6 +22,20 @@ class Health(Component):
     @property
     def total_hit_dice_value(self):
         return sum(hit_dice.amount for hit_dice in self._hit_dices.values())
+
+    def revive(self, health_recovered=1):
+        if self.dead:
+            self.dead = False
+            self.current = health_recovered if health_recovered <= self.max else self.max
+
+    def restore_health(self, health):
+        if not self.dead:
+            self.current += health
+
+    def take_damage(self, damage):
+        self.current -= damage
+        if self.current <= 0:
+            self.dead = True
 
     def update_hit_dice(self, new_hit_dice):
         current_hit_dice = self._hit_dices.get(type(new_hit_dice), None)

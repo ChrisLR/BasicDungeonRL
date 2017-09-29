@@ -1,3 +1,4 @@
+import bflib.items.weapons.melee.daggers
 from bflib import dice
 from bflib import restrictions
 from bflib.characters import abilityscores
@@ -18,7 +19,7 @@ class MagicUser(CharacterClass):
         armor=restrictions.ArmorRestrictionSet(included=(armor.types.Clothing, ), shields=False),
         weapons=restrictions.WeaponRestrictionSet(
             included=(
-                weapons.types.Dagger,
+                bflib.items.weapons.melee.daggers.Dagger,
                 weapons.types.Cudgel,
                 weapons.types.WalkingStaff,
             )
