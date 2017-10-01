@@ -4,6 +4,9 @@ from clubsandwich.director import DirectorLoop
 from core.game.context import GameContext
 from core.generators.testing import TestingGenerator
 from scenes.mainmenu import MainMenuScene
+from core.factories.monster import MonsterFactory
+from bflib.monsters import animals
+from core.displaypriority import DisplayPriority
 
 
 class Game(object):
@@ -18,7 +21,10 @@ class Game(object):
 
     def new_game(self):
         level = TestingGenerator.generate()
+        self.game_context.player = MonsterFactory.create_new(animals.Deer)
+        self.game_context.player.display.priority = DisplayPriority.Player
         TestingGenerator.place_player(level, self.game_context.player)
+
         self.running = True
 
 

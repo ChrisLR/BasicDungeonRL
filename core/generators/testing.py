@@ -1,7 +1,7 @@
-from core.world.level import Level
-from core.tiles import floors, walls
 from bflib.monsters import animals
 from core.factories.monster import MonsterFactory
+from core.tiles import floors, walls
+from core.world.level import Level
 
 
 class TestingGenerator(object):
