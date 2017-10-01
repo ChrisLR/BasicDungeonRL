@@ -10,7 +10,7 @@ class NaturalAttack(MeleeAttack):
     @classmethod
     def execute(cls, attacker, defender, attack_set):
         hits = 0
-        for _ in range(0, attack_set):
+        for _ in range(0, attack_set.amount):
             success = cls.make_melee_hit_roll(attacker, defender)
             if success:
                 hits += 1

@@ -34,8 +34,8 @@ class Combat(Component):
     @property
     def attack_bonus(self):
         level = 1
-        if self.host.experience_pool:
-            level = self.host.experience_pool.level
+        if self.host.experience:
+            level = self.host.experience.level
 
         if self.host.character_class:
             class_attack_bonus = self.host.character_class.base_class.level_table.get(level).attack_bonus
