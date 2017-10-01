@@ -3,7 +3,6 @@ from clubsandwich.director import DirectorLoop
 
 from core.game.context import GameContext
 from core.generators.testing import TestingGenerator
-from scenes.mainmenu import MainMenuScene
 from core.factories.monster import MonsterFactory
 from bflib.monsters import animals
 from core.displaypriority import DisplayPriority
@@ -16,6 +15,7 @@ class Game(object):
         self.running = False
 
     def start(self):
+        from scenes.mainmenu import MainMenuScene
         loop = MainLoop(MainMenuScene(self.game_context))
         loop.run()
 

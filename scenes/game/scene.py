@@ -1,8 +1,10 @@
 from clubsandwich.ui import LayoutOptions
 from clubsandwich.ui import UIScene, ScrollingTextView, WindowView
+
+from core import actionmapping
 from scenes.game.views.game import GameView
 from scenes.game.views.hud import HudView
-from core import actionmapping
+from services.echo.service import echo_service
 
 
 class GameScene(UIScene):
@@ -11,7 +13,7 @@ class GameScene(UIScene):
         game_view_layout_options = LayoutOptions(top=10, height=30, bottom=None, left=0, right=None, width=1)
         hud_view_layout_options = LayoutOptions(top=0, height=10, bottom=None, left=0, right=None, width=1)
         self.console = ScrollingTextView(12, 110, layout_options=console_layout_options)
-
+        echo_service.console = self.console
         game_context.game.new_game()
         self.game_view = GameView(game_context, layout_options=game_view_layout_options)
         self.game_context = game_context

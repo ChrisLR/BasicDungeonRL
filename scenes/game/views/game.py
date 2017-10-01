@@ -7,7 +7,7 @@ from ui.camera import Camera
 
 class GameView(RectView):
     def __init__(self, game_context, **kwargs):
-        super().__init__(fill=True, **kwargs)
+        super().__init__(fill=True,  **kwargs)
         self.game_context = game_context
         player = self.game_context.player
         self.camera = Camera(location=player.location.copy(), screen_size=Size(120, 30))
