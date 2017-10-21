@@ -1,6 +1,8 @@
 from datetime import timedelta
 
+import bflib.items.weapons.melee.polearms
 import bflib.items.weapons.melee.swords
+import bflib.items.weapons.ranged.bows
 from bflib import languages
 from bflib import restrictions
 from bflib import units
@@ -26,8 +28,8 @@ class Dwarf(Race):
         weapons=restrictions.WeaponRestrictionSet(
             excluded=(
                 bflib.items.weapons.melee.swords.TwoHandedSword,
-                weapons.types.Polearm,
-                weapons.types.Longbow,
+                bflib.items.weapons.melee.polearms.Polearm,
+                bflib.items.weapons.ranged.bows.Longbow,
             )
         )
     )

@@ -5,9 +5,3 @@ class RangedWeapon(Weapon):
     pass
 
 
-class Longbow(RangedWeapon):
-    pass
-
-
-class Sling(RangedWeapon):
-    pass

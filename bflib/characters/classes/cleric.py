@@ -1,3 +1,6 @@
+import bflib.items.weapons.melee.maces
+import bflib.items.weapons.melee.staves
+import bflib.items.weapons.ranged.slings
 from bflib import dice
 from bflib import restrictions
 from bflib.characters import abilityscores
@@ -17,12 +20,12 @@ class Cleric(CharacterClass):
         ),
         weapons=restrictions.WeaponRestrictionSet(
             included=(
-                weapons.types.Club,
-                weapons.types.Mace,
-                weapons.types.Maul,
-                weapons.types.Quarterstaff,
-                weapons.types.Sling,
-                weapons.types.Warhammer
+                bflib.items.weapons.melee.maces.Club,
+                bflib.items.weapons.melee.maces.Mace,
+                bflib.items.weapons.melee.maces.Maul,
+                bflib.items.weapons.melee.staves.Quarterstaff,
+                bflib.items.weapons.ranged.slings.Sling,
+                bflib.items.weapons.melee.maces.Warhammer
             )
         )
     )
