@@ -9,6 +9,10 @@ class CharacterClass(Component):
         super().__init__()
         self.base_classes = base_classes
 
+    def contains(self, base_class):
+        if base_class in self.base_classes:
+            return True
+
     def get_hit_dice(self, level):
         levels = (base_class.level_table.get(level) for base_class in self.base_classes)
         hit_dices = [level.hit_dice for level in levels if level] if levels else None

@@ -21,7 +21,6 @@ class Game(object):
 
     def new_game(self):
         level = TestingGenerator.generate()
-        self.game_context.player = MonsterFactory.create_new(animals.Deer)
         self.game_context.player.display.priority = DisplayPriority.Player
         TestingGenerator.place_player(level, self.game_context.player)
 
