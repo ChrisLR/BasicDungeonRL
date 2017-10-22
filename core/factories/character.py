@@ -1,5 +1,6 @@
 from core.gameobject import GameObject
 from core import components
+from core.outfits.outfitter import OutfitterService
 
 
 class CharacterFactory(object):
@@ -29,5 +30,8 @@ class CharacterFactory(object):
         new_character.register_component(components.Display(fg_color, bg_color, symbol, display_priority))
         new_character.register_component(components.Health(True))
         new_character.register_component(components.Combat())
+        new_character.register_component(components.Inventory())
+
+        OutfitterService.outfit_starting_player(new_character)
 
         return new_character

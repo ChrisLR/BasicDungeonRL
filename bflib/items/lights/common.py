@@ -1,9 +1,9 @@
 from bflib import dice
-import bflib.items.weapons.throwing.common
 from bflib import units
+from bflib.items import coins
 from bflib.items.lights.base import LightItem
+from bflib.items.weapons.throwing.common import OilFlask
 from bflib.shapes import Shape
-from bflib.items import ammunition, coins
 
 
 class Lantern(LightItem):
@@ -11,7 +11,7 @@ class Lantern(LightItem):
 
     bright_light_radius = units.Feet(30)
     dim_light_radius = units.Feet(20)
-    fuel = items.weapons.throwing.common.OilFlask
+    fuel = OilFlask
     fuel_duration = units.GameTurn(18)
     last_life_dice = dice.D6(1)
     light_shape = Shape.Circle

@@ -59,21 +59,23 @@ class Equipment(Component):
     def wear(self, item):
         if self.armor_restrictions and not self.armor_restrictions.can_wear(item):
             return False
+        try:
+            for wear_location_set in item.wearable.wear_locations:
+                if hasattr(wear_location_set, '__iter__'):
+                    # Multiple Location Slot
+                    for slot in wear_location_set:
+                        if self.worn_items.get(slot, None):
+                            return False
 
-        for wear_location_set in item.wear_locations:
-            if hasattr(wear_location_set, '__iter__'):
-                # Multiple Location Slot
-                for slot in wear_location_set:
-                    if self.worn_items.get(slot, None):
-                        return False
-
-                for slot in wear_location_set:
-                    self.worn_items[slot] = item
-            else:
-                # Single Location Slot
-                if not self.worn_items.get(wear_location_set, None):
-                    self.worn_items[wear_location_set] = item
-                    return True
+                    for slot in wear_location_set:
+                        self.worn_items[slot] = item
+                else:
+                    # Single Location Slot
+                    if not self.worn_items.get(wear_location_set, None):
+                        self.worn_items[wear_location_set] = item
+                        return True
+        except Exception as exception:
+            raise
 
         return False
 
