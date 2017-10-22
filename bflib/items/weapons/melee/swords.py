@@ -12,7 +12,7 @@ class Sword(MeleeWeapon):
 class Shortsword(Sword):
     name = "Shortsword"
 
-    damage = dice.D6(1)
+    melee_damage = dice.D6(1)
     price = coins.Gold(6)
     size = Size.Small
     weight = units.Pound(3)
@@ -21,7 +21,7 @@ class Shortsword(Sword):
 class Longsword(Sword):
     name = "Longsword"
 
-    damage = dice.D8(1)
+    melee_damage = dice.D8(1)
     price = coins.Gold(10)
     size = Size.Medium
     weight = units.Pound(4)
@@ -30,7 +30,7 @@ class Longsword(Sword):
 class Scimitar(Sword):
     name = "Scimitar"
 
-    damage = dice.D8(1)
+    melee_damage = dice.D8(1)
     price = coins.Gold(10)
     size = Size.Medium
     weight = units.Pound(4)
@@ -39,7 +39,7 @@ class Scimitar(Sword):
 class TwoHandedSword(MeleeWeapon):
     name = "Two-Handed Sword"
 
-    damage = dice.D10(1)
+    melee_damage = dice.D10(1)
     price = coins.Gold(18)
     size = Size.Large
     weight = units.Pound(10)

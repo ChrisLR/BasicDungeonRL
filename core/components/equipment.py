@@ -103,6 +103,11 @@ class Equipment(Component):
         # TODO Once items are implemented, this should query all worn items for AC.
         return 0
 
+    def get_all_items(self):
+        items = list(self.worn_items.values())
+        items.extend(self.wielded_items.values())
+        return items
+
     def get_worn_items(self):
         return self.worn_items.values()
 

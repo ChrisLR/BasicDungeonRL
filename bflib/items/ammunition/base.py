@@ -5,6 +5,7 @@ from bflib.items.base import Item
 
 
 class Ammunition(Item):
-    damage = dice.Dice
+    ammunition_type = None
+    ammunition_damage = dice.Dice
     price = coins.Copper
     weight = units.Pound

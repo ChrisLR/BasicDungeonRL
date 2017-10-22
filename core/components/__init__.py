@@ -1,5 +1,8 @@
+from core.components.ammunition import Ammunition
+from core.components.armor import Armor
 from core.components.base import Component
 from core.components.combat import Combat
+from core.components.container import Container
 from core.components.stats import CharacterStats
 from core.components.character_class import CharacterClass
 from core.components.display import Display
@@ -11,13 +14,18 @@ from core.components.money import Money
 from core.components.monster import Monster
 from core.components.morale import Morale
 from core.components.movement import Movement
-from core.components.properties import Properties
 from core.components.race import Race
 from core.components.restrictions import Restrictions
 from core.components.savingthrows import SavingThrows
+from core.components.sellable import Sellable
+from core.components.size import Size
 from core.components.spawninfo import SpawnInfo
+from core.components.wearable import Wearable
+from core.components.weight import Weight
 
 component_names = {
+    Ammunition.NAME,
+    Armor.NAME,
     CharacterClass.NAME,
     CharacterStats.NAME,
     Combat.NAME,
@@ -30,9 +38,12 @@ component_names = {
     Monster.NAME,
     Morale.NAME,
     Movement.NAME,
-    Properties.NAME,
     Race.NAME,
     Restrictions.NAME,
     SavingThrows.NAME,
+    Sellable.NAME,
+    Size.NAME,
     SpawnInfo.NAME,
+    Wearable.NAME,
+    Weight.NAME,
 }

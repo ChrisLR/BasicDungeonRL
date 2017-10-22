@@ -8,7 +8,7 @@ from bflib.sizes import Size
 class Dagger(MeleeWeapon):
     name = "Dagger"
 
-    damage = dice.D4(1)
+    melee_damage = dice.D4(1)
     price = coins.Gold(2)
     size = Size.Small
     weight = units.Pound(1)

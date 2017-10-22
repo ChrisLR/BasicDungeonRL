@@ -9,6 +9,7 @@ class RingMail(HeavyArmor):
     name = "Ring Mail"
 
     armor_class = 14
+    armor_type = HeavyArmor
     price = coins.Gold(25)
     size = Size.Medium
     wear_locations = WearLocation.Torso, WearLocation.Legs
@@ -19,6 +20,7 @@ class ChainMail(HeavyArmor):
     name = "Chain Mail"
 
     armor_class = 15
+    armor_type = HeavyArmor
     price = coins.Gold(60)
     size = Size.Medium
     wear_locations = WearLocation.Torso, WearLocation.Legs
@@ -29,6 +31,7 @@ class ScaleMail(HeavyArmor):
     name = "Scale Mail"
 
     armor_class = 16
+    armor_type = HeavyArmor
     price = coins.Gold(80)
     size = Size.Medium
     wear_locations = WearLocation.Torso,
@@ -39,6 +42,7 @@ class SplintMail(HeavyArmor):
     name = "Splint Mail"
 
     armor_class = 16
+    armor_type = HeavyArmor
     price = coins.Gold(100)
     size = Size.Medium
     wear_locations = WearLocation.Torso,
@@ -49,6 +53,7 @@ class PlateMail(HeavyArmor):
     name = "Plate Mail"
 
     armor_class = 17
+    armor_type = HeavyArmor
     price = coins.Gold(300)
     size = Size.Medium
     wear_locations = WearLocation.Torso,
@@ -59,6 +64,7 @@ class FieldPlateMail(HeavyArmor):
     name = "Field Plate Mail"
 
     armor_class = 18
+    armor_type = HeavyArmor
     price = coins.Gold(500)
     size = Size.Medium
     wear_locations = (
@@ -75,6 +81,7 @@ class FullPlateMail(HeavyArmor):
     name = "Full Plate Mail"
 
     armor_class = 19
+    armor_type = HeavyArmor
     price = coins.Gold(1500)
     size = Size.Medium
     wear_locations = (

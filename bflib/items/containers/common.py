@@ -8,6 +8,7 @@ from bflib.sizes import Size
 class Backpack(Container):
     name = "Backpack"
 
+    container_type = Container
     price = coins.Gold(4)
     size = Size.Medium
     volume_limit = units.CubicFeet(3)
@@ -19,6 +20,7 @@ class Backpack(Container):
 class BeltPouch(Container):
     name = "Belt Pouch"
 
+    container_type = Container
     price = coins.Gold(1)
     size = Size.Small
     volume_limit = units.CubicFeet(1)
@@ -30,6 +32,7 @@ class BeltPouch(Container):
 class LargeSack(Container):
     name = "Large Sack"
 
+    container_type = Container
     price = coins.Gold(1)
     size = Size.Medium
     volume_limit = units.CubicFeet(4)
@@ -40,6 +43,7 @@ class LargeSack(Container):
 class Saddlebags(Container):
     name = "Saddlebags"
 
+    container_type = Container
     price = coins.Gold(4)
     size = Size.Small
     volume_limit = units.CubicFeet(1)
@@ -50,6 +54,7 @@ class Saddlebags(Container):
 class SmallBackpack(Container):
     name = "Small Backpack"
 
+    container_type = Container
     price = coins.Gold(4)
     size = Size.Small
     volume_limit = units.CubicFeet(1.5)
@@ -61,6 +66,7 @@ class SmallBackpack(Container):
 class SmallSack(Container):
     name = "Small Sack"
 
+    container_type = Container
     price = coins.Silver(5)
     size = Size.Small
     volume_limit = units.CubicFeet(2)

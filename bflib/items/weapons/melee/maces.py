@@ -7,7 +7,7 @@ from bflib.sizes import Size
 class Club(MeleeWeapon):
     name = "Club"
 
-    damage = dice.D4(1)
+    melee_damage = dice.D4(1)
     price = coins.Silver(2)
     size = Size.Medium
     weight = units.Pound(1)

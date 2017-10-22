@@ -10,6 +10,7 @@ from bflib.items.ammunition.common import Arrow, Bolt
 class BoltCase(SpecialContainer):
     name = "Bolt Case"
 
+    container_type = SpecialContainer
     containable_items = Bolt,
     max_quantity = 20
     price = coins.Gold(1)
@@ -21,6 +22,7 @@ class BoltCase(SpecialContainer):
 class ScrollCase(SpecialContainer):
     name = "Scroll Case"
 
+    container_type = SpecialContainer
     containable_items = writing.Scroll, writing.Map
     max_quantity = 10
     price = coins.Gold(1)
@@ -32,6 +34,7 @@ class ScrollCase(SpecialContainer):
 class Quiver(SpecialContainer):
     name = "Quiver"
 
+    container_type = SpecialContainer
     containable_items = Arrow,
     max_quantity = 20
     price = coins.Gold(1)

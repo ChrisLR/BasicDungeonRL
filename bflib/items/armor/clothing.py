@@ -7,6 +7,7 @@ from bflib.keywords.items import WearLocation
 class Cloak(Clothing):
     name = "Cloak"
 
+    armor_type = Clothing
     price = coins.Gold(2)
     wear_locations = WearLocation.Back,
     weight = units.Pound(1)
@@ -15,6 +16,7 @@ class Cloak(Clothing):
 class CommonOutfit(Clothing):
     name = "Common Outfit"
 
+    armor_type = Clothing
     wear_locations = (WearLocation.Torso, WearLocation.Legs, WearLocation.Feet, WearLocation.Arms),
     price = coins.Gold(4)
     weight = units.Pound(1)

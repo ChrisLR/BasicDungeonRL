@@ -5,6 +5,7 @@ from bflib.keywords.items import WearLocation
 
 class Armor(Item):
     armor_class = 0
+    armor_type = None
     wear_locations = WearLocation,
     weight = units.Pound
 
