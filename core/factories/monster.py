@@ -17,6 +17,8 @@ class MonsterFactory(object):
         new.register_component(components.SavingThrows(monster_type.save_as))
         new.register_component(components.Money())
         new.register_component(components.Location())
-        new.register_component(components.Display(Colors.RED, Colors.BLACK, "D", DisplayPriority.Enemy))
-
+        new.register_component(components.Display(Colors.RED,
+                                                  Colors.BLACK,
+                                                  monster_type.name[0],
+                                                  DisplayPriority.Enemy))
         return new

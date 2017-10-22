@@ -10,12 +10,3 @@ class MagicScroll(Scroll):
     price = coins.Gold
     size = Size.Small
     weight = units.Pound(0)
-
-
-class RandomMagicScroll(Scroll):
-    name = "Magic Scroll"
-
-    price = coins.Gold
-    size = Size.Small
-    weight = units.Pound(0)
-    spell_level = 1

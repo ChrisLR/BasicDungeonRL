@@ -11,6 +11,7 @@ from core.components.money import Money
 from core.components.monster import Monster
 from core.components.morale import Morale
 from core.components.movement import Movement
+from core.components.properties import Properties
 from core.components.race import Race
 from core.components.restrictions import Restrictions
 from core.components.savingthrows import SavingThrows
@@ -29,6 +30,7 @@ component_names = {
     Monster.NAME,
     Morale.NAME,
     Movement.NAME,
+    Properties.NAME,
     Race.NAME,
     Restrictions.NAME,
     SavingThrows.NAME,

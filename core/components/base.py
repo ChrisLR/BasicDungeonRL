@@ -4,6 +4,7 @@ class Component(object):
 
     def __init__(self):
         self.host = None
+        self.properties = {}
 
     def on_register(self, host):
         self.host = host

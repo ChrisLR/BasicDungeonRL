@@ -2,13 +2,14 @@ from core.components import component_names
 
 
 class GameObject(object):
-    __slots__ = ["blocking", "components", "observers", "responders", "name"]
+    __slots__ = ["blocking", "components", "observers", "properties", "responders", "name"]
 
     def __init__(self, blocking=False, name=""):
         self.blocking = blocking
         self.components = {}
         self.observers = {}
         self.responders = {}
+        self.properties = {}
         self.name = name
 
     def copy_to(self, new_game_object):
@@ -57,6 +58,8 @@ class GameObject(object):
 
         self.components[component.NAME] = component
         component.on_register(self)
+        if component.properties:
+            self.properties.update(component.properties)
 
     def unregister_component(self, component):
         if component.NAME in self.components:

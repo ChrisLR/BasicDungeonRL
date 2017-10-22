@@ -18,3 +18,11 @@ class ShortbowArrow(Arrow):
     damage = dice.D6(1)
     price = coins.Silver(1)
     weight = units.Pound(0.1)
+
+
+class SlingBullet(Ammunition):
+    name = "Shortbow Arrow"
+
+    damage = dice.D4(1)
+    price = coins.Silver(1)
+    weight = units.Pound(0.1)
