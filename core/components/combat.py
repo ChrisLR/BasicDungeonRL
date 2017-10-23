@@ -5,6 +5,7 @@ from bflib.tables.attackbonus import AttackBonusTable
 
 class Combat(Component):
     NAME = "combat"
+    __slots__ = []
 
     def __init__(self):
         super().__init__()

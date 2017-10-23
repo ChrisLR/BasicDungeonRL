@@ -4,6 +4,7 @@ from bflib.restrictions.set import RestrictionSet
 
 class Restrictions(Component):
     NAME = 'restrictions'
+    __slots__ = ["restrictions"]
 
     def __init__(self, *restriction_sets):
         super().__init__()

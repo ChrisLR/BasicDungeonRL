@@ -11,7 +11,7 @@ class MonsterFactory(object):
         new.register_component(components.Monster(monster_type))
         new.register_component(components.Health())
         new.register_component(components.Combat())
-        new.register_component(components.Morale())
+        new.register_component(components.Morale(monster_type.morale))
         new.register_component(components.Movement(monster_type.movement))
         new.register_component(components.SpawnInfo(monster_type.no_appearing))
         new.register_component(components.SavingThrows(monster_type.save_as))

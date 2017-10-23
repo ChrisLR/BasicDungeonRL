@@ -3,6 +3,7 @@ from core.components.base import Component
 
 class Inventory(Component):
     NAME = "inventory"
+    __slots__ = []
 
     def __init__(self):
         super().__init__()

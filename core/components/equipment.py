@@ -3,6 +3,9 @@ from core.components import Component
 
 class Equipment(Component):
     NAME = "equipment"
+    __slots__ = ["armor_restrictions", "weapon_restrictions", "weapon_size_restrictions",
+                 "wear_locations", "wield_locations", "empty_wield_locations"
+                 "worn_items", "wielded_items"]
     """
     This component attaches itself to anything with a bodies.
     It represents equipment worn or wielded

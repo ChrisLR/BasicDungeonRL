@@ -3,6 +3,7 @@ from core.components.base import Component
 
 class Location(Component):
     NAME = "location"
+    __slots__ = ["area", "level", "local_x", "local_y", "region", "world_x", "world_y"]
 
     def __init__(self):
         super().__init__()

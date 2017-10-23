@@ -4,6 +4,7 @@ from bflib.dice import Dice
 
 class CharacterClass(Component):
     NAME = 'character_class'
+    __slots__ = ["base_classes"]
 
     def __init__(self, *base_classes):
         super().__init__()

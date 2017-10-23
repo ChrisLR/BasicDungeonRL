@@ -3,6 +3,7 @@ from core.components.base import Component
 
 class Wearable(Component):
     NAME = "wearable"
+    __slots__ = ["wear_locations"]
 
     def __init__(self, wear_locations):
         super().__init__()

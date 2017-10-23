@@ -3,6 +3,8 @@ from core.components.base import Component
 
 class Health(Component):
     NAME = 'health'
+    __slots__ = ["first_enforced_maximum", "_hit_dices", "_health_rolls",
+                 "current", "_base_Max_health", "maximum_modifiers", "dead"]
 
     def __init__(self, first_enforced_maximum=False):
         super().__init__()

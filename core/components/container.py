@@ -4,6 +4,8 @@ from bflib.items.containers import base as base_container_types
 
 class Container(Component):
     NAME = "container"
+    __slots__ = ["container_type", "containable_items", "items_held", "liquid_held",
+                 "max_quantity", "volume_limit", "weight_limit"]
 
     def __init__(self, container_type, containable_items, max_quantity, volume_limit, weight_limit):
         super().__init__()

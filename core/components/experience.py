@@ -3,6 +3,7 @@ from core.components.base import Component
 
 class Experience(Component):
     NAME = 'experience'
+    __slots__ = ["experience_pools", "level"]
     """
     This is the component that implements experience pools
     """

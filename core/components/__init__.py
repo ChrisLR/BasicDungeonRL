@@ -10,6 +10,7 @@ from core.components.equipment import Equipment
 from core.components.experience import Experience
 from core.components.health import Health
 from core.components.location import Location
+from core.components.light import Light
 from core.components.inventory import Inventory
 from core.components.money import Money
 from core.components.monster import Monster
@@ -35,6 +36,7 @@ component_names = {
     Experience.NAME,
     Health.NAME,
     Location.NAME,
+    Light.NAME,
     Inventory.NAME,
     Money.NAME,
     Monster.NAME,

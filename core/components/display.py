@@ -5,6 +5,7 @@ from core.components.base import Component
 
 class Display(Component):
     NAME = "display"
+    __slots__ = ["foreground_color", "background_color", "ascii_character", "priority"]
 
     def __init__(self, foreground_color, background_color, ascii_character, priority=1):
         super().__init__()

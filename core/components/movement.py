@@ -5,6 +5,7 @@ from bflib.units import FeetPerGameTurn
 
 class Movement(Component):
     NAME = "movement"
+    __slots__ = ["movement_set"]
 
     def __init__(self, movement_set=None):
         super().__init__()

@@ -3,6 +3,7 @@ from core.components.base import Component
 
 class Armor(Component):
     NAME = "armor"
+    __slots__ = ['armor_class', 'armor_type']
 
     def __init__(self, armor_class, armor_type):
         super().__init__()

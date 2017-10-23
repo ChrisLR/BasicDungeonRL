@@ -6,6 +6,7 @@ import copy
 
 class CharacterStats(Component):
     NAME = 'stats'
+    __slots__ = ["base_ability_score_set", "registered_modifiers"]
     """
     This is the component that implements AbilityScores
     """

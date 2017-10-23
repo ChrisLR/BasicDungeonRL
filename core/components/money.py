@@ -3,6 +3,7 @@ from core.components.base import Component
 
 class Money(Component):
     NAME = 'money'
+    __slots__ = ["coins"]
     """
     This is the component that implements money
     """

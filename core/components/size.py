@@ -3,6 +3,7 @@ from core.components.base import Component
 
 class Size(Component):
     NAME = "size"
+    __slots__ = ["base_score"]
 
     def __init__(self, base_score):
         super().__init__()

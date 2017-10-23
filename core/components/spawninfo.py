@@ -3,6 +3,7 @@ from core.components.base import Component
 
 class SpawnInfo(Component):
     NAME = "spawn_info"
+    __slots__ = ["appearing_set"]
 
     def __init__(self, appearing_set):
         super().__init__()

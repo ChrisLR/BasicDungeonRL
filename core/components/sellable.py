@@ -3,6 +3,7 @@ from core.components.base import Component
 
 class Sellable(Component):
     NAME = "sellable"
+    __slots__ = ["base_price"]
 
     def __init__(self, base_price):
         super().__init__()
