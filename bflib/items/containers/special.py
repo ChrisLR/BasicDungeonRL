@@ -16,7 +16,7 @@ class BoltCase(SpecialContainer):
     price = coins.Gold(1)
     size = Size.Medium
     weight = units.Pound(1)
-    wear_locations = WearLocation.Back
+    wear_locations = WearLocation.Back,
 
 
 class ScrollCase(SpecialContainer):
@@ -40,4 +40,4 @@ class Quiver(SpecialContainer):
     price = coins.Gold(1)
     size = Size.Medium
     weight = units.Pound(1)
-    wear_locations = WearLocation.Back
+    wear_locations = WearLocation.Back,

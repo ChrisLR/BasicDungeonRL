@@ -8,8 +8,8 @@ from bflib.sizes import Size
 class Buckler(Shield):
     name = "Buckler"
 
-    armor_class_melee = 1
-    armor_class_missile = 0
+    shield_armor_class_melee = 1
+    shield_armor_class_missile = 0
     price = coins.Gold(5)
     size = Size.Small
     wield_locations = WieldLocation.Any,
@@ -19,8 +19,8 @@ class Buckler(Shield):
 class MediumShield(Shield):
     name = "Medium Shield"
 
-    armor_class_melee = 1
-    armor_class_missile = 1
+    shield_armor_class_melee = 1
+    shield_armor_class_missile = 1
     price = coins.Gold(7)
     size = Size.Medium
     wield_locations = WieldLocation.Any,
@@ -30,8 +30,8 @@ class MediumShield(Shield):
 class TowerShield(Shield):
     name = "Tower Shield"
 
-    armor_class_melee = 1
-    armor_class_missile = 3
+    shield_armor_class_melee = 1
+    shield_armor_class_missile = 3
     price = coins.Gold(15)
     size = Size.Medium
     wield_locations = WieldLocation.Any,

@@ -2,8 +2,8 @@ from bflib.items.weapons.ranged.base import RangedWeapon
 
 
 class Shortbow(RangedWeapon):
-    pass
+    name = "Shortbow"
 
 
 class Longbow(RangedWeapon):
-    pass
+    name = "Longbow"

@@ -20,6 +20,7 @@ from core.components.race import Race
 from core.components.restrictions import Restrictions
 from core.components.savingthrows import SavingThrows
 from core.components.sellable import Sellable
+from core.components.shield import Shield
 from core.components.size import Size
 from core.components.spawninfo import SpawnInfo
 from core.components.wearable import Wearable
@@ -46,6 +47,7 @@ component_names = {
     Restrictions.NAME,
     SavingThrows.NAME,
     Sellable.NAME,
+    Shield.NAME,
     Size.NAME,
     SpawnInfo.NAME,
     Wearable.NAME,

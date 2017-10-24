@@ -8,8 +8,8 @@ from bflib.sizes import Size
 class Shield(Item):
     name = "Shield"
 
-    armor_class_melee = 0
-    armor_class_missile = 0
+    shield_armor_class_melee = 0
+    shield_armor_class_missile = 0
     price = coins.Gold
     size = Size.Medium
     wield_locations = WieldLocation.Any,
