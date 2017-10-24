@@ -6,16 +6,18 @@ from core.displaypriority import DisplayPriority
 
 class ItemFactory(object):
     _item_components = [
+        components.Weight,
+        components.Wearable,
+        components.Size,
         components.Ammunition,
         components.Armor,
+        components.Container,
         components.Light,
         components.Inventory,
+        components.Melee,
         components.Money,
         components.Sellable,
         components.Shield,
-        components.Size,
-        components.Wearable,
-        components.Weight,
     ]
 
     @classmethod

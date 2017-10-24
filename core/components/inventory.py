@@ -10,18 +10,18 @@ class Inventory(Component):
 
     def add(self, item):
         if self.host.equipment:
-            containers = (item for item in self.host.equipment.get_all_items() if item.container)
+            containers = (item.container for item in self.host.equipment.get_all_items() if item.container)
             for container in containers:
-                if container.add(item):
+                if container.add_item(item):
                     return True
 
         return False
 
     def remove(self, item):
         if self.host.equipment:
-            containers = (item for item in self.host.equipment.get_all_items() if item.container)
+            containers = (item.container for item in self.host.equipment.get_all_items() if item.container)
             for container in containers:
-                if container.remove(item):
+                if container.remove_item(item):
                     return True
 
         return False

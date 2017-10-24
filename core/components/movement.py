@@ -16,4 +16,4 @@ class Movement(Component):
         pass
 
     def copy(self):
-        return Movement()
+        return Movement(self.movement_set)

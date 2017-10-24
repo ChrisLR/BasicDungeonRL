@@ -5,8 +5,10 @@ from core.outfits.base import Outfit
 
 class BasicPack(Outfit):
     name = "Basic Pack"
-    inventory_items = [
+    worn_items = [
         items.Backpack,
+    ]
+    inventory_items = [
         (6, items.Torch),
         items.TinderboxFlintAndSteel,
         items.Waterskin,

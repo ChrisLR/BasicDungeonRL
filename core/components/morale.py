@@ -17,4 +17,3 @@ class Morale(Component):
 
     def copy(self):
         return Morale(self.base_morale)
-

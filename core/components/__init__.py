@@ -12,6 +12,7 @@ from core.components.health import Health
 from core.components.location import Location
 from core.components.light import Light
 from core.components.inventory import Inventory
+from core.components.melee import Melee
 from core.components.money import Money
 from core.components.monster import Monster
 from core.components.morale import Morale
@@ -32,6 +33,7 @@ component_names = {
     CharacterClass.NAME,
     CharacterStats.NAME,
     Combat.NAME,
+    Container.NAME,
     Display.NAME,
     Equipment.NAME,
     Experience.NAME,
@@ -39,6 +41,7 @@ component_names = {
     Location.NAME,
     Light.NAME,
     Inventory.NAME,
+    Melee.NAME,
     Money.NAME,
     Monster.NAME,
     Morale.NAME,
