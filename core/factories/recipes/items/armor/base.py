@@ -1,22 +1,24 @@
-from bflib import units
-from bflib.items.base import Item
-from bflib.keywords.items import WearLocation
+from bflib.items.armor.base import Armor
+from core import components
+from core.factories.recipes import listing
+from core.factories.recipes.base import Recipe
+from core.factories.recipes.items.base import ItemRecipe
 
 
-class Armor(Item):
-    armor_class = 0
-    armor_type = None
-    wear_locations = WearLocation,
-    weight = units.Pound
+# noinspection PyTypeChecker
+@listing.register
+class ArmorRecipe(Recipe):
+    name = "Base Armor Recipe"
+    base_item_type = Armor
+    depends_on = [ItemRecipe]
 
+    @classmethod
+    def build_components(cls):
+        new_components = [
+            components.Armor(
+                cls.base_item_type.armor_class,
+                cls.base_item_type.armor_type
+            )
+        ]
 
-class Clothing(Armor):
-    pass
-
-
-class LightArmor(Armor):
-    pass
-
-
-class HeavyArmor(Armor):
-    pass
+        return new_components
