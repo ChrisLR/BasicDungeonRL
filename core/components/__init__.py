@@ -3,6 +3,8 @@ from core.components.armor import Armor
 from core.components.base import Component
 from core.components.combat import Combat
 from core.components.container import Container
+from core.components.liquidcontainer import LiquidContainer
+from core.components.specialcontainer import SpecialContainer
 from core.components.stats import CharacterStats
 from core.components.character_class import CharacterClass
 from core.components.display import Display
@@ -40,6 +42,7 @@ component_names = {
     Health.NAME,
     Location.NAME,
     Light.NAME,
+    LiquidContainer.NAME,
     Inventory.NAME,
     Melee.NAME,
     Money.NAME,
@@ -53,6 +56,7 @@ component_names = {
     Shield.NAME,
     Size.NAME,
     SpawnInfo.NAME,
+    SpecialContainer.NAME,
     Wearable.NAME,
     Weight.NAME,
 }

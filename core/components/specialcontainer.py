@@ -1,18 +1,17 @@
 from bflib.items.containers import base as base_container_types
-from core.components.base import Component
+from core.components import Component
 
 
-class Container(Component):
-    NAME = "container"
-    __slots__ = ["container_type", "containable_items", "items_held", "liquid_held",
+class SpecialContainer(Component):
+    NAME = "specialcontainer"
+    __slots__ = ["container_type", "containable_items", "items_held",
                  "max_quantity", "volume_limit", "weight_limit"]
 
-    def __init__(self, container_type, volume_limit, weight_limit):
+    def __init__(self, container_type, containable_items, max_quantity):
         super().__init__()
         self.container_type = container_type
-        self.items_held = []
-        self.volume_limit = volume_limit
-        self.weight_limit = weight_limit
+        self.containable_items = containable_items
+        self.max_quantity = max_quantity
 
     def add_item(self, item):
         if self.container_type is base_container_types.LiquidContainer:
@@ -27,7 +26,13 @@ class Container(Component):
             if total_weight + item.weight.score > self.weight_limit:
                 return False
 
-        self.items_held.append(item)
+        if self.container_type is base_container_types.Container:
+            self.items_held.append(item)
+
+        if self.container_type is base_container_types.SpecialContainer \
+            and any((isinstance(item.base_type, containable_type)
+                     for containable_type in self.containable_items)):
+            self.items_held.append(item)
 
         return True
 
@@ -43,10 +48,8 @@ class Container(Component):
         return sum(item.weight.score for item in self.items_held) if self.items_held else 0
 
     def copy(self):
-        return Container(
+        return SpecialContainer(
             self.container_type,
-            self.volume_limit,
-            self.weight_limit
+            self.containable_items,
+            self.max_quantity,
         )
-
-
