@@ -1,16 +1,24 @@
-from bflib import units
-from bflib.items import coins
-from bflib.items.base import Item
-from bflib.keywords.items import WieldLocation
-from bflib.sizes import Size
+from bflib.items.shields.base import Shield
+from core import components
+from core.factories.recipes import listing
+from core.factories.recipes.base import Recipe
+from core.factories.recipes.items.base import ItemRecipe
 
 
-class Shield(Item):
-    name = "Shield"
+# noinspection PyTypeChecker
+@listing.register
+class ShieldRecipe(Recipe):
+    name = "Base Shield Recipe"
+    base_item_type = Shield
+    depends_on = [ItemRecipe]
 
-    shield_armor_class_melee = 0
-    shield_armor_class_missile = 0
-    price = coins.Gold
-    size = Size.Medium
-    wield_locations = WieldLocation.Any,
-    weight = units.Pound
+    @classmethod
+    def build_components(cls):
+        new_components = [
+            components.Shield(
+                armor_class_melee=cls.base_item_type.armor_class_melee,
+                armor_class_missile=cls.base_item_type.armor_class_missile,
+            )
+        ]
+
+        return new_components
