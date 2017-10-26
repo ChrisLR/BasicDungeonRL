@@ -15,11 +15,13 @@ class ItemRecipe(Recipe):
 
     @classmethod
     def build_components(cls):
+        name = cls.base_item_type.name if cls.base_item_type.name else cls.base_item_type.__name__
+
         new_components = [
             components.Size(cls.base_item_type.size),
             components.Weight(cls.base_item_type.weight),
             components.Location(),
-            components.Display(Colors.GRAY, Colors.BLACK, cls.base_item_type.name[0], DisplayPriority.Item),
+            components.Display(Colors.GRAY, Colors.BLACK, name, DisplayPriority.Item),
         ]
 
         if cls.base_item_type.price:

@@ -1,40 +1,31 @@
+from core.factories.recipes import listing
 from core.gameobject import GameObject
-from core import components
-from core.util.colors import Colors
-from core.displaypriority import DisplayPriority
 
 
 class ItemFactory(object):
-    _item_components = [
-        components.Weight,
-        components.Wearable,
-        components.Size,
-        components.Ammunition,
-        components.Armor,
-        components.Container,
-        components.Light,
-        components.Inventory,
-        components.Melee,
-        components.Money,
-        components.Sellable,
-        components.Shield,
-    ]
-
     @classmethod
-    def create_new(cls, item_type):
+    def create_new(cls, base_item):
         try:
-            new = GameObject(blocking=False, name=item_type.name)
-            for component in cls._item_components:
-                if any(hasattr(item_type, slot) for slot in component.__slots__):
-                    new.register_component(
-                        component(**{slot: getattr(item_type, slot, None)
-                                     for slot in component.__slots__}))
+            recipe = listing.get_recipe(base_item)
+            if recipe is None:
+                raise Exception("Found no recipes for item {}".format(base_item))
 
-            new.register_component(components.Location())
-            new.register_component(components.Display(
-                Colors.GRAY, Colors.BLACK, item_type.name[0], DisplayPriority.Item))
-
+            item_components = cls.get_recursive_components(recipe)
+            new = GameObject(blocking=False, name=base_item.name)
+            for component in item_components:
+                new.register_component(component)
         except Exception as exception:
             raise
 
         return new
+
+    @classmethod
+    def get_recursive_components(cls, recipe, result_components=None):
+        if result_components is None:
+            result_components = []
+
+        result_components.extend(recipe.build_components())
+        for required_recipe in recipe.depends_on:
+            cls.get_recursive_components(required_recipe, result_components)
+
+        return result_components

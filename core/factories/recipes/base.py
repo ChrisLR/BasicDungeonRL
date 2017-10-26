@@ -9,6 +9,8 @@ but it should always take specific first and recurse subclasses
 class Recipe(object):
     name = ""
     base_item_type = None
+    depends_on = []
 
-    def build(self, game_object):
+    @classmethod
+    def build_components(cls):
         pass

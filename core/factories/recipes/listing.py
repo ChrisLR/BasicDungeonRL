@@ -7,6 +7,8 @@ def register(recipe_type):
     else:
         recipes_mapping[recipe_type.base_item_type] = recipe_type
 
+    return recipe_type
+
 
 def get_recipe(base_item_type):
     recipe = recipes_mapping.get(base_item_type, None)
