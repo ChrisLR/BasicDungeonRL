@@ -13,7 +13,7 @@ class BasicPack(Outfit):
         items.TinderboxFlintAndSteel,
         items.Waterskin,
         items.WinterBlanket,
-        items.Rations,
+        items.DryRations,
         items.LargeSack,
         (2, items.SmallSack),
     ]

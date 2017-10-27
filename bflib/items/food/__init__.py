@@ -1,1 +1,1 @@
-from bflib.items.food.common import Rations
+from bflib.items.food.common import DryRations
