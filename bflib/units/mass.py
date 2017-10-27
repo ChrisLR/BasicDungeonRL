@@ -8,4 +8,7 @@ class MassUnit(Unit):
 
 
 class Pound(MassUnit):
-    pass
+    def __add__(self, other):
+        if isinstance(other, Pound):
+            return self.value + other.value
+        raise NotImplementedError()

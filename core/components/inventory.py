@@ -17,6 +17,15 @@ class Inventory(Component):
 
         return False
 
+    def get_all_items(self):
+        items = []
+        if self.host.equipment:
+            containers = (item.container for item in self.host.equipment.get_all_items() if item.container)
+            for container in containers:
+                items.extend(container.items_held)
+
+        return items
+
     def remove(self, item):
         if self.host.equipment:
             containers = (item.container for item in self.host.equipment.get_all_items() if item.container)

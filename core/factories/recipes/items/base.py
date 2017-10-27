@@ -13,21 +13,21 @@ class ItemRecipe(Recipe):
     base_item_type = Item
     depends_on = []
 
-    @classmethod
-    def build_components(cls):
-        name = cls.base_item_type.name if cls.base_item_type.name else cls.base_item_type.__name__
+    @staticmethod
+    def build_components(item_type):
+        name = item_type.name if item_type.name else item_type.__name__
 
         new_components = [
-            components.Size(cls.base_item_type.size),
-            components.Weight(cls.base_item_type.weight),
+            components.Size(item_type.size),
+            components.Weight(item_type.weight),
             components.Location(),
             components.Display(Colors.GRAY, Colors.BLACK, name, DisplayPriority.Item),
         ]
 
-        if cls.base_item_type.price:
-            new_components.append(components.Sellable(cls.base_item_type.price))
+        if item_type.price:
+            new_components.append(components.Sellable(item_type.price))
 
-        if cls.base_item_type.wear_locations:
-            new_components.append(components.Wearable(cls.base_item_type.wear_locations))
+        if item_type.wear_locations:
+            new_components.append(components.Wearable(item_type.wear_locations))
 
         return new_components

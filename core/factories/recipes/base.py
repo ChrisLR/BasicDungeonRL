@@ -11,6 +11,6 @@ class Recipe(object):
     base_item_type = None
     depends_on = []
 
-    @classmethod
-    def build_components(cls):
+    @staticmethod
+    def build_components(item_type):
         pass

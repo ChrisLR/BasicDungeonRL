@@ -1,3 +1,4 @@
+from bflib import units
 from core.components import Component
 
 
@@ -119,7 +120,7 @@ class Equipment(Component):
 
     def get_load_of_worn_items(self):
         worn_items = self.get_worn_items()
-        total_weight = 0.0
+        total_weight = units.Pound(0)
         for item in worn_items:
             total_weight += item.weight
 

@@ -12,12 +12,12 @@ class ShieldRecipe(Recipe):
     base_item_type = Shield
     depends_on = [ItemRecipe]
 
-    @classmethod
-    def build_components(cls):
+    @staticmethod
+    def build_components(item_type):
         new_components = [
             components.Shield(
-                armor_class_melee=cls.base_item_type.armor_class_melee,
-                armor_class_missile=cls.base_item_type.armor_class_missile,
+                armor_class_melee=item_type.armor_class_melee,
+                armor_class_missile=item_type.armor_class_missile,
             )
         ]
 

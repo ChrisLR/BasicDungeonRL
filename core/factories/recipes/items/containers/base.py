@@ -12,13 +12,13 @@ class ContainerRecipe(Recipe):
     base_item_type = Container
     depends_on = [ItemRecipe]
 
-    @classmethod
-    def build_components(cls):
+    @staticmethod
+    def build_components(item_type):
         new_components = [
             components.Container(
-                container_type=cls.base_item_type.container_type,
-                volume_limit=cls.base_item_type.volume_limit,
-                weight_limit=cls.base_item_type.weight_limit
+                container_type=item_type.container_type,
+                volume_limit=item_type.volume_limit,
+                weight_limit=item_type.weight_limit
             )
         ]
 
@@ -32,12 +32,12 @@ class LiquidContainerRecipe(Recipe):
     base_item_type = LiquidContainer
     depends_on = [ItemRecipe]
 
-    @classmethod
-    def build_components(cls):
+    @staticmethod
+    def build_components(item_type):
         new_components = [
             components.LiquidContainer(
-                container_type=cls.base_item_type.container_type,
-                volume_limit=cls.base_item_type.volume_limit
+                container_type=item_type.container_type,
+                volume_limit=item_type.volume_limit
             )
         ]
 
@@ -51,13 +51,13 @@ class SpecialContainerRecipe(Recipe):
     base_item_type = SpecialContainer
     depends_on = [ItemRecipe]
 
-    @classmethod
-    def build_components(cls):
+    @staticmethod
+    def build_components(item_type):
         new_components = [
             components.SpecialContainer(
-                container_type=cls.base_item_type.container_type,
-                containable_items=cls.base_item_type.containable_items,
-                max_quantity=cls.base_item_type.max_quantity,
+                container_type=item_type.container_type,
+                containable_items=item_type.containable_items,
+                max_quantity=item_type.max_quantity,
             )
         ]
 

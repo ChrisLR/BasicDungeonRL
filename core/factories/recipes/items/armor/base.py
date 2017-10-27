@@ -12,12 +12,12 @@ class ArmorRecipe(Recipe):
     base_item_type = Armor
     depends_on = [ItemRecipe]
 
-    @classmethod
-    def build_components(cls):
+    @staticmethod
+    def build_components(item_type):
         new_components = [
             components.Armor(
-                cls.base_item_type.armor_class,
-                cls.base_item_type.armor_type
+                item_type.armor_class,
+                item_type.armor_type
             )
         ]
 

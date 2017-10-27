@@ -10,7 +10,7 @@ class ItemFactory(object):
             if recipe is None:
                 raise Exception("Found no recipes for item {}".format(base_item))
 
-            item_components = cls.get_recursive_components(recipe)
+            item_components = cls.get_recursive_components(base_item, recipe)
             new = GameObject(blocking=False, name=base_item.name)
             for component in item_components:
                 new.register_component(component)
@@ -20,12 +20,12 @@ class ItemFactory(object):
         return new
 
     @classmethod
-    def get_recursive_components(cls, recipe, result_components=None):
+    def get_recursive_components(cls, base_item, recipe, result_components=None):
         if result_components is None:
             result_components = []
 
-        result_components.extend(recipe.build_components())
+        result_components.extend(recipe.build_components(base_item))
         for required_recipe in recipe.depends_on:
-            cls.get_recursive_components(required_recipe, result_components)
+            cls.get_recursive_components(base_item, required_recipe, result_components)
 
         return result_components

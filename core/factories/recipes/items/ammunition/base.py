@@ -12,10 +12,10 @@ class AmmunitionRecipe(Recipe):
     base_item_type = Ammunition
     depends_on = [ItemRecipe]
 
-    @classmethod
-    def build_components(cls):
+    @staticmethod
+    def build_components(item_type):
         new_components = [
-            components.Ammunition(cls.base_item_type.ammunition_type, cls.base_item_type.ammunition_damage)
+            components.Ammunition(item_type.ammunition_type, item_type.ammunition_damage)
         ]
 
         return new_components

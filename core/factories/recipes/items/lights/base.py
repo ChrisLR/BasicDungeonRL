@@ -12,16 +12,16 @@ class LightRecipe(Recipe):
     base_item_type = LightItem
     depends_on = [ItemRecipe]
 
-    @classmethod
-    def build_components(cls):
+    @staticmethod
+    def build_components(item_type):
         new_components = [
             components.Light(
-                bright_light_radius=cls.base_item_type.bright_light_radius,
-                dim_light_radius=cls.base_item_type.dim_light_radius,
-                fuel=cls.base_item_type.fuel,
-                fuel_duration=cls.base_item_type.fuel_duration,
-                last_life_dice=cls.base_item_type.last_life_dice,
-                light_shape=cls.base_item_type.light_shape,
+                bright_light_radius=item_type.bright_light_radius,
+                dim_light_radius=item_type.dim_light_radius,
+                fuel=item_type.fuel,
+                fuel_duration=item_type.fuel_duration,
+                last_life_dice=item_type.last_life_dice,
+                light_shape=item_type.light_shape,
             )
         ]
 

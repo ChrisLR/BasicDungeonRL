@@ -12,11 +12,11 @@ class MeleeWeaponRecipe(Recipe):
     base_item_type = MeleeWeapon
     depends_on = [ItemRecipe]
 
-    @classmethod
-    def build_components(cls):
+    @staticmethod
+    def build_components(item_type):
         new_components = [
             components.Melee(
-                melee_damage=cls.base_item_type.melee_damage,
+                melee_damage=item_type.melee_damage,
             )
         ]
 
