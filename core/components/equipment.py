@@ -37,7 +37,7 @@ class Equipment(Component):
 
         return new_equipment
 
-    def remove_item(self, item):
+    def remove(self, item):
         found_location = None
         for location, worn_item in self.worn_items.items():
             if worn_item == item:
@@ -98,7 +98,7 @@ class Equipment(Component):
                     hands = 2
 
         if len(self.empty_wield_locations) >= hands:
-            while hands > 1:
+            while hands > 0:
                 location = self.empty_wield_locations.pop(0)
                 self.wielded_items[location] = item
                 hands -= 1
@@ -106,9 +106,19 @@ class Equipment(Component):
             return True
         return False
 
-    def get_total_armor_class(self):
-        # TODO Once items are implemented, this should query all worn items for AC.
-        return 0
+    def get_melee_total_armor_class(self):
+        all_items = self.get_all_items()
+        armor_ac = sum([item.armor.armor_class for item in all_items if item.armor])
+        shield_ac = sum([item.shield.armor_class_melee for item in all_items if item.shield])
+
+        return armor_ac + shield_ac
+
+    def get_ranged_total_armor_class(self):
+        all_items = self.get_all_items()
+        armor_ac = sum([item.armor.armor_class for item in all_items if item.armor])
+        shield_ac = sum([item.shield.armor_class_missile for item in all_items if item.shield])
+
+        return armor_ac + shield_ac
 
     def get_all_items(self):
         items = list(self.worn_items.values())
@@ -122,7 +132,7 @@ class Equipment(Component):
         worn_items = self.get_worn_items()
         total_weight = units.Pound(0)
         for item in worn_items:
-            total_weight += item.weight
+            total_weight += item.weight.score
 
         return total_weight
 
