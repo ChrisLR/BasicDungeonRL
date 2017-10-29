@@ -24,7 +24,7 @@ class RestrictionSet(object):
     @staticmethod
     def _merge_if_true(set_1, set_2):
         if set_1 and set_2:
-            return type(set_1).from_merge(set_2)
+            return set_1.from_merge(set_2)
         elif set_1 and not set_2:
             return set_1
         elif set_2 and not set_1:
