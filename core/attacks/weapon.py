@@ -1,5 +1,8 @@
+from bflib.items.weapons import types as weapon_types
 from bflib import attacks
 from core.attacks.base import MeleeAttack
+from services.echo.service import echo_service
+from services.echo import functions as echo_functions
 
 
 class WeaponAttack(MeleeAttack):
@@ -14,15 +17,18 @@ class WeaponAttack(MeleeAttack):
     @classmethod
     def execute(cls, attacker, defender, attack_set):
         sorted_melee_weapons = cls._sort_melee_weapons_by_damage(attacker)
-        for _ in range(0, attack_set.amount):
+        for _ in range(1, attack_set.amount):
             weapon = sorted_melee_weapons.pop()
             if weapon is None:
                 return True
 
             success = cls.make_melee_hit_roll(attacker, defender)
             if success:
-                damage = cls.make_melee_damage_roll(attacker, weapon.melee.damage)
+                damage = cls.make_melee_damage_roll(attacker, weapon.melee.melee_damage)
                 defender.health.take_damage(damage)
+                echo_message_success(attacker, defender, weapon, damage)
+            else:
+                echo_message_failure(attacker, defender)
 
         return True
 
@@ -32,3 +38,30 @@ class WeaponAttack(MeleeAttack):
         melee_weapons.sort(key=lambda item: item.melee.melee_damage.sides * item.melee.melee_damage.amount)
 
         return melee_weapons
+
+
+def echo_message_success(attacker, defender, weapon, damage):
+    # TODO I want to have a nice combat message system, I'll think about it.
+    # TODO For now, this poor message.
+    if echo_functions.is_player(attacker):
+        message = "You hit {} with your {} for {} damage!"
+        message = message.format(echo_functions.name_or_you(defender), weapon.name, damage)
+    else:
+        message = "{} hits {} with {} {} for {} damage!"
+        message = message.format(echo_functions.name_or_you(attacker),
+                                 echo_functions.his_her_it(attacker),
+                                 weapon.name,
+                                 damage)
+    echo_service.echo(message)
+
+
+def echo_message_failure(attacker, defender):
+    # TODO This poor message here too :(
+    if echo_functions.is_player(attacker):
+        message = "You miss {} !"
+        message = message.format(echo_functions.name_or_you(defender))
+    else:
+        message = "{} misses {} !"
+        message = message.format(echo_functions.name_or_you(attacker),
+                                 echo_functions.name_or_you(defender))
+    echo_service.echo(message)
