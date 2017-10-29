@@ -39,7 +39,7 @@ class Combat(Component):
             level = self.host.experience.level
 
         if self.host.character_class:
-            class_attack_bonus = self.host.character_class.base_class.level_table.get(level).attack_bonus
+            class_attack_bonus = self.host.character_class.get_attack_bonus(level)
             return class_attack_bonus
 
         return AttackBonusTable.get_by_hit_dice(self.host.health.total_hit_dice_value)

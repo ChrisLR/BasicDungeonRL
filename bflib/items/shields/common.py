@@ -1,10 +1,11 @@
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.shields.base import Shield
 from bflib.keywords.items import WieldLocation
 from bflib.sizes import Size
 
 
+@listing.register_item
 class Buckler(Shield):
     name = "Buckler"
 
@@ -16,6 +17,7 @@ class Buckler(Shield):
     weight = units.Pound(2)
 
 
+@listing.register_item
 class MediumShield(Shield):
     name = "Medium Shield"
 
@@ -27,6 +29,7 @@ class MediumShield(Shield):
     weight = units.Pound(7)
 
 
+@listing.register_item
 class TowerShield(Shield):
     name = "Tower Shield"
 

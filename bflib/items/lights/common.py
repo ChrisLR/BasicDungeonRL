@@ -1,11 +1,11 @@
-from bflib import dice
-from bflib import units
-from bflib.items import coins
+from bflib import dice, units
+from bflib.items import coins, listing
 from bflib.items.lights.base import LightItem
 from bflib.items.weapons.throwing.common import OilFlask
 from bflib.shapes import Shape
 
 
+@listing.register_item
 class Lantern(LightItem):
     name = "Lantern"
 
@@ -19,6 +19,7 @@ class Lantern(LightItem):
     weight = units.Pound(2)
 
 
+@listing.register_item
 class BullseyeLantern(Lantern):
     name = "Bullseye Lantern"
 
@@ -27,6 +28,7 @@ class BullseyeLantern(Lantern):
     weight = units.Pound(3)
 
 
+@listing.register_item
 class Candle(LightItem):
     name = "Torch"
 
@@ -40,6 +42,7 @@ class Candle(LightItem):
     weight = units.Pound(0.1)
 
 
+@listing.register_item
 class HoodedLantern(Lantern):
     name = "Hooded Lantern"
 
@@ -47,6 +50,7 @@ class HoodedLantern(Lantern):
     weight = units.Pound(2)
 
 
+@listing.register_item
 class Torch(LightItem):
     name = "Torch"
 

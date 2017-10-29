@@ -1,10 +1,11 @@
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.armor.base import HeavyArmor
 from bflib.keywords.items import WearLocation
 from bflib.sizes import Size
 
 
+@listing.register_item
 class RingMail(HeavyArmor):
     name = "Ring Mail"
 
@@ -16,6 +17,7 @@ class RingMail(HeavyArmor):
     weight = units.Pound(30)
 
 
+@listing.register_item
 class ChainMail(HeavyArmor):
     name = "Chain Mail"
 
@@ -27,6 +29,7 @@ class ChainMail(HeavyArmor):
     weight = units.Pound(40)
 
 
+@listing.register_item
 class ScaleMail(HeavyArmor):
     name = "Scale Mail"
 
@@ -38,6 +41,7 @@ class ScaleMail(HeavyArmor):
     weight = units.Pound(55)
 
 
+@listing.register_item
 class SplintMail(HeavyArmor):
     name = "Splint Mail"
 
@@ -49,6 +53,7 @@ class SplintMail(HeavyArmor):
     weight = units.Pound(45)
 
 
+@listing.register_item
 class PlateMail(HeavyArmor):
     name = "Plate Mail"
 
@@ -60,6 +65,7 @@ class PlateMail(HeavyArmor):
     weight = units.Pound(50)
 
 
+@listing.register_item
 class FieldPlateMail(HeavyArmor):
     name = "Field Plate Mail"
 
@@ -77,6 +83,7 @@ class FieldPlateMail(HeavyArmor):
     weight = units.Pound(70)
 
 
+@listing.register_item
 class FullPlateMail(HeavyArmor):
     name = "Full Plate Mail"
 

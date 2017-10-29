@@ -1,9 +1,10 @@
-from bflib.items.food.base import Food
-from bflib.items import coins
 from bflib import units
+from bflib.items import coins, listing
+from bflib.items.food.base import Food
 from bflib.sizes import Size
 
 
+@listing.register_item
 class DryRations(Food):
     name = "Dry Rations (One Week)"
 

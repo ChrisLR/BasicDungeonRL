@@ -1,14 +1,16 @@
 from bflib import dice
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.weapons.melee.base import MeleeWeapon
 from bflib.sizes import Size
 
 
+@listing.register_type
 class Axe(MeleeWeapon):
     pass
 
 
+@listing.register_item
 class HandAxe(Axe):
     name = "Hand Axe"
 
@@ -18,6 +20,7 @@ class HandAxe(Axe):
     weight = units.Pound(5)
 
 
+@listing.register_item
 class BattleAxe(Axe):
     name = "Battle Axe"
 
@@ -27,6 +30,7 @@ class BattleAxe(Axe):
     weight = units.Pound(7)
 
 
+@listing.register_item
 class GreatAxe(Axe):
     name = "Great Axe"
 

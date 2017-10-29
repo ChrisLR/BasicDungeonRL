@@ -1,10 +1,11 @@
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.base import Item
 from bflib.keywords.items import WieldLocation
 from bflib.sizes import Size
 
 
+@listing.register_type
 class Shield(Item):
     name = "Shield"
 

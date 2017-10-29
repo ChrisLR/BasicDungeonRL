@@ -1,5 +1,5 @@
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.containers.base import SpecialContainer
 from bflib.keywords.items import WearLocation
 from bflib.sizes import Size
@@ -7,6 +7,7 @@ from bflib.items import writing
 from bflib.items.ammunition.common import Arrow, Bolt
 
 
+@listing.register_item
 class BoltCase(SpecialContainer):
     name = "Bolt Case"
 
@@ -19,6 +20,7 @@ class BoltCase(SpecialContainer):
     wear_locations = WearLocation.Back,
 
 
+@listing.register_item
 class ScrollCase(SpecialContainer):
     name = "Scroll Case"
 
@@ -31,6 +33,7 @@ class ScrollCase(SpecialContainer):
     wear_locations = WearLocation.Belt, WearLocation.Bandolier
 
 
+@listing.register_item
 class Quiver(SpecialContainer):
     name = "Quiver"
 

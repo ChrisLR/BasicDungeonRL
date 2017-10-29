@@ -1,3 +1,3 @@
-from bflib.items.weapons.melee import *
-from bflib.items.weapons.ranged import *
-from bflib.items.weapons.throwing import *
+from core.factories.recipes.items.weapons.melee import *
+from core.factories.recipes.items.weapons.ranged import *
+from core.factories.recipes.items.weapons.throwing import *

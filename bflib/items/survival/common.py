@@ -1,9 +1,10 @@
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.survival.base import SurvivalItem
 from bflib.sizes import Size
 
 
+@listing.register_item
 class LargeTent(SurvivalItem):
     name = "Tent, Large"
 
@@ -12,6 +13,7 @@ class LargeTent(SurvivalItem):
     weight = units.Pound(20)
 
 
+@listing.register_item
 class SmallTent(SurvivalItem):
     name = "Tent, Small"
 
@@ -20,6 +22,7 @@ class SmallTent(SurvivalItem):
     weight = units.Pound(10)
 
 
+@listing.register_item
 class WinterBlanket(SurvivalItem):
     name = "Winter Blanket"
 

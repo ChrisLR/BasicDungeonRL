@@ -1,10 +1,11 @@
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.containers.base import Container
 from bflib.keywords.items import WearLocation
 from bflib.sizes import Size
 
 
+@listing.register_item
 class Backpack(Container):
     name = "Backpack"
 
@@ -17,6 +18,7 @@ class Backpack(Container):
     weight_limit = units.Pound(40)
 
 
+@listing.register_item
 class BeltPouch(Container):
     name = "Belt Pouch"
 
@@ -29,6 +31,7 @@ class BeltPouch(Container):
     weight_limit = units.Pound(10)
 
 
+@listing.register_item
 class LargeSack(Container):
     name = "Large Sack"
 
@@ -40,6 +43,7 @@ class LargeSack(Container):
     weight_limit = units.Pound(40)
 
 
+@listing.register_item
 class Saddlebags(Container):
     name = "Saddlebags"
 
@@ -51,6 +55,7 @@ class Saddlebags(Container):
     weight_limit = units.Pound(10)
 
 
+@listing.register_item
 class SmallBackpack(Container):
     name = "Small Backpack"
 
@@ -63,6 +68,7 @@ class SmallBackpack(Container):
     weight_limit = units.Pound(30)
 
 
+@listing.register_item
 class SmallSack(Container):
     name = "Small Sack"
 

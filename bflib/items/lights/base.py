@@ -1,9 +1,10 @@
-from bflib import dice
-from bflib import units
+from bflib import dice, units
+from bflib.items import listing
 from bflib.items.base import Item
 from bflib.shapes import Shape
 
 
+@listing.register_type
 class LightItem(Item):
     bright_light_radius = units.Feet
     dim_light_radius = units.Feet

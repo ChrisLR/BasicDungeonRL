@@ -1,9 +1,10 @@
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.containers.base import LiquidContainer
 from bflib.sizes import Size
 
 
+@listing.register_item
 class GlassBottle(LiquidContainer):
     name = "Glass Bottle"
 
@@ -14,6 +15,7 @@ class GlassBottle(LiquidContainer):
     weight = units.Pound(0.1)
 
 
+@listing.register_item
 class Waterskin(LiquidContainer):
     name = "Waterskin"
 
@@ -24,6 +26,7 @@ class Waterskin(LiquidContainer):
     weight = units.Pound(2)
 
 
+@listing.register_item
 class Vial(LiquidContainer):
     name = "Vial"
 

@@ -1,8 +1,9 @@
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.tools.base import ClimbingTool, Tool
 
 
+@listing.register_item
 class GrapplingHook(Tool):
     name = "Grappling Hook"
 
@@ -10,6 +11,7 @@ class GrapplingHook(Tool):
     weight = units.Pound(4)
 
 
+@listing.register_item
 class IronSpike(Tool):
     name = "Iron Spike"
 
@@ -17,6 +19,7 @@ class IronSpike(Tool):
     weight = units.Pound(0.1)
 
 
+@listing.register_item
 class Ladder(ClimbingTool):
     name = "Ladder"
 
@@ -25,6 +28,7 @@ class Ladder(ClimbingTool):
     weight = units.Pound(20)
 
 
+@listing.register_item
 class HempRope(ClimbingTool):
     name = "Hemp Rope"
 
@@ -33,6 +37,7 @@ class HempRope(ClimbingTool):
     weight = units.Pound(5)
 
 
+@listing.register_item
 class HolySymbol(Tool):
     name = "Holy Symbol"
 
@@ -40,6 +45,7 @@ class HolySymbol(Tool):
     weight = units.Pound(0.1)
 
 
+@listing.register_item
 class Key(Tool):
     name = "Key"
 
@@ -47,6 +53,7 @@ class Key(Tool):
     weight = units.Pound(0.1)
 
 
+@listing.register_item
 class Manacles(Tool):
     name = "Manacles"
 
@@ -54,6 +61,7 @@ class Manacles(Tool):
     weight = units.Pound(4)
 
 
+@listing.register_item
 class Padlock(Tool):
     name = "Padlock"
 
@@ -61,6 +69,7 @@ class Padlock(Tool):
     weight = units.Pound(4)
 
 
+@listing.register_item
 class SilkRope(ClimbingTool):
     name = "Silk Rope"
 
@@ -69,6 +78,7 @@ class SilkRope(ClimbingTool):
     weight = units.Pound(2)
 
 
+@listing.register_item
 class ThievesPickAndTools(Tool):
     name = "Thieves Pick and Tools"
 
@@ -76,6 +86,7 @@ class ThievesPickAndTools(Tool):
     weight = units.Pound(1)
 
 
+@listing.register_item
 class TinderboxFlintAndSteel(Tool):
     name = "Tinderbox, flint and steel"
 
@@ -83,6 +94,7 @@ class TinderboxFlintAndSteel(Tool):
     weight = units.Pound(1)
 
 
+@listing.register_item
 class Whetstone(Tool):
     name = "Whetstone"
 
@@ -90,6 +102,7 @@ class Whetstone(Tool):
     weight = units.Pound(1)
 
 
+@listing.register_item
 class Whistle(Tool):
     name = "Whistle"
 

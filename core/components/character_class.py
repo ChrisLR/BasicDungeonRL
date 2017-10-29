@@ -14,6 +14,15 @@ class CharacterClass(Component):
         if base_class in self.base_classes:
             return True
 
+    def get_attack_bonus(self, level):
+        best_attack_bonus = 0
+        for base_class in self.base_classes:
+            current_attack_bonus = base_class.level_table.get(level).attack_bonus
+            if current_attack_bonus > best_attack_bonus:
+                best_attack_bonus = current_attack_bonus
+
+        return best_attack_bonus
+
     def get_hit_dice(self, level):
         levels = (base_class.level_table.get(level) for base_class in self.base_classes)
         hit_dices = [level.hit_dice for level in levels if level] if levels else None

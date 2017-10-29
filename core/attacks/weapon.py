@@ -13,13 +13,9 @@ class WeaponAttack(MeleeAttack):
 
     @classmethod
     def execute(cls, attacker, defender, attack_set):
-        weapons = (
-            weapon for weapon in sorted(
-                attacker.equipment.get_wielded_items(),
-                key=lambda item: item.melee.damage.sides * item.melee.damage.amount)
-        )
-        for _ in range(0, attack_set):
-            weapon = next(weapons, None)
+        sorted_melee_weapons = cls._sort_melee_weapons_by_damage(attacker)
+        for _ in range(0, attack_set.amount):
+            weapon = sorted_melee_weapons.pop()
             if weapon is None:
                 return True
 
@@ -29,3 +25,10 @@ class WeaponAttack(MeleeAttack):
                 defender.health.take_damage(damage)
 
         return True
+
+    @staticmethod
+    def _sort_melee_weapons_by_damage(attacker):
+        melee_weapons = [weapon for weapon in attacker.equipment.get_wielded_items() if weapon.melee]
+        melee_weapons.sort(key=lambda item: item.melee.melee_damage.sides * item.melee.melee_damage.amount)
+
+        return melee_weapons

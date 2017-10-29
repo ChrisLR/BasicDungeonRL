@@ -1,14 +1,15 @@
-from bflib import dice
-from bflib import units
-from bflib.items import coins
+from bflib import dice, units
+from bflib.items import coins, listing
 from bflib.items.weapons.melee.base import MeleeWeapon
 from bflib.sizes import Size
 
 
+@listing.register_type
 class Sword(MeleeWeapon):
     pass
 
 
+@listing.register_item
 class Shortsword(Sword):
     name = "Shortsword"
 
@@ -18,6 +19,7 @@ class Shortsword(Sword):
     weight = units.Pound(3)
 
 
+@listing.register_item
 class Longsword(Sword):
     name = "Longsword"
 
@@ -27,6 +29,7 @@ class Longsword(Sword):
     weight = units.Pound(4)
 
 
+@listing.register_item
 class Scimitar(Sword):
     name = "Scimitar"
 
@@ -36,6 +39,7 @@ class Scimitar(Sword):
     weight = units.Pound(4)
 
 
+@listing.register_item
 class TwoHandedSword(MeleeWeapon):
     name = "Two-Handed Sword"
 

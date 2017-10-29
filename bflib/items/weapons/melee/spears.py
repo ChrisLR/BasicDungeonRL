@@ -6,10 +6,10 @@ from bflib.sizes import Size
 
 @listing.register_type
 @listing.register_item
-class Polearm(MeleeWeapon):
-    name = "Polearm"
+class Spear(MeleeWeapon):
+    name = "Spear"
 
-    melee_damage = dice.D10(1)
-    price = coins.Gold(9)
-    size = Size.Large
-    weight = units.Pound(15)
+    melee_damage = dice.D6(1)
+    price = coins.Gold(5)
+    size = Size.Medium
+    weight = units.Pound(5)

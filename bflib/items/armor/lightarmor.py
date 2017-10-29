@@ -1,10 +1,11 @@
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.armor.base import LightArmor
 from bflib.keywords.items import WearLocation
 from bflib.sizes import Size
 
 
+@listing.register_item
 class PaddedArmor(LightArmor):
     name = "Padded Armor"
 
@@ -16,6 +17,7 @@ class PaddedArmor(LightArmor):
     weight = units.Pound(10)
 
 
+@listing.register_item
 class HideArmor(LightArmor):
     name = "Hide Armor"
 
@@ -27,6 +29,7 @@ class HideArmor(LightArmor):
     weight = units.Pound(30)
 
 
+@listing.register_item
 class LeatherArmor(LightArmor):
     name = "Leather Armor"
 
@@ -38,6 +41,7 @@ class LeatherArmor(LightArmor):
     weight = units.Pound(15)
 
 
+@listing.register_item
 class StuddedLeatherArmor(LightArmor):
     name = "Studded Leather Armor"
 

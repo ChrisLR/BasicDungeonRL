@@ -1,8 +1,9 @@
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.riding.base import RidingItem
 
 
+@listing.register_item
 class BitAndBridle(RidingItem):
     name = "Bit And Bridle"
 
@@ -10,6 +11,7 @@ class BitAndBridle(RidingItem):
     weight = units.Pound(3)
 
 
+@listing.register_item
 class Horseshoes(RidingItem):
     name = "Horseshoes"
 
@@ -17,6 +19,7 @@ class Horseshoes(RidingItem):
     weight = units.Pound(10)
 
 
+@listing.register_item
 class SaddlePack(RidingItem):
     name = "Saddle, Pack"
 
@@ -24,6 +27,7 @@ class SaddlePack(RidingItem):
     weight = units.Pound(15)
 
 
+@listing.register_item
 class SaddleRiding(RidingItem):
     name = "Saddle, Riding"
 
