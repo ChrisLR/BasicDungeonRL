@@ -1,9 +1,10 @@
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.writing.base import WritingItem
 from bflib.sizes import Size
 
 
+@listing.register_item
 class Chalk(WritingItem):
     name = "Chalk"
 
@@ -12,6 +13,7 @@ class Chalk(WritingItem):
     weight = units.Pound(0.1)
 
 
+@listing.register_item
 class InkJar(WritingItem):
     name = "Ink Jar"
 
@@ -20,6 +22,7 @@ class InkJar(WritingItem):
     weight = units.Pound(0.5)
 
 
+@listing.register_item
 class Map(WritingItem):
     name = "Map"
 
@@ -28,6 +31,7 @@ class Map(WritingItem):
     weight = units.Pound(0)
 
 
+@listing.register_item
 class Paper(WritingItem):
     name = "Paper"
 
@@ -36,6 +40,7 @@ class Paper(WritingItem):
     weight = units.Pound(0)
 
 
+@listing.register_item
 class Quill(WritingItem):
     name = "Quill"
 
@@ -44,6 +49,7 @@ class Quill(WritingItem):
     weight = units.Pound(0)
 
 
+@listing.register_item
 class Scroll(WritingItem):
     name = "Scroll"
 

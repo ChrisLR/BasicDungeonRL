@@ -1,9 +1,11 @@
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.writing.common import Scroll
 from bflib.sizes import Size
 
 
+@listing.register_type
+@listing.register_item
 class MagicScroll(Scroll):
     name = "Magic Scroll"
 

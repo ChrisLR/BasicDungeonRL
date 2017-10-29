@@ -1,8 +1,9 @@
 from bflib import units
-from bflib.items import coins
+from bflib.items import coins, listing
 from bflib.items.weapons.throwing.base import ThrowingWeapon
 
 
+@listing.register_item
 class OilFlask(ThrowingWeapon):
     name = "Oil Flask"
 
