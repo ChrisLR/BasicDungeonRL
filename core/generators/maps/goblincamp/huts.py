@@ -1,5 +1,8 @@
+
 from core.generators.maps.base import MapPiece
 from core.tiles import floors, doors, walls
+from core.generators import spawns
+from bflib.monsters.humanoids.goblins import Goblin
 
 
 class GoblinHut1(MapPiece):
@@ -15,9 +18,11 @@ class GoblinHut1(MapPiece):
         "+": doors.WoodenDoor,
         "#": walls.WoodenWall
     }
-    spawn_ratios = (
-
-    )
+    spawners = [
+        spawns.OnceSpawner(
+            spawns.SpawnSet(100, Goblin, spawns.SpawnPoint(2, 2)),
+        )
+    ]
 
 
 class GoblinHut2(MapPiece):
