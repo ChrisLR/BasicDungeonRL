@@ -12,6 +12,7 @@ class GoblinCampGenerator(DesignPieceGenerator):
         (50, huts.GoblinHut3),
         (50, huts.GoblinHut4),
         (100, huts.GrassyClearing),
+        (50, huts.LargeHut),
     ]
 
     @classmethod

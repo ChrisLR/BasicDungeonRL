@@ -39,7 +39,7 @@ class GoblinHut2(MapPiece):
     }
     spawners = [
         spawns.OnceSpawner(
-            spawns.SpawnSet(100, Goblin, spawns.SpawnPoint(3, 3)),
+            spawns.SpawnSet(100, Goblin, spawns.SpawnPoint(3, 2)),
         )
     ]
 
@@ -59,7 +59,7 @@ class GoblinHut3(MapPiece):
     }
     spawners = [
         spawns.OnceSpawner(
-            spawns.SpawnSet(100, Goblin, spawns.SpawnPoint(3, 1)),
+            spawns.SpawnSet(100, Goblin, spawns.SpawnPoint(3, 2)),
         )
     ]
 
@@ -79,7 +79,7 @@ class GoblinHut4(MapPiece):
     }
     spawners = [
         spawns.OnceSpawner(
-            spawns.SpawnSet(100, Goblin, spawns.SpawnPoint(1, 3)),
+            spawns.SpawnSet(100, Goblin, spawns.SpawnPoint(3, 2)),
         )
     ]
 
@@ -97,5 +97,29 @@ class GrassyClearing(MapPiece):
     spawners = [
         spawns.OnceSpawner(
             spawns.SpawnSet(100, Goblin, spawns.SpawnPoint(3, 3)),
+        )
+    ]
+
+
+class LargeHut(MapPiece):
+    name = "Large Hut"
+    tiles = "........\n" \
+            "..####..\n" \
+            ".##,,##.\n" \
+            ".#,,,,+.\n" \
+            ".##,,##.\n" \
+            "..####..\n" \
+            "........\n"
+    symbolic_links = {
+        "#": walls.WoodenWall,
+        ".": floors.Grass,
+        ",": floors.WoodenFloor,
+        "+": doors.WoodenDoor,
+    }
+    spawners = [
+        spawns.OnceSpawner(
+            spawns.SpawnSet(25, Goblin, spawns.SpawnPoint(2, 3)),
+            spawns.SpawnSet(25, Goblin, spawns.SpawnPoint(3, 2)),
+            spawns.SpawnSet(25, Goblin, spawns.SpawnPoint(3, 4)),
         )
     ]

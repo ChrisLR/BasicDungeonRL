@@ -19,7 +19,7 @@ class Level(GameObject):
             display_list = self.displays.get(display.priority, None)
             if display_list is None:
                 display_list = []
-                self.displays[display.priority.value] = display_list
+                self.displays[display.priority] = display_list
 
             display_list.append(game_object)
 
