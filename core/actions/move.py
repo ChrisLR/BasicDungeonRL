@@ -31,6 +31,9 @@ class Walk(Action):
 
         new_coords = (new_x, new_y)
         tile = current_level.get_tile(new_coords)
+        if tile is None:
+            return False
+
         if tile.blocking:
             return False
 

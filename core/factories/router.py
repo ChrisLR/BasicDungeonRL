@@ -19,4 +19,4 @@ def route_to_factory(base_object_type):
             factory = type_mapping.get(base_type, None)
             if factory is None:
                 raise Exception("No factory for base type {}".format(base_type))
-            return factory.create_new(base_type)
+            return factory.create_new(base_object_type)

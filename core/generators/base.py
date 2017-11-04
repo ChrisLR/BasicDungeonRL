@@ -13,20 +13,24 @@ class DesignPieceGenerator(object):
     pieces_with_percentage = None
 
     @classmethod
-    def generate(cls, level):
+    def _generate(cls, level):
         spawn_grid = {}
+        tries = 100
         available_pieces = cls.pieces_with_percentage.copy()
-        while available_pieces:
+        while tries:
             new_piece = cls._select_piece(available_pieces)
+            if not new_piece:
+                return
+
             coords = cls._try_fit_piece(level, new_piece, spawn_grid)
             if coords:
                 cls._write_piece(spawn_grid, level, new_piece, coords)
-            else:
-                available_pieces.remove(new_piece)
+            tries -= 1
 
     @staticmethod
     def _select_piece(pieces_with_percentage):
-        randomized_pieces = random.shuffle(pieces_with_percentage)
+        randomized_pieces = pieces_with_percentage.copy()
+        random.shuffle(randomized_pieces)
         for percentage, piece in randomized_pieces:
             if percentage >= random.randint(0, 100):
                 return piece
@@ -42,7 +46,8 @@ class DesignPieceGenerator(object):
 
         piece.write_tiles_level(level, pointer_x, pointer_y)
         for spawner in piece.spawners:
-            level.add_object(spawner.spawn())
+            for spawned_object in spawner.spawn():
+                level.add_object(spawned_object)
 
     @staticmethod
     def _try_fit_piece(level, piece, spawn_grid):

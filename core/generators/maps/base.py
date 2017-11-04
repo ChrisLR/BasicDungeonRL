@@ -22,7 +22,7 @@ class MapPiece(object):
 
     @classmethod
     def get_width(cls):
-        return max(cls.tiles.splitlines())
+        return max([len(line) for line in cls.tiles.splitlines()])
 
     @classmethod
     def get_height(cls):

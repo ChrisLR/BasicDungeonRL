@@ -1,28 +1,31 @@
 from bflib.monsters import animals
 from core.factories.monster import MonsterFactory
-from core.tiles import floors, walls
-from core.world.level import Level
+from core.generators.base import DesignPieceGenerator
 from core.generators.maps.goblincamp import huts
+from core.world.level import Level
 
 
-class GoblinCampGenerator(object):
+class GoblinCampGenerator(DesignPieceGenerator):
+    pieces_with_percentage = [
+        (50, huts.GoblinHut1),
+        (50, huts.GoblinHut2),
+        (50, huts.GoblinHut3),
+        (50, huts.GoblinHut4),
+        (100, huts.GrassyClearing),
+    ]
+
     @classmethod
     def generate(cls):
         level = Level()
-        for x in range(0, 50):
-            for y in range(0, 50):
-                if x == 0 or y == 0 or x == 49 or y == 49:
-                    level.add_tile((x, y), walls.DungeonWall)
-                else:
-                    level.add_tile((x, y), floors.DungeonFloor)
-
-        cls.place_monster(level)
+        level.max_x = 100
+        level.max_y = 100
+        super()._generate(level)
         return level
 
     @classmethod
     def place_player(cls, level, player):
         player.location.level = level
-        player.location.set_local_coords((24, 24))
+        player.location.set_local_coords((1, 1))
         level.add_object(player)
 
     @classmethod

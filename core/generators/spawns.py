@@ -9,14 +9,16 @@ class OnceSpawner(object):
     __slots__ = ["spawns"]
 
     def __init__(self, *spawns):
-        self.spawns = spawns
+        self.spawns = spawns  # type: list
 
     def spawn(self):
         selected_set = self.select_spawn()
         return self.spawn_set(selected_set)
 
     def select_spawn(self):
-        randomized_spawns = sorted(self.spawns, key=random.randint(0, 100))
+        randomized_spawns = list(self.spawns)
+        random.shuffle(randomized_spawns)
+
         for spawn_set in randomized_spawns:
             if random.randrange(1, 100) <= spawn_set.percent:
                 return spawn_set
@@ -70,3 +72,7 @@ class SpawnPoint(object):
     def __init__(self, x, y):
         self.x = x
         self.y = y
+
+    def __iter__(self):
+        yield self.x
+        yield self.y

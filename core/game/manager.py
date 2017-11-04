@@ -3,6 +3,7 @@ from clubsandwich.director import DirectorLoop
 
 from core.game.context import GameContext
 from core.generators.testing import TestingGenerator
+from core.generators.goblincamp import GoblinCampGenerator
 from core.factories.monster import MonsterFactory
 from bflib.monsters import animals
 from core.displaypriority import DisplayPriority
@@ -20,9 +21,9 @@ class Game(object):
         loop.run()
 
     def new_game(self):
-        level = TestingGenerator.generate()
+        level = GoblinCampGenerator.generate()
         self.game_context.player.display.priority = DisplayPriority.Player
-        TestingGenerator.place_player(level, self.game_context.player)
+        GoblinCampGenerator.place_player(level, self.game_context.player)
 
         self.running = True
 

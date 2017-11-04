@@ -18,6 +18,10 @@ class Dice(object):
         return sum((random.randint(1, self.sides) for _ in range(0, self.amount))) + self.flat_bonus
 
     @classmethod
+    def roll(cls):
+        return random.randint(1, cls.sides)
+
+    @classmethod
     def manual_roll(cls, amount, flat_bonus=0):
         return sum((random.randint(1, cls.sides) for _ in range(0, amount))) + flat_bonus
 
