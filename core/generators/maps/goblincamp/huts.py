@@ -1,8 +1,7 @@
-
+from bflib.monsters.humanoids.goblins import Goblin
+from core.generators import spawns
 from core.generators.maps.base import MapPiece
 from core.tiles import floors, doors, walls
-from core.generators import spawns
-from bflib.monsters.humanoids.goblins import Goblin
 
 
 class GoblinHut1(MapPiece):
@@ -38,6 +37,11 @@ class GoblinHut2(MapPiece):
         "+": doors.WoodenDoor,
         "#": walls.WoodenWall
     }
+    spawners = [
+        spawns.OnceSpawner(
+            spawns.SpawnSet(100, Goblin, spawns.SpawnPoint(3, 3)),
+        )
+    ]
 
 
 class GoblinHut3(MapPiece):
@@ -53,6 +57,11 @@ class GoblinHut3(MapPiece):
         "+": doors.WoodenDoor,
         "#": walls.WoodenWall
     }
+    spawners = [
+        spawns.OnceSpawner(
+            spawns.SpawnSet(100, Goblin, spawns.SpawnPoint(3, 1)),
+        )
+    ]
 
 
 class GoblinHut4(MapPiece):
@@ -68,6 +77,11 @@ class GoblinHut4(MapPiece):
         "+": doors.WoodenDoor,
         "#": walls.WoodenWall
     }
+    spawners = [
+        spawns.OnceSpawner(
+            spawns.SpawnSet(100, Goblin, spawns.SpawnPoint(1, 3)),
+        )
+    ]
 
 
 class GrassyClearing(MapPiece):
@@ -80,3 +94,8 @@ class GrassyClearing(MapPiece):
     symbolic_links = {
         ".": floors.Grass,
     }
+    spawners = [
+        spawns.OnceSpawner(
+            spawns.SpawnSet(100, Goblin, spawns.SpawnPoint(3, 3)),
+        )
+    ]

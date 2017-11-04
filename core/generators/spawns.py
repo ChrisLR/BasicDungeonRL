@@ -11,6 +11,10 @@ class OnceSpawner(object):
     def __init__(self, *spawns):
         self.spawns = spawns
 
+    def spawn(self):
+        selected_set = self.select_spawn()
+        return self.spawn_set(selected_set)
+
     def select_spawn(self):
         randomized_spawns = sorted(self.spawns, key=random.randint(0, 100))
         for spawn_set in randomized_spawns:
