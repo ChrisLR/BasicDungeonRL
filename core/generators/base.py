@@ -46,7 +46,7 @@ class DesignPieceGenerator(object):
 
         piece.write_tiles_level(level, pointer_x, pointer_y)
         for spawner in piece.spawners:
-            for spawned_object in spawner.spawn():
+            for spawned_object in spawner.spawn(offset_coords=(pointer_x, pointer_y)):
                 level.add_object(spawned_object)
 
     @staticmethod
@@ -61,10 +61,9 @@ class DesignPieceGenerator(object):
                 pointer_x += 1
 
             empty_space = spawn_grid.get((pointer_x, pointer_y), True)
-            pointer_y += 1
             if empty_space:
                 return pointer_x, pointer_y
-
+            pointer_y += 1
         return False
 
 

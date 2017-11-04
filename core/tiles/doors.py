@@ -15,14 +15,17 @@ class Door(Tile):
         super().__init__()
         self.opened = opened
         self.blocking = True if not self.opened else False
+        self.opaque = True if not self.opened else False
+        self.display = self.display.copy()
         self.display.ascii_character = self.closed_ascii if not self.opened else self.opened_ascii
 
 
-class DungeonDoor(Tile):
+class DungeonDoor(Door):
     name = "Dungeon Door"
     display = Display(Colors.GRAY, Colors.BLACK, "+")
 
 
-class WoodenDoor(Tile):
+class WoodenDoor(Door):
     name = "Dungeon Door"
     display = Display(Colors.BROWN, Colors.BLACK, "+")
+8

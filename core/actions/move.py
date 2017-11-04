@@ -1,6 +1,8 @@
 from core.actions.base import Action
 from core.actions.bump import Bump
 from core.direction import Direction, move_direction_mapping
+from core.tiles.doors import Door
+import inspect
 
 
 class Walk(Action):
@@ -32,6 +34,11 @@ class Walk(Action):
         new_coords = (new_x, new_y)
         tile = current_level.get_tile(new_coords)
         if tile is None:
+            return False
+
+        if inspect.isclass(tile) and issubclass(tile, Door):
+            tile = tile(opened=True)
+            current_level.add_tile(new_coords, tile)
             return False
 
         if tile.blocking:
