@@ -3,6 +3,7 @@ from core.components.armor import Armor
 from core.components.base import Component
 from core.components.combat import Combat
 from core.components.container import Container
+from core.components.corpse import Corpse
 from core.components.liquidcontainer import LiquidContainer
 from core.components.specialcontainer import SpecialContainer
 from core.components.stats import CharacterStats
@@ -36,6 +37,7 @@ component_names = {
     CharacterStats.NAME,
     Combat.NAME,
     Container.NAME,
+    Corpse.NAME,
     Display.NAME,
     Equipment.NAME,
     Experience.NAME,

@@ -1,3 +1,4 @@
+from bflib import items
 from bflib.monsters.humanoids.goblins import Goblin
 from core.generators import spawns
 from core.generators.maps.base import MapPiece
@@ -121,5 +122,6 @@ class LargeHut(MapPiece):
             spawns.SpawnSet(25, Goblin, spawns.SpawnPoint(2, 3)),
             spawns.SpawnSet(25, Goblin, spawns.SpawnPoint(3, 2)),
             spawns.SpawnSet(25, Goblin, spawns.SpawnPoint(3, 4)),
+            spawns.SpawnSet(100, items.Spear, spawns.SpawnPoint(4, 2))
         )
     ]

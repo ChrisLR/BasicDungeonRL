@@ -1,8 +1,8 @@
 from core.sex import Sex
-from core.game.manager import game
 
 
 def is_player(game_object):
+    from core.game.manager import game
     if game.game_context.player == game_object:
         return True
     return False

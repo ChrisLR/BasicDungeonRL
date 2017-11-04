@@ -1,4 +1,5 @@
 from core.components.base import Component
+from services import echo
 
 
 class Health(Component):
@@ -15,6 +16,7 @@ class Health(Component):
         self._base_max_health = 0
         self.maximum_modifiers = []
         self.dead = False
+        self.conscious = True
 
     @property
     def largest_hit_dice(self):
@@ -29,15 +31,33 @@ class Health(Component):
         if self.dead:
             self.dead = False
             self.current = health_recovered if health_recovered <= self.max else self.max
+            self.host.blocking = True
 
     def restore_health(self, health):
         if not self.dead:
             self.current += health
 
+        if self.current >= 0:
+            self.conscious = True
+
     def take_damage(self, damage):
         self.current -= damage
-        if self.current <= 0:
-            self.dead = True
+        constitution = -10 if not self.host.stats else self.host.stats.constitution.value
+
+        if -constitution < self.current <= 0:
+            if self.conscious:
+                self.conscious = False
+                echo.echo_service.echo(
+                    "{} falls unconscious!".format(echo.name_or_you(self.host))
+                )
+
+        if self.current <= -constitution:
+            if not self.dead:
+                self.dead = True
+                echo.echo_service.echo(
+                    "{} is dead!".format(echo.name_or_you(self.host))
+                )
+                self.host.blocking = False
 
     def update_hit_dice(self, new_hit_dice):
         current_hit_dice = self._hit_dices.get(type(new_hit_dice), None)

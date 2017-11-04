@@ -11,9 +11,9 @@ class OnceSpawner(object):
     def __init__(self, *spawns):
         self.spawns = spawns  # type: list
 
-    def spawn(self, level, offset_coords):
+    def spawn(self, offset_coords):
         selected_set = self.select_spawn()
-        return self.spawn_set(level, selected_set, offset_coords)
+        return self.spawn_set(selected_set, offset_coords)
 
     def select_spawn(self):
         randomized_spawns = list(self.spawns)
@@ -24,7 +24,7 @@ class OnceSpawner(object):
                 return spawn_set
 
     @staticmethod
-    def spawn_set(level, spawn_set, offset_coords):
+    def spawn_set(spawn_set, offset_coords):
         spawn_tuples = []
         spawned_objects = []
         if isinstance(spawn_set, SpawnChain):
@@ -40,7 +40,6 @@ class OnceSpawner(object):
             new_spawn_point = (spawn_x + offset_x, spawn_y + offset_y)
             spawned_object = route_to_factory(spawn_type)
             spawned_object.location.set_local_coords(new_spawn_point)
-            spawned_object.location.level = level
             spawned_objects.append(spawned_object)
 
         return spawned_objects

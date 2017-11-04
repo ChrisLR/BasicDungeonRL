@@ -13,6 +13,14 @@ class Level(GameObject):
         self.max_y = 0
         self.objects_by_coords = {}
 
+    @property
+    def game_objects(self):
+        game_objects = []
+        for game_object_set in self.objects_by_coords.values():
+            game_objects.extend(game_object_set)
+
+        return game_objects
+
     def add_object(self, game_object):
         display = game_object.display
         if display:
@@ -25,6 +33,7 @@ class Level(GameObject):
 
         location = game_object.location
         if location:
+            location.level = self
             coords = location.get_local_coords()
             object_set = self.objects_by_coords.get(coords)
             if not object_set:
@@ -48,9 +57,9 @@ class Level(GameObject):
             if object_set:
                 del object_set[game_object]
 
-        # actor = game_object.actor
-        # if actor:
-        #     self.actors.remove(game_object)
+        actor = game_object.actor
+        if actor:
+            self.actors.remove(game_object)
 
     def add_tile(self, coordinates, tile):
         x, y = coordinates

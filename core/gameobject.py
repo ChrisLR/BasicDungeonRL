@@ -21,9 +21,21 @@ class GameObject(object):
     def get_component(self, component_name):
         return self.components.get(component_name, None)
 
-    def update(self):
+    def round_update(self):
         for component in self.components.values():
-            component.update()
+            component.round_update()
+
+    def minute_update(self):
+        for component in self.components.values():
+            component.minute_update()
+
+    def hours_update(self):
+        for component in self.components.values():
+            component.hours_update()
+
+    def days_update(self):
+        for component in self.components.values():
+            component.days_update()
 
     def transmit_message(self, sender, message_type, **kwargs):
         if message_type in self.observers:

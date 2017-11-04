@@ -21,7 +21,7 @@ class ItemRecipe(Recipe):
             components.Size(item_type.size),
             components.Weight(item_type.weight),
             components.Location(),
-            components.Display(Colors.GRAY, Colors.BLACK, name, DisplayPriority.Item),
+            components.Display(Colors.GRAY, Colors.BLACK, name[0], DisplayPriority.Item),
         ]
 
         if item_type.price:

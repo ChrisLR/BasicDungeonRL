@@ -26,5 +26,25 @@ class GameScene(UIScene):
             action.can_execute(self.game_context.player)
             action.execute(self.game_context.player)
 
-    def update_turn(self, player):
-        pass
+        self.update_turn()
+
+    def update_turn(self):
+        time_update_result = self.game_context.game_time.pass_turns()
+        current_level = self.game_context.player.location.level
+        game_objects = current_level.game_objects
+        game_objects.append(self.game_context.player)
+        for i in range(len(game_objects) - 1, -1, -1):
+            game_object = game_objects[i]
+            game_object.round_update()
+            if game_object.marked_for_removal:
+                current_level.remove(game_object)
+                continue
+
+            if time_update_result.minute_updated:
+                game_object.minute_update()
+
+            if time_update_result.hours_updated:
+                game_object.hours_update()
+
+            if time_update_result.days_updated:
+                game_object.days_update()

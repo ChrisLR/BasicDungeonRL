@@ -25,8 +25,8 @@ class WeaponAttack(MeleeAttack):
             success = cls.make_melee_hit_roll(attacker, defender)
             if success:
                 damage = cls.make_melee_damage_roll(attacker, weapon.melee.melee_damage)
-                defender.health.take_damage(damage)
                 echo_message_success(attacker, defender, weapon, damage)
+                defender.health.take_damage(damage)
             else:
                 echo_message_failure(attacker, defender)
 

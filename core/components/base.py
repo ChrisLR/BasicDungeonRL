@@ -12,7 +12,16 @@ class Component(object):
     def on_unregister(self):
         self.host = None
 
-    def update(self):
+    def round_update(self):
+        pass
+
+    def minute_update(self):
+        pass
+
+    def hours_update(self):
+        pass
+
+    def days_update(self):
         pass
 
     def handle_message(self, message):
