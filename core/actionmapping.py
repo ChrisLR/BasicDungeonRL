@@ -11,4 +11,5 @@ lowercase_mapping = {
     terminal.TK_KP_2: actions.WalkS,
     terminal.TK_KP_1: actions.WalkSW,
     terminal.TK_KP_4: actions.WalkW,
+    terminal.TK_O: actions.Open,
 }

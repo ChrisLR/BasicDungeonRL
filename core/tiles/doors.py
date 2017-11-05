@@ -1,4 +1,5 @@
 from core.components.display import Display
+from core.components.openable import Openable
 from core.tiles.base import Tile
 from core.util.colors import Colors
 

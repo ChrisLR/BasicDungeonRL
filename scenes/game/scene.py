@@ -23,8 +23,12 @@ class GameScene(UIScene):
     def terminal_read(self, val):
         action = actionmapping.lowercase_mapping.get(val, None)
         if action:
-            action.can_execute(self.game_context.player)
-            action.execute(self.game_context.player)
+            if action.target_selection_type:
+                self.director.push_scene(action.target_selection_type.select(
+                    self.game_context.player, action.target_type))
+            else:
+                action.can_execute(self.game_context.player)
+                action.execute(self.game_context.player)
 
         self.update_turn()
 
