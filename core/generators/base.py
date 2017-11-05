@@ -1,21 +1,31 @@
 import random
 
+from sortedcontainers import SortedSet
+
 
 class DesignPieceGenerator(object):
-    """
-    This needs a list of pieces to generate from with percentages to generate
-    It needs to randomize these pieces and place them on a grid with a fixed width/height.
-    The first piece set is placed down based on the percentage success, then
-    We drop down and try to find another piece that fits in the designated area.
-    We roll for percentage and place.
-    If nothing fits anymore we go back to Y zero with X + maximum piece Width
-    """
     pieces_with_percentage = None
     filler_tile = None
 
     @classmethod
     def _generate(cls, level):
-        spawn_grid = {}
+        spawn_grid = cls._prepare_spawn_grid(level)
+        rejected_tiles = set()
+        cls._place_pieces(level, spawn_grid, rejected_tiles)
+        rejected_tiles.update(spawn_grid)
+        cls._fill_empty_spaces(level, rejected_tiles)
+
+    @classmethod
+    def _prepare_spawn_grid(cls, level):
+        spawn_grid = SortedSet()
+        for x in range(0, level.max_x):
+            for y in range(0, level.max_y):
+                spawn_grid.add((x, y))
+
+        return spawn_grid
+
+    @classmethod
+    def _place_pieces(cls, level, spawn_grid, rejected_tiles):
         tries = 10
         available_pieces = cls.pieces_with_percentage.copy()
         while tries:
@@ -23,20 +33,11 @@ class DesignPieceGenerator(object):
             if not new_piece:
                 return
 
-            coords = cls._try_fit_piece(level, new_piece, spawn_grid)
+            coords = cls._try_fit_piece(new_piece, spawn_grid, rejected_tiles)
             if coords:
-                cls._write_piece(spawn_grid, level, new_piece, coords)
+                cls._write_piece(level, new_piece, spawn_grid, coords)
                 continue
             tries -= 1
-
-        cls._fill_empty_spaces(level, spawn_grid)
-
-    @classmethod
-    def _fill_empty_spaces(cls, level, spawn_grid):
-        for x in range(0, level.max_x):
-            for y in range(0, level.max_y):
-                if (x, y) not in spawn_grid:
-                    level.add_tile((x, y), cls.filler_tile)
 
     @classmethod
     def _select_piece(cls, pieces_with_percentage):
@@ -49,11 +50,36 @@ class DesignPieceGenerator(object):
         return None
 
     @classmethod
-    def _write_piece(cls, spawn_grid, level, piece, pointer_coords):
+    def _try_fit_piece(cls, piece, spawn_grid, rejected_tiles):
+        while spawn_grid:
+            new_point = spawn_grid.pop(0)
+            if cls._all_tiles_fit(piece, spawn_grid, new_point):
+                return new_point
+            else:
+                rejected_tiles.add(new_point)
+
+        return False
+
+    @classmethod
+    def _all_tiles_fit(cls, piece, spawn_grid, offset_coords):
+        offset_x, offset_y = offset_coords
+        for piece_x in range(0, piece.get_width()):
+            for piece_y in range(0, piece.get_height()):
+                tile_coords = (piece_x + offset_x, piece_y + offset_y)
+                if tile_coords not in spawn_grid:
+                    if tile_coords != offset_coords:
+                        return False
+
+        return True
+
+    @classmethod
+    def _write_piece(cls, level, piece, spawn_grid, pointer_coords):
         pointer_x, pointer_y = pointer_coords
         for x in range(pointer_x, pointer_x + piece.get_width()):
             for y in range(pointer_y, pointer_y + piece.get_height()):
-                spawn_grid[(x, y)] = False
+                new_point = (x, y)
+                if new_point != pointer_coords:
+                    spawn_grid.remove(new_point)
 
         piece.write_tiles_level(level, pointer_x, pointer_y)
         for spawner in piece.spawners:
@@ -61,34 +87,6 @@ class DesignPieceGenerator(object):
                 level.add_object(spawned_object)
 
     @classmethod
-    def _try_fit_piece(cls, level, piece, spawn_grid):
-        piece_height = piece.get_height()
-        piece_width = piece.get_width()
-        pointer_x = 0
-        pointer_y = 0
-        while pointer_x + piece_width < level.max_x:
-            empty_space = spawn_grid.get((pointer_x, pointer_y), True)
-            if empty_space:
-                piece_fits = cls._check_if_all_tiles_fit(
-                    spawn_grid, piece_height, piece_width, (pointer_x, pointer_y))
-
-                if piece_fits:
-                    return pointer_x, pointer_y
-
-            pointer_y += 1
-            if pointer_y + piece_height > level.max_y:
-                pointer_y = 0
-                pointer_x += 1
-
-        return False
-
-    @classmethod
-    def _check_if_all_tiles_fit(cls, spawn_grid, piece_height, piece_width, offset_coords):
-        offset_x, offset_y = offset_coords
-        for piece_x in range(0, piece_width):
-            for piece_y in range(0, piece_height):
-                tile_coords = (piece_x + offset_x, piece_y + offset_y)
-                if not spawn_grid.get(tile_coords, True):
-                    return False
-
-        return True
+    def _fill_empty_spaces(cls, level, rejected_tiles):
+        for coordinate in rejected_tiles:
+            level.add_tile(coordinate, cls.filler_tile)
