@@ -1,4 +1,5 @@
 import random
+
 from core.factories.router import route_to_factory
 
 

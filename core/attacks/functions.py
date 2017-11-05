@@ -2,7 +2,6 @@ import random
 
 from core.attacks import listing
 
-
 _attack_mapping = {attack.base_attack: attack for attack in listing}
 
 

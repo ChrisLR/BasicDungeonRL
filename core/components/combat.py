@@ -1,6 +1,6 @@
-from core.components.base import Component
 from bflib import attacks
 from bflib.tables.attackbonus import AttackBonusTable
+from core.components.base import Component
 
 
 class Combat(Component):

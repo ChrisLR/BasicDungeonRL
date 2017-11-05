@@ -1,5 +1,5 @@
-from core.gameobject import GameObject
 from core import components
+from core.gameobject import GameObject
 from core.outfits.outfitter import OutfitterService
 
 

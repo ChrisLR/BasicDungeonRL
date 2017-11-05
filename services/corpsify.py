@@ -1,6 +1,6 @@
 from bflib.items.base import Item
-from core.factories.items import ItemFactory
 from core import components
+from core.factories.items import ItemFactory
 from core.util.colors import Colors
 
 

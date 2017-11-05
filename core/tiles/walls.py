@@ -1,5 +1,5 @@
-from core.tiles.base import Tile
 from core.components.display import Display
+from core.tiles.base import Tile
 from core.util.colors import Colors
 
 

@@ -3,7 +3,6 @@ from clubsandwich.ui import (
     UIScene,
     SingleLineTextInputView,
     LabelView,
-    CyclingButtonView,
     ButtonView,
     LayoutOptions,
     WindowView,

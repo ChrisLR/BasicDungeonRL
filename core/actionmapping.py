@@ -1,6 +1,6 @@
-from core import actions
 from bearlibterminal import terminal
 
+from core import actions
 
 lowercase_mapping = {
     terminal.TK_KP_7: actions.WalkNW,

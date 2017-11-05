@@ -1,8 +1,9 @@
+import inspect
+
 from core.actions.base import Action
 from core.actions.bump import Bump
 from core.direction import Direction, move_direction_mapping
 from core.tiles.doors import Door
-import inspect
 
 
 class Walk(Action):

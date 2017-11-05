@@ -1,12 +1,9 @@
 from bearlibterminal import terminal
 from clubsandwich.director import DirectorLoop
 
-from core.game.context import GameContext
-from core.generators.testing import TestingGenerator
-from core.generators.goblincamp import GoblinCampGenerator
-from core.factories.monster import MonsterFactory
-from bflib.monsters import animals
 from core.displaypriority import DisplayPriority
+from core.game.context import GameContext
+from core.generators.goblincamp import GoblinCampGenerator
 
 
 class Game(object):

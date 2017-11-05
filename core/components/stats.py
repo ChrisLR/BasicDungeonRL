@@ -1,7 +1,8 @@
-from core.components.base import Component
+import copy
+
 from bflib.characters.abilityscores import \
     Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma, AbilityScoreSet
-import copy
+from core.components.base import Component
 
 
 class CharacterStats(Component):

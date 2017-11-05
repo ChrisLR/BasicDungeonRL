@@ -1,7 +1,8 @@
 import pytest
-from core import components
+
 from bflib import items
 from bflib.keywords.items import WearLocation, WieldLocation
+from core import components
 from core.factories.items import ItemFactory
 
 

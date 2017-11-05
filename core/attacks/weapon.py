@@ -1,8 +1,7 @@
-from bflib.items.weapons import types as weapon_types
 from bflib import attacks
 from core.attacks.base import MeleeAttack
-from services.echo.service import echo_service
 from services.echo import functions as echo_functions
+from services.echo.service import echo_service
 
 
 class WeaponAttack(MeleeAttack):

@@ -1,5 +1,5 @@
-from core.components import Component
 from bflib.dice import Dice
+from core.components import Component
 
 
 class CharacterClass(Component):

@@ -1,7 +1,7 @@
-from core.gameobject import GameObject
 from core import components
-from core.util.colors import Colors
 from core.displaypriority import DisplayPriority
+from core.gameobject import GameObject
+from core.util.colors import Colors
 
 
 class MonsterFactory(object):

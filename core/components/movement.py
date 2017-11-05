@@ -1,6 +1,6 @@
-from core.components.base import Component
 from bflib.movement import MovementSet
 from bflib.units import FeetPerGameTurn
+from core.components.base import Component
 
 
 class Movement(Component):

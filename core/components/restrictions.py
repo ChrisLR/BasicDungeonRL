@@ -1,5 +1,5 @@
-from core.components import Component
 from bflib.restrictions.set import RestrictionSet
+from core.components import Component
 
 
 class Restrictions(Component):

@@ -9,11 +9,11 @@ from clubsandwich.ui import (
 )
 
 from bflib.characters import classes
+from core.displaypriority import DisplayPriority
 from core.factories.character import CharacterFactory
+from core.util.colors import Colors
 from scenes.game.scene import GameScene
 from ui.controls import SelectableButtonView
-from core.util.colors import Colors
-from core.displaypriority import DisplayPriority
 
 
 class ClassSelectionScene(UIScene):
