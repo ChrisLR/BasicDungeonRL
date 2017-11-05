@@ -36,9 +36,6 @@ class GameScene(UIScene):
         for i in range(len(game_objects) - 1, -1, -1):
             game_object = game_objects[i]
             game_object.round_update()
-            if game_object.marked_for_removal:
-                current_level.remove(game_object)
-                continue
 
             if time_update_result.minute_updated:
                 game_object.minute_update()

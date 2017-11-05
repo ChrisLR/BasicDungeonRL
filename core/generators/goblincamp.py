@@ -2,10 +2,12 @@ from bflib.monsters import animals
 from core.factories.monster import MonsterFactory
 from core.generators.base import DesignPieceGenerator
 from core.generators.maps.goblincamp import huts
+from core.tiles import floors
 from core.world.level import Level
 
 
 class GoblinCampGenerator(DesignPieceGenerator):
+    filler_tile = floors.Grass
     pieces_with_percentage = [
         (50, huts.GoblinHut1),
         (50, huts.GoblinHut2),

@@ -2,11 +2,10 @@ from core.gameobject import GameObject
 
 
 class Level(GameObject):
-    __slots__ = ["actors", "displays", "tiles", "max_x", "max_y", "objects_by_coords"]
+    __slots__ = ["displays", "tiles", "max_x", "max_y", "objects_by_coords"]
 
     def __init__(self):
         super().__init__()
-        self.actors = []
         self.displays = {}
         self.tiles = {}
         self.max_x = 0
@@ -40,10 +39,6 @@ class Level(GameObject):
                 object_set = set()
                 self.objects_by_coords[coords] = object_set
             object_set.add(game_object)
-        #
-        # actor = game_object.actor
-        # if actor:
-        #     self.actors.append(game_object)
 
     def remove_object(self, game_object):
         display = game_object.display
@@ -55,11 +50,7 @@ class Level(GameObject):
             coords = location.get_local_coords()
             object_set = self.objects_by_coords.get(coords)
             if object_set:
-                del object_set[game_object]
-
-        actor = game_object.actor
-        if actor:
-            self.actors.remove(game_object)
+                object_set.remove(game_object)
 
     def add_tile(self, coordinates, tile):
         x, y = coordinates

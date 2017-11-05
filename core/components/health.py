@@ -1,5 +1,5 @@
 from core.components.base import Component
-from services import echo
+from services import echo, corpsify
 
 
 class Health(Component):
@@ -58,6 +58,8 @@ class Health(Component):
                     "{} is dead!".format(echo.name_or_you(self.host))
                 )
                 self.host.blocking = False
+                corpsify.turn_into_corpse(self.host)
+
 
     def update_hit_dice(self, new_hit_dice):
         current_hit_dice = self._hit_dices.get(type(new_hit_dice), None)
