@@ -12,13 +12,20 @@ class Door(Tile):
     closed_ascii = "+"
     opened_ascii = "-"
 
-    def __init__(self, opened=False):
+    def state_change(self, closed):
+        if closed:
+            self.blocking = True
+            self.opaque = True
+            self.display.ascii_character = self.closed_ascii
+        else:
+            self.blocking = False
+            self.opaque = False
+            self.display.ascii_character = self.opened_ascii
+
+    def __init__(self, closed=True):
         super().__init__()
-        self.opened = opened
-        self.blocking = True if not self.opened else False
-        self.opaque = True if not self.opened else False
+        self.register_component(Openable(closed, on_state_change_callback=self.state_change))
         self.display = self.display.copy()
-        self.display.ascii_character = self.closed_ascii if not self.opened else self.opened_ascii
 
 
 class DungeonDoor(Door):
@@ -29,4 +36,3 @@ class DungeonDoor(Door):
 class WoodenDoor(Door):
     name = "Dungeon Door"
     display = Display(Colors.BROWN, Colors.BLACK, "+")
-8

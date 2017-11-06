@@ -52,14 +52,14 @@ class Level(GameObject):
             if object_set:
                 object_set.remove(game_object)
 
-    def add_tile(self, coordinates, tile):
+    def add_tile(self, coordinates, tile_class):
         x, y = coordinates
         if x > self.max_x:
             self.max_x = x
         if y > self.max_y:
             self.max_y = y
 
-        self.tiles[coordinates] = tile
+        self.tiles[coordinates] = tile_class()
 
     def get_tile(self, coordinates):
         tile = self.tiles.get(coordinates, None)

@@ -8,7 +8,7 @@ class Tile(GameObject):
     display = None
 
     def __init__(self):
-        super().__init__(blocking=self.blocking)
+        super().__init__(blocking=self.blocking, name=self.name)
         self.content = []
 
     def add_content(self, game_object):

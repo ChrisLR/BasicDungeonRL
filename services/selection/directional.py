@@ -10,14 +10,14 @@ from services.selection.base import Selection
 
 class DirectionalSelection(Selection):
     @classmethod
-    def select(cls, requester, target_type):
-        return DirectionalView(partial(cls.select_targets, requester=requester, target_type=target_type))
+    def select(cls, requester, target_type, action_callback):
+        return DirectionalView(partial(cls.select_targets, requester=requester, target_type=target_type, action_callback=action_callback))
 
     @classmethod
-    def select_targets(cls, direction, requester, target_type):
+    def select_targets(cls, direction, requester, target_type, action_callback):
         origin = requester.location.get_local_coords()
         point_offset = move_direction_mapping.get(direction)
-        target_coordinates = origin + point_offset
+        target_coordinates = (origin[0] + point_offset[0], origin[1] + point_offset[1])
         level = requester.location.level
         possible_targets = level.get_objects_by_coordinates(target_coordinates)
 
@@ -27,10 +27,11 @@ class DirectionalSelection(Selection):
                 final_targets.append(target)
 
         tile = level.get_tile(target_coordinates)
-        if not target_type or isinstance(tile, target_type) or issubclass(tile, target_type):
-            final_targets.append(tile)
+        if tile:
+            if not target_type or isinstance(tile, target_type):
+                final_targets.append(tile)
 
-        return cls(final_targets)
+        action_callback(final_targets)
 
 
 class DirectionalView(UIScene):

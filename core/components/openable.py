@@ -3,17 +3,24 @@ from core.components.base import Component
 
 class Openable(Component):
     NAME = "openable"
-    __slots__ = ["closed"]
+    __slots__ = ["closed", "on_state_change_callback"]
 
-    def __init__(self, closed=True):
+    def __init__(self, closed=True, on_state_change_callback=None):
         super().__init__()
         self.closed = closed
+        self.on_state_change_callback = on_state_change_callback
 
     def open(self):
         self.closed = False
+        self.call_state_change()
 
     def close(self):
         self.closed = True
+        self.call_state_change()
+
+    def call_state_change(self):
+        if self.on_state_change_callback:
+            self.on_state_change_callback(self.closed)
 
     def copy(self):
         return Openable(self.closed)

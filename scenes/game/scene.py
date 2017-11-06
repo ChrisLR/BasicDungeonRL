@@ -24,11 +24,19 @@ class GameScene(UIScene):
         action = actionmapping.lowercase_mapping.get(val, None)
         if action:
             if action.target_selection_type:
-                self.director.push_scene(action.target_selection_type.select(
-                    self.game_context.player, action.target_type))
+                def execute(targets):
+                    if action.can_execute(self.game_context.player, targets):
+                        action.execute(self.game_context.player, targets)
+                        self.update_turn()
+
+                selection_screen = action.target_selection_type.select(
+                    self.game_context.player, action.target_type, execute)
+                self.director.push_scene(selection_screen)
+                return
+
             else:
-                action.can_execute(self.game_context.player)
-                action.execute(self.game_context.player)
+                if action.can_execute(self.game_context.player):
+                    action.execute(self.game_context.player)
 
         self.update_turn()
 

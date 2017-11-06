@@ -37,9 +37,8 @@ class Walk(Action):
         if tile is None:
             return False
 
-        if inspect.isclass(tile) and issubclass(tile, Door):
-            tile = tile(opened=True)
-            current_level.add_tile(new_coords, tile)
+        if tile.openable and tile.openable.closed:
+            tile.openable.open()
             return False
 
         if tile.blocking:
