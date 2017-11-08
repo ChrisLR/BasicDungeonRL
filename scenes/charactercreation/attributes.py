@@ -10,7 +10,7 @@ from clubsandwich.ui import (
 
 from bflib.characters.abilityscores import AbilityScoreSet
 from scenes.charactercreation.races import RaceSelectionScene
-from ui.controls.validatedintstepperview import ValidatedIntStepperView
+from ui.views.validatedintstepperview import ValidatedIntStepperView
 
 
 class AttributeSelectionScene(UIScene):

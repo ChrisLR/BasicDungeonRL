@@ -3,7 +3,6 @@ from functools import partial
 from clubsandwich.ui import (
     ButtonView,
     UIScene,
-    KeyAssignedListView,
     LayoutOptions,
     WindowView,
 )
@@ -13,7 +12,7 @@ from core.displaypriority import DisplayPriority
 from core.factories.character import CharacterFactory
 from core.util.colors import Colors
 from scenes.game.scene import GameScene
-from ui.controls import SelectableButtonView
+from ui.views import SelectableButtonView, KeyAssignedListView
 
 
 class ClassSelectionScene(UIScene):
@@ -35,7 +34,7 @@ class ClassSelectionScene(UIScene):
                 SelectableButtonView(
                     character_class.name, partial(self.set_character_class, character_class),
                     color_fg=self._inactive_fg if character_class in self.enabled_classes else self._disabled_fg
-            )
+                )
             for character_class in self.sorted_classes
         }
         self.class_choices = []

@@ -3,9 +3,9 @@ from clubsandwich.ui.misc_views import ButtonView
 
 class SelectableButtonView(ButtonView):
     def __init__(self, text, callback, align_horz='center', align_vert='center',
-                 color_fg='#ffffff', color_bg='#000000', size=None, selected_color='#efff14', *args, **kwargs):
-        super().__init__(text, callback, align_horz, align_vert,
-                         color_fg, color_bg, size, *args, **kwargs)
+                 color_fg='#ffffff', color_bg='#000000', size=None, selected_color='#efff14', **kwargs):
+        super().__init__(text, callback, align_horz=align_horz, align_vert=align_vert,
+                         color_fg=color_fg, color_bg=color_bg, size=size, **kwargs)
         self._selected = False
         self.selected_color = selected_color
         self.responder = False

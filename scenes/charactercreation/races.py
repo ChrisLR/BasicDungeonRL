@@ -2,7 +2,6 @@ from functools import partial
 
 from clubsandwich.ui import (
     UIScene,
-    KeyAssignedListView,
     ButtonView,
     LayoutOptions,
     WindowView,
@@ -10,7 +9,7 @@ from clubsandwich.ui import (
 
 from bflib.characters import races
 from scenes.charactercreation.classes import ClassSelectionScene
-from ui.controls import SelectableButtonView
+from ui.views import KeyAssignedListView, SelectableButtonView
 
 
 class RaceSelectionScene(UIScene):

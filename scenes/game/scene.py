@@ -1,10 +1,11 @@
 from clubsandwich.ui import LayoutOptions
-from clubsandwich.ui import UIScene, ScrollingTextView, WindowView
+from clubsandwich.ui import UIScene, WindowView
 
 from core import actionmapping
 from scenes.game.views.game import GameView
 from scenes.game.views.hud import HudView
 from services.echo.service import echo_service
+from ui.views import ScrollingTextView
 
 
 class GameScene(UIScene):
