@@ -1,5 +1,7 @@
+from clubsandwich.ui import UIScene, LabelView
+
 from services.selection.filters.base import SelectionFilter
-from clubsandwich.ui import UIScene, LabelView, KeyAssignedListView
+from ui.views import KeyAssignedListView
 
 
 class ListBasedSelectionFilter(SelectionFilter):
