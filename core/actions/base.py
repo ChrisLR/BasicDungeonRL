@@ -19,3 +19,5 @@ class Action(object):
 
     def recall_execute(self, character, selection=None):
         pass
+
+
