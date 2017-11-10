@@ -2,6 +2,7 @@ from clubsandwich.ui import LayoutOptions
 from clubsandwich.ui import UIScene, WindowView
 
 from core import actionmapping
+from core.actions.stack import ActionStack
 from scenes.game.views.game import GameView
 from scenes.game.views.hud import HudView
 from services.echo.service import echo_service
@@ -18,6 +19,7 @@ class GameScene(UIScene):
         game_context.game.new_game()
         self.game_view = GameView(game_context, layout_options=game_view_layout_options)
         self.game_context = game_context
+        game_context.action_stack = ActionStack(game_context.player)
         self.hud_view = HudView(game_context, layout_options=hud_view_layout_options)
         super().__init__(WindowView("", subviews=[self.hud_view, self.game_view, self.console]))
 
