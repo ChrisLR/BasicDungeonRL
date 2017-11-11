@@ -1,33 +1,31 @@
 class ActionStack(object):
     """
     Every action executed by the player will be added to this stack.
-    Every selection needed by this action will be stacked and filtered recursively.
+    Every selection needed by this action will be stacked and filtered.
     """
-    def __init__(self, game_object):
+    def __init__(self, game_object, update_turn_callback=None):
         self.game_object = game_object
-        self.actions = []
+        self.action_resolutions = []
+        self.update_turn_callback = update_turn_callback
 
     def add_action_to_stack(self, action):
-        self.actions.append((action, list()))
+        if action.target_selection_types:
+            self.action_resolutions.append(ActionResolution(action, self.game_object))
+        else:
+            self._start_action(ActionResolution(action, self.game_object))
 
     def update(self):
-        current_stack = self._get_current_stack(self.actions)
-        if not current_stack:
+        if not self.action_resolutions:
             return
 
-        resolution = self._get_current_resolution(current_stack)
-        if not resolution:
-            return
-
-        if not self._start_next_resolution(current_stack):
-            self._start_action(self.actions[-1], self.game_object, resolution)
-
-    @staticmethod
-    def _get_current_stack(actions):
-        if actions:
-            current_action, stack = actions[-1]
-
-            return stack
+        current_resolution = self.action_resolutions[-1]
+        current_resolution.update()
+        if current_resolution.finished_selection:
+            if current_resolution.finished_filter:
+                self._start_action(current_resolution)
+                self.action_resolutions.remove(current_resolution)
+                if not self.action_resolutions:
+                    self.update_turn_callback()
 
     @staticmethod
     def _get_current_resolution(stack):
@@ -42,6 +40,66 @@ class ActionStack(object):
         return False
 
     @staticmethod
-    def _start_action(action, game_object, last_resolution):
-        if action.can_execute(game_object, last_resolution):
-            action.execute(game_object, last_resolution)
+    def _start_action(action_resolution):
+        if action_resolution.can_execute_action:
+            action_resolution.execute_action()
+
+
+class ActionResolution(object):
+    __slots__ = ["action", "executor", "selections", "pending_filters", "targets"]
+
+    def __init__(self, action, executor):
+        self.action = action
+        self.executor = executor
+        self.targets = []
+        if action.target_filters:
+            self.pending_filters = [target_filter() for target_filter in action.target_filters]
+        else:
+            self.pending_filters = None
+
+        if action.target_selection_types:
+            self.selections = [selection(executor) for selection in action.target_selection_types]
+            self.start_next_selection()
+        else:
+            self.selections = None
+
+    @property
+    def can_execute_action(self):
+        if self.action.can_execute(self.executor, self.targets):
+            return True
+        return False
+
+    def execute_action(self):
+        self.action.execute(self.executor, self.targets)
+
+    @property
+    def finished_selection(self):
+        return len(self.selections) <= 0
+
+    @property
+    def finished_filter(self):
+        return len(self.pending_filters) <= 0
+
+    def update_filter(self):
+        current_filter = self.pending_filters[-1]
+        if current_filter.resolution:
+            self.targets = current_filter.resolution
+            self.pending_filters.pop(-1)
+            self.start_next_filter()
+
+    def start_next_filter(self):
+        self.pending_filters[-1].filter(self.targets)
+
+    def start_next_selection(self):
+        self.selections[-1].resolve(self.executor)
+
+    def update(self):
+        if self.selections:
+            resolution = self.selections[-1].resolution
+            if resolution:
+                self.targets.extend(resolution)
+                self.selections.pop(-1)
+                self.start_next_selection()
+        else:
+            if self.pending_filters:
+                self.update_filter()

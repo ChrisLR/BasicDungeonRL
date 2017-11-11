@@ -6,9 +6,12 @@ class Action(object):
 
     must_recall = False
     recall_delay = None
-    target_required = False
-    target_selection_type = None
-    target_type = None
+
+    #: Iterable of the selection classes required to execute this action
+    target_selection_types = None
+
+    #: Filters to apply on the targets previously acquired
+    target_filters = None
 
     def can_execute(self, character, selection=None):
         return True

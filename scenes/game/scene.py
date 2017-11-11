@@ -19,29 +19,19 @@ class GameScene(UIScene):
         game_context.game.new_game()
         self.game_view = GameView(game_context, layout_options=game_view_layout_options)
         self.game_context = game_context
-        game_context.action_stack = ActionStack(game_context.player)
+        game_context.action_stack = ActionStack(game_context.player, self.update_turn)
         self.hud_view = HudView(game_context, layout_options=hud_view_layout_options)
         super().__init__(WindowView("", subviews=[self.hud_view, self.game_view, self.console]))
+
+    def terminal_update(self, is_active=False):
+        super().terminal_update(is_active)
+        if is_active:
+            self.game_context.action_stack.update()
 
     def terminal_read(self, val):
         action = actionmapping.lowercase_mapping.get(val, None)
         if action:
-            if action.target_selection_type:
-                def execute(targets):
-                    if action.can_execute(self.game_context.player, targets):
-                        action.execute(self.game_context.player, targets)
-                        self.update_turn()
-
-                selection_screen = action.target_selection_type.select(
-                    self.game_context.player, action.target_type, execute)
-                self.director.push_scene(selection_screen)
-                return
-
-            else:
-                if action.can_execute(self.game_context.player):
-                    action.execute(self.game_context.player)
-
-        self.update_turn()
+            self.game_context.action_stack.add_action_to_stack(action)
 
     def update_turn(self):
         time_update_result = self.game_context.game_time.pass_turns()

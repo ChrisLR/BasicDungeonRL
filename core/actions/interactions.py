@@ -3,7 +3,7 @@ from services.selection import DirectionalSelection
 
 
 class Open(Action):
-    target_selection_type = DirectionalSelection
+    target_selection_types = DirectionalSelection,
 
     @classmethod
     def can_execute(cls, character, selection=None):
@@ -25,7 +25,7 @@ class Open(Action):
 
 
 class Close(Action):
-    target_selection_type = DirectionalSelection
+    target_selection_types = DirectionalSelection,
 
     @classmethod
     def can_execute(cls, character, selection=None):
@@ -47,7 +47,7 @@ class Close(Action):
 
 
 class Get(Action):
-    target_selection_type = DirectionalSelection
+    target_selection_types = DirectionalSelection,
 
     @classmethod
     def can_execute(cls, character, selection=None):

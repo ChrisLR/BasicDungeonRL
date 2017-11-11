@@ -8,19 +8,20 @@ class ListBasedSelectionFilter(SelectionFilter):
     """
     A Selection Filter using the type inheritance to filter.
     """
-    __slots__ = ["callback"]
 
-    def __init__(self, callback):
-        self.callback = callback
+    def __init__(self):
+        super().__init__()
+        self.view = None
 
     def filter(self, targets):
-        ListFilterView(targets, self.callback)
+        self.view = ListFilterView(targets)
+        self.view.director.push_scene(self.view)
 
 
 class ListFilterView(UIScene):
     covers_screen = False
 
-    def __init__(self, targets, selection_callback):
+    def __init__(self, targets):
         KeyAssignedListView()
         super().__init__([LabelView("Choose a direction.")])
         self.selection_callback = selection_callback

@@ -9,37 +9,35 @@ from services.selection.base import Selection
 
 
 class DirectionalSelection(Selection):
-    @classmethod
-    def select(cls, requester, target_type, action_callback):
-        return DirectionalView(partial(cls.select_targets, requester=requester, target_type=target_type, action_callback=action_callback))
+    def __init__(self, executor):
+        super().__init__(executor)
+        self.view = None
+
+    def resolve(self, executor):
+        self.view = DirectionalView(partial(self.select_targets, executor=executor))
+        self.view.director.push_scene(self.view)
 
     @classmethod
-    def select_targets(cls, direction, requester, target_type, action_callback):
-        origin = requester.location.get_local_coords()
-        point_offset = move_direction_mapping.get(direction)
+    def select_targets(cls, direction_action, executor):
+        origin = executor.location.get_local_coords()
+        point_offset = move_direction_mapping.get(direction_action)
         target_coordinates = (origin[0] + point_offset[0], origin[1] + point_offset[1])
-        level = requester.location.level
-        possible_targets = level.get_objects_by_coordinates(target_coordinates)
-
-        final_targets = []
-        for target in possible_targets:
-            if not target_type or isinstance(target, target_type) or issubclass(target, target_type):
-                final_targets.append(target)
+        level = executor.location.level
+        targets = level.get_objects_by_coordinates(target_coordinates)
 
         tile = level.get_tile(target_coordinates)
         if tile:
-            if not target_type or isinstance(tile, target_type):
-                final_targets.append(tile)
+            targets.append(tile)
 
-        action_callback(final_targets)
+        return targets
 
 
 class DirectionalView(UIScene):
     covers_screen = False
 
-    def __init__(self, selection_callback):
+    def __init__(self, selection):
         super().__init__([LabelView("Choose a direction.")])
-        self.selection_callback = selection_callback
+        self.selection = selection
 
     def terminal_read(self, val):
         action = actionmapping.lowercase_mapping.get(val, None)
@@ -47,5 +45,5 @@ class DirectionalView(UIScene):
             return
 
         if isinstance(action, Walk) or issubclass(action, Walk):
+            self.selection.select_targets(action)
             self.director.pop_scene()
-            self.selection_callback(action.direction)
