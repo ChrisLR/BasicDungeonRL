@@ -74,11 +74,11 @@ class ActionResolution(object):
 
     @property
     def finished_selection(self):
-        return len(self.selections) <= 0
+        return not self.selections
 
     @property
     def finished_filter(self):
-        return len(self.pending_filters) <= 0
+        return not self.pending_filters
 
     def update_filter(self):
         current_filter = self.pending_filters[-1]
@@ -91,7 +91,8 @@ class ActionResolution(object):
         self.pending_filters[-1].filter(self.targets)
 
     def start_next_selection(self):
-        self.selections[-1].resolve(self.executor)
+        if self.selections:
+            self.selections[-1].resolve()
 
     def update(self):
         if self.selections:

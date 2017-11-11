@@ -29,6 +29,7 @@ class GameScene(UIScene):
             self.game_context.action_stack.update()
 
     def terminal_read(self, val):
+        self.game_context.director = self.director
         action = actionmapping.lowercase_mapping.get(val, None)
         if action:
             self.game_context.action_stack.add_action_to_stack(action)
