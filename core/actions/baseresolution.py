@@ -42,7 +42,12 @@ class ActionResolution(object):
             if resolution:
                 self.targets.extend(resolution)
                 self.selections.pop(-1)
-                self._start_next_selection()
+                if self.selections:
+                    self._start_next_selection()
+                else:
+                    self._start_next_filter()
+
+
         else:
             if self.pending_filters:
                 self._update_filter()

@@ -1,5 +1,7 @@
+import functools
 from clubsandwich.ui import ButtonView, LabelView, UIScene
 
+from core.game.manager import game
 from services.selection.filters.base import SelectionFilter
 from ui.views import KeyAssignedListView, SelectableButtonView
 
@@ -15,7 +17,7 @@ class ListBasedSelectionFilter(SelectionFilter):
 
     def filter(self, targets):
         self.view = ListFilterView(self, targets)
-        self.view.director.push_scene(self.view)
+        game.game_context.director.push_scene(self.view)
 
 
 class ListFilterView(UIScene):
@@ -23,14 +25,19 @@ class ListFilterView(UIScene):
 
     def __init__(self, host_filter, targets):
         self.targets = targets
-        controls = [SelectableButtonView(target.name, self.select_object) for target in targets]
+        controls = [
+            SelectableButtonView(
+                target.name,
+                functools.partial(self.select_object, value=target)
+            )
+            for target in targets
+        ]
         super().__init__([
             LabelView("Select the items to get"),
             KeyAssignedListView(controls),
             ButtonView("Finish", self.finish)
         ])
         self.host_filter = host_filter
-        self.director.push_scene(self)
         self.selections = []
 
     def finish(self):
@@ -42,12 +49,3 @@ class ListFilterView(UIScene):
             self.selections.remove(value)
         else:
             self.selections.append(value)
-
-    def terminal_read(self, val):
-        action = actionmapping.lowercase_mapping.get(val, None)
-        if not action:
-            return
-
-        if isinstance(action, Walk) or issubclass(action, Walk):
-            self.director.pop_scene()
-            self.selection_callback(action.direction)

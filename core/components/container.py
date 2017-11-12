@@ -17,8 +17,9 @@ class Container(Component):
     def add_item(self, item):
         if self.weight_limit:
             total_weight = self.total_weight
-            if total_weight + item.weight.score > self.weight_limit:
-                return False
+            if item.weight:
+                if total_weight + item.weight.score > self.weight_limit:
+                    return False
 
         self.items_held.append(item)
 
