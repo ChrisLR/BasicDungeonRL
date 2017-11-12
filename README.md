@@ -2,13 +2,24 @@
 
 This is an open source roguelike based on the Basic Fantasy Rpg.
 
-# Requirements
-You will need Python 3, tested on 3.6 but should work with other versions.
-bearlibterminal
-clubsandwich -- Wheel included, in case other versions don't work.
-sortedcontainers
-tdl
+### Prerequisites
+* Python 3, tested on 3.6 but should work with other versions.
+* bearlibterminal
+* clubsandwich -- Wheel included, in case other versions don't work.
+* sortedcontainers
+* tdl
 
-There are two parts to this project, BFLib and the Core.
-BFLib is to remain mostly free of game logic so it can be reused in tools made only for BFRPG.
-The first goal of this project is to remain true to the official ruleset as much as possible with few modifications.
+## Authors
+
+* **Chris LR** - *Initial work* - [ChrisLR](https://github.com/ChrisLR)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Thanks to irskep for the clubsandwich lib! (https://github.com/irskep)
+
