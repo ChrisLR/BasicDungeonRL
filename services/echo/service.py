@@ -4,7 +4,8 @@ class EchoService(object):
         self.game_context = None
 
     def echo(self, message):
-        self.console.add_lines(message + "\n")
+        if self.console:
+            self.console.add_lines(message + "\n")
 
 
 echo_service = EchoService()

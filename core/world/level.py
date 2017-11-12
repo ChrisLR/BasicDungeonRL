@@ -69,7 +69,7 @@ class Level(GameObject):
         del self.tiles[coordinates]
 
     def get_objects_by_coordinates(self, coordinates):
-        return self.objects_by_coords.get(coordinates, [])
+        return self.objects_by_coords.get(coordinates, set())
 
     def adjust_coordinates_for_object(self, game_object, new_coordinates):
         old_coordinates = game_object.location.get_local_coords()

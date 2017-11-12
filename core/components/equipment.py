@@ -1,5 +1,6 @@
 from bflib import units
 from core.components import Component
+from services import echo
 
 
 class Equipment(Component):
@@ -102,6 +103,11 @@ class Equipment(Component):
                 location = self.empty_wield_locations.pop(0)
                 self.wielded_items[location] = item
                 hands -= 1
+
+            if echo.functions.is_player(self.host):
+                echo.echo_service.echo("You wield {}.".format(item.name))
+            else:
+                echo.echo_service.echo("{} wields {}.".format(self.host.name, item.name))
 
             return True
         return False

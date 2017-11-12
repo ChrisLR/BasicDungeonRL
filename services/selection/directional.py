@@ -27,7 +27,7 @@ class DirectionalSelection(Selection):
 
         tile = level.get_tile(target_coordinates)
         if tile:
-            targets.append(tile)
+            targets.add(tile)
 
         self.resolution = targets
 

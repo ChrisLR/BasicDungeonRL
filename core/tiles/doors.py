@@ -34,5 +34,5 @@ class DungeonDoor(Door):
 
 
 class WoodenDoor(Door):
-    name = "Dungeon Door"
+    name = "Wooden Door"
     display = Display(Colors.BROWN, Colors.BLACK, "+")
