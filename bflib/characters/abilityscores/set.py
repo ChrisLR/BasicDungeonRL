@@ -1,4 +1,5 @@
 from bflib.characters.abilityscores import Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma
+from bflib.util import max_if
 
 
 class AbilityScoreSet(object):
@@ -15,12 +16,12 @@ class AbilityScoreSet(object):
     @classmethod
     def from_merge(cls, first, other):
         return cls(
-            strength=max(first.strength, other.strength),
-            dexterity=max(first.dexterity, other.dexterity),
-            constitution=max(first.constitution, other.constitution),
-            intelligence=max(first.intelligence, other.intelligence),
-            wisdom=max(first.wisdom, other.wisdom),
-            charisma=max(first.charisma, other.charisma),
+            strength=max_if(first.strength, other.strength),
+            dexterity=max_if(first.dexterity, other.dexterity),
+            constitution=max_if(first.constitution, other.constitution),
+            intelligence=max_if(first.intelligence, other.intelligence),
+            wisdom=max_if(first.wisdom, other.wisdom),
+            charisma=max_if(first.charisma, other.charisma),
         )
 
     @classmethod

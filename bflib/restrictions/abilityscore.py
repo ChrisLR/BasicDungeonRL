@@ -1,4 +1,5 @@
 from bflib.restrictions.base import Restriction
+from bflib.util import merge_set_if_true
 
 
 class AbilityScoreRestrictionSet(Restriction):
@@ -11,8 +12,8 @@ class AbilityScoreRestrictionSet(Restriction):
     @classmethod
     def from_merge(cls, first, other):
         return cls(
-            minimum_set=type(first.minimum_set).from_merge(first.minimum_set, other.minimum_set),
-            maximum_set=type(first.maximum_set).from_merge(first.maximum_set, other.maximum_set),
+            minimum_set=merge_set_if_true(first.minimum_set, other.minimum_set),
+            maximum_set=merge_set_if_true(first.maximum_set, other.maximum_set),
         )
 
     def evaluate(self, ability_score_set):

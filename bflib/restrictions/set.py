@@ -1,3 +1,6 @@
+from bflib.util import merge_set_if_true
+
+
 class RestrictionSet(object):
     __slots__ = ["ability_score", "armor", "classes", "hit_dice_max_size", "weapons", "weapon_size"]
 
@@ -13,21 +16,10 @@ class RestrictionSet(object):
     @classmethod
     def from_merge(cls, first, other):
         return cls(
-            ability_score=cls._merge_if_true(first.ability_score, other.ability_score),
-            armor=cls._merge_if_true(first.armor, other.armor),
-            classes=cls._merge_if_true(first.classes, other.classes),
-            hit_dice_max_size=cls._merge_if_true(first.hit_dice_max_size, other.hit_dice_max_size),
-            weapons=cls._merge_if_true(first.weapons, other.weapons),
-            weapon_size=cls._merge_if_true(first.weapon_size, other.weapon_size),
+            ability_score=merge_set_if_true(first.ability_score, other.ability_score),
+            armor=merge_set_if_true(first.armor, other.armor),
+            classes=merge_set_if_true(first.classes, other.classes),
+            hit_dice_max_size=merge_set_if_true(first.hit_dice_max_size, other.hit_dice_max_size),
+            weapons=merge_set_if_true(first.weapons, other.weapons),
+            weapon_size=merge_set_if_true(first.weapon_size, other.weapon_size),
         )
-
-    @staticmethod
-    def _merge_if_true(set_1, set_2):
-        if set_1 and set_2:
-            return set_1.from_merge(set_2)
-        elif set_1 and not set_2:
-            return set_1
-        elif set_2 and not set_1:
-            return set_2
-        else:
-            return None
