@@ -1,7 +1,10 @@
 import abc
+import inspect
 import random
+from functools import total_ordering
 
 
+@total_ordering
 class Dice(object):
     __metaclass__ = abc.ABCMeta
     __slots__ = ["amount", "flat_bonus"]
@@ -30,6 +33,31 @@ class Dice(object):
         for dice in dice_listing:
             if dice.sides == sides:
                 return dice
+
+    def __int__(self):
+        return (self.sides * self.amount) + self.flat_bonus
+
+    def __eq__(self, other):
+        return int(self) == int(other)
+
+    def __lt__(self, other):
+        return int(self) < int(other)
+
+    @classmethod
+    def __eq__(cls, other):
+        if inspect.isclass(other):
+            if issubclass(other, Dice):
+                return cls.sides == other.sides
+
+        return cls.sides == int(other)
+
+    @classmethod
+    def __lt__(cls, other):
+        if inspect.isclass(other):
+            if issubclass(other, Dice):
+                return cls.sides < other.sides
+
+        return cls.sides < int(other)
 
 
 class D1(Dice):

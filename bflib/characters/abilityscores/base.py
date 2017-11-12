@@ -1,6 +1,8 @@
 import abc
+from functools import total_ordering
 
 
+@total_ordering
 class AbilityScore(object):
     __metaclass__ = abc.ABCMeta
     __slots__ = ["value"]
@@ -41,8 +43,17 @@ class AbilityScore(object):
     def __init__(self, value):
         self.value = value
 
+    def __int__(self):
+        return self.value
+
     def modifier(self, modifiers=0):
         return self._modifier_table[self.value + modifiers]
+
+    def __eq__(self, other):
+        return int(self) == int(other)
+
+    def __lt__(self, other):
+        return int(self) < int(other)
 
 
 class Strength(AbilityScore):

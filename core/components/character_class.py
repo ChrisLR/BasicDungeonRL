@@ -28,11 +28,13 @@ class CharacterClass(Component):
         hit_dices = [level.hit_dice for level in levels if level] if levels else None
         if not hit_dices:
             return None
+
         largest_hit_dice = max(hit_dices, key=lambda h: h.sides)
         restrictions = self.host.restrictions
-        if restrictions and restrictions.hit_dice_max_size \
-                and largest_hit_dice.sides > restrictions.hit_dice_max_size:
-            largest_hit_dice = Dice.get_by_sides(restrictions.hit_dice_max_size)
+        if restrictions and restrictions.hit_dice_max_size:
+            restricted_dice = restrictions.hit_dice_max_size.dice
+            if restricted_dice and largest_hit_dice > restricted_dice:
+                largest_hit_dice = restricted_dice
 
         return largest_hit_dice
 

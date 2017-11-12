@@ -1,3 +1,5 @@
+import inspect
+
 from core.components.base import Component
 from services import echo, corpsify
 
@@ -60,8 +62,10 @@ class Health(Component):
                 self.host.blocking = False
                 corpsify.turn_into_corpse(self.host)
 
-
     def update_hit_dice(self, new_hit_dice):
+        if inspect.isclass(new_hit_dice):
+            new_hit_dice = new_hit_dice(amount=1)
+
         current_hit_dice = self._hit_dices.get(type(new_hit_dice), None)
         if not current_hit_dice:
             self._hit_dices[type(new_hit_dice)] = new_hit_dice
