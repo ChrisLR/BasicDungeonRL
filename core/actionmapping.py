@@ -15,4 +15,5 @@ lowercase_mapping = {
     terminal.TK_C: actions.Close,
     terminal.TK_G: actions.Get,
     terminal.TK_W: actions.Wield,
+    terminal.TK_R: actions.Remove,
 }

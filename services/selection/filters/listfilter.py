@@ -1,5 +1,5 @@
 import functools
-from clubsandwich.ui import ButtonView, LabelView, UIScene
+from clubsandwich.ui import ButtonView, LabelView, UIScene, WindowView, LayoutOptions
 
 from core.game.manager import game
 from services.selection.filters.base import SelectionFilter
@@ -33,9 +33,16 @@ class ListFilterView(UIScene):
             for target in targets
         ]
         super().__init__([
-            LabelView("Select the items to get"),
-            KeyAssignedListView(controls),
-            ButtonView("Finish", self.finish)
+            WindowView(
+                "Select the items to get",
+                subviews=[
+                    KeyAssignedListView(controls, 64),
+                    ButtonView("Finish", self.finish, layout_options=LayoutOptions.row_bottom(0.2)),
+                ],
+                layout_options=LayoutOptions(width=0.5, left=0.3, height=0.9, right=None, bottom=None),
+            )
+
+
         ])
         self.host_filter = host_filter
         self.selections = []

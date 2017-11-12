@@ -6,6 +6,7 @@ from core.util.colors import Colors
 
 def turn_into_corpse(game_object):
     new_corpse = ItemFactory.create_new(Item)
+    new_corpse.name = "Corpse of " + game_object.name
     new_corpse.register_component(components.Corpse(game_object))
     new_corpse.display.ascii_character = '%'
     new_corpse.display.foreground_color = Colors.DARK_RED

@@ -21,7 +21,7 @@ class Equipment(Component):
 
         self.wear_locations = wear_locations
         self.wield_locations = wield_locations
-        self.empty_wield_locations = list(wear_locations)
+        self.empty_wield_locations = list(wield_locations)
 
         self.worn_items = {}
         self.wielded_items = {}

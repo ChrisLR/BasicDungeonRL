@@ -1,2 +1,3 @@
 from services.selection.directional import DirectionalSelection
 from services.selection.inventory import InventorySelection
+from services.selection.wearwieldselection import WieldedWornSelection

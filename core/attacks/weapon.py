@@ -1,4 +1,5 @@
 from bflib import attacks
+from bflib.dice import D4
 from core.attacks.base import MeleeAttack
 from services.echo import functions as echo_functions
 from services.echo.service import echo_service
@@ -16,14 +17,22 @@ class WeaponAttack(MeleeAttack):
     @classmethod
     def execute(cls, attacker, defender, attack_set):
         sorted_melee_weapons = cls._sort_melee_weapons_by_damage(attacker)
+
         for _ in range(1, attack_set.amount):
-            weapon = sorted_melee_weapons.pop()
-            if weapon is None:
-                return True
+            if sorted_melee_weapons:
+                weapon = sorted_melee_weapons.pop()
+                damage_dice = weapon.melee.melee_damage
+            else:
+                improvised_weapons = cls._get_improvised_weapons(attacker)
+                if not improvised_weapons:
+                    return True
+
+                weapon = improvised_weapons.pop()
+                damage_dice = D4(1)
 
             success = cls.make_melee_hit_roll(attacker, defender)
             if success:
-                damage = cls.make_melee_damage_roll(attacker, weapon.melee.melee_damage)
+                damage = cls.make_melee_damage_roll(attacker, damage_dice)
                 echo_message_success(attacker, defender, weapon, damage)
                 defender.health.take_damage(damage)
             else:
@@ -37,6 +46,10 @@ class WeaponAttack(MeleeAttack):
         melee_weapons.sort(key=lambda item: item.melee.melee_damage.sides * item.melee.melee_damage.amount)
 
         return melee_weapons
+
+    @staticmethod
+    def _get_improvised_weapons(attacker):
+        return [weapon for weapon in attacker.equipment.get_wielded_items()]
 
 
 def echo_message_success(attacker, defender, weapon, damage):
