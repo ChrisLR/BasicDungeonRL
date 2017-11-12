@@ -31,7 +31,9 @@ class Container(Component):
 
     @property
     def total_weight(self):
-        return sum([item.weight.score for item in self.items_held]) if self.items_held else units.Pound(0)
+        return sum(
+            [item.weight.score for item in self.items_held if item.weight]) \
+            if self.items_held else units.Pound(0)
 
     def copy(self):
         return Container(

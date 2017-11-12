@@ -1,6 +1,6 @@
 from core.actions.base import Action
-from services.selection import DirectionalSelection, filters
 from services import echo
+from services.selection import DirectionalSelection, filters
 
 
 class Open(Action):
@@ -58,7 +58,7 @@ class Close(Action):
 
 class Get(Action):
     target_selection_types = DirectionalSelection,
-    target_filters = filters.ListBasedSelectionFilter,
+    target_filters = filters.TileExclusionFilter, filters.ListBasedSelectionFilter,
 
     @classmethod
     def can_execute(cls, character, selection=None):

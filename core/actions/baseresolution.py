@@ -38,16 +38,14 @@ class ActionResolution(object):
         Updates the selection and filter resolutions.
         """
         if self.selections:
-            resolution = self.selections[-1].resolution
+            resolution = self.selections[0].resolution
             if resolution:
                 self.targets.extend(resolution)
-                self.selections.pop(-1)
+                self.selections.pop(0)
                 if self.selections:
                     self._start_next_selection()
                 else:
                     self._start_next_filter()
-
-
         else:
             if self.pending_filters:
                 self._update_filter()
@@ -88,10 +86,10 @@ class ActionResolution(object):
         """
         Updates top of the stack filter resolution.
         """
-        current_filter = self.pending_filters[-1]
+        current_filter = self.pending_filters[0]
         if current_filter.resolution:
             self.targets = current_filter.resolution
-            self.pending_filters.pop(-1)
+            self.pending_filters.pop(0)
             self._start_next_filter()
 
     def _start_next_filter(self):
@@ -99,11 +97,11 @@ class ActionResolution(object):
         Starts the next filter to resolve, if any.
         """
         if self.pending_filters:
-            self.pending_filters[-1].filter(self.targets)
+            self.pending_filters[0].filter(self.targets)
 
     def _start_next_selection(self):
         """
         Starts the next selection to resolve, if any.
         """
         if self.selections:
-            self.selections[-1].resolve()
+            self.selections[0].resolve()

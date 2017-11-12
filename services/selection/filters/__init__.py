@@ -1,2 +1,2 @@
 from services.selection.filters.listfilter import ListBasedSelectionFilter
-from services.selection.filters.typebased import TypeBasedFilter
+from services.selection.filters.tilefilter import TileExclusionFilter
