@@ -11,7 +11,7 @@ class KeyAssignedListView(SettingsListView):
         for value_control in value_controls:
             label_control_pairs.append((next(symbols, " "), value_control))
 
-        super().__init__(label_control_pairs, value_column_width=16, *args, **kwargs)
+        super().__init__(label_control_pairs, value_column_width=value_column_width, *args, **kwargs)
 
     def terminal_read(self, val):
         super().terminal_read(val)

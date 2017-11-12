@@ -1,5 +1,3 @@
-from functools import partial
-
 from clubsandwich.ui import UIScene, LabelView
 
 from core import actionmapping
