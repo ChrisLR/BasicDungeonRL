@@ -30,6 +30,7 @@ from core.components.specialcontainer import SpecialContainer
 from core.components.stats import CharacterStats
 from core.components.wearable import Wearable
 from core.components.weight import Weight
+from core.components.vision import Vision
 
 component_names = {
     Ammunition.NAME,
@@ -61,6 +62,7 @@ component_names = {
     Size.NAME,
     SpawnInfo.NAME,
     SpecialContainer.NAME,
+    Vision.NAME,
     Wearable.NAME,
     Weight.NAME,
 }

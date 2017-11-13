@@ -22,6 +22,7 @@ class GameScene(UIScene):
         game_context.action_stack = ActionStack(game_context.player, self.update_turn)
         self.hud_view = HudView(game_context, layout_options=hud_view_layout_options)
         super().__init__(WindowView("", subviews=[self.hud_view, self.game_view, self.console]))
+        self.game_context.player.vision.update_field_of_vision()
 
     def terminal_update(self, is_active=False):
         super().terminal_update(is_active)
@@ -51,3 +52,5 @@ class GameScene(UIScene):
 
             if time_update_result.days_updated:
                 game_object.days_update()
+
+        self.game_context.player.vision.update_field_of_vision()

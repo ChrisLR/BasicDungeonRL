@@ -31,6 +31,7 @@ class ActionStack(object):
             self.action_resolutions.append(ActionResolution(action, self.game_object))
         else:
             self._start_action(ActionResolution(action, self.game_object))
+            self.update_turn_callback()
 
     def update(self):
         """

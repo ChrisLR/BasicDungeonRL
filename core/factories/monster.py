@@ -21,4 +21,5 @@ class MonsterFactory(object):
                                                   Colors.BLACK,
                                                   monster_type.name[0],
                                                   DisplayPriority.Enemy))
+
         return new

@@ -1,4 +1,3 @@
-import tdl
 from clubsandwich.geom import Point, Size
 from clubsandwich.ui import RectView
 
@@ -15,21 +14,11 @@ class GameView(RectView):
 
     def draw(self, ctx):
         player = self.game_context.player
-        current_level = player.location.level
         self.camera.focus_on_game_object()
 
-        player_x = player.location.local_x
-        player_y = player.location.local_y
-
-        def is_transparent_callback(x, y):
-            if x <= 0 or y <= 0:
-                return False
-            return self.is_transparent(current_level, x, y)
-
-        fov = tdl.map.quickFOV(player_x, player_y, is_transparent_callback, 'basic')
-
-        self.draw_tiles(fov, ctx)
-        self.draw_displays(fov, ctx)
+        if player.vision.fov:
+            self.draw_tiles(player.vision.fov, ctx)
+            self.draw_displays(player.vision.fov, ctx)
 
     def draw_tiles(self, viewer_fov, ctx):
         current_level = self.camera.location.level
@@ -57,9 +46,3 @@ class GameView(RectView):
                             game_object.display.get_draw_info()
                         )
 
-    @staticmethod
-    def is_transparent(level, x, y):
-        tile = level.get_tile((x, y))
-        if tile and tile.opaque:
-            return False
-        return True
