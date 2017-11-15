@@ -4,6 +4,7 @@ from bflib.characters.classes.fighter import Fighter
 from bflib.monsters import listing
 from bflib.monsters.animals.base import Animal
 from bflib.monsters.appearingset import AppearingSet
+from bflib.sizes import Size
 from bflib.tables.attackbonus import AttackBonusTable
 
 
@@ -24,4 +25,6 @@ class CarnivorousApe(Primate):
     movement = movement.MovementSet(walk=units.FeetPerGameTurn(40))
     no_appearing = AppearingSet(dice_dungeon=dice.D6(1), dice_wild=dice.D4(2), dice_lair=dice.D4(2))
     save_as = Fighter.level_table.levels[hit_dice.amount].saving_throws_set
+    size = Size.Large
+    weight = units.Pound(350)
     xp = 240

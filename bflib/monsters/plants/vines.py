@@ -5,6 +5,7 @@ from bflib.characters.classes.fighter import Fighter
 from bflib.monsters import listing
 from bflib.monsters.appearingset import AppearingSet
 from bflib.monsters.plants.base import Plant
+from bflib.sizes import Size
 from bflib.tables.attackbonus import AttackBonusTable
 from bflib.treasuretypes import TreasureType
 
@@ -26,5 +27,7 @@ class AssassinVine(Plant):
     movement = movement.MovementSet(walk=units.FeetPerGameTurn(5))
     no_appearing = AppearingSet(dice_dungeon=dice.D4(1, 1))
     save_as = Fighter.level_table.levels[hit_dice.amount].saving_throws_set
+    size = Size.Small
     treasure_type = TreasureType.U
+    weight = units.Pound(15)
     xp = 500

@@ -6,6 +6,7 @@ from bflib.characters.classes.fighter import Fighter
 from bflib.monsters import listing
 from bflib.monsters.appearingset import AppearingSet
 from bflib.monsters.reptilians.base import Reptilian
+from bflib.sizes import Size
 from bflib.tables.attackbonus import AttackBonusTable
 from bflib.treasuretypes import TreasureType
 
@@ -23,6 +24,8 @@ class Basilisk(Reptilian):
     movement = movement.MovementSet(walk=units.FeetPerGameTurn(20), turning_distance=units.Feet(10))
     no_appearing = AppearingSet(dice_dungeon=dice.D6(1), dice_wild=dice.D6(1), dice_lair=dice.D6(1))
     save_as = Fighter.level_table.levels[hit_dice.amount].saving_throws_set
+    size = Size.Large
     special_abilities = specialabilities.CombatFrenzy,
     treasure_type = TreasureType.F
+    weight = units.Pound(300)
     xp = 610

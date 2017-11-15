@@ -6,6 +6,7 @@ from bflib.monsters import listing
 from bflib.monsters.appearingset import AppearingSet
 from bflib.monsters.humanoids.base import Humanoid
 from bflib.tables.attackbonus import AttackBonusTable
+from bflib.sizes import Size
 
 
 @listing.register_type
@@ -22,4 +23,6 @@ class Goblin(Humanoid):
     no_appearing = AppearingSet(dice_dungeon=dice.D4(2), dice_wild=dice.D10(6), dice_lair=dice.D10(6))
     save_as = Fighter.level_table.levels[hit_dice.amount].saving_throws_set
     special_abilities = SpecialAbilitySet((Darkvision,))
+    size = Size.Small
+    weight = units.Pound(45)
     xp = 10

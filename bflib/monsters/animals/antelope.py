@@ -4,6 +4,7 @@ from bflib.characters.classes.fighter import Fighter
 from bflib.monsters import listing
 from bflib.monsters.animals.base import Animal
 from bflib.monsters.appearingset import AppearingSet
+from bflib.sizes import Size
 from bflib.tables.attackbonus import AttackBonusTable
 
 
@@ -24,6 +25,8 @@ class Auroch(Antelope):
     movement = movement.MovementSet(walk=units.FeetPerGameTurn(80), turning_distance=units.Feet(10))
     no_appearing = AppearingSet(dice_wild=dice.D10(3))
     save_as = Fighter.level_table.levels[hit_dice.amount].saving_throws_set
+    size = Size.Large
+    weight = units.Pound(1000)
     xp = 75
 
 
@@ -39,6 +42,8 @@ class Bison(Antelope):
     movement = movement.MovementSet(walk=units.FeetPerGameTurn(80), turning_distance=units.Feet(10))
     no_appearing = AppearingSet(dice_wild=dice.D10(3))
     save_as = Fighter.level_table.levels[hit_dice.amount].saving_throws_set
+    size = Size.Large
+    weight = units.Pound(1366)
     xp = 240
 
 
@@ -54,6 +59,8 @@ class Deer(Antelope):
     movement = movement.MovementSet(walk=units.FeetPerGameTurn(80), turning_distance=units.Feet(10))
     no_appearing = AppearingSet(dice_wild=dice.D10(3))
     save_as = Fighter.level_table.levels[hit_dice.amount].saving_throws_set
+    size = Size.Medium
+    weight = units.Pound(220)
     xp = 25
 
 
@@ -69,4 +76,6 @@ class Moose(Antelope):
     movement = movement.MovementSet(walk=units.FeetPerGameTurn(80), turning_distance=units.Feet(10))
     no_appearing = AppearingSet(dice_wild=dice.D10(3))
     save_as = Fighter.level_table.levels[hit_dice.amount].saving_throws_set
+    size = Size.Large
+    weight = units.Pound(1190)
     xp = 145

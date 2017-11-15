@@ -5,6 +5,7 @@ from bflib.characters.classes.fighter import Fighter
 from bflib.monsters import listing
 from bflib.monsters.appearingset import AppearingSet
 from bflib.monsters.insects.base import Insect
+from bflib.sizes import Size
 from bflib.tables.attackbonus import AttackBonusTable
 from bflib.treasuretypes import TreasureType
 
@@ -26,6 +27,8 @@ class GiantBombardierBeetle(Beetle):
     movement = movement.MovementSet(walk=units.FeetPerGameTurn(10), fly=units.Feet(50))
     no_appearing = AppearingSet(dice_dungeon=dice.D6(1), dice_wild=dice.D6(1), dice_lair=dice.D6(5))
     save_as = Fighter.level_table.levels[hit_dice.amount].saving_throws_set
+    size = Size.Small
     special_abilities = specialabilities.CombatFrenzy,
     treasure_type = TreasureType.Special
+    weight = units.Pound(50)
     xp = 13

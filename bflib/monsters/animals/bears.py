@@ -7,6 +7,7 @@ from bflib.characters.specialabilities.set import SpecialAbilitySet
 from bflib.monsters import listing
 from bflib.monsters.animals.base import Animal
 from bflib.monsters.appearingset import AppearingSet
+from bflib.sizes import Size
 from bflib.tables.attackbonus import AttackBonusTable
 
 
@@ -34,6 +35,8 @@ class BlackBear(Bear):
     no_appearing = AppearingSet(dice_dungeon=dice.D4(1), dice_wild=dice.D4(1), dice_lair=dice.D4(1))
     save_as = Fighter.level_table.levels[hit_dice.amount].saving_throws_set
     special_abilities = SpecialAbilitySet((LastBreath,))
+    size = Size.Large
+    weight = units.Pound(200)
     xp = 240
 
 
@@ -56,6 +59,8 @@ class CaveBear(Bear):
     no_appearing = AppearingSet(dice_dungeon=dice.D2(1), dice_wild=dice.D2(1), dice_lair=dice.D2(1))
     save_as = Fighter.level_table.levels[hit_dice.amount].saving_throws_set
     special_abilities = SpecialAbilitySet((LastBreath,))
+    size = Size.Large
+    weight = units.Pound(991)
     xp = 670
 
 
@@ -78,6 +83,8 @@ class GrizzlyBear(Bear):
     no_appearing = AppearingSet(dice_dungeon=dice.D1(1), dice_wild=dice.D4(1), dice_lair=dice.D4(1))
     save_as = Fighter.level_table.levels[hit_dice.amount].saving_throws_set
     special_abilities = SpecialAbilitySet((LastBreath,))
+    size = Size.Large
+    weight = units.Pound(595)
     xp = 360
 
 
@@ -100,4 +107,6 @@ class PolarBear(Bear):
     no_appearing = AppearingSet(dice_dungeon=dice.D1(1), dice_wild=dice.D2(1), dice_lair=dice.D2(1))
     save_as = Fighter.level_table.levels[hit_dice.amount].saving_throws_set
     special_abilities = SpecialAbilitySet((LastBreath,))
+    size = Size.Large
+    weight = units.Pound(992)
     xp = 500
