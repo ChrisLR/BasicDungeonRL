@@ -9,7 +9,7 @@ from core.factories.recipes.items.base import ItemRecipe
 @listing.register
 class ContainerRecipe(Recipe):
     name = "Base Container Recipe"
-    base_item_type = Container
+    base_object_type = Container
     depends_on = [ItemRecipe]
 
     @staticmethod
@@ -29,7 +29,7 @@ class ContainerRecipe(Recipe):
 @listing.register
 class LiquidContainerRecipe(Recipe):
     name = "Base Liquid Container Recipe"
-    base_item_type = LiquidContainer
+    base_object_type = LiquidContainer
     depends_on = [ItemRecipe]
 
     @staticmethod
@@ -48,7 +48,7 @@ class LiquidContainerRecipe(Recipe):
 @listing.register
 class SpecialContainerRecipe(Recipe):
     name = "Base Special Container Recipe"
-    base_item_type = SpecialContainer
+    base_object_type = SpecialContainer
     depends_on = [ItemRecipe]
 
     @staticmethod

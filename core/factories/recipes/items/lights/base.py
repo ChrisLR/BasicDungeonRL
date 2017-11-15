@@ -9,7 +9,7 @@ from core.factories.recipes.items.base import ItemRecipe
 @listing.register
 class LightRecipe(Recipe):
     name = "Base Light Recipe"
-    base_item_type = LightItem
+    base_object_type = LightItem
     depends_on = [ItemRecipe]
 
     @staticmethod

@@ -10,7 +10,7 @@ from core.util.colors import Colors
 @listing.register
 class ItemRecipe(Recipe):
     name = "Base Item Recipe"
-    base_item_type = Item
+    base_object_type = Item
     depends_on = []
 
     @staticmethod

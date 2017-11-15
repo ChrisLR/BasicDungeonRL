@@ -10,7 +10,7 @@ from core.factories.recipes.items.base import ItemRecipe
 @listing.register
 class MeleeWeaponRecipe(Recipe):
     name = "Base Melee Weapon Recipe"
-    base_item_type = MeleeWeapon
+    base_object_type = MeleeWeapon
     depends_on = [ItemRecipe]
 
     @staticmethod
