@@ -17,33 +17,19 @@ class MonsterRecipe(Recipe):
     def build_components(monster_type):
         name = monster_type.name if monster_type.name else monster_type.__name__
 
-        # TODO This is the basic attributes of a monster.
-        # TODO We need to find a way to translate this to core game terms.
-        # attack_bonus = 0
-        # attack_sets = []
-        # base_armor_class = 0
-        # carry_capacity = CarryCapacity
-        # hit_dice = dice.Dice
-        # morale = 0
-        # movement = movement.MovementSet
-        # no_appearing = AppearingSet
-        # save_as = Fighter.level_table.levels[1].saving_throws_set
-        # special_abilities = specialabilities.SpecialAbilitySet
-        # treasure_type = TreasureType
-        # xp = 0
-
-
-        # new_components = [
-        #     components.Size(item_type.size),
-        #     components.Weight(item_type.weight),
-        #     components.Location(),
-        #     components.Display(Colors.GRAY, Colors.BLACK, name[0], DisplayPriority.Item),
-        # ]
-        #
-        # if item_type.price:
-        #     new_components.append(components.Sellable(item_type.price))
-        #
-        # if item_type.wear_locations:
-        #     new_components.append(components.Wearable(item_type.wear_locations))
+        new_components = [
+            components.Display(Colors.RED, Colors.BLACK, name[0], DisplayPriority.Enemy),
+            components.Location(),
+            components.Monster(monster_type),
+            components.Health(),
+            components.Combat(),
+            components.Size(monster_type.size),
+            components.SavingThrows(monster_type.save_as),
+            components.SpawnInfo(monster_type.no_appearing),
+            components.Morale(monster_type.morale),
+            components.Money(),
+            components.Movement(monster_type.movement),
+            components.Weight(monster_type.weight),
+        ]
 
         return new_components

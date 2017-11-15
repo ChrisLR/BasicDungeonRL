@@ -42,13 +42,16 @@ class Combat(Component):
             class_attack_bonus = self.host.character_class.get_attack_bonus(level)
             return class_attack_bonus
 
+        if self.host.monster:
+            return self.host.monster.attack_bonus
+
         return AttackBonusTable.get_by_hit_dice(self.host.health.total_hit_dice_value)
 
     @property
     def armor_class(self):
         total_armor_class = 0
         if self.host.monster:
-            total_armor_class += self.host.monster.base_monster.base_armor_class
+            total_armor_class += self.host.monster.base_armor_class
 
         if self.host.equipment:
             total_armor_class += self.host.equipment.get_total_armor_class()
