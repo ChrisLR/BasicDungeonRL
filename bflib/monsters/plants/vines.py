@@ -1,16 +1,20 @@
-import dice
-import movement
-import units
+from bflib import dice, movement, units
 from bflib.attacks import AttackSet, Crush
-from bflib.characters import specialabilities
+from bflib.attacks.specialproperties import CrushingEntanglement
 from bflib.characters.classes.fighter import Fighter
+from bflib.monsters import listing
 from bflib.monsters.appearingset import AppearingSet
 from bflib.monsters.plants.base import Plant
 from bflib.tables.attackbonus import AttackBonusTable
 from bflib.treasuretypes import TreasureType
-from bflib.attacks.specialproperties import CrushingEntanglement
 
 
+@listing.register_type
+class Vine(Plant):
+    pass
+
+
+@listing.register_monster
 class AssassinVine(Plant):
     name = "Assassin Vine"
     hit_dice = dice.D8(6)

@@ -1,14 +1,19 @@
-from bflib import dice
-from bflib import movement
-from bflib import units
+from bflib import dice, movement, units
 from bflib.attacks import AttackSet, Headbutt
 from bflib.characters.classes.fighter import Fighter
+from bflib.monsters import listing
 from bflib.monsters.animals.base import Animal
 from bflib.monsters.appearingset import AppearingSet
 from bflib.tables.attackbonus import AttackBonusTable
 
 
-class Auroch(Animal):
+@listing.register_type
+class Antelope(Animal):
+    pass
+
+
+@listing.register_monster
+class Auroch(Antelope):
     name = "Auroch"
     hit_dice = dice.D8(2)
     attack_bonus = AttackBonusTable.get_by_hit_dice(hit_dice.amount)
@@ -22,7 +27,8 @@ class Auroch(Animal):
     xp = 75
 
 
-class Bison(Animal):
+@listing.register_monster
+class Bison(Antelope):
     name = "Bison"
     hit_dice = dice.D8(4)
     attack_bonus = AttackBonusTable.get_by_hit_dice(hit_dice.amount)
@@ -36,7 +42,8 @@ class Bison(Animal):
     xp = 240
 
 
-class Deer(Animal):
+@listing.register_monster
+class Deer(Antelope):
     name = "Deer"
     hit_dice = dice.D8(1)
     attack_bonus = AttackBonusTable.get_by_hit_dice(hit_dice.amount)
@@ -50,7 +57,8 @@ class Deer(Animal):
     xp = 25
 
 
-class Moose(Animal):
+@listing.register_monster
+class Moose(Antelope):
     name = "Moose"
     hit_dice = dice.D8(3)
     attack_bonus = AttackBonusTable.get_by_hit_dice(hit_dice.amount)

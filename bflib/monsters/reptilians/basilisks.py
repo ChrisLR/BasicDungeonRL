@@ -1,17 +1,18 @@
-import dice
-import movement
-import units
+from bflib import dice, movement, units
 from bflib.attacks import AttackSet, Bite, Gaze
+from bflib.attacks import specialproperties
 from bflib.characters import specialabilities
 from bflib.characters.classes.fighter import Fighter
+from bflib.monsters import listing
 from bflib.monsters.appearingset import AppearingSet
-from bflib.monsters.insects.base import Insect
+from bflib.monsters.reptilians.base import Reptilian
 from bflib.tables.attackbonus import AttackBonusTable
 from bflib.treasuretypes import TreasureType
-from bflib.attacks import specialproperties
 
 
-class Basilisk(Insect):
+@listing.register_type
+@listing.register_monster
+class Basilisk(Reptilian):
     name = "Basilisk"
     hit_dice = dice.D8(6)
 

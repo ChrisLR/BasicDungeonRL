@@ -1,17 +1,22 @@
-from bflib import dice
-from bflib import movement
-from bflib import units
+from bflib import dice, movement, units
 from bflib.attacks import AttackChain, AttackSet, Bite, Claw, Crush
 from bflib.attacks import specialproperties
 from bflib.characters.classes.fighter import Fighter
 from bflib.characters.specialabilities import LastBreath
 from bflib.characters.specialabilities.set import SpecialAbilitySet
+from bflib.monsters import listing
 from bflib.monsters.animals.base import Animal
 from bflib.monsters.appearingset import AppearingSet
 from bflib.tables.attackbonus import AttackBonusTable
 
 
-class BlackBear(Animal):
+@listing.register_type
+class Bear(Animal):
+    pass
+
+
+@listing.register_monster
+class BlackBear(Bear):
     name = "Black Bear"
     hit_dice = dice.D8(4)
     attack_bonus = AttackBonusTable.get_by_hit_dice(hit_dice.amount)
@@ -32,7 +37,8 @@ class BlackBear(Animal):
     xp = 240
 
 
-class CaveBear(Animal):
+@listing.register_monster
+class CaveBear(Bear):
     name = "Cave Bear"
     hit_dice = dice.D8(7)
     attack_bonus = AttackBonusTable.get_by_hit_dice(hit_dice.amount)
@@ -53,7 +59,8 @@ class CaveBear(Animal):
     xp = 670
 
 
-class GrizzlyBear(Animal):
+@listing.register_monster
+class GrizzlyBear(Bear):
     name = "Grizzly Bear"
     hit_dice = dice.D8(5)
     attack_bonus = AttackBonusTable.get_by_hit_dice(hit_dice.amount)
@@ -74,7 +81,8 @@ class GrizzlyBear(Animal):
     xp = 360
 
 
-class PolarBear(Animal):
+@listing.register_monster
+class PolarBear(Bear):
     name = "Polar Bear"
     hit_dice = dice.D8(6)
     attack_bonus = AttackBonusTable.get_by_hit_dice(hit_dice.amount)

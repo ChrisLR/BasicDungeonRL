@@ -1,17 +1,21 @@
-import dice
-import movement
-import units
-from bflib.attacks import AttackSet, Bite, Sting
-from bflib.attacks import specialproperties
+from bflib import dice, movement, units
+from bflib.attacks import AttackSet, Bite
 from bflib.characters import specialabilities
 from bflib.characters.classes.fighter import Fighter
+from bflib.monsters import listing
 from bflib.monsters.appearingset import AppearingSet
 from bflib.monsters.insects.base import Insect
 from bflib.tables.attackbonus import AttackBonusTable
 from bflib.treasuretypes import TreasureType
 
 
-class GiantBombardierBeetle(Insect):
+@listing.register_type
+class Beetle(Insect):
+    pass
+
+
+@listing.register_monster
+class GiantBombardierBeetle(Beetle):
     name = "Giant Bombardier Beetle"
     hit_dice = dice.D8(2)
 

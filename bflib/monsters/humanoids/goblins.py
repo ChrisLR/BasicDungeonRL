@@ -1,14 +1,15 @@
-from bflib import dice
-from bflib import movement
-from bflib import units
+from bflib import dice, movement, units
 from bflib.characters.classes.fighter import Fighter
 from bflib.characters.specialabilities import Darkvision
 from bflib.characters.specialabilities.set import SpecialAbilitySet
+from bflib.monsters import listing
 from bflib.monsters.appearingset import AppearingSet
 from bflib.monsters.humanoids.base import Humanoid
 from bflib.tables.attackbonus import AttackBonusTable
 
 
+@listing.register_type
+@listing.register_monster
 class Goblin(Humanoid):
     name = "Goblin"
     hit_dice = dice.D1(1)

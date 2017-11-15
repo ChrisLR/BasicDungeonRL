@@ -1,14 +1,19 @@
-from bflib import dice
-from bflib import movement
-from bflib import units
+from bflib import dice, movement, units
 from bflib.attacks import AttackSet, Claw
 from bflib.characters.classes.fighter import Fighter
+from bflib.monsters import listing
 from bflib.monsters.animals.base import Animal
 from bflib.monsters.appearingset import AppearingSet
 from bflib.tables.attackbonus import AttackBonusTable
 
 
-class CarnivorousApe(Animal):
+@listing.register_type
+class Primate(Animal):
+    pass
+
+
+@listing.register_monster
+class CarnivorousApe(Primate):
     name = "Carnivorous Ape"
     hit_dice = dice.D8(4)
     attack_bonus = AttackBonusTable.get_by_hit_dice(hit_dice.amount)

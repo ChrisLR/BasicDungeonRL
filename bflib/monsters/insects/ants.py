@@ -1,6 +1,4 @@
-from bflib import dice
-from bflib import movement
-from bflib import units
+from bflib import dice, movement, units
 from bflib.attacks import AttackSet, Bite
 from bflib.characters import specialabilities
 from bflib.characters.classes.fighter import Fighter
@@ -8,9 +6,16 @@ from bflib.monsters.appearingset import AppearingSet
 from bflib.monsters.insects.base import Insect
 from bflib.tables.attackbonus import AttackBonusTable
 from bflib.treasuretypes import TreasureType
+from bflib.monsters import listing
 
 
-class GiantAnt(Insect):
+@listing.register_type
+class Ant(Insect):
+    pass
+
+
+@listing.register_monster
+class GiantAnt(Ant):
     name = "Giant Ant"
     hit_dice = dice.D8(4)
 

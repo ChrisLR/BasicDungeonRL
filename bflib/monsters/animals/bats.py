@@ -1,13 +1,14 @@
-from bflib import dice
-from bflib import movement
-from bflib import units
+from bflib import dice, movement, units
 from bflib.attacks import AttackSet, Bite, ConfusionBySwarm
 from bflib.characters.classes.fighter import Fighter
+from bflib.monsters import listing
 from bflib.monsters.animals.base import Animal
 from bflib.monsters.appearingset import AppearingSet
 from bflib.tables.attackbonus import AttackBonusTable
 
 
+@listing.register_type
+@listing.register_monster
 class Bat(Animal):
     name = "Bat"
     hit_dice = dice.D1(1)
@@ -22,7 +23,8 @@ class Bat(Animal):
     xp = 10
 
 
-class GiantBat(Animal):
+@listing.register_monster
+class GiantBat(Bat):
     name = "Giant Bat"
     hit_dice = dice.D8(2)
     attack_bonus = AttackBonusTable.get_by_hit_dice(hit_dice.amount)
