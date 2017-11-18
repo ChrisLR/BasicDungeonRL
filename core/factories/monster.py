@@ -1,25 +1,31 @@
-from core import components
-from core.displaypriority import DisplayPriority
+from core.factories.recipes import listing
 from core.gameobject import GameObject
-from core.util.colors import Colors
 
 
 class MonsterFactory(object):
     @classmethod
-    def create_new(cls, monster_type):
-        new = GameObject(blocking=True, name=monster_type.name)
-        new.register_component(components.Monster(monster_type))
-        new.register_component(components.Health())
-        new.register_component(components.Combat())
-        new.register_component(components.Morale(monster_type.morale))
-        new.register_component(components.Movement(monster_type.movement))
-        new.register_component(components.SpawnInfo(monster_type.no_appearing))
-        new.register_component(components.SavingThrows(monster_type.save_as))
-        new.register_component(components.Money())
-        new.register_component(components.Location())
-        new.register_component(components.Display(Colors.RED,
-                                                  Colors.BLACK,
-                                                  monster_type.name[0],
-                                                  DisplayPriority.Enemy))
+    def create_new(cls, base_monster):
+        try:
+            recipe = listing.get_recipe(base_monster)
+            if recipe is None:
+                raise Exception("Found no recipes for monster {}".format(base_monster))
+
+            item_components = cls.get_recursive_components(base_monster, recipe)
+            new = GameObject(blocking=True, name=base_monster.name)
+            for component in item_components:
+                new.register_component(component)
+        except Exception as exception:
+            raise
 
         return new
+
+    @classmethod
+    def get_recursive_components(cls, base_monster, recipe, result_components=None):
+        if result_components is None:
+            result_components = []
+
+        result_components.extend(recipe.build_components(base_monster))
+        for required_recipe in recipe.depends_on:
+            cls.get_recursive_components(base_monster, required_recipe, result_components)
+
+        return result_components

@@ -13,5 +13,9 @@ def register(recipe_type):
 def get_recipe(base_object_type):
     recipe = recipes_mapping.get(base_object_type, None)
     if recipe is None:
-        return get_recipe(base_object_type.__bases__[0])
+        try:
+            return get_recipe(base_object_type.__bases__[0])
+        except IndexError:
+            return None
+
     return recipe
