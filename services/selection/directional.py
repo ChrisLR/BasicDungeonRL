@@ -1,3 +1,4 @@
+from bearlibterminal import terminal
 from clubsandwich.ui import UIScene, LabelView
 
 from core import actionmapping
@@ -38,10 +39,15 @@ class DirectionalView(UIScene):
         self.selection = selection
 
     def terminal_read(self, val):
+        super().terminal_read(val)
         action = actionmapping.lowercase_mapping.get(val, None)
         if not action:
             return
 
         if isinstance(action, Walk) or issubclass(action, Walk):
             self.selection.select_targets(action.direction)
+            self.director.pop_scene()
+
+        if val == terminal.TK_ESCAPE:
+            self.selection.canceled = True
             self.director.pop_scene()

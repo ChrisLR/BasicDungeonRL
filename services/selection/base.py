@@ -2,6 +2,7 @@ class Selection(object):
     def __init__(self, executor):
         self.executor = executor
         self.resolution = None
+        self.canceled = False
 
     def resolve(self):
         """

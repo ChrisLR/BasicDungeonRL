@@ -11,6 +11,8 @@ def turn_into_corpse(game_object):
     new_corpse.display.ascii_character = '%'
     new_corpse.display.foreground_color = Colors.DARK_RED
     new_corpse.register_component(game_object.location.copy())
+    if game_object.weight:
+        new_corpse.register_component(game_object.weight.copy())
     level = game_object.location.level
     level.remove_object(game_object)
     level.add_object(new_corpse)

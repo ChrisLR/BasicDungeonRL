@@ -1,5 +1,7 @@
 import functools
-from clubsandwich.ui import ButtonView, LabelView, UIScene, WindowView, LayoutOptions
+
+from bearlibterminal import terminal
+from clubsandwich.ui import ButtonView, UIScene, WindowView, LayoutOptions
 
 from core.game.manager import game
 from services.selection.filters.base import SelectionFilter
@@ -56,3 +58,9 @@ class ListFilterView(UIScene):
             self.selections.remove(value)
         else:
             self.selections.append(value)
+
+    def terminal_read(self, val):
+        super().terminal_read(val)
+        if val == terminal.TK_ESCAPE:
+            self.host_filter.canceled = True
+            self.director.pop_scene()

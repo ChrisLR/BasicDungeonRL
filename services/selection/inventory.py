@@ -1,5 +1,6 @@
 import functools
 
+from bearlibterminal import terminal
 from clubsandwich.ui import UIScene, WindowView, LayoutOptions
 
 from core.game.manager import game
@@ -41,5 +42,11 @@ class InventoryView(UIScene):
     def select_object(self, value):
         self.selection.resolution = value,
         self.director.pop_scene()
+
+    def terminal_read(self, val):
+        super().terminal_read(val)
+        if val == terminal.TK_ESCAPE:
+            self.selection.canceled = True
+            self.director.pop_scene()
 
 

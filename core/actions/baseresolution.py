@@ -39,8 +39,10 @@ class ActionResolution(object):
         """
         if self.selections:
             resolution = self.selections[0].resolution
-            if resolution:
-                self.targets.extend(resolution)
+            canceled = self.selections[0].canceled
+            if resolution or canceled:
+                if resolution:
+                    self.targets.extend(resolution)
                 self.selections.pop(0)
                 if self.selections:
                     self._start_next_selection()

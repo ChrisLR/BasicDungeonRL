@@ -9,6 +9,7 @@ class SelectionFilter(object):
     __metaclass__ = abc.ABCMeta
 
     def __init__(self):
+        self.canceled = False
         self.resolution = None
 
     @abc.abstractmethod
