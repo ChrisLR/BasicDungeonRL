@@ -31,7 +31,9 @@ class Inventory(Component):
     def get_all_items(self):
         items = []
         if self.host.equipment:
-            containers = (item.container for item in self.host.equipment.get_all_items() if item.container)
+            equipped_items = self.host.equipment.get_all_items()
+            items.extend(equipped_items)
+            containers = (item.container for item in equipped_items if item.container)
             for container in containers:
                 items.extend(container.items_held)
 

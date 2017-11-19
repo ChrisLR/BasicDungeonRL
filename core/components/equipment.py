@@ -44,6 +44,7 @@ class Equipment(Component):
             if worn_item == item:
                 found_location = location
                 break
+
         if found_location:
             self.empty_wield_locations.append(found_location)
             del self.worn_items[found_location]

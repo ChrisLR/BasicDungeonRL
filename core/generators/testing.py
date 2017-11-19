@@ -7,7 +7,7 @@ from core.world.level import Level
 class TestingGenerator(object):
     @classmethod
     def generate(cls):
-        level = Level()
+        level = Level(100, 100)
         for x in range(0, 50):
             for y in range(0, 50):
                 if x == 0 or y == 0 or x == 49 or y == 49:

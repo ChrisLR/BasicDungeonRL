@@ -1,9 +1,9 @@
 from core.actions.base import Action
-from services.selection import WieldedWornSelection
+from services.selection import InventorySelection
 
 
-class Remove(Action):
-    target_selection_types = WieldedWornSelection,
+class Drop(Action):
+    target_selection_types = InventorySelection,
     target_filters = None
 
     @classmethod
@@ -19,11 +19,8 @@ class Remove(Action):
     def execute(cls, character, selection=None):
         level = character.location.level
         for target in selection:
-            if not character.equipment.remove(target):
-                return False
-            else:
-                if not character.inventory.add(target):
-                    target.location.update_from_other(character.location)
-                    level.add_object(target)
+            if character.inventory.remove(target) or character.equipment.remove(target):
+                target.location.update_from_other(character.location)
+                level.add_object(target)
 
         return True

@@ -26,8 +26,11 @@ class Container(Component):
         return True
 
     def remove_item(self, item):
-        self.items_held.remove(item)
-        return True
+        if item in self.items_held:
+            self.items_held.remove(item)
+            return True
+
+        return False
 
     @property
     def total_weight(self):

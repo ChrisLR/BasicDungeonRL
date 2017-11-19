@@ -4,12 +4,12 @@ from core.gameobject import GameObject
 class Level(GameObject):
     __slots__ = ["displays", "tiles", "max_x", "max_y", "objects_by_coords"]
 
-    def __init__(self):
+    def __init__(self, max_x, max_y):
         super().__init__()
         self.displays = {}
         self.tiles = {}
-        self.max_x = 0
-        self.max_y = 0
+        self.max_x = max_x
+        self.max_y = max_y
         self.objects_by_coords = {}
 
     @property
@@ -73,8 +73,9 @@ class Level(GameObject):
 
     def adjust_coordinates_for_object(self, game_object, new_coordinates):
         old_coordinates = game_object.location.get_local_coords()
-        if old_coordinates in self.objects_by_coords:
-            del self.objects_by_coords[old_coordinates]
+        old_object_set = self.objects_by_coords.get(old_coordinates)
+        if old_object_set and game_object in old_object_set:
+            old_object_set.remove(game_object)
 
         object_set = self.objects_by_coords.get(new_coordinates)
         if not object_set:
