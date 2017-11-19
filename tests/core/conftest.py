@@ -1,8 +1,10 @@
 import pytest
 
 from bflib.characters import classes, races, abilityscores
+from bflib.items import Dagger
 from core.displaypriority import DisplayPriority
 from core.factories.character import CharacterFactory
+from core.factories.items import ItemFactory
 from core.util.colors import Colors
 
 
@@ -17,3 +19,8 @@ def sample_player():
         bg_color=Colors.BLACK,
         display_priority=DisplayPriority.Player
     )
+
+
+@pytest.fixture
+def sample_weapon():
+    return ItemFactory.create_new(Dagger)
