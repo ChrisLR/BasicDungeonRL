@@ -1,4 +1,5 @@
 from bflib.keywords.weapons import WeaponWieldKeyword
+from bflib.items.weapons.base import Weapon
 from bflib.restrictions.base import Restriction
 from bflib.sizes import Size
 
@@ -11,11 +12,13 @@ class WeaponRestrictionSet(Restriction):
         self.excluded = excluded
 
     def can_wield(self, item):
-        if self.included is not None:
-            for included_type in self.included:
-                if isinstance(item, included_type):
-                    return True
-            return False
+        # It makes no sense to prevent wielding a non weapon, like a torch.
+        if isinstance(item, Weapon):
+            if self.included is not None:
+                for included_type in self.included:
+                    if isinstance(item, included_type):
+                        return True
+                return False
 
         if self.excluded is not None:
             for excluded_type in self.excluded:
