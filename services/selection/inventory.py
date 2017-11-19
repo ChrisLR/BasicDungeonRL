@@ -32,7 +32,7 @@ class InventoryView(UIScene):
         ]
         super().__init__([
             WindowView(
-                title="Select the item to wield",
+                title="Select the item",
                 subviews=[KeyAssignedListView(controls, value_column_width=64)],
                 layout_options=LayoutOptions(width=0.5, left=0.3, height=0.9, right=None, bottom=None),
             )

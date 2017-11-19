@@ -2,7 +2,6 @@ from bearlibterminal import terminal
 from clubsandwich.ui import UIScene, LabelView
 
 from core import actionmapping
-from core.actions.move import Walk
 from core.direction import move_direction_mapping
 from core.game.manager import game
 from services.selection.base import Selection
@@ -44,7 +43,7 @@ class DirectionalView(UIScene):
         if not action:
             return
 
-        if isinstance(action, Walk) or issubclass(action, Walk):
+        if hasattr(action, 'direction'):
             self.selection.select_targets(action.direction)
             self.director.pop_scene()
 
