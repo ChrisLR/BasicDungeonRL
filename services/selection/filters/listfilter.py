@@ -39,12 +39,10 @@ class ListFilterView(UIScene):
                 "Select the items to get",
                 subviews=[
                     KeyAssignedListView(controls, 64),
-                    ButtonView("Finish", self.finish, layout_options=LayoutOptions.row_bottom(0.2)),
                 ],
                 layout_options=LayoutOptions(width=0.5, left=0.3, height=0.9, right=None, bottom=None),
-            )
-
-
+            ),
+            ButtonView("Finish", self.finish, layout_options=LayoutOptions.row_bottom(0.2)),
         ])
         self.host_filter = host_filter
         self.selections = []

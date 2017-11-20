@@ -1,10 +1,10 @@
 from core.actions.base import Action
-from services.selection import InventorySelection
+from services.selection import AllItems, filters
 
 
 class Drop(Action):
-    target_selection_types = InventorySelection,
-    target_filters = None
+    target_selection_types = AllItems,
+    target_filters = filters.ListBasedSelectionFilter,
 
     @classmethod
     def can_execute(cls, character, selection=None):

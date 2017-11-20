@@ -39,6 +39,27 @@ class Inventory(Component):
 
         return items
 
+    def get_inventory_items(self):
+        items = []
+        if self.host.equipment:
+            equipped_items = self.host.equipment.get_all_items()
+            containers = (item.container for item in equipped_items if item.container)
+            for container in containers:
+                self._recursive_get_container_items(container, items)
+
+        return items
+
+    def _recursive_get_container_items(self, container, item_list):
+        containers = []
+        for item in container.items_held:
+            if item.container:
+                containers.append(item.container)
+            else:
+                item_list.append(item)
+
+        for new_container in containers:
+            self._recursive_get_container_items(new_container, item_list)
+
     def remove(self, item):
         if self.host.equipment:
             containers = (item.container for item in self.host.equipment.get_all_items() if item.container)

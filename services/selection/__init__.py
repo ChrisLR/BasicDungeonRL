@@ -1,3 +1,5 @@
+from services.selection.allitems import AllItems
 from services.selection.directional import DirectionalSelection
-from services.selection.inventory import InventorySelection
-from services.selection.wearwieldselection import WieldedWornSelection
+from services.selection.equipped import EquippedSelection
+from services.selection.inventory import Inventory
+from services.selection.wielded import Wielded
