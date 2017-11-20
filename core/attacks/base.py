@@ -15,6 +15,9 @@ class MeleeAttack(object):
         # TODO If attacker invisible, +4
         # TODO If defender invisible, -4
         # TODO If defender is pinned, +4
+        if not defender.health.conscious:
+            modifier += 8
+
         roll = dice.D20.manual_roll(1)
         if roll == 1:
             return False
@@ -36,7 +39,7 @@ class MeleeAttack(object):
         total_damage += damage_dice.roll()
         total_damage += attacker.stats.strength_modifier if attacker.stats else 0
         total_damage += other_modifier
-        if total_damage < 0:
+        if total_damage <= 0:
             return 1
         else:
             return total_damage

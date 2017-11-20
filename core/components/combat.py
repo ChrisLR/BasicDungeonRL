@@ -54,10 +54,9 @@ class Combat(Component):
             total_armor_class += self.host.monster.base_armor_class
 
         if self.host.equipment:
-            total_armor_class += self.host.equipment.get_total_armor_class()
+            total_armor_class += self.host.equipment.get_melee_total_armor_class()
 
         return total_armor_class
 
     def copy(self):
         return Combat()
-
