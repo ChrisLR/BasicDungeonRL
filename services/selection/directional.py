@@ -39,6 +39,10 @@ class DirectionalView(UIScene):
 
     def terminal_read(self, val):
         super().terminal_read(val)
+        if val == terminal.TK_ESCAPE:
+            self.selection.canceled = True
+            self.director.pop_scene()
+
         action = actionmapping.lowercase_mapping.get(val, None)
         if not action:
             return
@@ -47,6 +51,3 @@ class DirectionalView(UIScene):
             self.selection.select_targets(action.direction)
             self.director.pop_scene()
 
-        if val == terminal.TK_ESCAPE:
-            self.selection.canceled = True
-            self.director.pop_scene()
