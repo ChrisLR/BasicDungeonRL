@@ -44,7 +44,10 @@ class Health(Component):
 
     def take_damage(self, damage):
         self.current -= damage
-        constitution = -10 if not self.host.stats else self.host.stats.constitution.value
+        if self.host.stats:
+            constitution = self.host.stats.constitution.value
+        else:
+            constitution = self._base_max_health
 
         if -constitution < self.current <= 0:
             if self.conscious:
