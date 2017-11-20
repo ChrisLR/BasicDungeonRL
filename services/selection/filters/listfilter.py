@@ -1,4 +1,5 @@
 import functools
+import collections
 
 from bearlibterminal import terminal
 from clubsandwich.ui import ButtonView, UIScene, WindowView, LayoutOptions
@@ -27,18 +28,21 @@ class ListFilterView(UIScene):
 
     def __init__(self, host_filter, targets):
         self.targets = targets
-        controls = [
-            SelectableButtonView(
-                target.name,
-                functools.partial(self.select_object, value=target)
+        self.button_controls = collections.OrderedDict(
+            (
+                target,
+                SelectableButtonView(
+                    target.name,
+                    functools.partial(self.select_object, value=target)
+                )
             )
             for target in targets
-        ]
+        )
         super().__init__([
             WindowView(
-                "Select the items to get",
+                "",
                 subviews=[
-                    KeyAssignedListView(controls, 64),
+                    KeyAssignedListView(self.button_controls.values(), 64),
                 ],
                 layout_options=LayoutOptions(width=0.5, left=0.3, height=0.9, right=None, bottom=None),
             ),
@@ -53,8 +57,10 @@ class ListFilterView(UIScene):
 
     def select_object(self, value):
         if value in self.selections:
+            self.button_controls[value].deselect()
             self.selections.remove(value)
         else:
+            self.button_controls[value].select()
             self.selections.append(value)
 
     def terminal_read(self, val):
