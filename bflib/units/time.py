@@ -10,6 +10,9 @@ class TimeUnit(Unit):
     def to_seconds(self):
         return self.value * self.value_to_seconds
 
+    def to_minutes(self):
+        return Minute(round((self.value * self.value_to_seconds) / 60))
+
     def to_game_turns(self):
         return GameTurn.from_seconds(self.to_seconds())
 
@@ -27,3 +30,11 @@ class GameTurn(TimeUnit):
 
 class CombatRound(TimeUnit):
     value_to_seconds = 10
+
+
+class Minute(TimeUnit):
+    value_to_seconds = 60
+
+
+class Second(TimeUnit):
+    value_to_seconds = 1
