@@ -12,6 +12,7 @@ class MonsterRecipe(Recipe):
     name = "Base Monster Recipe"
     base_object_type = Monster
     depends_on = []
+    outfits = None
 
     @staticmethod
     def build_components(monster_type):
