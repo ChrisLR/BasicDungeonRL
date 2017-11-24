@@ -1,5 +1,4 @@
-from bflib import dice
-from bflib import units
+from bflib import dice, units
 from bflib.characters import classes
 from bflib.spells import listing
 from bflib.spells.base import Spell
@@ -13,5 +12,8 @@ class CharmAnimal(Spell):
     class_level_map = {
         classes.Cleric: 2,
     }
-    duration = SpellDuration(base_duration=dice.D4(1), duration_per_level=units.CombatRound(1))
+    duration = SpellDuration(
+        base_duration=dice.D4(1),
+        duration_per_level=units.CombatRound(1)
+    )
     range = SpellRange(base_range=units.Feet(60))

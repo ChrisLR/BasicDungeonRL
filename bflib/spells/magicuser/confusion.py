@@ -7,10 +7,13 @@ from bflib.spells.range import SpellRange
 
 
 @listing.register_spell
-class CloudKill(Spell):
-    name = "Cloudkill"
+class Confusion(Spell):
+    name = "Confusion"
     class_level_map = {
-        classes.MagicUser: 5,
+        classes.MagicUser: 4,
     }
-    duration = SpellDuration(duration_per_level=units.CombatRound(6))
-    range = SpellRange(base_range=units.Feet(100), range_per_level=units.Feet(10))
+    duration = SpellDuration(
+        base_duration=units.CombatRound(2),
+        duration_per_level=units.CombatRound(1)
+    )
+    range = SpellRange(base_range=units.Feet(360))

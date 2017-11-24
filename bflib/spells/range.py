@@ -9,9 +9,12 @@ class SpellRange(object):
         self.range_per_level = range_per_level if range_per_level else units.Feet(0)
 
 
+class Self(SpellRange):
+    pass
+
+
 class Touch(SpellRange):
-    def __init__(self):
-        super().__init__()
+    pass
 
 
 class SpellRadius(SpellRange):

@@ -2,14 +2,15 @@ from bflib import units
 from bflib.characters import classes
 from bflib.spells import listing
 from bflib.spells.base import Spell
+from bflib.spells.duration import Permanent
 from bflib.spells.range import SpellRange
 
 
 @listing.register_spell
-class CharmMonster(Spell):
-    name = "Charm Monster"
+class CreateWater(Spell):
+    name = "Create Water"
     class_level_map = {
-        classes.MagicUser: 4,
+        classes.Cleric: 4,
     }
-    duration = None
-    range = SpellRange(base_range=units.Feet(30))
+    duration = Permanent()
+    range = SpellRange(base_range=units.Feet(10))

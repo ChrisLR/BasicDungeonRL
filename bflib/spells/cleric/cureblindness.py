@@ -1,16 +1,15 @@
 from bflib.characters import classes
 from bflib.spells import listing
 from bflib.spells.base import Spell
-from bflib.spells.duration import Special
+from bflib.spells.duration import Instantaneous
 from bflib.spells.range import Touch
 
 
 @listing.register_spell
-class AnimateDead(Spell):
-    name = "Animate Dead"
+class CureBlindness(Spell):
+    name = "Cure Blindness"
     class_level_map = {
-        classes.Cleric: 4,
-        classes.MagicUser: 5,
+        classes.Cleric: 3,
     }
-    duration = Special()
+    duration = Instantaneous()
     range = Touch()

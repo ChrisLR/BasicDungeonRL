@@ -32,6 +32,10 @@ class CombatRound(TimeUnit):
     value_to_seconds = 10
 
 
+class Year(TimeUnit):
+    value_to_seconds = 31557600
+
+
 class Minute(TimeUnit):
     value_to_seconds = 60
 
