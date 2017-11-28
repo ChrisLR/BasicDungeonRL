@@ -6,22 +6,22 @@ from bflib.spells.range import Touch
 
 
 @listing.register_spell
-class CureLightWounds(Spell):
-    name = "Cure Light Wounds"
+class CureSeriousWounds(Spell):
+    name = "Cure Serious Wounds"
     class_level_map = {
-        classes.Cleric: 1,
+        classes.Cleric: 4,
     }
     duration = Instantaneous()
     range = Touch()
-    reverse_spell = CauseLightWounds
+    reverse_spell = CauseSeriousWounds
 
 
 @listing.register_spell
-class CauseLightWounds(Spell):
-    name = "Cause Light Wounds"
+class CauseSeriousWounds(Spell):
+    name = "Cause Serious Wounds"
     class_level_map = {
-        classes.Cleric: 1,
+        classes.Cleric: 4,
     }
     duration = Instantaneous()
     range = Touch()
-    reverse_spell = CureLightWounds
+    reverse_spell = CureSeriousWounds

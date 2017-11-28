@@ -36,6 +36,10 @@ class Year(TimeUnit):
     value_to_seconds = 31557600
 
 
+class Hour(TimeUnit):
+    value_to_seconds = 3600
+
+
 class Minute(TimeUnit):
     value_to_seconds = 60
 
