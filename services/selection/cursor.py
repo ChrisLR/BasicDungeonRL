@@ -1,5 +1,6 @@
 from bearlibterminal import terminal
-from clubsandwich.ui import UIScene, LabelView
+from clubsandwich.ui import UIScene, LabelView, RectView
+from clubsandwich.geom import Point
 
 from core import actionmapping
 from core.direction import move_direction_mapping
@@ -13,21 +14,20 @@ class CursorSelection(Selection):
         self.view = None
 
     def resolve(self):
-        self.view = CursorView(self, self.executor)
+        self.view = CursorScene(self, self.executor)
         game.game_context.director.push_scene(self.view)
 
 
-class CursorView(UIScene):
+class CursorScene(UIScene):
     covers_screen = False
 
     def __init__(self, selection, executor):
-        super().__init__([LabelView("Choose a direction.")])
+        self.label = LabelView("")
+        self.cursor_view = CursorView(game.game_context.camera, self)
+        super().__init__([self.label, self.cursor_view])
         self.executor = executor
         self.selection = selection
-        self.cursor_position = executor.location.get_local_coords()
-
-    def draw(self, ctx):
-        ctx.printf(self.cursor_position, "X")
+        self.cursor_position = Point(*executor.location.get_local_coords())
 
     def terminal_read(self, val):
         super().terminal_read(val)
@@ -45,4 +45,28 @@ class CursorView(UIScene):
             return
 
         if hasattr(action, 'direction'):
-            self.cursor_position += move_direction_mapping.get(action.direction)
+            x_offset, y_offset = move_direction_mapping.get(action.direction, (0, 0))
+            self.cursor_position.x += x_offset
+            self.cursor_position.y += y_offset
+
+            
+
+
+class CursorView(RectView):
+    covers_screen = False
+
+    def __init__(self, camera, parent_scene):
+        super().__init__(clear=True)
+        self.parent_scene = parent_scene
+        self.camera = camera
+
+    def draw(self, ctx):
+        super().draw(ctx)
+        game_scene = next((
+            scene for scene in self.parent_scene.director.scene_stack
+            if hasattr(scene, 'game_view')))
+        game_scene.game_view.draw(ctx)
+        cursor_position = self.parent_scene.cursor_position
+        screen_position = self.camera.transform(cursor_position, enforce_bounds=False)
+        ctx.printf(screen_position, "X")
+

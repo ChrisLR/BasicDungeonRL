@@ -11,6 +11,7 @@ class GameView(RectView):
         player = self.game_context.player
         self.camera = Camera(location=player.location.copy(), screen_size=Size(120, 30))
         self.camera.character_focus = player
+        self.game_context.camera = self.camera
 
     def draw(self, ctx):
         player = self.game_context.player
