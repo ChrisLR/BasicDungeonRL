@@ -65,17 +65,14 @@ class CursorView(RectView):
     covers_screen = False
 
     def __init__(self, camera, parent_scene):
-        super().__init__()
+        super().__init__(layout_options=game.game_context.game_scene.game_view.layout_options)
         self.parent_scene = parent_scene
         self.camera = camera
 
     def draw(self, ctx):
-        self.parent_scene.label.draw(ctx)
-        origin = game.game_context.game_scene.game_view.frame.origin
-        with ctx.translate(origin):
-            cursor_position = self.parent_scene.cursor_position
-            screen_position = self.camera.transform(cursor_position)
-            screen_position.x += 1
-            screen_position.y += 1
-            ctx.print(screen_position, "X")
+        cursor_position = self.parent_scene.cursor_position
+        screen_position = self.camera.transform(cursor_position)
+        screen_position.x += 1
+        screen_position.y += 1
+        ctx.print(screen_position, "X")
 
