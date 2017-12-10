@@ -1,6 +1,6 @@
 from bearlibterminal import terminal
-from clubsandwich.ui import UIScene, LabelView, RectView
 from clubsandwich.geom import Point
+from clubsandwich.ui import UIScene, LabelView, RectView
 
 from core import actionmapping
 from core.direction import move_direction_mapping
@@ -22,21 +22,25 @@ class CursorScene(UIScene):
     covers_screen = False
 
     def __init__(self, selection, executor):
+        views = game.game_context.game_scene.view.subviews.copy()
         self.label = LabelView("")
         self.cursor_view = CursorView(game.game_context.camera, self)
-        super().__init__([self.label, self.cursor_view])
+        views.append(self.label)
+        views.append(self.cursor_view)
+        super().__init__(views=views)
         self.executor = executor
         self.selection = selection
         self.cursor_position = Point(*executor.location.get_local_coords())
 
     def terminal_read(self, val):
         super().terminal_read(val)
+        level = self.executor.location.level
         if val == terminal.TK_ESCAPE:
             self.selection.canceled = True
             self.director.pop_scene()
 
         if val == terminal.TK_ENTER:
-            game_objects = self.executor.location.level.get_objects_by_coordinates(self.cursor_position)
+            game_objects = level.get_objects_by_coordinates(self.cursor_position)
             self.selection.resolution = game_objects
             self.director.pop_scene()
 
@@ -49,24 +53,29 @@ class CursorScene(UIScene):
             self.cursor_position.x += x_offset
             self.cursor_position.y += y_offset
 
-            
+            game_objects = level.get_objects_by_coordinates(self.cursor_position)
+            if game_objects:
+                self.label.text = "\n".join(
+                    (game_object.name for game_object in game_objects))
+            else:
+                self.label.text = ""
 
 
 class CursorView(RectView):
     covers_screen = False
 
     def __init__(self, camera, parent_scene):
-        super().__init__(clear=True)
+        super().__init__()
         self.parent_scene = parent_scene
         self.camera = camera
 
     def draw(self, ctx):
-        super().draw(ctx)
-        game_scene = next((
-            scene for scene in self.parent_scene.director.scene_stack
-            if hasattr(scene, 'game_view')))
-        game_scene.game_view.draw(ctx)
-        cursor_position = self.parent_scene.cursor_position
-        screen_position = self.camera.transform(cursor_position, enforce_bounds=False)
-        ctx.printf(screen_position, "X")
+        self.parent_scene.label.draw(ctx)
+        origin = game.game_context.game_scene.game_view.frame.origin
+        with ctx.translate(origin):
+            cursor_position = self.parent_scene.cursor_position
+            screen_position = self.camera.transform(cursor_position)
+            screen_position.x += 1
+            screen_position.y += 1
+            ctx.print(screen_position, "X")
 

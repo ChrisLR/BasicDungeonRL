@@ -8,4 +8,4 @@ class GameContext(object):
         self.game_time = GameTime()
         self.action_stack = None
         self.camera = None
-
+        self.game_scene = None

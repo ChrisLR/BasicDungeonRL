@@ -12,9 +12,9 @@ from ui.views import ScrollingTextView
 
 class GameScene(UIScene):
     def __init__(self, game_context):
-        console_layout_options = LayoutOptions(top=None, height=12, bottom=0, left=1, right=None, width=0.98)
-        game_view_layout_options = LayoutOptions(top=10, height=30, bottom=None, left=0, right=None, width=1)
-        hud_view_layout_options = LayoutOptions(top=0, height=10, bottom=None, left=0, right=None, width=1)
+        console_layout_options = LayoutOptions(top=None, height=12, bottom=0, left=1, right=None, width=0.99)
+        game_view_layout_options = LayoutOptions(top=10, height=30, bottom=None, left=0, right=None, width=0.99)
+        hud_view_layout_options = LayoutOptions(top=0, height=10, bottom=None, left=0, right=None, width=0.99)
         self.console = ScrollingTextView(12, 110, layout_options=console_layout_options)
         echo_service.console = self.console
         game_context.game.new_game()
@@ -24,6 +24,7 @@ class GameScene(UIScene):
         self.hud_view = HudView(game_context, layout_options=hud_view_layout_options)
         super().__init__(WindowView("", subviews=[self.hud_view, self.game_view, self.console]))
         self.game_context.player.vision.update_field_of_vision()
+        self.game_context.game_scene = self
 
     def terminal_update(self, is_active=False):
         super().terminal_update(is_active)
@@ -31,7 +32,6 @@ class GameScene(UIScene):
             self.game_context.action_stack.update()
 
     def terminal_read(self, val):
-        
         self.game_context.director = self.director
         if terminal.state(terminal.TK_SHIFT):
             action = actionmapping.uppercase_mapping.get(val, None)

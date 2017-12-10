@@ -1,4 +1,5 @@
 from core.gameobject import GameObject
+from clubsandwich.geom import Point
 
 
 class Level(GameObject):
@@ -69,6 +70,8 @@ class Level(GameObject):
         del self.tiles[coordinates]
 
     def get_objects_by_coordinates(self, coordinates):
+        if isinstance(coordinates, Point):
+            return self.objects_by_coords.get((coordinates.x, coordinates.y), set())
         return self.objects_by_coords.get(coordinates, set())
 
     def adjust_coordinates_for_object(self, game_object, new_coordinates):
