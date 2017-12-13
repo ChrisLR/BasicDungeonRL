@@ -16,7 +16,3 @@ Personalities should however defer to the given Scripted behavior when needed.
 A sudden invasion would certainly force every one to reevaluated their routine.
 Plus it allows quests to have puppets to use.
 """
-
-
-
-

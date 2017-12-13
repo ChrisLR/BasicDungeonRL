@@ -8,3 +8,6 @@ class Behavior(object):
     - searching for a water source or a weapon
     - Engaging in melee an opponent.
     """
+
+    def __init__(self, host):
+        self.host = host

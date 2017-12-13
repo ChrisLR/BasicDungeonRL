@@ -1,9 +1,13 @@
 from core.gameobject import GameObject
 from clubsandwich.geom import Point
+from tcod import map as tcod_map
 
 
 class Level(GameObject):
-    __slots__ = ["displays", "tiles", "max_x", "max_y", "objects_by_coords"]
+    __slots__ = [
+        "displays", "inner_map", "tiles", "max_x", "max_y",
+        "objects_by_coords", "on_tile_change_callbacks",
+    ]
 
     def __init__(self, max_x, max_y):
         super().__init__()
@@ -12,6 +16,12 @@ class Level(GameObject):
         self.max_x = max_x
         self.max_y = max_y
         self.objects_by_coords = {}
+        self.inner_map = tcod_map.Map(max_x, max_y)
+        self.on_tile_change_callbacks = []
+
+    def register_on_tile_change_callback(self, callback):
+        if callback not in self.on_change_callbacks:
+            self.on_tile_change_callbacks.append(callback)
 
     @property
     def game_objects(self):
@@ -60,7 +70,11 @@ class Level(GameObject):
         if y > self.max_y:
             self.max_y = y
 
-        self.tiles[coordinates] = tile_class()
+        tile_instance = tile_class()
+        self.tiles[coordinates] = tile_instance
+        self.inner_map.walkable[coordinates] = not tile_instance.blocking
+        self.inner_map.transparent[coordinates] = not tile_instance.opaque
+        self.call_on_tile_change()
 
     def get_tile(self, coordinates):
         tile = self.tiles.get(coordinates, None)
@@ -68,6 +82,9 @@ class Level(GameObject):
 
     def remove_tile(self, coordinates):
         del self.tiles[coordinates]
+        self.inner_map.walkable[coordinates] = False
+        self.inner_map.transparent[coordinates] = False
+        self.call_on_tile_change()
 
     def get_objects_by_coordinates(self, coordinates):
         if isinstance(coordinates, Point):
@@ -85,3 +102,7 @@ class Level(GameObject):
             object_set = set()
             self.objects_by_coords[new_coordinates] = object_set
         object_set.add(game_object)
+
+    def call_on_tile_change(self):
+        for callback in self.on_change_callbacks:
+            callback()
