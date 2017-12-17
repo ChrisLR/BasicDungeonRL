@@ -10,12 +10,13 @@ class Game(object):
     def __init__(self):
         self.game_context = GameContext()
         self.game_context.game = self
+        self.loop = None
         self.running = False
 
     def start(self):
         from scenes.mainmenu import MainMenuScene
-        loop = MainLoop(MainMenuScene(self.game_context))
-        loop.run()
+        self.loop = MainLoop(MainMenuScene(self.game_context))
+        self.loop.run()
 
     def new_game(self):
         level = GoblinCampGenerator.generate()

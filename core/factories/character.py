@@ -6,7 +6,7 @@ from core.outfits.outfitter import OutfitterService
 class CharacterFactory(object):
     @classmethod
     def create_new(cls, ability_score_set, base_classes, base_race, symbol, fg_color, bg_color, display_priority=0):
-        new_character = GameObject()
+        new_character = GameObject(blocking=True)
         new_character.register_component(components.CharacterStats(ability_score_set))
         new_character.register_component(components.CharacterClass(*base_classes))
         new_character.register_component(components.Race(base_race))

@@ -81,13 +81,14 @@ class GameObject(object):
             del self.components[component_name]
 
     def __getattr__(self, item):
-        from core.components import component_names
+        component = self.get_component(item)
+        if component:
+            return component
 
+        from core.components import component_names
         if item in component_names:
-            component = self.get_component(item)
-            if component:
-                return component
             return NoneVoid()
+
         raise AttributeError()
 
 

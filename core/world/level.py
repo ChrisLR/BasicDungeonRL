@@ -7,6 +7,7 @@ class Level(GameObject):
     __slots__ = [
         "displays", "inner_map", "tiles", "max_x", "max_y",
         "objects_by_coords", "on_tile_change_callbacks",
+        "_game_objects"
     ]
 
     def __init__(self, max_x, max_y):
@@ -16,6 +17,7 @@ class Level(GameObject):
         self.max_x = max_x
         self.max_y = max_y
         self.objects_by_coords = {}
+        self._game_objects = []
         self.inner_map = tcod_map.Map(max_x, max_y)
         self.on_tile_change_callbacks = []
 
@@ -25,11 +27,7 @@ class Level(GameObject):
 
     @property
     def game_objects(self):
-        game_objects = []
-        for game_object_set in self.objects_by_coords.values():
-            game_objects.extend(game_object_set)
-
-        return game_objects
+        return self._game_objects
 
     def add_object(self, game_object):
         display = game_object.display
@@ -51,6 +49,8 @@ class Level(GameObject):
                 self.objects_by_coords[coords] = object_set
             object_set.add(game_object)
 
+        self._game_objects.append(game_object)
+
     def remove_object(self, game_object):
         display = game_object.display
         if display:
@@ -62,6 +62,8 @@ class Level(GameObject):
             object_set = self.objects_by_coords.get(coords)
             if object_set:
                 object_set.remove(game_object)
+
+        self._game_objects.remove(game_object)
 
     def add_tile(self, coordinates, tile_class):
         x, y = coordinates

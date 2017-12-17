@@ -33,6 +33,9 @@ class GameScene(UIScene):
 
     def terminal_read(self, val):
         self.game_context.director = self.director
+        if val == terminal.TK_F1:
+            self.game_context.game.loop.quit()
+
         if terminal.state(terminal.TK_SHIFT):
             action = actionmapping.uppercase_mapping.get(val, None)
         else:

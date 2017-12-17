@@ -1,4 +1,5 @@
 from core.components.base import Component
+from clubsandwich.geom import Point
 
 
 class Location(Component):
@@ -14,6 +15,7 @@ class Location(Component):
         self.region = None
         self.world_x = 0
         self.world_y = 0
+        self.point = Point(self._local_x, self._local_y)
 
     @property
     def local_x(self):
@@ -50,3 +52,5 @@ class Location(Component):
         if self.level:
             self.level.adjust_coordinates_for_object(self.host, coordinates)
         self._local_x, self._local_y = coordinates
+        self.point.x = self._local_x
+        self.point.y = self._local_y
