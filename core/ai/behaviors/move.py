@@ -9,6 +9,7 @@ class Move(Behavior):
         super().__init__(host)
         self.target_coordinates = target_coordinates
         self.computed_path = ComputedPath(host)
+        self.computed_path.calculate(target_coordinates)
 
     def execute(self):
         next_step = self.computed_path.next()
@@ -17,7 +18,4 @@ class Move(Behavior):
 
         for enum, coord in direction.move_direction_mapping.items():
             if coord == next_step:
-                action = Walk()
-                action.direction = enum
-
-                return action
+                return Walk.from_direction(enum)

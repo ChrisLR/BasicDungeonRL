@@ -7,6 +7,10 @@ class Walk(Action):
     direction = None
 
     @classmethod
+    def from_direction(cls, direction):
+        return _walk_direction_mapping.get(direction)
+
+    @classmethod
     def can_execute(cls, character, selection=None):
         # TODO Some characters might not be in a condition to move.
         return True
@@ -81,3 +85,15 @@ class WalkSW(Walk):
 
 class WalkW(Walk):
     direction = Direction.West
+
+
+_walk_direction_mapping = {
+    Direction.North: WalkN,
+    Direction.NorthEast: WalkNE,
+    Direction.East: WalkE,
+    Direction.SouthEast: WalkSE,
+    Direction.South: WalkS,
+    Direction.SouthWest: WalkSW,
+    Direction.West: WalkW,
+    Direction.NorthWest: WalkNW
+}

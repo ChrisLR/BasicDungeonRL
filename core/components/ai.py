@@ -14,7 +14,8 @@ class AI(Component):
 
     def round_update(self):
         action = self.personality.act(self.host)
-        action.execute(self.host)
+        if action:
+            action.execute(self.host)
 
     def copy(self):
         return AI(self.personality.copy())

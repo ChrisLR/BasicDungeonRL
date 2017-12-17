@@ -21,7 +21,7 @@ class Goblin(Personality):
             host_origin = Point(*host.location.get_local_coords())
             closest_enemy_point = cls.get_closest_enemy_point(host_origin, enemies)
 
-            return behaviors.Move(host, closest_enemy_point)
+            return behaviors.Move(host, closest_enemy_point).execute()
 
     @classmethod
     def seek_enemies(cls, host):

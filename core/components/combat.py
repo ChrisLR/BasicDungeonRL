@@ -25,7 +25,7 @@ class Combat(Component):
                 )
             )
 
-        if self.host.monster:
+        if self.host.monster and self.host.monster.base_monster.attack_sets:
             attack_sets.extend(
                 self.host.monster.base_monster.attack_sets
             )

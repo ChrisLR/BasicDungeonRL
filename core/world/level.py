@@ -20,7 +20,7 @@ class Level(GameObject):
         self.on_tile_change_callbacks = []
 
     def register_on_tile_change_callback(self, callback):
-        if callback not in self.on_change_callbacks:
+        if callback not in self.on_tile_change_callbacks:
             self.on_tile_change_callbacks.append(callback)
 
     @property

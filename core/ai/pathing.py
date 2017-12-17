@@ -1,4 +1,5 @@
 from tcod import path
+from clubsandwich.geom import Point
 
 
 class ComputedPath(object):
@@ -7,7 +8,7 @@ class ComputedPath(object):
     whenever a tile is changed in the map.
     """
     def __init__(self, host):
-        level = self.host.location.level
+        level = host.location.level
         level.register_on_tile_change_callback(self.invalidate)
         self.host = host
         self.inner_map = level.inner_map
@@ -23,10 +24,19 @@ class ComputedPath(object):
 
     def calculate(self, destination_coordinates):
         origin = self.host.location.get_local_coords()
+        if isinstance(destination_coordinates, Point):
+            destination_coordinates = (
+                destination_coordinates.x,
+                destination_coordinates.y)
         self.path = self.a_star.get_path(*origin, *destination_coordinates)
 
     def next(self):
         if self.path:
-            return self.path.pop(0)
+            origin = self.host.location.get_local_coords()
+            next_coordinate = self.path.pop(0)
+            x1, y1 = origin
+            x2, y2 = next_coordinate
+
+            return x2 - x1, y2 - y1
         else:
             self.last_destination = None
