@@ -12,5 +12,9 @@ class AI(Component):
         super().__init__()
         self.personality = personality
 
+    def round_update(self):
+        action = self.personality.act(self.host)
+        action.execute(self.host)
+
     def copy(self):
         return AI(self.personality.copy())

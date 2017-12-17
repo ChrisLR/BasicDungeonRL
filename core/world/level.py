@@ -104,5 +104,5 @@ class Level(GameObject):
         object_set.add(game_object)
 
     def call_on_tile_change(self):
-        for callback in self.on_change_callbacks:
+        for callback in self.on_tile_change_callbacks:
             callback()

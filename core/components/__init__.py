@@ -1,3 +1,4 @@
+from core.components.ai import AI
 from core.components.ammunition import Ammunition
 from core.components.armor import Armor
 from core.components.base import Component
@@ -33,6 +34,7 @@ from core.components.weight import Weight
 from core.components.vision import Vision
 
 component_names = {
+    AI.NAME,
     Ammunition.NAME,
     Armor.NAME,
     CharacterClass.NAME,
