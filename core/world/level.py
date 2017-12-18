@@ -48,6 +48,7 @@ class Level(GameObject):
                 object_set = set()
                 self.objects_by_coords[coords] = object_set
             object_set.add(game_object)
+            self.inner_map.walkable[coords] = game_object.blocking
 
         self._game_objects.append(game_object)
 
@@ -62,6 +63,7 @@ class Level(GameObject):
             object_set = self.objects_by_coords.get(coords)
             if object_set:
                 object_set.remove(game_object)
+            self.inner_map.walkable[coords] = self.get_tile(coords).blocking
 
         self._game_objects.remove(game_object)
 
@@ -104,6 +106,7 @@ class Level(GameObject):
             object_set = set()
             self.objects_by_coords[new_coordinates] = object_set
         object_set.add(game_object)
+        self.inner_map.walkable[new_coordinates] = game_object.blocking
 
     def call_on_tile_change(self):
         for callback in self.on_tile_change_callbacks:

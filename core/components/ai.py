@@ -4,9 +4,6 @@ from core.components.base import Component
 class AI(Component):
     NAME = 'ai'
     __slots__ = ["last_behavior", "personality"]
-    """
-    This is the component that implements experience pools
-    """
 
     def __init__(self, personality):
         super().__init__()

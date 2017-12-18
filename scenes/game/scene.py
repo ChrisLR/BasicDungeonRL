@@ -48,9 +48,7 @@ class GameScene(UIScene):
         time_update_result = self.game_context.game_time.pass_turns()
         current_level = self.game_context.player.location.level
         game_objects = current_level.game_objects
-        game_objects.append(self.game_context.player)
-        for i in range(len(game_objects) - 1, -1, -1):
-            game_object = game_objects[i]
+        for game_object in game_objects:
             game_object.round_update()
 
             if time_update_result.minute_updated:

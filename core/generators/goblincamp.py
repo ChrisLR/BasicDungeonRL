@@ -1,5 +1,3 @@
-from bflib.monsters import animals
-from core.factories.monster import MonsterFactory
 from core.generators.base import DesignPieceGenerator
 from core.generators.maps.goblincamp import huts
 from core.tiles import floors
@@ -28,10 +26,3 @@ class GoblinCampGenerator(DesignPieceGenerator):
         player.location.level = level
         player.location.set_local_coords((1, 1))
         level.add_object(player)
-
-    @classmethod
-    def place_monster(cls, level):
-        monster = MonsterFactory.create_new(animals.Deer)
-        monster.location.level = level
-        monster.location.set_local_coords((23, 23))
-        level.add_object(monster)
