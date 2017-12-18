@@ -17,7 +17,7 @@ class Level(GameObject):
         self.max_x = max_x
         self.max_y = max_y
         self.objects_by_coords = {}
-        self._game_objects = []
+        self._game_objects = set()
         self.inner_map = tcod_map.Map(max_x, max_y)
         self.on_tile_change_callbacks = []
 
@@ -50,7 +50,7 @@ class Level(GameObject):
             object_set.add(game_object)
             self.inner_map.walkable[coords] = game_object.blocking
 
-        self._game_objects.append(game_object)
+        self._game_objects.add(game_object)
 
     def remove_object(self, game_object):
         display = game_object.display
@@ -65,7 +65,7 @@ class Level(GameObject):
                 object_set.remove(game_object)
             self.inner_map.walkable[coords] = self.get_tile(coords).blocking
 
-        self._game_objects.remove(game_object)
+        self._game_objects.discard(game_object)
 
     def add_tile(self, coordinates, tile_class):
         x, y = coordinates

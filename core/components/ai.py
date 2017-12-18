@@ -1,21 +1,25 @@
 from core.components.base import Component
+from core.ai.shorttermstate import ShortTermState
 
 
 class AI(Component):
     NAME = 'ai'
     __slots__ = ["last_behavior", "personality"]
 
+    # TODO Think about this structure, is it worth to keep the states out
+    # TODO of the Personality?
+
     def __init__(self, personality):
         super().__init__()
+        self.short_term_state = ShortTermState()
         self.last_behavior = None
         self.personality = personality
 
     def round_update(self):
-        behavior = self.personality.get_behavior(self.host, self.last_behavior)
+        behavior = self.personality.get_behavior(
+            self.host, self.last_behavior, self.short_term_state)
         if behavior:
-            action = behavior.get_action()
-            if action:
-                action.execute(self.host)
+            behavior.execute()
 
     def copy(self):
         return AI(self.personality.copy())

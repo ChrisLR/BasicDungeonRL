@@ -7,7 +7,7 @@ import random
 
 class Goblin(Personality):
     @classmethod
-    def get_behavior(cls, host, last_behavior):
+    def get_behavior(cls, host, last_behavior, short_term_state):
         # Goblins gain +1 if they see allied Warrior,
         # +2 if they see allied kings
         # A lone goblin by default will flee from anything larger than itself
@@ -17,34 +17,36 @@ class Goblin(Personality):
         # than enemies.
 
         # Their combat behavior is simple, Advance and Attack.
-        immediate_enemies = cls.seek_immediate_threat(host)
-        if immediate_enemies:
-            return cls.engage_immediate_enemies(host, immediate_enemies, last_behavior)
+        cls.seek_threats(host, short_term_state)
+        if short_term_state.enemies:
+            return cls.engage_immediate_enemies(
+                host, short_term_state.enemies, last_behavior)
 
         return cls.walk_somewhere_or_continue(host, last_behavior)
 
     @classmethod
-    def seek_immediate_threat(cls, host):
-        enemies = []
-        for character in host.location.level.game_objects:
-            if character is host:
-                continue
+    def seek_threats(cls, host, short_term_state):
+        unknown_objects = short_term_state.known_objects.difference(
+            host.location.level.game_objects
+        )
+        for unknown_object in unknown_objects:
+            cls.identify_relation(host, unknown_object, short_term_state)
 
-            # TODO Factions will be taken into consideration
-            # TODO Long Term State must be taken into consideration
-            # TODO Anyone attacking allies are seen as enemies
-            # TODO Line of Vision must be taken into consideration
+    @classmethod
+    def identify_relation(cls, host, game_object, short_term_state):
+        if host is game_object:
+            short_term_state.known_objects.add(host)
+            return
 
-            if character.monster.base_monster is monsters.Goblin:
-                continue
+        # TODO Factions will be taken into consideration
+        # TODO Long Term State must be taken into consideration
+        # TODO Anyone attacking allies are seen as enemies
+        # TODO Line of Vision must be taken into consideration
 
-            if character.health.dead:
-                continue
+        if game_object.monster.base_monster is monsters.Goblin:
+            short_term_state.add_ally(game_object)
 
-            if host.location.point.manhattan_distance_to(character.location.point) < 10:
-                enemies.append(character)
-
-        return enemies
+        short_term_state.add_enemy(game_object)
 
     @classmethod
     def engage_immediate_enemies(cls, host, enemies, last_behavior):
@@ -53,7 +55,7 @@ class Goblin(Personality):
         if isinstance(last_behavior, behaviors.Move):
             last_behavior.adjust_target_coordinates(target_coordinate)
             return last_behavior
-        return behaviors.Move(host, target_coordinate, True)
+        return behaviors.Move(host, target_coordinate)
 
     @classmethod
     def get_closest_enemy_point(cls, host, enemies):
@@ -68,4 +70,4 @@ class Goblin(Personality):
         level = host.location.level
         target_coordinate = random.randint(1, level.max_x), random.randint(1, level.max_y)
 
-        return behaviors.Move(host, target_coordinate, False)
+        return behaviors.Move(host, target_coordinate)
