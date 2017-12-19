@@ -20,6 +20,7 @@ class AI(Component):
             self.host, self.last_behavior, self.short_term_state)
         if behavior:
             behavior.execute()
+            self.last_behavior = behavior
 
     def copy(self):
         return AI(self.personality.copy())

@@ -6,7 +6,7 @@ from core.util.colors import Colors
 
 class Door(Tile):
     name = ""
-    blocking = True
+    blocking = False
     opaque = True
     display = None
     closed_ascii = "+"

@@ -48,7 +48,7 @@ class Level(GameObject):
                 object_set = set()
                 self.objects_by_coords[coords] = object_set
             object_set.add(game_object)
-            self.inner_map.walkable[coords] = game_object.blocking
+            self.reset_walkable_for_coordinate(coords, object_set)
 
         self._game_objects.add(game_object)
 
@@ -63,7 +63,7 @@ class Level(GameObject):
             object_set = self.objects_by_coords.get(coords)
             if object_set:
                 object_set.remove(game_object)
-            self.inner_map.walkable[coords] = self.get_tile(coords).blocking
+            self.reset_walkable_for_coordinate(coords, object_set)
 
         self._game_objects.discard(game_object)
 
@@ -101,13 +101,32 @@ class Level(GameObject):
         if old_object_set and game_object in old_object_set:
             old_object_set.remove(game_object)
 
+        self.reset_walkable_for_coordinate(old_coordinates, old_object_set)
+
         object_set = self.objects_by_coords.get(new_coordinates)
         if not object_set:
             object_set = set()
             self.objects_by_coords[new_coordinates] = object_set
         object_set.add(game_object)
-        self.inner_map.walkable[new_coordinates] = game_object.blocking
+        self.reset_walkable_for_coordinate(new_coordinates, object_set)
 
     def call_on_tile_change(self):
         for callback in self.on_tile_change_callbacks:
             callback()
+
+    def reset_walkable_for_coordinate(self, coordinate, object_set=None, tile=None):
+        if object_set is None:
+            object_set = self.get_objects_by_coordinates(coordinate)
+
+        if tile is None:
+            tile = self.get_tile(coordinate)
+
+        if tile.blocking:
+            walkable = False
+        else:
+            walkable = False if any(
+                game_object.blocking
+                for game_object in object_set
+            ) else True
+
+        self.inner_map.walkable[coordinate] = walkable

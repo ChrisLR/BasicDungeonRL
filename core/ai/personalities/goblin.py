@@ -19,15 +19,19 @@ class Goblin(Personality):
         # Their combat behavior is simple, Advance and Attack.
         cls.seek_threats(host, short_term_state)
         if short_term_state.enemies:
-            return cls.engage_immediate_enemies(
-                host, short_term_state.enemies, last_behavior)
+            target_point = cls.get_closest_enemy_point(
+                host, short_term_state.enemies)
+
+            if target_point.manhattan_distance_to(host.location.point) < 10:
+                return cls.engage_immediate_enemies(
+                    host, target_point, last_behavior)
 
         return cls.walk_somewhere_or_continue(host, last_behavior)
 
     @classmethod
     def seek_threats(cls, host, short_term_state):
-        unknown_objects = short_term_state.known_objects.difference(
-            host.location.level.game_objects
+        unknown_objects = host.location.level.game_objects.difference(
+            short_term_state.known_objects
         )
         for unknown_object in unknown_objects:
             cls.identify_relation(host, unknown_object, short_term_state)
@@ -49,8 +53,7 @@ class Goblin(Personality):
         short_term_state.add_enemy(game_object)
 
     @classmethod
-    def engage_immediate_enemies(cls, host, enemies, last_behavior):
-        target_point = cls.get_closest_enemy_point(host, enemies)
+    def engage_immediate_enemies(cls, host, target_point, last_behavior):
         target_coordinate = (target_point.x, target_point.y)
         if isinstance(last_behavior, behaviors.Move):
             last_behavior.adjust_target_coordinates(target_coordinate)
@@ -64,10 +67,10 @@ class Goblin(Personality):
 
     @classmethod
     def walk_somewhere_or_continue(cls, host, last_behavior):
-        if last_behavior:
+        if last_behavior and not last_behavior.finished:
             return last_behavior
 
         level = host.location.level
-        target_coordinate = random.randint(1, level.max_x), random.randint(1, level.max_y)
+        target_coordinate = 0, 0
 
         return behaviors.Move(host, target_coordinate)

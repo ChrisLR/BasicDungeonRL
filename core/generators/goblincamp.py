@@ -17,7 +17,7 @@ class GoblinCampGenerator(DesignPieceGenerator):
 
     @classmethod
     def generate(cls):
-        level = Level(100, 100)
+        level = Level(20, 20)
         super()._generate(level)
         return level
 

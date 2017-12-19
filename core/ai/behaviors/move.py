@@ -10,6 +10,7 @@ class Move(Behavior):
         self.target_coordinates = target_coordinates
         self.computed_path = ComputedPath(host)
         self.computed_path.calculate(target_coordinates)
+        self.finished = False
 
     def adjust_target_coordinates(self, new_coordinates):
         if new_coordinates != self.target_coordinates:
@@ -18,11 +19,17 @@ class Move(Behavior):
 
     def execute(self):
         next_step = self.computed_path.next()
+        if not next_step:
+            self.finished = True
+            return
+
         move_action = None
         for enum, coord in direction.move_direction_mapping.items():
             if coord == next_step:
                 move_action = Walk.from_direction(enum)
+                break
+
         if move_action:
             result = move_action.execute(self.host)
             if not result:
-                self.computed_path.invalidate()
+                self.computed_path.calculate(self.target_coordinates)
