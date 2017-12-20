@@ -4,6 +4,7 @@ from clubsandwich.director import DirectorLoop
 from core.displaypriority import DisplayPriority
 from core.game.context import GameContext
 from core.generators.goblincamp import GoblinCampGenerator
+from core.generators.testing import TestingGenerator
 
 
 class Game(object):
@@ -20,6 +21,7 @@ class Game(object):
 
     def new_game(self):
         level = GoblinCampGenerator.generate()
+        # level = TestingGenerator.generate()
         self.game_context.player.display.priority = DisplayPriority.Player
         GoblinCampGenerator.place_player(level, self.game_context.player)
 

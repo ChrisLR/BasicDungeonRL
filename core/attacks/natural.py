@@ -2,13 +2,14 @@ from bflib import attacks
 from core.attacks.base import MeleeAttack
 from services.echo import functions as echo_functions
 from services.echo.service import echo_service
+from core.attacks import listing
 
 
 class NaturalAttack(MeleeAttack):
     actor_on_success = "You attack {defender} for {damage} damage."
     actor_on_failure = "{defender} dodges your attack"
     observer_on_success = "{attacker} attacks {defender} for {damage} damage."
-    observer_on_failure = "{defender} dodges {attacker}'s attack"
+    observer_on_failure = "{defender} dodge {attacker} attack"
 
     @classmethod
     def can_execute(cls, attacker, defender):
@@ -43,7 +44,7 @@ class NaturalAttack(MeleeAttack):
                 echo_service.echo(
                     cls.observer_on_failure.format(
                         attacker=echo_functions.names_or_your(attacker).capitalize(),
-                        defender=echo_functions.names_or_your(defender).capitalize()
+                        defender=echo_functions.name_or_you(defender).capitalize()
                     )
                 )
 
@@ -68,37 +69,46 @@ class NaturalAttack(MeleeAttack):
         return True
 
 
+@listing.register
 class Bite(NaturalAttack):
     base_attack = attacks.Bite
 
 
+@listing.register
 class Claw(NaturalAttack):
     base_attack = attacks.Claw
 
 
+@listing.register
 class Crush(NaturalAttack):
     base_attack = attacks.Crush
 
 
+@listing.register
 class ConfusionBySwarm(NaturalAttack):
     base_attack = attacks.ConfusionBySwarm
 
 
+@listing.register
 class Gaze(NaturalAttack):
     base_attack = attacks.Gaze
 
 
+@listing.register
 class Headbutt(NaturalAttack):
     base_attack = attacks.Headbutt
 
 
+@listing.register
 class Hoof(NaturalAttack):
     base_attack = attacks.Hoof
 
 
+@listing.register
 class Sting(NaturalAttack):
     base_attack = attacks.Sting
 
 
+@listing.register
 class Punch(NaturalAttack):
     base_attack = attacks.Punch

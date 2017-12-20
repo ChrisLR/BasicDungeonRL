@@ -1,10 +1,12 @@
 from bflib import attacks
 from bflib.dice import D4
+from core.attacks import listing
 from core.attacks.base import MeleeAttack
 from services.echo import functions as echo_functions
 from services.echo.service import echo_service
 
 
+@listing.register
 class WeaponAttack(MeleeAttack):
     base_attack = attacks.WeaponAttack
 

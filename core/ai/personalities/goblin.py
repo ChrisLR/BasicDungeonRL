@@ -52,7 +52,8 @@ class Goblin(Personality):
             short_term_state.add_ally(game_object)
             return
 
-        short_term_state.add_enemy(game_object)
+        if game_object.combat and game_object.health:
+            short_term_state.add_enemy(game_object)
 
     @classmethod
     def engage_immediate_enemies(cls, host, target_point, distance, last_behavior):

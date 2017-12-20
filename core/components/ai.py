@@ -16,6 +16,11 @@ class AI(Component):
         self.personality = personality
 
     def round_update(self):
+        host_health = self.host.health
+        if host_health:
+            if not host_health.conscious or host_health.dead:
+                return
+
         behavior = self.personality.get_behavior(
             self.host, self.last_behavior, self.short_term_state)
         if behavior:
