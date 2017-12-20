@@ -82,6 +82,9 @@ class Goblin(Personality):
             return last_behavior
 
         level = host.location.level
-        target_coordinate = 0, 0
+        target_coordinate = (
+            random.randint(1, level.max_x),
+            random.randint(1, level.max_y)
+        )
 
         return behaviors.Move(host, target_coordinate)
