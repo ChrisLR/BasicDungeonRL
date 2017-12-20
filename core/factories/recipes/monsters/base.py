@@ -2,8 +2,7 @@ from bflib.monsters.base import Monster
 from core import components
 from core.ai import personalities
 from core.displaypriority import DisplayPriority
-from core.factories.recipes import listing
-from core.factories.recipes.base import Recipe
+from core.factories.recipes import listing, Recipe
 from core.util.colors import Colors
 
 

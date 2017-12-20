@@ -98,3 +98,7 @@ class Hoof(NaturalAttack):
 
 class Sting(NaturalAttack):
     base_attack = attacks.Sting
+
+
+class Punch(NaturalAttack):
+    base_attack = attacks.Punch

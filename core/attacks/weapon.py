@@ -34,7 +34,8 @@ class WeaponAttack(MeleeAttack):
             if success:
                 damage = cls.make_melee_damage_roll(attacker, damage_dice)
                 echo_message_success(attacker, defender, weapon, damage)
-                defender.health.take_damage(damage)
+                if defender.health:
+                    defender.health.take_damage(damage)
             else:
                 echo_message_failure(attacker, defender)
 
@@ -59,11 +60,13 @@ def echo_message_success(attacker, defender, weapon, damage):
         message = "You hit {} with your {} for {} damage!"
         message = message.format(echo_functions.name_or_you(defender), weapon.name, damage)
     else:
-        message = "{} hits {} with {} {} for {} damage!"
-        message = message.format(echo_functions.name_or_you(attacker),
-                                 echo_functions.his_her_it(attacker),
-                                 weapon.name,
-                                 damage)
+        message = "{} hits {} with {} for {} damage!"
+        message = message.format(
+            echo_functions.name_or_you(attacker),
+            echo_functions.name_or_you(defender),
+            weapon.name,
+            damage
+        )
     echo_service.echo(message)
 
 

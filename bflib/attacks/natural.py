@@ -32,3 +32,7 @@ class Hoof(NaturalAttack):
 
 class Sting(NaturalAttack):
     name = "Sting"
+
+
+class Punch(NaturalAttack):
+    name = "Punch"

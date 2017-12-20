@@ -40,7 +40,6 @@ class Walk(Action):
 
         if tile.openable and tile.openable.closed:
             tile.openable.open()
-            return False
 
         if tile.blocking:
             return False

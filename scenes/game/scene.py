@@ -1,3 +1,5 @@
+import time
+
 from bearlibterminal import terminal
 from clubsandwich.ui import LayoutOptions
 from clubsandwich.ui import UIScene, WindowView
@@ -31,11 +33,21 @@ class GameScene(UIScene):
         if is_active:
             self.game_context.action_stack.update()
 
+        player_health = self.game_context.player.health
+        if player_health and not player_health.conscious:
+            time.sleep(1)
+            self.update_turn()
+
     def terminal_read(self, val):
         self.game_context.director = self.director
+        player = self.game_context.player
+        player_health = player.health
         if val == terminal.TK_F1:
             self.game_context.game.loop.quit()
 
+        if player_health.dead or not player_health.conscious:
+            return
+        
         if terminal.state(terminal.TK_SHIFT):
             action = actionmapping.uppercase_mapping.get(val, None)
         else:

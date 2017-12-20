@@ -26,7 +26,10 @@ class MonsterFactory(object):
         if result_components is None:
             result_components = []
 
-        result_components.extend(recipe.build_components(base_monster))
+        built_components = recipe.build_components(base_monster)
+        if built_components:
+            result_components.extend(built_components)
+
         for required_recipe in recipe.depends_on:
             cls.get_recursive_components(base_monster, required_recipe, result_components)
 

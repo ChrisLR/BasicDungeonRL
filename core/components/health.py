@@ -7,7 +7,7 @@ from services import echo, corpsify
 class Health(Component):
     NAME = 'health'
     __slots__ = ["first_enforced_maximum", "_hit_dices", "_health_rolls",
-                 "current", "_base_Max_health", "maximum_modifiers", "dead"]
+                 "current", "_base_Max_health", "maximum_modifiers", "dead", "conscious"]
 
     def __init__(self, first_enforced_maximum=False):
         super().__init__()
@@ -45,23 +45,29 @@ class Health(Component):
     def take_damage(self, damage):
         self.current -= damage
         if self.host.stats:
-            constitution = self.host.stats.constitution.value
+            constitution = int(self.host.stats.constitution)
         else:
             constitution = self._base_max_health
 
         if -constitution < self.current <= 0:
             if self.conscious:
                 self.conscious = False
-                echo.echo_service.echo(
-                    "{} falls unconscious!".format(echo.name_or_you(self.host))
-                )
+                if echo.is_player(self.host):
+                    echo.echo_service.echo("You are unconscious!")
+                else:
+                    echo.echo_service.echo(
+                        "{} falls unconscious!".format(echo.name_or_you(self.host))
+                    )
 
         if self.current <= -constitution:
             if not self.dead:
                 self.dead = True
-                echo.echo_service.echo(
-                    "{} is dead!".format(echo.name_or_you(self.host))
-                )
+                if echo.is_player(self.host):
+                    echo.echo_service.echo("You are dead!")
+                else:
+                    echo.echo_service.echo(
+                        "{} is dead!".format(echo.name_or_you(self.host).capitalize())
+                    )
                 self.host.blocking = False
                 corpsify.turn_into_corpse(self.host)
 

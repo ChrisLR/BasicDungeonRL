@@ -1,4 +1,4 @@
-from bflib import attacks
+from bflib import attacks, dice
 from bflib.tables.attackbonus import AttackBonusTable
 from core.components.base import Component
 
@@ -22,6 +22,12 @@ class Combat(Component):
             attack_sets.append(
                 attacks.AttackSet(
                     attacks.WeaponAttack, amount=len(self.host.equipment.wield_locations)
+                )
+            )
+            # TODO This is an ugly hack and proves we need a real body component.
+            attack_sets.append(
+                attacks.AttackSet(
+                    attacks.Punch(dice.D4), amount=len(self.host.equipment.wield_locations)
                 )
             )
 

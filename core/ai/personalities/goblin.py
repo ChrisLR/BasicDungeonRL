@@ -21,10 +21,11 @@ class Goblin(Personality):
         if short_term_state.enemies:
             target_point = cls.get_closest_enemy_point(
                 host, short_term_state.enemies)
-
-            if target_point.manhattan_distance_to(host.location.point) < 10:
-                return cls.engage_immediate_enemies(
-                    host, target_point, last_behavior)
+            if target_point is not None:
+                distance = target_point.manhattan_distance_to(host.location.point)
+                if distance < 10:
+                    return cls.engage_immediate_enemies(
+                        host, target_point, distance, last_behavior)
 
         return cls.walk_somewhere_or_continue(host, last_behavior)
 
@@ -49,12 +50,16 @@ class Goblin(Personality):
 
         if game_object.monster.base_monster is monsters.Goblin:
             short_term_state.add_ally(game_object)
+            return
 
         short_term_state.add_enemy(game_object)
 
     @classmethod
-    def engage_immediate_enemies(cls, host, target_point, last_behavior):
+    def engage_immediate_enemies(cls, host, target_point, distance, last_behavior):
         target_coordinate = (target_point.x, target_point.y)
+        if distance <= 1:
+            return behaviors.MeleeAttack(host, target_point)
+
         if isinstance(last_behavior, behaviors.Move):
             last_behavior.adjust_target_coordinates(target_coordinate)
             return last_behavior
@@ -62,8 +67,13 @@ class Goblin(Personality):
 
     @classmethod
     def get_closest_enemy_point(cls, host, enemies):
-        return host.location.point.get_closest_point(
-            [enemy.location.point for enemy in enemies])
+        living_enemies = [
+            enemy.location.point
+            for enemy in enemies
+            if enemy.health.dead is False
+        ]
+        if living_enemies:
+            return host.location.point.get_closest_point(living_enemies)
 
     @classmethod
     def walk_somewhere_or_continue(cls, host, last_behavior):

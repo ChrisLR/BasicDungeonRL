@@ -76,8 +76,8 @@ class Level(GameObject):
 
         tile_instance = tile_class()
         self.tiles[coordinates] = tile_instance
-        self.inner_map.walkable[coordinates] = not tile_instance.blocking
-        self.inner_map.transparent[coordinates] = not tile_instance.opaque
+        self.set_inner_walkable(coordinates, not tile_instance.blocking)
+        self.set_inner_transparent(coordinates, not tile_instance.opaque)
         self.call_on_tile_change()
 
     def get_tile(self, coordinates):
@@ -86,8 +86,8 @@ class Level(GameObject):
 
     def remove_tile(self, coordinates):
         del self.tiles[coordinates]
-        self.inner_map.walkable[coordinates] = False
-        self.inner_map.transparent[coordinates] = False
+        self.set_inner_walkable(coordinates, False)
+        self.set_inner_transparent(coordinates, False)
         self.call_on_tile_change()
 
     def get_objects_by_coordinates(self, coordinates):
@@ -129,4 +129,22 @@ class Level(GameObject):
                 for game_object in object_set
             ) else True
 
+        self.set_inner_walkable(coordinate, walkable)
+
+    def flip_coordinate(self, coordinates):
+        x, y = coordinates
+        return y, x
+
+    def set_inner_walkable(self, coordinate, walkable):
+        coordinate = self.flip_coordinate(coordinate)
         self.inner_map.walkable[coordinate] = walkable
+
+    def set_inner_transparent(self, coordinate, transparent):
+        coordinate = self.flip_coordinate(coordinate)
+        self.inner_map.transparent[coordinate] = transparent
+
+    def is_coordinate_in_bounds(self, coordinate):
+        x, y = coordinate
+        if self.max_x > x > 0 and self.max_y > y > 0:
+            return True
+        return False

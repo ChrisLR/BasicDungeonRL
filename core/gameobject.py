@@ -1,13 +1,27 @@
 class GameObject(object):
-    __slots__ = ["blocking", "components", "observers", "properties", "responders", "name"]
+    __slots__ = ["_blocking", "components", "observers", "properties", "responders", "name"]
 
     def __init__(self, blocking=False, name=""):
-        self.blocking = blocking
+        self._blocking = blocking
         self.components = {}
         self.observers = {}
         self.responders = {}
         self.properties = {}
         self.name = name
+
+    @property
+    def blocking(self):
+        return self._blocking
+
+    @blocking.setter
+    def blocking(self, value):
+        self._blocking = value
+        location = self.location
+        if location:
+            level = location.level
+            coordinate = location.get_local_coords()
+            if level:
+                level.reset_walkable_for_coordinate(coordinate)
 
     def copy_to(self, new_game_object):
         for component in self.components.values():

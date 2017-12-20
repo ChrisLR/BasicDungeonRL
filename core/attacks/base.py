@@ -8,6 +8,8 @@ class MeleeAttack(object):
     @classmethod
     def make_melee_hit_roll(cls, attacker, defender):
         target_ac = defender.combat.armor_class
+        if target_ac is None:
+            target_ac = 0
         modifier = 0
         modifier += attacker.combat.attack_bonus
         modifier += attacker.stats.strength_modifier if attacker.stats else 0

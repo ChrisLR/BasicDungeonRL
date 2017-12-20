@@ -3,6 +3,7 @@ from core.outfits.starterpacks import (
     FighterPack3, FighterPack2, FighterPack1,
     ClericPack2, ClericPack1, BasicPack
 )
+from core.outfits.monsters import *
 
 base_packages = (BasicPack,)
 starter_packages = (
