@@ -13,3 +13,7 @@ class LastBreath(SpecialAbility):
     When in combat, stay alive for one turn after HP is depleted.
     """
     pass
+
+
+class Mindless(SpecialAbility):
+    pass

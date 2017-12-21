@@ -19,8 +19,6 @@ class MonsterRecipe(Recipe):
         name = monster_type.name if monster_type.name else monster_type.__name__
 
         new_components = [
-            # TODO THIS IS JUST A HACK TO TEST GOBLIN AI
-            components.AI(personalities.Goblin),
             components.Display(Colors.RED, Colors.BLACK, name[0], DisplayPriority.Enemy),
             components.Location(),
             components.Monster(monster_type),
