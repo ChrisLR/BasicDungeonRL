@@ -17,10 +17,11 @@ class RaceSelectionScene(UIScene):
     _active_fg = "#efff14"
     _disabled_fg = '#424242'
 
-    def __init__(self, game_context, ability_score_set):
+    def __init__(self, game_context, ability_score_set, name):
         self.covers_screen = True
         self.game_context = game_context
         self.ability_score_set = ability_score_set
+        self.name = name
 
         self.sorted_races = sorted(races.listing, key=lambda race: race.name)
         self.enabled_races, self.disabled_races = self.filter_race_choices()
@@ -76,7 +77,14 @@ class RaceSelectionScene(UIScene):
         if not self.race_choice:
             return
 
-        self.director.replace_scene(ClassSelectionScene(self.game_context, self.ability_score_set, self.race_choice))
+        self.director.replace_scene(
+            ClassSelectionScene(
+                game_context=self.game_context,
+                ability_score_set=self.ability_score_set,
+                name=self.name,
+                race=self.race_choice
+            )
+        )
 
 
 def get_left_layout(top, **kwargs):

@@ -5,10 +5,13 @@ from core.outfits.outfitter import OutfitterService
 
 class CharacterFactory(object):
     @classmethod
-    def create_new(cls, ability_score_set, base_classes, base_race, symbol, fg_color, bg_color, display_priority=0):
-        new_character = GameObject(blocking=True)
-        new_character.register_component(components.CharacterStats(ability_score_set))
-        new_character.register_component(components.CharacterClass(*base_classes))
+    def create_new(cls, ability_score_set, base_classes, base_race, name,
+                   symbol, fg_color, bg_color, display_priority=0):
+        new_character = GameObject(blocking=True, name=name)
+        new_character.register_component(
+            components.CharacterStats(ability_score_set))
+        new_character.register_component(
+            components.CharacterClass(*base_classes))
         new_character.register_component(components.Race(base_race))
         new_character.register_component(components.Restrictions(
             base_race.restriction_set,
@@ -27,7 +30,8 @@ class CharacterFactory(object):
         )
         new_character.register_component(components.Money())
         new_character.register_component(components.Location())
-        new_character.register_component(components.Display(fg_color, bg_color, symbol, display_priority))
+        new_character.register_component(
+            components.Display(fg_color, bg_color, symbol, display_priority))
         new_character.register_component(components.Health(True))
         new_character.register_component(components.Combat())
         new_character.register_component(components.Inventory())

@@ -20,10 +20,11 @@ class ClassSelectionScene(UIScene):
     _active_fg = "#efff14"
     _disabled_fg = '#424242'
 
-    def __init__(self, game_context, ability_score_set, race):
+    def __init__(self, game_context, ability_score_set, name, race):
         self.covers_screen = True
         self.game_context = game_context
         self.ability_score_set = ability_score_set
+        self.name = name
         self.race = race
 
         self.sorted_classes = sorted(classes.listing, key=lambda c_class: c_class.name)
@@ -96,6 +97,7 @@ class ClassSelectionScene(UIScene):
             ability_score_set=self.ability_score_set,
             base_classes=self.class_choices,
             base_race=self.race,
+            name=self.name,
             symbol="@",
             fg_color=Colors.WHITE,
             bg_color=Colors.BLACK,

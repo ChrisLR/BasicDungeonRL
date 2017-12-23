@@ -109,7 +109,13 @@ class AttributeSelectionScene(UIScene):
 
     def finish(self):
         if self.points_left <= 0:
-            self.director.replace_scene(RaceSelectionScene(self.game_context, AbilityScoreSet(**self.stats)))
+            self.director.replace_scene(
+                RaceSelectionScene(
+                    game_context=self.game_context,
+                    ability_score_set=AbilityScoreSet(**self.stats),
+                    name=self.name
+                )
+            )
 
     def terminal_read(self, val):
         super().terminal_read(val)
