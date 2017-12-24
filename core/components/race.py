@@ -9,6 +9,10 @@ class Race(Component):
         super().__init__()
         self.base_race = base_race
 
+    @property
+    def name(self):
+        return self.base_race.name
+
     def copy(self):
         return Race(
             type(self.base_race)()

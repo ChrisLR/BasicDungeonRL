@@ -4,7 +4,7 @@ from clubsandwich.ui import RectView, LabelView, LayoutOptions
 class HudView(RectView):
     def __init__(self, game_context, **kwargs):
         self.game_context = game_context
-        self.last_top = 0
+        self.last_top = 0.2
         self.last_left = 0
         self.label_value_pairs = []
         self._subviews = []
@@ -12,13 +12,18 @@ class HudView(RectView):
         player_stats = player.stats
         self.create_multiple_label_value_pairs(
             ('Name:', lambda: player.name),
-            ('Strength:', lambda: str(player_stats.strength)),
-            ('Dexterity:', lambda: str(player_stats.dexterity)),
-            ('Constitution:', lambda: str(player_stats.constitution)),
-            ('Intelligence:', lambda: str(player_stats.intelligence)),
-            ('Wisdom:', lambda: str(player_stats.wisdom)),
-            ('Charisma:', lambda: str(player_stats.charisma)),
-            ('Health:', lambda: str(player.health.current))
+            ('Race:', lambda: player.race.name),
+            ('Class:', lambda: player.character_class.name),
+            ('HP:', lambda: "{}/{}".format(
+                str(player.health.current), str(player.health.max))),
+            ('AC:', lambda: str(player.combat.armor_class)),
+            ('ATK:', lambda: str(player.combat.attack_bonus)),
+            ('STR:', lambda: str(player_stats.strength)),
+            ('DEX:', lambda: str(player_stats.dexterity)),
+            ('CON:', lambda: str(player_stats.constitution)),
+            ('INT:', lambda: str(player_stats.intelligence)),
+            ('WIS:', lambda: str(player_stats.wisdom)),
+            ('CHA:', lambda: str(player_stats.charisma)),
         )
 
         super().__init__(
@@ -35,19 +40,20 @@ class HudView(RectView):
     def get_next_layout_pair(self):
         self.last_top += 0.1
         if self.last_top >= 0.8:
-            self.last_top = 0.1
-            self.last_left += 0.2
+            self.last_top = 0.3
+            self.last_left += 0.3
             if self.last_left > 0.9:
                 raise Exception("Too many.")
         label = LayoutOptions(
-            top=self.last_top, left=self.last_left,
-            width=0.2, height=0.1,
+            top=self.last_top,
+            left=self.last_left,
+            width=0.1, height=0.1,
             bottom=None, right=None
         )
         value = LayoutOptions(
             top=self.last_top,
             left=self.last_left + 0.1,
-            width=0.2, height=0.1,
+            width=0.1, height=0.1,
             bottom=None, right=None
         )
 

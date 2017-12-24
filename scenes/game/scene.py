@@ -16,7 +16,7 @@ class GameScene(UIScene):
     def __init__(self, game_context):
         console_layout_options = LayoutOptions(top=None, height=12, bottom=0, left=1, right=None, width=0.99)
         game_view_layout_options = LayoutOptions(top=10, height=30, bottom=None, left=0, right=None, width=0.99)
-        hud_view_layout_options = LayoutOptions(top=0, height=11, bottom=None, left=0, right=None, width=0.99)
+        hud_view_layout_options = LayoutOptions(top=0, height=0.2, bottom=None, left=0, right=None, width=0.99)
         self.console = ScrollingTextView(12, 110, layout_options=console_layout_options)
         echo_service.console = self.console
         game_context.game.new_game()

@@ -38,6 +38,10 @@ class CharacterClass(Component):
 
         return largest_hit_dice
 
+    @property
+    def name(self):
+        return "/".join((cclass.name for cclass in self.base_classes))
+
     def copy(self):
         return CharacterClass(
             type(*self.base_classes)()
