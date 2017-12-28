@@ -1,13 +1,14 @@
 from core.gameobject import GameObject
 from clubsandwich.geom import Point
 from tcod import map as tcod_map
+import inspect
 
 
 class Level(GameObject):
     __slots__ = [
         "displays", "inner_map", "tiles", "max_x", "max_y",
         "objects_by_coords", "on_tile_change_callbacks",
-        "_game_objects"
+        "_game_objects", "room_grid"
     ]
 
     def __init__(self, max_x, max_y):
@@ -20,6 +21,7 @@ class Level(GameObject):
         self._game_objects = set()
         self.inner_map = tcod_map.Map(max_x, max_y)
         self.on_tile_change_callbacks = []
+        self.room_grid = {}
 
     def register_on_tile_change_callback(self, callback):
         if callback not in self.on_tile_change_callbacks:
@@ -67,17 +69,19 @@ class Level(GameObject):
 
         self._game_objects.discard(game_object)
 
-    def add_tile(self, coordinates, tile_class):
+    def add_tile(self, coordinates, tile):
         x, y = coordinates
         if x > self.max_x:
             self.max_x = x
         if y > self.max_y:
             self.max_y = y
 
-        tile_instance = tile_class()
-        self.tiles[coordinates] = tile_instance
-        self.set_inner_walkable(coordinates, not tile_instance.blocking)
-        self.set_inner_transparent(coordinates, not tile_instance.opaque)
+        if inspect.isclass(tile):
+            tile = tile()
+
+        self.tiles[coordinates] = tile
+        self.set_inner_walkable(coordinates, not tile.blocking)
+        self.set_inner_transparent(coordinates, not tile.opaque)
         self.call_on_tile_change()
 
     def get_tile(self, coordinates):
@@ -148,3 +152,8 @@ class Level(GameObject):
         if self.max_x > x > 0 and self.max_y > y > 0:
             return True
         return False
+
+    def add_room(self, room):
+        for x in range(0, room.width):
+            for y in range(0, room.height):
+                self.room_grid[(room.x + x), (room.y + y)] = room

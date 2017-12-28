@@ -3,6 +3,7 @@ class MapPiece(object):
     tiles = ""
     symbolic_links = {}
     spawn_ratios = tuple()
+    connectors = {}
 
     @classmethod
     def write_tiles_level(cls, level, left_x, top_y):
@@ -27,3 +28,24 @@ class MapPiece(object):
     @classmethod
     def get_height(cls):
         return len(cls.tiles.splitlines())
+
+
+class Connector(object):
+    """
+    This Connector will link possible rooms together.
+    """
+    @classmethod
+    def write(cls, level, coordinate):
+        pass
+
+
+def merge_connectors(*connector_dicts):
+    final_dict = {}
+    for connector_dict in connector_dicts:
+        for direction, connectors in connector_dict:
+            final_connectors = final_dict.get(direction, set())
+            if isinstance(connectors, tuple):
+                final_connectors.update(set(connectors))
+            else:
+                final_connectors.add(connectors)
+            final_dict[direction] = final_connectors

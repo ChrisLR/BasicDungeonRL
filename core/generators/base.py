@@ -2,6 +2,8 @@ import random
 
 from sortedcontainers import SortedSet
 
+from core.world.room import Room
+
 
 class DesignPieceGenerator(object):
     pieces_with_percentage = None
@@ -11,7 +13,11 @@ class DesignPieceGenerator(object):
     def _generate(cls, level):
         spawn_grid = cls._prepare_spawn_grid(level)
         rejected_tiles = set()
-        cls._place_pieces(level, spawn_grid, rejected_tiles)
+        cls._place_pieces(
+            level=level,
+            spawn_grid=spawn_grid,
+            rejected_tiles=rejected_tiles
+        )
         rejected_tiles.update(spawn_grid)
         cls._fill_empty_spaces(level, rejected_tiles)
 
@@ -35,6 +41,7 @@ class DesignPieceGenerator(object):
 
             coords = cls._try_fit_piece(new_piece, spawn_grid, rejected_tiles)
             if coords:
+                level.add_room(Room(*coords, new_piece))
                 cls._write_piece(level, new_piece, spawn_grid, coords)
                 continue
             tries -= 1
@@ -90,3 +97,17 @@ class DesignPieceGenerator(object):
     def _fill_empty_spaces(cls, level, rejected_tiles):
         for coordinate in rejected_tiles:
             level.add_tile(coordinate, cls.filler_tile)
+
+
+class ConnectorBasedGenerator(DesignPieceGenerator):
+    """
+    Get the Center Coordinate
+    Order pieces by connectors amount
+    Get the piece with the most connectors, random between ties.
+    Write the Piece and iterate through connectors.
+    Each Connector selects a compatible room and write it
+    Each of those rooms are added into a list.
+    This list is then iterated and all THEIR connectors are written,
+    adding these new rooms to a new list to do the same.
+    It should write each step in all directions at a time.
+    """
