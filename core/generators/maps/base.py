@@ -39,6 +39,19 @@ class Connector(object):
         pass
 
 
+class ConnectorLink(object):
+    """
+    The piece used to link a coordinate, a direction and a connector
+    before it is resolved
+    """
+    __slots__ = ["connector", "coordinate", "direction"]
+
+    def __init__(self, connector, coordinate, direction):
+        self.connector = connector
+        self.coordinate = coordinate
+        self.direction = direction
+
+
 def merge_connectors(*connector_dicts):
     final_dict = {}
     for connector_dict in connector_dicts:
