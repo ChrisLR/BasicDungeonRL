@@ -125,6 +125,8 @@ class Level(GameObject):
 
         if tile is None:
             tile = self.get_tile(coordinate)
+            if tile is None:
+                return
 
         if tile.blocking:
             walkable = False

@@ -16,12 +16,12 @@ class VerticalTunnel(MapPiece):
     }
     connectors = {
         Direction.North: (
-            connectors.DungeonFloorConnectorA,
-            connectors.DungeonDoorConnectorA,
+            connectors.DungeonFloorConnectorA((1, 0)),
+            connectors.DungeonDoorConnectorA((1, 0)),
         ),
         Direction.South: (
-            connectors.DungeonFloorConnectorA,
-            connectors.DungeonDoorConnectorA,
+            connectors.DungeonFloorConnectorA((1, 2)),
+            connectors.DungeonDoorConnectorA((1, 2)),
         ),
     }
 
@@ -39,12 +39,12 @@ class HorizontalTunnel(MapPiece):
 
     connectors = {
         Direction.East: (
-            connectors.DungeonFloorConnectorA,
-            connectors.DungeonDoorConnectorA,
+            connectors.DungeonFloorConnectorA((2, 1)),
+            connectors.DungeonDoorConnectorA((2, 1)),
         ),
         Direction.West: (
-            connectors.DungeonFloorConnectorA,
-            connectors.DungeonDoorConnectorA,
+            connectors.DungeonFloorConnectorA((0, 1)),
+            connectors.DungeonDoorConnectorA((0, 1))
         ),
     }
 
@@ -62,19 +62,19 @@ class FourPointTunnel(MapPiece):
 
     connectors = {
         Direction.North: (
-            connectors.DungeonFloorConnectorA,
-            connectors.DungeonDoorConnectorA,
+            connectors.DungeonFloorConnectorA((3, 0), (4, 0)),
+            connectors.DungeonDoorConnectorA((3, 0), (4, 0)),
         ),
         Direction.South: (
-            connectors.DungeonFloorConnectorA,
-            connectors.DungeonDoorConnectorA,
+            connectors.DungeonFloorConnectorA((3, 2), (4, 2)),
+            connectors.DungeonDoorConnectorA((3, 2), (4, 2)),
         ),
         Direction.East: (
-            connectors.DungeonFloorConnectorA,
-            connectors.DungeonDoorConnectorA,
+            connectors.DungeonFloorConnectorA((7, 1)),
+            connectors.DungeonDoorConnectorA((7, 1)),
         ),
         Direction.West: (
-            connectors.DungeonFloorConnectorA,
-            connectors.DungeonDoorConnectorA,
+            connectors.DungeonFloorConnectorA((1, 0)),
+            connectors.DungeonDoorConnectorA((1, 0)),
         ),
     }

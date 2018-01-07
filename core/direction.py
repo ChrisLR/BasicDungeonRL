@@ -24,7 +24,7 @@ move_direction_mapping = {
 }
 
 inverse_mapping = {
-    Direction.NorthWest : Direction.SouthEast,
+    Direction.NorthWest: Direction.SouthEast,
     Direction.North: Direction.South,
     Direction.NorthEast: Direction.SouthWest,
     Direction.East: Direction.West,

@@ -41,8 +41,9 @@ class Walk(Action):
         if tile.openable and tile.openable.closed:
             tile.openable.open()
 
-        if tile.blocking:
-            return False
+        # TODO Debug GHOST MODE
+        # if tile.blocking:
+        #     return False
 
         game_objects = current_level.get_objects_by_coordinates(new_coords)
         if game_objects:

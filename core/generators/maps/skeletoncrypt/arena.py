@@ -33,8 +33,24 @@ class Arena(MapPiece):
         )
     ]
     connectors = {
-        Direction.North: connectors.DungeonDoorConnectorA,
-        Direction.East: connectors.DungeonDoorConnectorA,
-        Direction.South: connectors.DungeonDoorConnectorA,
-        Direction.West: connectors.DungeonDoorConnectorA,
+        Direction.North: (
+            connectors.DungeonDoorConnectorA(
+                *[(x, 0) for x in range(1, 8)]
+            ),
+        ),
+        Direction.East: (
+            connectors.DungeonDoorConnectorA(
+                *[(9, y) for y in range(1, 7)]
+            ),
+        ),
+        Direction.South: (
+            connectors.DungeonDoorConnectorA(
+                *[(x, 7) for x in range(1, 8)]
+            ),
+        ),
+        Direction.West: (
+            connectors.DungeonDoorConnectorA(
+                *[(0, y) for y in range(1, 7)]
+            ),
+        ),
     }

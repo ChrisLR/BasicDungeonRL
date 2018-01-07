@@ -85,13 +85,14 @@ class SpawnPoint(object):
 
 
 def get_unoccupied_position(level, origin_x, origin_y, width, height):
-    tries = 10
+    tries = (origin_x * width) + (origin_y * height)
     while tries:
         tries -= 1
         x = random.randint(1, width) + origin_x
         y = random.randint(1, height) + origin_y
         coordinate = x, y
-        if level.get_tile(coordinate).blocking:
+        tile = level.get_tile(coordinate)
+        if not tile or tile.blocking:
             continue
 
         blocking_objects = [

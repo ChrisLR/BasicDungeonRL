@@ -13,7 +13,7 @@ class SkeletonCrypt(ConnectorBasedGenerator):
         (25, arena.Arena),
         (25, tunnels.HorizontalTunnel),
         (25, tunnels.VerticalTunnel),
-        (25, tunnels.FourPointTunnel)
+        (25, tunnels.FourPointTunnel),
     ]
 
     @classmethod
@@ -26,7 +26,8 @@ class SkeletonCrypt(ConnectorBasedGenerator):
     @classmethod
     def place_player(cls, level, player):
         player.location.level = level
-        random_room = random.choice(level.rooms)
+        #random_room = random.choice(level.rooms)
+        random_room = level.rooms[0]
         coordinate = spawns.get_unoccupied_position(
             level=level,
             origin_x=random_room.x,

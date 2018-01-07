@@ -51,7 +51,7 @@ class ConnectorBasedGenerator(object):
             )
 
         rejected_tiles.update(spawn_grid)
-        cls._fill_empty_spaces(level, rejected_tiles)
+        #cls._fill_empty_spaces(level, rejected_tiles)
 
     @classmethod
     def _prepare_spawn_grid(cls, level):
@@ -82,7 +82,8 @@ class ConnectorBasedGenerator(object):
             piece for _, piece
             in cls.pieces_with_percentage if piece.connectors]
         random.shuffle(pieces)
-        return sorted(pieces, key=lambda piece: len(piece.connectors))
+        return sorted(
+            pieces, key=lambda piece: len(piece.connectors), reverse=True)
 
     @classmethod
     def _write_piece(
@@ -122,13 +123,12 @@ class ConnectorBasedGenerator(object):
         for direction, connectors in piece.connectors.items():
             if inverse_origin_direction == direction:
                 continue
-
+            connector = random.choice(connectors)
             unresolved_connectors.append(
                 ConnectorLink(
-                    connector=random.choice(connectors),
-                    coordinate=cls._get_connector_coord_from_direction(
-                        direction=direction,
-                        piece=piece,
+                    connector=connector,
+                    coordinate=cls._get_connector_coord(
+                        connector=connector,
                         pointer_coord=pointer_coords
                     ),
                     direction=direction
@@ -136,12 +136,13 @@ class ConnectorBasedGenerator(object):
             )
 
     @classmethod
-    def _get_connector_coord_from_direction(
-            cls, direction, piece, pointer_coord):
-        # The pointer coord here must refer to the top left.
+    def _get_connector_coord(cls, connector, pointer_coord):
+        """
+        This returns the coordinate of a connector
+        """
+        coordinate = random.choice(connector.possible_coordinates)
+        offset_x, offset_y = coordinate
         origin_x, origin_y = pointer_coord
-        offset_x = connector_offset_x_dict[direction](piece)
-        offset_y = connector_offset_y_dict[direction](piece)
 
         return origin_x + offset_x, origin_y + offset_y
 
@@ -200,9 +201,10 @@ class ConnectorBasedGenerator(object):
         return [
             piece for _, piece
             in cls.pieces_with_percentage
-            if piece.connectors.get(
-                get_inverse_direction(origin_direction)
-            ) is connector
+            if piece.connectors
+            and connector in piece.connectors.get(
+                get_inverse_direction(origin_direction), []
+            )
         ]
 
     @classmethod
@@ -224,24 +226,29 @@ class ConnectorBasedGenerator(object):
         for a room moved in a specified direction.
         We Overlap one edge with the other room to "connect" them.
         """
-        inverse_direction = get_inverse_direction(direction)
         x_dir, y_dir = move_direction_mapping.get(direction)
-        x_negative, y_negative = move_direction_mapping.get(inverse_direction)
         width = piece.get_width()
         height = piece.get_height()
-        offset_x = x_dir * width
-        offset_y = y_dir * height
         connector_x, connector_y = connector_coord
+        offset_x = (x_dir * width)
+        offset_y = (y_dir * height)
+        if not x_dir:
+            center_x = int(piece.get_width() / 2)
+            offset_x = center_x
+
+        if not y_dir:
+            center_y = int(piece.get_height() / 2)
+            offset_y = center_y
 
         return (
-            connector_x + offset_x + x_negative,
-            connector_y + offset_y + y_negative
+            connector_x - offset_x,
+            connector_y - offset_y
         )
 
 
 connector_offset_x_dict = {
-    Direction.North: lambda piece: random.randint(1, piece.get_width() - 1),
-    Direction.South: lambda piece: random.randint(1, piece.get_width() - 1),
+    Direction.North: lambda piece: random.randint(1, piece.get_width()),
+    Direction.South: lambda piece: random.randint(1, piece.get_width()),
     Direction.West: lambda piece: 0,
     Direction.East: lambda piece: piece.get_width()
 }
@@ -249,6 +256,6 @@ connector_offset_x_dict = {
 connector_offset_y_dict = {
     Direction.North: lambda piece: 0,
     Direction.South: lambda piece: piece.get_height(),
-    Direction.East: lambda piece: random.randint(1, piece.get_height() - 1),
-    Direction.West: lambda piece: random.randint(1, piece.get_height() - 1),
+    Direction.East: lambda piece: random.randint(1, piece.get_height()),
+    Direction.West: lambda piece: random.randint(1, piece.get_height()),
 }

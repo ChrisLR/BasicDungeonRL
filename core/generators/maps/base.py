@@ -35,8 +35,21 @@ class Connector(object):
     """
     This Connector will link possible rooms together.
     """
+    def __init__(self, *possible_coordinates):
+        self.possible_coordinates = possible_coordinates
+
+    def __eq__(self, other):
+        if isinstance(other, Connector):
+            return type(self) == type(other)
+        return False
+
+    def __ne__(self, other):
+        if isinstance(other, Connector):
+            return type(self) != type(other)
+        return True
+
     @classmethod
-    def write(cls, level, coordinate):
+    def write(cls, level, coordinate, direction):
         pass
 
 
