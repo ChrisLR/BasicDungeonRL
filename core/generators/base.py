@@ -111,3 +111,42 @@ class ConnectorBasedGenerator(DesignPieceGenerator):
     adding these new rooms to a new list to do the same.
     It should write each step in all directions at a time.
     """
+
+    @classmethod
+    def _generate(cls, level):
+        spawn_grid = cls._prepare_spawn_grid(level)
+        rejected_tiles = set()
+        unresolved_connectors = []
+
+        center_coordinate = cls._get_center_coordinate(level)
+        ordered_pieces = cls._get_pieces_by_connectors_amount()
+        central_piece = ordered_pieces[0]
+        pointer_coord = cls._position_cursor_from_room_center(center_coordinate, central_piece)
+        cls._write_piece()
+
+        rejected_tiles.update(spawn_grid)
+        cls._fill_empty_spaces(level, rejected_tiles)
+
+    @classmethod
+    def _position_cursor_from_room_center(cls, center_coordinate, piece):
+        x_offset = round(piece.get_width() / 2)
+        y_offset = round(piece.get_height() / 2)
+        x_center, y_center = center_coordinate
+
+        return x_center - x_offset, y_center - y_offset
+
+    @classmethod
+    def _write_piece(cls, level, piece, spawn_grid, pointer_coords):
+
+    @classmethod
+    def _get_center_coordinate(cls, level):
+        return round(level.width / 2), round(level.height / 2)
+
+    @classmethod
+    def _get_pieces_by_connectors_amount(cls):
+        # We shuffle to avoid duplicate counts being in the same order every time.
+        shuffled_pieces = random.shuffle(
+            [piece for _, piece in cls.pieces_with_percentage]
+        )
+        return sorted(shuffled_pieces, key=lambda piece: len(piece.connectors))
+
