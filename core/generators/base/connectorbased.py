@@ -78,10 +78,11 @@ class ConnectorBasedGenerator(object):
     def _get_pieces_by_connectors_amount(cls):
         # We shuffle to avoid duplicate counts
         # being in the same order every time.
-        shuffled_pieces = random.shuffle(
-            [piece for _, piece in cls.pieces_with_percentage]
-        )
-        return sorted(shuffled_pieces, key=lambda piece: len(piece.connectors))
+        pieces = [
+            piece for _, piece
+            in cls.pieces_with_percentage if piece.connectors]
+        random.shuffle(pieces)
+        return sorted(pieces, key=lambda piece: len(piece.connectors))
 
     @classmethod
     def _write_piece(
@@ -187,6 +188,7 @@ class ConnectorBasedGenerator(object):
                         origin_direction=connector_link.direction,
                     )
                     connector_link.write(level)
+                    break
 
     @classmethod
     def _fill_empty_spaces(cls, level, rejected_tiles):

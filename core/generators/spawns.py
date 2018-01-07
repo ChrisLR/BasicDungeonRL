@@ -82,3 +82,24 @@ class SpawnPoint(object):
     def __iter__(self):
         yield self.x
         yield self.y
+
+
+def get_unoccupied_position(level, origin_x, origin_y, width, height):
+    tries = 10
+    while tries:
+        tries -= 1
+        x = random.randint(1, width) + origin_x
+        y = random.randint(1, height) + origin_y
+        coordinate = x, y
+        if level.get_tile(coordinate).blocking:
+            continue
+
+        blocking_objects = [
+            game_object for game_object
+            in level.get_objects_by_coordinates(coordinate)
+            if game_object.blocking]
+
+        if blocking_objects:
+            continue
+
+        return coordinate

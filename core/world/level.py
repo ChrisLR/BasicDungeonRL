@@ -8,7 +8,7 @@ class Level(GameObject):
     __slots__ = [
         "displays", "inner_map", "tiles", "max_x", "max_y",
         "objects_by_coords", "on_tile_change_callbacks",
-        "_game_objects", "room_grid"
+        "_game_objects", "rooms", "room_grid"
     ]
 
     def __init__(self, max_x, max_y):
@@ -22,6 +22,7 @@ class Level(GameObject):
         self.inner_map = tcod_map.Map(max_x, max_y)
         self.on_tile_change_callbacks = []
         self.room_grid = {}
+        self.rooms = []
 
     def register_on_tile_change_callback(self, callback):
         if callback not in self.on_tile_change_callbacks:
@@ -154,6 +155,15 @@ class Level(GameObject):
         return False
 
     def add_room(self, room):
+        self.rooms.append(room)
         for x in range(0, room.width):
             for y in range(0, room.height):
                 self.room_grid[(room.x + x), (room.y + y)] = room
+
+    @property
+    def width(self):
+        return self.max_x
+
+    @property
+    def height(self):
+        return self.max_y

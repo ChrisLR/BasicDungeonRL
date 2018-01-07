@@ -3,6 +3,7 @@ class MapPiece(object):
     tiles = ""
     symbolic_links = {}
     spawn_ratios = tuple()
+    spawners = tuple()
     connectors = {}
 
     @classmethod
