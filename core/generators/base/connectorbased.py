@@ -2,103 +2,11 @@ import random
 
 from sortedcontainers import SortedSet
 
-from core.world.room import Room
+from core.direction import (
+    Direction, get_inverse_direction, move_direction_mapping
+)
 from core.generators.maps.base import ConnectorLink
-from core.direction import Direction
-
-
-class DesignPieceGenerator(object):
-    pieces_with_percentage = None
-    filler_tile = None
-
-    @classmethod
-    def _generate(cls, level):
-        spawn_grid = cls._prepare_spawn_grid(level)
-        rejected_tiles = set()
-        cls._place_pieces(
-            level=level,
-            spawn_grid=spawn_grid,
-            rejected_tiles=rejected_tiles
-        )
-        rejected_tiles.update(spawn_grid)
-        cls._fill_empty_spaces(level, rejected_tiles)
-
-    @classmethod
-    def _prepare_spawn_grid(cls, level):
-        spawn_grid = SortedSet()
-        for x in range(0, level.max_x):
-            for y in range(0, level.max_y):
-                spawn_grid.add((x, y))
-
-        return spawn_grid
-
-    @classmethod
-    def _place_pieces(cls, level, spawn_grid, rejected_tiles):
-        tries = 10
-        available_pieces = cls.pieces_with_percentage.copy()
-        while tries:
-            new_piece = cls._select_piece(available_pieces)
-            if not new_piece:
-                return
-
-            coords = cls._try_fit_piece(new_piece, spawn_grid, rejected_tiles)
-            if coords:
-                level.add_room(Room(*coords, new_piece))
-                cls._write_piece(level, new_piece, spawn_grid, coords)
-                continue
-            tries -= 1
-
-    @classmethod
-    def _select_piece(cls, pieces_with_percentage):
-        randomized_pieces = pieces_with_percentage.copy()
-        random.shuffle(randomized_pieces)
-        for percentage, piece in randomized_pieces:
-            if percentage >= random.randint(0, 100):
-                return piece
-
-        return None
-
-    @classmethod
-    def _try_fit_piece(cls, piece, spawn_grid, rejected_tiles):
-        while spawn_grid:
-            new_point = spawn_grid.pop(0)
-            if cls._all_tiles_fit(piece, spawn_grid, new_point):
-                return new_point
-            else:
-                rejected_tiles.add(new_point)
-
-        return False
-
-    @classmethod
-    def _all_tiles_fit(cls, piece, spawn_grid, offset_coords):
-        offset_x, offset_y = offset_coords
-        for piece_x in range(0, piece.get_width()):
-            for piece_y in range(0, piece.get_height()):
-                tile_coords = (piece_x + offset_x, piece_y + offset_y)
-                if tile_coords not in spawn_grid:
-                    if tile_coords != offset_coords:
-                        return False
-
-        return True
-
-    @classmethod
-    def _write_piece(cls, level, piece, spawn_grid, pointer_coords):
-        pointer_x, pointer_y = pointer_coords
-        for x in range(pointer_x, pointer_x + piece.get_width()):
-            for y in range(pointer_y, pointer_y + piece.get_height()):
-                new_point = (x, y)
-                if new_point != pointer_coords:
-                    spawn_grid.remove(new_point)
-
-        piece.write_tiles_level(level, pointer_x, pointer_y)
-        for spawner in piece.spawners:
-            for spawned_object in spawner.spawn(offset_coords=(pointer_x, pointer_y)):
-                level.add_object(spawned_object)
-
-    @classmethod
-    def _fill_empty_spaces(cls, level, rejected_tiles):
-        for coordinate in rejected_tiles:
-            level.add_tile(coordinate, cls.filler_tile)
+from core.world.room import Room
 
 
 class ConnectorBasedGenerator(object):
@@ -126,7 +34,8 @@ class ConnectorBasedGenerator(object):
         center_coordinate = cls._get_center_coordinate(level)
         ordered_pieces = cls._get_pieces_by_connectors_amount()
         central_piece = ordered_pieces[0]
-        pointer_coord = cls._position_cursor_from_room_center(center_coordinate, central_piece)
+        pointer_coord = cls._position_cursor_from_room_center(center_coordinate,
+                                                              central_piece)
         cls._write_piece(
             level=level,
             piece=central_piece,
@@ -134,6 +43,12 @@ class ConnectorBasedGenerator(object):
             pointer_coords=pointer_coord,
             unresolved_connectors=unresolved_connectors
         )
+        while unresolved_connectors:
+            cls._resolve_next_connectors(
+                level=level,
+                spawn_grid=spawn_grid,
+                unresolved_connectors=unresolved_connectors
+            )
 
         rejected_tiles.update(spawn_grid)
         cls._fill_empty_spaces(level, rejected_tiles)
@@ -169,12 +84,18 @@ class ConnectorBasedGenerator(object):
         return sorted(shuffled_pieces, key=lambda piece: len(piece.connectors))
 
     @classmethod
-    def _write_piece(cls, level, piece, spawn_grid,
-                     pointer_coords, unresolved_connectors):
+    def _write_piece(
+            cls, level, piece, spawn_grid, pointer_coords,
+            unresolved_connectors, origin_direction=None):
 
+        level.add_room(Room(*pointer_coords, piece))
         cls._add_unresolved_connectors(
-            piece, pointer_coords, unresolved_connectors
+            piece=piece,
+            pointer_coords=pointer_coords,
+            unresolved_connectors=unresolved_connectors,
+            origin_direction=origin_direction
         )
+
         pointer_x, pointer_y = pointer_coords
         for x in range(pointer_x, pointer_x + piece.get_width()):
             for y in range(pointer_y, pointer_y + piece.get_height()):
@@ -190,14 +111,23 @@ class ConnectorBasedGenerator(object):
 
     @classmethod
     def _add_unresolved_connectors(
-            cls, piece, pointer_coords, unresolved_connectors):
+            cls, piece, pointer_coords,
+            unresolved_connectors, origin_direction=None):
+
+        inverse_origin_direction = (
+            get_inverse_direction(origin_direction)
+            if origin_direction is not None else None
+        )
         for direction, connectors in piece.connectors.items():
+            if inverse_origin_direction == direction:
+                continue
+
             unresolved_connectors.append(
                 ConnectorLink(
                     connector=random.choice(connectors),
                     coordinate=cls._get_connector_coord_from_direction(
                         direction=direction,
-                        piece=piece, # TODO THIS MUST INSTEAD SELECT A COMPATIBLE PIECE
+                        piece=piece,
                         pointer_coord=pointer_coords
                     ),
                     direction=direction
@@ -215,7 +145,8 @@ class ConnectorBasedGenerator(object):
         return origin_x + offset_x, origin_y + offset_y
 
     @classmethod
-    def _resolve_next_connectors(cls):
+    def _resolve_next_connectors(
+            cls, level, spawn_grid, unresolved_connectors):
         """
         Here we must get all connectors currently in the list
         We copy this list and empty it so any future
@@ -229,13 +160,81 @@ class ConnectorBasedGenerator(object):
         The order is important, if the piece did not fit we do not add
         it's connectors so it will naturally stop once
         we reach the edge of the map.
-        :return:
         """
+        step_connectors = unresolved_connectors.copy()
+        unresolved_connectors.clear()
+        for connector_link in step_connectors:
+            compatible_pieces = cls._get_compatible_pieces(
+                origin_direction=connector_link.direction,
+                connector=connector_link.connector
+            )
+
+            random.shuffle(compatible_pieces)
+            while compatible_pieces:
+                piece = compatible_pieces.pop(0)
+                new_origin_coord = cls._get_origin_for_new_piece(
+                    direction=connector_link.direction,
+                    piece=piece,
+                    connector_coord=connector_link.coordinate,
+                )
+                if cls._all_tiles_fit(piece, spawn_grid, new_origin_coord):
+                    cls._write_piece(
+                        level=level,
+                        piece=piece,
+                        spawn_grid=spawn_grid,
+                        pointer_coords=new_origin_coord,
+                        unresolved_connectors=unresolved_connectors,
+                        origin_direction=connector_link.direction,
+                    )
+                    connector_link.write(level)
 
     @classmethod
     def _fill_empty_spaces(cls, level, rejected_tiles):
         for coordinate in rejected_tiles:
             level.add_tile(coordinate, cls.filler_tile)
+
+    @classmethod
+    def _get_compatible_pieces(cls, origin_direction, connector):
+        return [
+            piece for _, piece
+            in cls.pieces_with_percentage
+            if piece.connectors.get(
+                get_inverse_direction(origin_direction)
+            ) is connector
+        ]
+
+    @classmethod
+    def _all_tiles_fit(cls, piece, spawn_grid, origin_coord):
+        offset_x, offset_y = origin_coord
+        for piece_x in range(0, piece.get_width()):
+            for piece_y in range(0, piece.get_height()):
+                tile_coords = (piece_x + offset_x, piece_y + offset_y)
+                if tile_coords not in spawn_grid:
+                    if tile_coords != origin_coord:
+                        return False
+
+        return True
+
+    @classmethod
+    def _get_origin_for_new_piece(cls, direction, piece, connector_coord):
+        """
+        This returns the top left coordinate
+        for a room moved in a specified direction.
+        We Overlap one edge with the other room to "connect" them.
+        """
+        inverse_direction = get_inverse_direction(direction)
+        x_dir, y_dir = move_direction_mapping.get(direction)
+        x_negative, y_negative = move_direction_mapping.get(inverse_direction)
+        width = piece.get_width()
+        height = piece.get_height()
+        offset_x = x_dir * width
+        offset_y = y_dir * height
+        connector_x, connector_y = connector_coord
+
+        return (
+            connector_x + offset_x + x_negative,
+            connector_y + offset_y + y_negative
+        )
 
 
 connector_offset_x_dict = {

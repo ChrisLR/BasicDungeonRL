@@ -22,3 +22,18 @@ move_direction_mapping = {
     Direction.SouthWest: (-1, 1),
     Direction.West: (-1, 0),
 }
+
+inverse_mapping = {
+    Direction.NorthWest : Direction.SouthEast,
+    Direction.North: Direction.South,
+    Direction.NorthEast: Direction.SouthWest,
+    Direction.East: Direction.West,
+    Direction.SouthEast: Direction.NorthWest,
+    Direction.South: Direction.North,
+    Direction.SouthWest: Direction.NorthEast,
+    Direction.West: Direction.East
+}
+
+
+def get_inverse_direction(direction):
+    return inverse_mapping.get(direction)

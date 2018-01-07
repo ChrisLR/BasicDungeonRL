@@ -51,6 +51,9 @@ class ConnectorLink(object):
         self.coordinate = coordinate
         self.direction = direction
 
+    def write(self, level):
+        self.connector.write(level, self.coordinate)
+
 
 def merge_connectors(*connector_dicts):
     final_dict = {}
