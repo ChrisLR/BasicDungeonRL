@@ -34,8 +34,8 @@ class ConnectorBasedGenerator(object):
         center_coordinate = cls._get_center_coordinate(level)
         ordered_pieces = cls._get_pieces_by_connectors_amount()
         central_piece = ordered_pieces[0]
-        pointer_coord = cls._position_cursor_from_room_center(center_coordinate,
-                                                              central_piece)
+        pointer_coord = cls._get_origin_from_piece_center(center_coordinate,
+                                                          central_piece)
         cls._write_piece(
             level=level,
             piece=central_piece,
@@ -55,6 +55,9 @@ class ConnectorBasedGenerator(object):
 
     @classmethod
     def _prepare_spawn_grid(cls, level):
+        """
+        This prepares a SortedSet containing all possible coordinates
+        """
         spawn_grid = SortedSet()
         for x in range(0, level.max_x):
             for y in range(0, level.max_y):
@@ -63,15 +66,21 @@ class ConnectorBasedGenerator(object):
         return spawn_grid
 
     @classmethod
-    def _position_cursor_from_room_center(cls, center_coordinate, piece):
-        x_offset = round(piece.get_width() / 2)
-        y_offset = round(piece.get_height() / 2)
+    def _get_origin_from_piece_center(cls, center_coordinate, piece):
+        """
+        This returns the Top Left Coordinate from a Piece and its center.
+        """
+        x_offset = int(piece.get_width() / 2)
+        y_offset = int(piece.get_height() / 2)
         x_center, y_center = center_coordinate
 
         return x_center - x_offset, y_center - y_offset
 
     @classmethod
     def _get_center_coordinate(cls, level):
+        """
+        Returns the Center coordinate of a level.
+        """
         return round(level.width / 2), round(level.height / 2)
 
     @classmethod
