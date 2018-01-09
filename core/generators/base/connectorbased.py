@@ -1,5 +1,5 @@
 import random
-
+import collections
 from sortedcontainers import SortedSet
 
 from core.direction import (
@@ -132,7 +132,12 @@ class ConnectorBasedGenerator(object):
         for direction, connectors in piece.connectors.items():
             if inverse_origin_direction == direction:
                 continue
-            connector = random.choice(connectors)
+
+            if isinstance(connectors, collections.Iterable):
+                connector = random.choice(connectors)
+            else:
+                connector = connectors
+
             unresolved_connectors.append(
                 ConnectorLink(
                     connector=connector,
