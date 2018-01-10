@@ -51,7 +51,7 @@ class ConnectorBasedGenerator(object):
             )
 
         rejected_tiles.update(spawn_grid)
-        #cls._fill_empty_spaces(level, rejected_tiles)
+        cls._fill_empty_tiles(level, rejected_tiles)
 
     @classmethod
     def _prepare_spawn_grid(cls, level):
@@ -206,7 +206,10 @@ class ConnectorBasedGenerator(object):
                     break
 
     @classmethod
-    def _fill_empty_spaces(cls, level, rejected_tiles):
+    def _fill_empty_tiles(cls, level, rejected_tiles):
+        """
+        This method considers all empty tiles are in rejected tiles
+        """
         for coordinate in rejected_tiles:
             level.add_tile(coordinate, cls.filler_tile)
 

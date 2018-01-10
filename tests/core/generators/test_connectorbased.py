@@ -16,7 +16,9 @@ def generator():
 class TestPieceOne(MapPiece):
     tiles = "###\n###\n###"
     symbolic_links = {"#": floors.DungeonFloor}
-    connectors = {Direction.North: Connector((1, 0))}
+    connectors = {
+        Direction.North: Connector((1, 0))
+    }
 
 
 class TestPieceTwo(MapPiece):
@@ -187,20 +189,49 @@ def test_get_connector_coord(generator):
     assert y == 0
 
 
-def _resolve_next_connectors(
-        cls, level, spawn_grid, unresolved_connectors):
+def test_resolve_next_connectors(generator):
+    # TODO This is huge, skipped for now
+    # generator._resolve_next_connectors(
+    #     cls, level, spawn_grid, unresolved_connectors)
     pass
 
 
-def test_fill_empty_spaces(cls, level, rejected_tiles):
-    pass
+def test_fill_empty_spaces():
+    class FilledGenerator(ConnectorBasedGenerator):
+        filler_tile = floors.DungeonFloor
+    level = Level(50, 50)
+    rejected_tiles = (
+        (1, 0),
+        (2, 0),
+        (20, 0),
+        (29, 1),
+        (38, 2),
+    )
+    FilledGenerator._fill_empty_tiles(level, rejected_tiles)
+
+    filled_tiles = [level.get_tile(coord) for coord in rejected_tiles]
+    assert len(filled_tiles) == len(rejected_tiles)
+    for tile in filled_tiles:
+        assert isinstance(tile, floors.DungeonFloor)
 
 
-def test_get_compatible_pieces(cls, origin_direction, connector):
-    pass
+def test_get_compatible_pieces():
+    class PiecedGenerator(ConnectorBasedGenerator):
+        pieces_with_percentage = [
+            (100, TestPieceOne),
+            (100, TestPieceTwo),
+        ]
+    origin_direction = Direction.North
+    pieces = PiecedGenerator._get_compatible_pieces(
+        origin_direction=origin_direction,
+        connector=Connector(),
+    )
+
+    assert len(pieces) == 1
+    assert TestPieceTwo in pieces
 
 
-def _all_tiles_fit(cls, piece, spawn_grid, origin_coord):
+def test_all_tiles_fit(cls, piece, spawn_grid, origin_coord):
     pass
 
 
