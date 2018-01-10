@@ -178,8 +178,13 @@ def test_add_unresolved_connectors_with_origin(generator):
     assert unresolved_connectors[0].direction == Direction.North
 
 
-def test_get_connector_coord(cls, connector, pointer_coord):
-    pass
+def test_get_connector_coord(generator):
+    first_connector = TestPieceOne.connectors[Direction.North]
+    pointer_coordinate = (1, 0)
+    x, y = generator._get_connector_coord(first_connector, pointer_coordinate)
+
+    assert x == 2
+    assert y == 0
 
 
 def _resolve_next_connectors(
