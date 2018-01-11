@@ -129,7 +129,7 @@ class ConnectorBasedGenerator(object):
             if origin_direction is not None else None
         )
         for direction, connectors in piece.connectors.items():
-            if inverse_origin_direction is not None and inverse_origin_direction != direction:
+            if inverse_origin_direction is not None and inverse_origin_direction == direction:
                 continue
 
             if isinstance(connectors, collections.Iterable):
