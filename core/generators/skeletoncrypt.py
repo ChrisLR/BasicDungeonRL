@@ -10,7 +10,7 @@ from core.world.level import Level
 class SkeletonCrypt(ConnectorBasedGenerator):
     filler_tile = walls.DungeonWall
     pieces_with_percentage = [
-        (25, arena.Arena),
+        #(25, arena.Arena),
         (25, tunnels.HorizontalTunnel),
         (25, tunnels.VerticalTunnel),
         (25, tunnels.FourPointTunnel),

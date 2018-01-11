@@ -17,7 +17,7 @@ class TestPieceOne(MapPiece):
     tiles = "###\n###\n###"
     symbolic_links = {"#": floors.DungeonFloor}
     connectors = {
-        Direction.North: Connector((1, 0))
+        Direction.North: (Connector((1, 0)),)
     }
 
 
@@ -25,8 +25,8 @@ class TestPieceTwo(MapPiece):
     tiles = "###\n###\n###"
     symbolic_links = {"#": floors.DungeonFloor}
     connectors = {
-        Direction.North: Connector((1, 0)),
-        Direction.South: Connector((1, 2))
+        Direction.North: (Connector((1, 0)),),
+        Direction.South: (Connector((1, 2)),),
     }
 
 
@@ -34,17 +34,17 @@ class TestPieceFour(MapPiece):
     tiles = "###\n###\n###"
     symbolic_links = {"#": floors.DungeonFloor}
     connectors = {
-        Direction.North: Connector((1, 0)),
-        Direction.East: Connector((1, 1)),
-        Direction.South: Connector((1, 2)),
-        Direction.West: Connector((0, 1)),
+        Direction.North: (Connector((1, 0)),),
+        Direction.East: (Connector((1, 1)),),
+        Direction.South: (Connector((1, 2)),),
+        Direction.West: (Connector((0, 1)),),
     }
 
 
 class TestPieceOneWithSpawner(MapPiece):
     tiles = "###\n###\n###"
     symbolic_links = {"#": floors.DungeonFloor}
-    connectors = {Direction.North: Connector((1, 0))}
+    connectors = {Direction.North: (Connector((1, 0)),)}
     spawners = [OnceSpawner(SpawnSet(100, Deer, (1, 1)))]
 
 
@@ -141,13 +141,13 @@ def test_add_unresolved_connectors_with_one_connector(generator):
     assert len(unresolved_connectors) == 1
     assert isinstance(unresolved_connectors[0], ConnectorLink)
     assert isinstance(unresolved_connectors[0].connector, Connector)
-    assert unresolved_connectors[0].coordinate == (1, 0)
+    assert unresolved_connectors[0].coordinate == (2, 1)
     assert unresolved_connectors[0].direction == Direction.North
 
 
 def test_add_unresolved_connectors_with_four_connectors(generator):
     unresolved_connectors = []
-    pointer_coordinate = (1, 1)
+    pointer_coordinate = (0, 0)
 
     generator._add_unresolved_connectors(
         TestPieceFour,
@@ -161,7 +161,7 @@ def test_add_unresolved_connectors_with_four_connectors(generator):
                                if link.direction is direction))
         assert isinstance(connector_link, ConnectorLink)
         assert isinstance(connector_link.connector, Connector)
-        assert connector_link.coordinate == connector.possible_coordinates
+        assert connector_link.coordinate == connector[0].possible_coordinates[0]
 
 
 def test_add_unresolved_connectors_with_origin(generator):
@@ -176,12 +176,12 @@ def test_add_unresolved_connectors_with_origin(generator):
     )
 
     assert len(unresolved_connectors) == 1
-    assert unresolved_connectors[0].coordinate == (1, 0)
+    assert unresolved_connectors[0].coordinate == (2, 1)
     assert unresolved_connectors[0].direction == Direction.North
 
 
 def test_get_connector_coord(generator):
-    first_connector = TestPieceOne.connectors[Direction.North]
+    first_connector = TestPieceOne.connectors[Direction.North][0]
     pointer_coordinate = (1, 0)
     x, y = generator._get_connector_coord(first_connector, pointer_coordinate)
 
@@ -231,9 +231,24 @@ def test_get_compatible_pieces():
     assert TestPieceTwo in pieces
 
 
-def test_all_tiles_fit(cls, piece, spawn_grid, origin_coord):
-    pass
+def test_all_tiles_fit_when_true(generator):
+    spawn_grid = [(0,0), (0, 1), (0,2), (1,0), (1,1), (1, 2), (2,0), (2,1), (2,2)]
+    origin_coord = (0, 0)
+    result = generator._all_tiles_fit(TestPieceOne, spawn_grid, origin_coord)
+
+    assert result is True
 
 
-def test_get_origin_for_new_piece(cls, direction, piece, connector_coord):
-    pass
+def test_all_tiles_fit_when_false(generator):
+    spawn_grid = [(0, 0), (0, 1)]
+    origin_coord = (0, 0)
+    result = generator._all_tiles_fit(TestPieceOne, spawn_grid, origin_coord)
+
+    assert result is False
+
+
+def test_get_origin_for_new_piece(generator):
+    connector_coordinate = (10, 10)
+    new_origin = generator._get_origin_for_new_piece(Direction.North, TestPieceOne, connector_coordinate)
+
+    assert new_origin == (10, 7)

@@ -111,8 +111,7 @@ class ConnectorBasedGenerator(object):
         for x in range(pointer_x, pointer_x + piece.get_width()):
             for y in range(pointer_y, pointer_y + piece.get_height()):
                 new_point = (x, y)
-                if new_point != pointer_coords:
-                    spawn_grid.remove(new_point)
+                spawn_grid.remove(new_point)
 
         piece.write_tiles_level(level, pointer_x, pointer_y)
         for spawner in piece.spawners:
@@ -130,7 +129,7 @@ class ConnectorBasedGenerator(object):
             if origin_direction is not None else None
         )
         for direction, connectors in piece.connectors.items():
-            if inverse_origin_direction == direction:
+            if inverse_origin_direction is not None and inverse_origin_direction != direction:
                 continue
 
             if isinstance(connectors, collections.Iterable):
@@ -251,15 +250,15 @@ class ConnectorBasedGenerator(object):
         offset_y = (y_dir * height)
         if not x_dir:
             center_x = int(piece.get_width() / 2)
-            offset_x = center_x
+            offset_x = -center_x
 
         if not y_dir:
             center_y = int(piece.get_height() / 2)
-            offset_y = center_y
+            offset_y = -center_y
 
         return (
-            connector_x - offset_x,
-            connector_y - offset_y
+            connector_x + offset_x,
+            connector_y + offset_y
         )
 
 

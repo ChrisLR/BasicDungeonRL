@@ -6,9 +6,9 @@ from core.tiles import floors, walls
 
 class VerticalTunnel(MapPiece):
     name = "Vertical Tunnel"
-    tiles = "#.#\n" \
+    tiles = "###\n" \
             "#.#\n" \
-            "#.#\n"
+            "###\n"
 
     symbolic_links = {
         ".": floors.DungeonFloor,
@@ -29,7 +29,7 @@ class VerticalTunnel(MapPiece):
 class HorizontalTunnel(MapPiece):
     name = "Horizontal Tunnel"
     tiles = "###\n" \
-            "...\n" \
+            "#.#\n" \
             "###\n"
 
     symbolic_links = {
@@ -51,9 +51,9 @@ class HorizontalTunnel(MapPiece):
 
 class FourPointTunnel(MapPiece):
     name = "FourPoint Tunnel"
-    tiles = "###..###\n" \
-            "........\n" \
-            "###..###\n" \
+    tiles = "########\n" \
+            "#......#\n" \
+            "########\n" \
 
     symbolic_links = {
                 ".": floors.DungeonFloor,
