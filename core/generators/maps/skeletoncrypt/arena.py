@@ -23,13 +23,15 @@ class Arena(MapPiece):
     }
     spawners = [
         spawns.OnceSpawner(
-            spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(2, 2)),
-            spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(2, 3)),
-            spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(3, 2)),
-            spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(3, 3)),
-            spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(3, 4)),
-            spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(4, 3)),
-            spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(4, 4)),
+            spawns.SpawnChain(100, spawn_sets=[
+                spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(2, 2)),
+                spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(2, 3)),
+                spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(3, 2)),
+                spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(3, 3)),
+                spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(3, 4)),
+                spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(4, 3)),
+                spawns.SpawnSet(100, monsters.Skeleton, spawns.SpawnPoint(4, 4)),
+            ])
         )
     ]
     connectors = {

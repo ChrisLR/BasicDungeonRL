@@ -30,6 +30,15 @@ class TestPieceTwo(MapPiece):
     }
 
 
+class TestPieceThree(MapPiece):
+    tiles = "###\n###\n###"
+    symbolic_links = {"#": floors.DungeonFloor}
+    connectors = {
+        Direction.West: (Connector((0, 1)),),
+        Direction.East: (Connector((2, 1)),),
+    }
+
+
 class TestPieceFour(MapPiece):
     tiles = "###\n###\n###"
     symbolic_links = {"#": floors.DungeonFloor}
@@ -247,8 +256,27 @@ def test_all_tiles_fit_when_false(generator):
     assert result is False
 
 
-def test_get_origin_for_new_piece(generator):
+def test_get_origin_for_new_piece_north(generator):
+    connector = TestPieceTwo.connectors.get(Direction.South)[0]
     connector_coordinate = (10, 10)
-    new_origin = generator._get_origin_for_new_piece(Direction.North, TestPieceOne, connector_coordinate)
+    new_origin = generator._get_origin_for_new_piece(
+        direction=Direction.North,
+        piece=TestPieceTwo,
+        connector_coord=connector_coordinate,
+        connector=connector
+    )
 
-    assert new_origin == (10, 7)
+    assert new_origin == (9, 8)
+
+
+def test_get_origin_for_new_piece_east(generator):
+    connector = TestPieceThree.connectors.get(Direction.West)[0]
+    connector_coordinate = (10, 10)
+    new_origin = generator._get_origin_for_new_piece(
+        direction=Direction.East,
+        piece=TestPieceThree,
+        connector_coord=connector_coordinate,
+        connector=connector
+    )
+
+    assert new_origin == (10, 9)

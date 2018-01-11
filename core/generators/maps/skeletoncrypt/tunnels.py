@@ -8,6 +8,8 @@ class VerticalTunnel(MapPiece):
     name = "Vertical Tunnel"
     tiles = "###\n" \
             "#.#\n" \
+            "#.#\n" \
+            "#.#\n" \
             "###\n"
 
     symbolic_links = {
@@ -28,9 +30,9 @@ class VerticalTunnel(MapPiece):
 
 class HorizontalTunnel(MapPiece):
     name = "Horizontal Tunnel"
-    tiles = "###\n" \
-            "#.#\n" \
-            "###\n"
+    tiles = "######\n" \
+            "#....#\n" \
+            "######\n"
 
     symbolic_links = {
         ".": floors.DungeonFloor,
