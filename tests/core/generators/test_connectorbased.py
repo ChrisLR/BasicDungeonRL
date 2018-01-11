@@ -185,8 +185,8 @@ def test_add_unresolved_connectors_with_origin(generator):
     )
 
     assert len(unresolved_connectors) == 1
-    assert unresolved_connectors[0].coordinate == (2, 1)
-    assert unresolved_connectors[0].direction == Direction.North
+    assert unresolved_connectors[0].coordinate == (2, 3)
+    assert unresolved_connectors[0].direction == Direction.South
 
 
 def test_get_connector_coord(generator):
@@ -266,7 +266,7 @@ def test_get_origin_for_new_piece_north(generator):
         connector=connector
     )
 
-    assert new_origin == (9, 8)
+    assert new_origin == (9, 7)
 
 
 def test_get_origin_for_new_piece_east(generator):

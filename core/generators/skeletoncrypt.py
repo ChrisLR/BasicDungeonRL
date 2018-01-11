@@ -1,20 +1,19 @@
 import random
 
-from core.generators.base import ConnectorBasedGenerator
-from core.generators.maps.skeletoncrypt import arena, tunnels
+from core.generators.base import ConnectorBasedGenerator, DesignPieceGenerator, TunneledDesignPieceGenerator
+from core.generators.maps.skeletoncrypt import arena, tunnels, cells
 from core.generators import spawns
 from core.tiles import floors
 from core.world.level import Level
 
 
-class SkeletonCrypt(ConnectorBasedGenerator):
+class SkeletonCrypt(TunneledDesignPieceGenerator):
     filler_tile = floors.WoodenFloor
     pieces_with_percentage = [
-        (25, arena.Arena),
-        (25, tunnels.HorizontalTunnel),
-        (25, tunnels.VerticalTunnel),
-        (25, tunnels.FourPointTunnel),
+        (100, arena.Arena),
+        (100, cells.LargeCellArea),
     ]
+    max_amount_of_rooms = 3
 
     @classmethod
     def generate(cls):
@@ -34,5 +33,5 @@ class SkeletonCrypt(ConnectorBasedGenerator):
             width=random_room.width,
             height=random_room.height,
         )
-        player.location.set_local_coords(coordinate)
+        player.location.set_local_coords((1, 1))
         level.add_object(player)
