@@ -48,9 +48,17 @@ class Connector(object):
             return type(self) != type(other)
         return True
 
-    @classmethod
-    def write(cls, level, coordinate, direction):
+    def write(self, level, coordinate, direction):
         pass
+
+    def get_adjacent_coordinates(self, target_coordinate):
+        neighbors = []
+        for coordinate in self.possible_coordinates:
+            if coordinate != target_coordinate:
+                cx, cy = coordinate
+                tx, ty = target_coordinate
+                if abs(cx - tx) + abs(cy - ty) < 1:
+                    neighbors.append(coordinate)
 
 
 class ConnectorLink(object):
@@ -66,7 +74,7 @@ class ConnectorLink(object):
         self.direction = direction
 
     def write(self, level):
-        self.connector.write(level, self.coordinate)
+        self.connector.write(level, self.coordinate, self.direction)
 
 
 def merge_connectors(*connector_dicts):
