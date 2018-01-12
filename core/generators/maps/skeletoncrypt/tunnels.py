@@ -21,6 +21,14 @@ class VerticalTunnel(MapPiece):
             connectors.DungeonFloorConnectorA((1, 0)),
             connectors.DungeonDoorConnectorA((1, 0)),
         ),
+        Direction.East: (
+            connectors.DungeonFloorConnectorA((2, 3)),
+            connectors.DungeonDoorConnectorA((2, 3)),
+        ),
+        Direction.West: (
+            connectors.DungeonFloorConnectorA((0, 3)),
+            connectors.DungeonDoorConnectorA((0, 3)),
+        ),
         Direction.South: (
             connectors.DungeonFloorConnectorA((1, 2)),
             connectors.DungeonDoorConnectorA((1, 2)),
@@ -40,6 +48,14 @@ class HorizontalTunnel(MapPiece):
     }
 
     connectors = {
+        Direction.North: (
+            connectors.DungeonFloorConnectorA((3, 0)),
+            connectors.DungeonDoorConnectorA((3, 0)),
+        ),
+        Direction.South: (
+            connectors.DungeonFloorConnectorA((3, 2)),
+            connectors.DungeonDoorConnectorA((3, 2))
+        ),
         Direction.East: (
             connectors.DungeonFloorConnectorA((2, 1)),
             connectors.DungeonDoorConnectorA((2, 1)),
@@ -54,29 +70,28 @@ class HorizontalTunnel(MapPiece):
 class FourPointTunnel(MapPiece):
     name = "FourPoint Tunnel"
     tiles = "########\n" \
+            "###..###\n" \
             "#......#\n" \
-            "########\n" \
+            "#......#\n" \
+            "###..###\n" \
+            "########\n"
 
     symbolic_links = {
-                ".": floors.DungeonFloor,
-                "#": walls.DungeonWall,
-            }
+        ".": floors.DungeonFloor,
+        "#": walls.DungeonWall,
+    }
 
     connectors = {
         Direction.North: (
-            connectors.DungeonFloorConnectorA((3, 0), (4, 0)),
-            connectors.DungeonDoorConnectorA((3, 0), (4, 0)),
+            connectors.DungeonFloorConnectorA((4, 0), (5, 0)),
         ),
         Direction.South: (
-            connectors.DungeonFloorConnectorA((3, 2), (4, 2)),
-            connectors.DungeonDoorConnectorA((3, 2), (4, 2)),
+            connectors.DungeonFloorConnectorA((4, 5), (5, 5)),
         ),
         Direction.East: (
-            connectors.DungeonFloorConnectorA((7, 1)),
-            connectors.DungeonDoorConnectorA((7, 1)),
+            connectors.DungeonFloorConnectorA((7, 3), (7, 4)),
         ),
         Direction.West: (
-            connectors.DungeonFloorConnectorA((1, 0)),
-            connectors.DungeonDoorConnectorA((1, 0)),
+            connectors.DungeonFloorConnectorA((0, 3), (0, 4)),
         ),
     }

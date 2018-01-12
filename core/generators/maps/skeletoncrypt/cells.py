@@ -12,7 +12,7 @@ class LargeCellArea(MapPiece):
             "#.#.#.#.#\n" \
             "#+#+#+#+#\n" \
             "#.......#\n" \
-            "#.......#\n"\
+            "#.......#\n" \
             "#+#+#+#+#\n" \
             "#.#.#.#.#\n" \
             "#########\n"
@@ -29,12 +29,12 @@ class LargeCellArea(MapPiece):
     connectors = {
         Direction.East: (
             connectors.DungeonDoorConnectorA(
-                ((0, 4), (0, 5))
+                (0, 4), (0, 5)
             ),
         ),
         Direction.West: (
             connectors.DungeonDoorConnectorA(
-                ((8, 4), (8, 5))
+                (8, 4), (8, 5)
             ),
         ),
     }

@@ -59,6 +59,6 @@ class TunneledDesignPieceGenerator(DesignPieceGenerator):
     def _dig_tunnels(cls, level, spawn_grid):
         """
         Here, the goal is to get all room centers.
-        
+
         """
         pass

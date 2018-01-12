@@ -7,10 +7,13 @@ from core.tiles import floors
 from core.world.level import Level
 
 
-class SkeletonCrypt(TunneledDesignPieceGenerator):
+class SkeletonCrypt(ConnectorBasedGenerator):
     filler_tile = floors.WoodenFloor
     pieces_with_percentage = [
         (100, arena.Arena),
+        (100, tunnels.FourPointTunnel),
+        (100, tunnels.HorizontalTunnel),
+        (100, tunnels.VerticalTunnel),
         (100, cells.LargeCellArea),
     ]
     max_amount_of_rooms = 3

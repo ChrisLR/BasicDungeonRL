@@ -202,7 +202,7 @@ class ConnectorBasedGenerator(object):
                         unresolved_connectors=unresolved_connectors,
                         origin_direction=connector_link.direction,
                     )
-                    connector_link.write(level)
+                    # connector_link.write(level)
                     break
 
     @classmethod
@@ -281,18 +281,3 @@ class ConnectorBasedGenerator(object):
             connector_x - offset_x,
             connector_y - offset_y
         )
-
-
-connector_offset_x_dict = {
-    Direction.North: lambda piece: random.randint(1, piece.get_width()),
-    Direction.South: lambda piece: random.randint(1, piece.get_width()),
-    Direction.West: lambda piece: 0,
-    Direction.East: lambda piece: piece.get_width()
-}
-
-connector_offset_y_dict = {
-    Direction.North: lambda piece: 0,
-    Direction.South: lambda piece: piece.get_height(),
-    Direction.East: lambda piece: random.randint(1, piece.get_height()),
-    Direction.West: lambda piece: random.randint(1, piece.get_height()),
-}
