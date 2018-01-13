@@ -30,8 +30,8 @@ class VerticalTunnel(MapPiece):
         #     connectors.DungeonDoorConnectorA((0, 3)),
         # ),
         Direction.South: (
-            connectors.DungeonFloorConnectorA((1, 2)),
-            connectors.DungeonDoorConnectorA((1, 2)),
+            connectors.DungeonFloorConnectorA((1, 4)),
+            connectors.DungeonDoorConnectorA((1, 4)),
         ),
     }
 
@@ -57,8 +57,8 @@ class HorizontalTunnel(MapPiece):
         #     connectors.DungeonDoorConnectorA((3, 2))
         # ),
         Direction.East: (
-            connectors.DungeonFloorConnectorA((2, 1)),
-            connectors.DungeonDoorConnectorA((2, 1)),
+            connectors.DungeonFloorConnectorA((5, 1)),
+            connectors.DungeonDoorConnectorA((5, 1)),
         ),
         Direction.West: (
             connectors.DungeonFloorConnectorA((0, 1)),
@@ -89,9 +89,9 @@ class FourPointTunnel(MapPiece):
             connectors.DungeonFloorConnectorA((3, 5), (4, 5)),
         ),
         Direction.East: (
-            connectors.DungeonFloorConnectorA((7, 3), (7, 4)),
+            connectors.DungeonFloorConnectorA((7, 2), (7, 3)),
         ),
         Direction.West: (
-            connectors.DungeonFloorConnectorA((0, 3), (0, 4)),
+            connectors.DungeonFloorConnectorA((0, 2), (0, 3)),
         ),
     }
