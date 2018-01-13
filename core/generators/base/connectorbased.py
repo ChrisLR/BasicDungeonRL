@@ -25,6 +25,7 @@ class ConnectorBasedGenerator(object):
 
     pieces = None
     filler_tile = None
+    max_amount_of_rooms = 1
 
     @classmethod
     def _generate(cls, level):
@@ -44,11 +45,13 @@ class ConnectorBasedGenerator(object):
             pointer_coords=pointer_coord,
             unresolved_connectors=unresolved_connectors
         )
+        pieces_written = 1
         while unresolved_connectors:
             cls._resolve_next_connectors(
                 level=level,
                 spawn_grid=spawn_grid,
-                unresolved_connectors=unresolved_connectors
+                unresolved_connectors=unresolved_connectors,
+                pieces_written=pieces_written
             )
 
         rejected_tiles.update(spawn_grid)
@@ -162,7 +165,7 @@ class ConnectorBasedGenerator(object):
 
     @classmethod
     def _resolve_next_connectors(
-            cls, level, spawn_grid, unresolved_connectors):
+            cls, level, spawn_grid, unresolved_connectors, pieces_written):
         """
         Here we must get all connectors currently in the list
         We copy this list and empty it so any future
@@ -184,10 +187,13 @@ class ConnectorBasedGenerator(object):
                 origin_direction=connector_link.direction,
                 connector=connector_link.connector
             )
-
-            random.shuffle(compatible_pieces)
+            compatible_pieces = cls.filter_map_pieces_by_amounts(level, compatible_pieces)
             while compatible_pieces:
                 piece_spawn = compatible_pieces.pop(0)
+                chance = random.randint(0, 100)
+                if chance > piece_spawn.chance:
+                    continue
+
                 piece = piece_spawn.map_piece
                 new_origin_coord = cls._get_origin_for_new_piece(
                     direction=connector_link.direction,
@@ -205,6 +211,9 @@ class ConnectorBasedGenerator(object):
                         origin_direction=connector_link.direction,
                     )
                     connector_link.write(level, piece, new_origin_coord)
+                    pieces_written += 1
+                    if pieces_written >= cls.max_amount_of_rooms:
+                        return
                     break
 
     @classmethod
@@ -284,3 +293,18 @@ class ConnectorBasedGenerator(object):
             connector_x - offset_x,
             connector_y - offset_y
         )
+
+    @classmethod
+    def filter_map_pieces_by_amounts(cls, level, map_pieces):
+        pieces_with_amounts = []
+        for map_piece in map_pieces:
+            amount = len([room for room in level.rooms if room.design_piece == map_piece])
+            piece_spawn = next((piece_spawn for piece_spawn in cls.pieces if piece_spawn is map_piece))
+            if piece_spawn.spawn_limit is None:
+                pieces_with_amounts.append((amount, piece_spawn))
+            elif amount < piece_spawn.spawn_limit:
+                pieces_with_amounts.append((amount, piece_spawn))
+
+        pieces_with_amounts = sorted(pieces_with_amounts, key=lambda piece: piece[0])
+
+        return [piece for _, piece in pieces_with_amounts]

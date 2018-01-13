@@ -15,7 +15,7 @@ class SkeletonCrypt(ConnectorBasedGenerator):
         MapPieceSpawn(50, tunnels.VerticalTunnel),
         MapPieceSpawn(25, cells.LargeCellArea, spawn_limit=1),
     ]
-    max_amount_of_rooms = 10
+    max_amount_of_rooms = 4
 
     @classmethod
     def generate(cls):
