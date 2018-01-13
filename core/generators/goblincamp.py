@@ -1,18 +1,19 @@
 from core.generators.base import DesignPieceGenerator
-from core.generators.maps.goblincamp import huts
+from core.generators.spawns import MapPieceSpawn
+from core.maps.goblincamp import huts
 from core.tiles import floors
 from core.world.level import Level
 
 
 class GoblinCampGenerator(DesignPieceGenerator):
     filler_tile = floors.Grass
-    pieces_with_percentage = [
-        (50, huts.GoblinHut1),
-        (50, huts.GoblinHut2),
-        (50, huts.GoblinHut3),
-        (50, huts.GoblinHut4),
-        (100, huts.GrassyClearing),
-        (50, huts.LargeHut),
+    pieces = [
+        MapPieceSpawn(50, huts.GoblinHut1),
+        MapPieceSpawn(50, huts.GoblinHut2),
+        MapPieceSpawn(50, huts.GoblinHut3),
+        MapPieceSpawn(50, huts.GoblinHut4),
+        MapPieceSpawn(100, huts.GrassyClearing),
+        MapPieceSpawn(50, huts.LargeHut),
     ]
 
     @classmethod

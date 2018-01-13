@@ -6,7 +6,7 @@ from core.world.room import Room
 
 
 class DesignPieceGenerator(object):
-    pieces_with_percentage = None
+    pieces = None
     filler_tile = None
 
     @classmethod
@@ -33,7 +33,7 @@ class DesignPieceGenerator(object):
     @classmethod
     def _place_pieces(cls, level, spawn_grid, rejected_tiles):
         tries = 10
-        available_pieces = cls.pieces_with_percentage.copy()
+        available_pieces = cls.pieces.copy()
         while tries:
             new_piece = cls._select_piece(available_pieces)
             if not new_piece:
@@ -50,9 +50,11 @@ class DesignPieceGenerator(object):
     def _select_piece(cls, pieces_with_percentage):
         randomized_pieces = pieces_with_percentage.copy()
         random.shuffle(randomized_pieces)
-        for percentage, piece in randomized_pieces:
+        for piece_spawn in randomized_pieces:
+            percentage = piece_spawn.chance
             if percentage >= random.randint(0, 100):
-                return piece
+                return piece_spawn.map_piece
+
 
         return None
 

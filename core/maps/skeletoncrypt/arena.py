@@ -1,8 +1,8 @@
 from bflib import monsters
 from core.direction import Direction
 from core.generators import spawns
-from core.generators.maps.base import MapPiece
-from core.generators.maps.skeletoncrypt import connectors
+from core.maps.base import MapPiece
+from core.maps.skeletoncrypt import connectors
 from core.tiles import floors, doors, walls
 
 
@@ -37,22 +37,22 @@ class Arena(MapPiece):
     connectors = {
         Direction.North: (
             connectors.DungeonDoorConnectorA(
-                *[(x, 0) for x in range(1, 8)]
+                *[(x, 0) for x in range(4, 7)]
             ),
         ),
         Direction.East: (
             connectors.DungeonDoorConnectorA(
-                *[(9, y) for y in range(1, 7)]
+                *[(9, y) for y in range(4, 7)]
             ),
         ),
         Direction.South: (
             connectors.DungeonDoorConnectorA(
-                *[(x, 7) for x in range(1, 8)]
+                *[(x, 7) for x in range(4, 7)]
             ),
         ),
         Direction.West: (
             connectors.DungeonDoorConnectorA(
-                *[(0, y) for y in range(1, 7)]
+                *[(0, y) for y in range(4, 7)]
             ),
         ),
     }

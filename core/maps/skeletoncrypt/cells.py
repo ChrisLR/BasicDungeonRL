@@ -1,8 +1,8 @@
 from bflib import monsters
 from core.direction import Direction
 from core.generators import spawns
-from core.generators.maps.base import MapPiece
-from core.generators.maps.skeletoncrypt import connectors
+from core.maps.base import MapPiece
+from core.maps.skeletoncrypt import connectors
 from core.tiles import floors, doors, walls
 
 

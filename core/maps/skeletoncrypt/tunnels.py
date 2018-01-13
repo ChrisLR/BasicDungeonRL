@@ -1,6 +1,6 @@
 from core.direction import Direction
-from core.generators.maps.base import MapPiece
-from core.generators.maps.skeletoncrypt import connectors
+from core.maps.base.mappiece import MapPiece
+from core.maps.skeletoncrypt import connectors
 from core.tiles import floors, walls
 
 

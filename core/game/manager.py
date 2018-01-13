@@ -20,8 +20,8 @@ class Game(object):
 
     def new_game(self):
         # generator = generators.TestingGenerator
-        #generator = generators.GoblinCampGenerator
-        generator = generators.SkeletonCrypt
+        generator = generators.GoblinCampGenerator
+        #generator = generators.SkeletonCrypt
         level = generator.generate()
         self.game_context.player.display.priority = DisplayPriority.Player
         generator.place_player(level, self.game_context.player)

@@ -26,7 +26,7 @@ class TunneledDesignPieceGenerator(DesignPieceGenerator):
     def _place_pieces(cls, level, spawn_grid, rejected_tiles):
         tries = cls.max_amount_of_rooms * 10
         pieces_wrote = 0
-        available_pieces = cls.pieces_with_percentage.copy()
+        available_pieces = cls.pieces.copy()
         while tries:
             new_piece = cls._select_piece(available_pieces)
             if not new_piece:

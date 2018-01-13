@@ -1,4 +1,4 @@
-from core.generators.maps.base import Connector
+from core.maps.base.connector import Connector
 from core.tiles import doors, floors
 from core.direction import move_direction_mapping, get_inverse_direction
 

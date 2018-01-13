@@ -1,6 +1,6 @@
 from bflib.monsters import Deer
 from core.generators.base import ConnectorBasedGenerator
-from core.generators.maps.base import MapPiece, Connector, ConnectorLink
+from core.maps.base import MapPiece, Connector, ConnectorLink
 from core.generators.spawns import OnceSpawner, SpawnSet
 from core.direction import Direction
 from core.world.level import Level
@@ -104,7 +104,7 @@ def test_get_center_coordinate(generator):
 
 def test_get_pieces_by_connectors_amount():
     class TestGenerator(ConnectorBasedGenerator):
-        pieces_with_percentage = [
+        pieces = [
             (100, TestPieceOne),
             (100, TestPieceTwo)
         ]
@@ -226,7 +226,7 @@ def test_fill_empty_spaces():
 
 def test_get_compatible_pieces():
     class PiecedGenerator(ConnectorBasedGenerator):
-        pieces_with_percentage = [
+        pieces = [
             (100, TestPieceOne),
             (100, TestPieceTwo),
         ]

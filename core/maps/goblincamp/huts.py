@@ -1,7 +1,7 @@
 from bflib import items
 from bflib.monsters.humanoids.goblins import Goblin
 from core.generators import spawns
-from core.generators.maps.base import MapPiece
+from core.maps.base import MapPiece
 from core.tiles import floors, doors, walls
 
 

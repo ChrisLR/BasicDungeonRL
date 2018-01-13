@@ -1,11 +1,12 @@
-import random
 import collections
+import random
+
 from sortedcontainers import SortedSet
 
 from core.direction import (
-    Direction, get_inverse_direction, move_direction_mapping
+    Direction, get_inverse_direction
 )
-from core.generators.maps.base import ConnectorLink
+from core.maps.base.connectorlink import ConnectorLink
 from core.world.room import Room
 
 
@@ -22,7 +23,7 @@ class ConnectorBasedGenerator(object):
     It should write each step in all directions at a time.
     """
 
-    pieces_with_percentage = None
+    pieces = None
     filler_tile = None
 
     @classmethod
@@ -88,8 +89,8 @@ class ConnectorBasedGenerator(object):
         # We shuffle to avoid duplicate counts
         # being in the same order every time.
         pieces = [
-            piece for _, piece
-            in cls.pieces_with_percentage if piece.connectors]
+            piece_spawn.map_piece for piece_spawn
+            in cls.pieces if piece_spawn.map_piece.connectors]
         random.shuffle(pieces)
         return sorted(
             pieces, key=lambda piece: len(piece.connectors), reverse=True)
@@ -186,7 +187,8 @@ class ConnectorBasedGenerator(object):
 
             random.shuffle(compatible_pieces)
             while compatible_pieces:
-                piece = compatible_pieces.pop(0)
+                piece_spawn = compatible_pieces.pop(0)
+                piece = piece_spawn.map_piece
                 new_origin_coord = cls._get_origin_for_new_piece(
                     direction=connector_link.direction,
                     piece=piece,
@@ -215,14 +217,15 @@ class ConnectorBasedGenerator(object):
 
     @classmethod
     def _get_compatible_pieces(cls, origin_direction, connector):
-        return [
-            piece for _, piece
-            in cls.pieces_with_percentage
-            if piece.connectors
-            and connector in piece.connectors.get(
+        compatible_pieces = [
+            piece_spawn for piece_spawn in cls.pieces
+            if piece_spawn.map_piece.connectors
+            and connector in piece_spawn.map_piece.connectors.get(
                 get_inverse_direction(origin_direction), []
             )
         ]
+
+        return compatible_pieces
 
     @classmethod
     def _all_tiles_fit(cls, piece, spawn_grid, origin_coord):
