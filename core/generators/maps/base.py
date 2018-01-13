@@ -35,8 +35,8 @@ class Connector(object):
     """
     This Connector will link possible rooms together.
     """
-    def __init__(self, *possible_coordinates):
-        self.possible_coordinates = possible_coordinates
+    def __init__(self, *local_coordinates):
+        self.local_coordinates = local_coordinates
 
     def __eq__(self, other):
         if isinstance(other, Connector):
@@ -48,12 +48,12 @@ class Connector(object):
             return type(self) != type(other)
         return True
 
-    def write(self, level, coordinate, direction):
+    def write(self, level, origin, direction, new_piece, new_origin):
         pass
 
     def get_adjacent_coordinates(self, target_coordinate):
         neighbors = []
-        for coordinate in self.possible_coordinates:
+        for coordinate in self.local_coordinates:
             if coordinate != target_coordinate:
                 cx, cy = coordinate
                 tx, ty = target_coordinate
@@ -66,15 +66,16 @@ class ConnectorLink(object):
     The piece used to link a coordinate, a direction and a connector
     before it is resolved
     """
-    __slots__ = ["connector", "coordinate", "direction"]
+    __slots__ = ["connector", "coordinate", "origin", "direction"]
 
-    def __init__(self, connector, coordinate, direction):
+    def __init__(self, connector, coordinate, origin, direction):
         self.connector = connector
         self.coordinate = coordinate
+        self.origin = origin
         self.direction = direction
 
-    def write(self, level):
-        self.connector.write(level, self.coordinate, self.direction)
+    def write(self, level, new_piece, new_origin):
+        self.connector.write(level, self.origin, self.direction, new_piece, new_origin)
 
 
 def merge_connectors(*connector_dicts):

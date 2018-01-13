@@ -142,10 +142,8 @@ class ConnectorBasedGenerator(object):
             unresolved_connectors.append(
                 ConnectorLink(
                     connector=connector,
-                    coordinate=cls._get_connector_coord(
-                        connector=connector,
-                        pointer_coord=pointer_coords
-                    ),
+                    coordinate=cls._get_connector_coord(connector, pointer_coords),
+                    origin=pointer_coords,
                     direction=direction
                 )
             )
@@ -155,7 +153,7 @@ class ConnectorBasedGenerator(object):
         """
         This returns the coordinate of a connector
         """
-        coordinate = random.choice(connector.possible_coordinates)
+        coordinate = random.choice(connector.local_coordinates)
         offset_x, offset_y = coordinate
         origin_x, origin_y = pointer_coord
 
@@ -204,7 +202,7 @@ class ConnectorBasedGenerator(object):
                         unresolved_connectors=unresolved_connectors,
                         origin_direction=connector_link.direction,
                     )
-                    connector_link.write(level)
+                    connector_link.write(level, piece, new_origin_coord)
                     break
 
     @classmethod
@@ -253,14 +251,14 @@ class ConnectorBasedGenerator(object):
             # The X offset is the X Position of the SOUTHERN connector of the new piece
             # The Y offset is TOTAL HEIGHT -1,
             # Both offsets are SUBTRACTED
-            offset_x, _ = min(connector.possible_coordinates, key=lambda coord: coord[0])
+            offset_x, _ = min(connector.local_coordinates, key=lambda coord: coord[0])
             offset_y = height
         elif Direction.South is direction:
             # When Going South
             # The X Offset is the X Position of the WESTERN connector of the new piece
             # The Y Offset is ZERO, because the NORTH side is at the same spot as the connector
             # Both offsets are SUBTRACTED
-            offset_x, _ = min(connector.possible_coordinates, key=lambda coord: coord[0])
+            offset_x, _ = min(connector.local_coordinates, key=lambda coord: coord[0])
             offset_y = 0
         elif Direction.East is direction:
             # When Going East
@@ -268,14 +266,14 @@ class ConnectorBasedGenerator(object):
             # The Y offset is the Y Position of the WESTERN connector of the new piece
             # Both offsets are SUBTRACTED
             offset_x = 0
-            _, offset_y = min(connector.possible_coordinates, key=lambda coord: coord[1])
+            _, offset_y = min(connector.local_coordinates, key=lambda coord: coord[1])
         elif Direction.West is direction:
             # When Going West
             # The X offset is TOTAL WIDTH -1
             # The Y offset is the Y Position of the EASTERN connector of the new piece
             # Both offsets are SUBTRACTED
             offset_x = width
-            _, offset_y = min(connector.possible_coordinates, key=lambda coord: coord[1])
+            _, offset_y = min(connector.local_coordinates, key=lambda coord: coord[1])
         else:
             raise Exception("Unhandled Direction")
 

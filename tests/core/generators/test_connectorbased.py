@@ -170,7 +170,7 @@ def test_add_unresolved_connectors_with_four_connectors(generator):
                                if link.direction is direction))
         assert isinstance(connector_link, ConnectorLink)
         assert isinstance(connector_link.connector, Connector)
-        assert connector_link.coordinate == connector[0].possible_coordinates[0]
+        assert connector_link.coordinate == connector[0].local_coordinates[0]
 
 
 def test_add_unresolved_connectors_with_origin(generator):
