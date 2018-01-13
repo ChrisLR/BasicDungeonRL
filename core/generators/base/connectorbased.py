@@ -45,13 +45,13 @@ class ConnectorBasedGenerator(object):
             pointer_coords=pointer_coord,
             unresolved_connectors=unresolved_connectors
         )
-        pieces_written = 1
         while unresolved_connectors:
+            if len(level.rooms) >= cls.max_amount_of_rooms:
+                break
             cls._resolve_next_connectors(
                 level=level,
                 spawn_grid=spawn_grid,
                 unresolved_connectors=unresolved_connectors,
-                pieces_written=pieces_written
             )
 
         rejected_tiles.update(spawn_grid)
@@ -165,7 +165,7 @@ class ConnectorBasedGenerator(object):
 
     @classmethod
     def _resolve_next_connectors(
-            cls, level, spawn_grid, unresolved_connectors, pieces_written):
+            cls, level, spawn_grid, unresolved_connectors):
         """
         Here we must get all connectors currently in the list
         We copy this list and empty it so any future
@@ -211,9 +211,6 @@ class ConnectorBasedGenerator(object):
                         origin_direction=connector_link.direction,
                     )
                     connector_link.write(level, piece, new_origin_coord)
-                    pieces_written += 1
-                    if pieces_written >= cls.max_amount_of_rooms:
-                        return
                     break
 
     @classmethod

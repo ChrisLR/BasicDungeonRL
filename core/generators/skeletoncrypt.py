@@ -9,13 +9,13 @@ from core.world.level import Level
 class SkeletonCrypt(ConnectorBasedGenerator):
     filler_tile = floors.WoodenFloor
     pieces = [
-        MapPieceSpawn(25, arena.Arena, spawn_limit=1),
-        MapPieceSpawn(25, tunnels.FourPointTunnel),
+        #MapPieceSpawn(25, arena.Arena, spawn_limit=1),
+        MapPieceSpawn(100, tunnels.FourPointTunnel),
         MapPieceSpawn(50, tunnels.HorizontalTunnel),
         MapPieceSpawn(50, tunnels.VerticalTunnel),
-        MapPieceSpawn(25, cells.LargeCellArea, spawn_limit=1),
+        #MapPieceSpawn(25, cells.LargeCellArea, spawn_limit=1),
     ]
-    max_amount_of_rooms = 4
+    max_amount_of_rooms = 1
 
     @classmethod
     def generate(cls):
