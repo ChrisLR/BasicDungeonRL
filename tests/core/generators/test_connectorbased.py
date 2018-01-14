@@ -2,6 +2,7 @@ from bflib.monsters import Deer
 from core.generators.base import ConnectorBasedGenerator
 from core.maps.base import MapPiece, Connector, ConnectorLink
 from core.generators.spawns import OnceSpawner, SpawnSet
+from core.generators.spawns.maps import MapPieceSpawn
 from core.direction import Direction
 from core.world.level import Level
 from core.tiles import floors
@@ -258,12 +259,14 @@ def test_all_tiles_fit_when_false(generator):
 
 def test_get_origin_for_new_piece_north(generator):
     connector = TestPieceTwo.connectors.get(Direction.South)[0]
+    old_origin = (10, 10)
     connector_coordinate = (10, 10)
     new_origin = generator._get_origin_for_new_piece(
         direction=Direction.North,
         piece=TestPieceTwo,
         connector_coord=connector_coordinate,
-        connector=connector
+        connector=connector,
+        old_origin=old_origin
     )
 
     assert new_origin == (9, 7)

@@ -36,13 +36,13 @@ class ConnectorBasedGenerator(object):
         center_coordinate = cls._get_center_coordinate(level)
         ordered_pieces = cls._get_pieces_by_connectors_amount()
         central_piece = ordered_pieces[0]
-        pointer_coord = cls._get_origin_from_piece_center(center_coordinate,
-                                                          central_piece)
+        pointer_coord = cls._get_origin_from_piece_center(
+            center_coordinate, central_piece)
         cls._write_piece(
             level=level,
             piece=central_piece,
             spawn_grid=spawn_grid,
-            pointer_coords=pointer_coord,
+            origin=pointer_coord,
             unresolved_connectors=unresolved_connectors
         )
         while unresolved_connectors:
@@ -100,18 +100,18 @@ class ConnectorBasedGenerator(object):
 
     @classmethod
     def _write_piece(
-            cls, level, piece, spawn_grid, pointer_coords,
+            cls, level, piece, spawn_grid, origin,
             unresolved_connectors, origin_direction=None):
 
-        level.add_room(Room(*pointer_coords, piece))
+        level.add_room(Room(*origin, piece))
         cls._add_unresolved_connectors(
             piece=piece,
-            pointer_coords=pointer_coords,
+            origin=origin,
             unresolved_connectors=unresolved_connectors,
             origin_direction=origin_direction
         )
 
-        pointer_x, pointer_y = pointer_coords
+        pointer_x, pointer_y = origin
         for x in range(pointer_x, pointer_x + piece.get_width()):
             for y in range(pointer_y, pointer_y + piece.get_height()):
                 new_point = (x, y)
@@ -126,7 +126,7 @@ class ConnectorBasedGenerator(object):
 
     @classmethod
     def _add_unresolved_connectors(
-            cls, piece, pointer_coords,
+            cls, piece, origin,
             unresolved_connectors, origin_direction=None):
 
         inverse_origin_direction = (
@@ -146,20 +146,20 @@ class ConnectorBasedGenerator(object):
             unresolved_connectors.append(
                 ConnectorLink(
                     connector=connector,
-                    coordinate=cls._get_connector_coord(connector, pointer_coords),
-                    origin=pointer_coords,
+                    coordinate=cls._get_connector_coord(connector, direction, origin),
+                    origin=origin,
                     direction=direction
                 )
             )
 
     @classmethod
-    def _get_connector_coord(cls, connector, pointer_coord):
+    def _get_connector_coord(cls, connector, direction, origin):
         """
         This returns the coordinate of a connector
         """
-        coordinate = random.choice(connector.local_coordinates)
+        coordinate = min(connector.local_coordinates)
         offset_x, offset_y = coordinate
-        origin_x, origin_y = pointer_coord
+        origin_x, origin_y = origin
 
         return origin_x + offset_x, origin_y + offset_y
 
@@ -207,7 +207,7 @@ class ConnectorBasedGenerator(object):
                         level=level,
                         piece=piece,
                         spawn_grid=spawn_grid,
-                        pointer_coords=new_origin_coord,
+                        origin=new_origin_coord,
                         unresolved_connectors=unresolved_connectors,
                         origin_direction=connector_link.direction,
                     )
@@ -272,39 +272,39 @@ class ConnectorBasedGenerator(object):
             # The X offset is the X Position of the SOUTHERN connector of the new piece
             # The Y offset is TOTAL HEIGHT -1,
             # Both offsets are SUBTRACTED
-            offset_x, _ = min(connector.local_coordinates, key=minimal_delta_x)
-            offset_x = local_connector_x - offset_x
-            offset_y = height
+            minimal_x, _ = min(connector.local_coordinates, key=minimal_delta_x)
+            offset_x = local_connector_x - minimal_x
+            offset_y = -height
         elif Direction.South is direction:
             # When Going South
             # The X Offset is the X Position of the WESTERN connector of the new piece
             # The Y Offset is ZERO, because the NORTH side is at the same spot as the connector
             # Both offsets are SUBTRACTED
-            offset_x, _ = min(connector.local_coordinates, key=minimal_delta_x)
-            offset_x = local_connector_x - offset_x
-            offset_y = connector_y
+            minimal_x, _ = min(connector.local_coordinates, key=minimal_delta_x)
+            offset_x = local_connector_x - minimal_x
+            offset_y = local_connector_y
         elif Direction.East is direction:
             # When Going East
             # The X Offset is ZERO, because the LEFT side is at the same spot as the connector
             # The Y offset is the Y Position of the WESTERN connector of the new piece
             # Both offsets are SUBTRACTED
-            offset_x = connector_x
-            _, offset_y = min(connector.local_coordinates, key=minimal_delta_y)
-            offset_y = local_connector_y - offset_y
+            offset_x = local_connector_x
+            _, minimal_y = min(connector.local_coordinates, key=minimal_delta_y)
+            offset_y = local_connector_y - minimal_y
         elif Direction.West is direction:
             # When Going West
             # The X offset is TOTAL WIDTH -1
             # The Y offset is the Y Position of the EASTERN connector of the new piece
             # Both offsets are SUBTRACTED
-            offset_x = width
-            _, offset_y = min(connector.local_coordinates, key=minimal_delta_y)
-            offset_y = local_connector_y - offset_y
+            offset_x = -width
+            _, minimal_y = min(connector.local_coordinates, key=minimal_delta_y)
+            offset_y = local_connector_y - minimal_y
         else:
             raise Exception("Unhandled Direction")
 
         return (
-            old_origin_x - offset_x,
-            old_origin_y - offset_y
+            old_origin_x + offset_x,
+            old_origin_y + offset_y
         )
 
     @classmethod

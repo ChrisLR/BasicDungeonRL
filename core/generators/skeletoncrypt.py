@@ -9,16 +9,17 @@ from core.world.level import Level
 class SkeletonCrypt(ConnectorBasedGenerator):
     filler_tile = floors.WoodenFloor
     pieces = [
-        MapPieceSpawn(25, arena.Arena, spawn_limit=1),
-        MapPieceSpawn(50, tunnels.DoubleFourPointTunnel),
-        MapPieceSpawn(50, tunnels.SingleHorizontalTunnel),
-        MapPieceSpawn(50, tunnels.SingleVerticalTunnel),
-        MapPieceSpawn(50, tunnels.DoubleHorizontalTunnel),
-        MapPieceSpawn(50, tunnels.DoubleVerticalTunnel),
-        MapPieceSpawn(50, tunnels.EastDoubleToWestSingleHorizontalTunnel),
-        MapPieceSpawn(50, tunnels.WestDoubleToEastSingleHorizontalTunnel),
-        MapPieceSpawn(50, tunnels.NorthDoubleToSouthSingleVerticalTunnel),
-        MapPieceSpawn(50, tunnels.SouthDoubleToNorthSingleVerticalTunnel),
+        #MapPieceSpawn(25, arena.Arena, spawn_limit=1),
+        #MapPieceSpawn(50, tunnels.DoubleFourPointTunnel),
+        MapPieceSpawn(75, tunnels.SingleHorizontalTunnel),
+        MapPieceSpawn(75, tunnels.SingleVerticalTunnel),
+        MapPieceSpawn(75, tunnels.SingleFourPointTunnel),
+        #MapPieceSpawn(50, tunnels.DoubleHorizontalTunnel),
+        #MapPieceSpawn(50, tunnels.DoubleVerticalTunnel),
+        #MapPieceSpawn(50, tunnels.EastDoubleToWestSingleHorizontalTunnel),
+        #MapPieceSpawn(50, tunnels.WestDoubleToEastSingleHorizontalTunnel),
+        #MapPieceSpawn(50, tunnels.NorthDoubleToSouthSingleVerticalTunnel),
+        #MapPieceSpawn(50, tunnels.SouthDoubleToNorthSingleVerticalTunnel),
         MapPieceSpawn(25, cells.LargeCellArea, spawn_limit=1),
     ]
     max_amount_of_rooms = 10
