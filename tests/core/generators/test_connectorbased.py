@@ -263,7 +263,7 @@ def test_get_origin_for_new_piece_north(generator):
     connector_coordinate = (10, 10)
     new_origin = generator._get_origin_for_new_piece(
         direction=Direction.North,
-        piece=TestPieceTwo,
+        new_piece=TestPieceTwo,
         connector_coord=connector_coordinate,
         connector=connector,
         old_origin=old_origin
@@ -277,7 +277,7 @@ def test_get_origin_for_new_piece_east(generator):
     connector_coordinate = (10, 10)
     new_origin = generator._get_origin_for_new_piece(
         direction=Direction.East,
-        piece=TestPieceThree,
+        new_piece=TestPieceThree,
         connector_coord=connector_coordinate,
         connector=connector
     )

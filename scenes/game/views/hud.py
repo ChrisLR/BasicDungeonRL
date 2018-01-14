@@ -24,6 +24,7 @@ class HudView(RectView):
             ('INT:', lambda: str(player_stats.intelligence)),
             ('WIS:', lambda: str(player_stats.wisdom)),
             ('CHA:', lambda: str(player_stats.charisma)),
+            ('LOCA:', lambda: str(player.location.get_local_coords())),
         )
 
         super().__init__(

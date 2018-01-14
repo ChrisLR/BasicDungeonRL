@@ -180,8 +180,8 @@ class SingleFourPointTunnel(MapPiece):
             connectors.DungeonSingleDoor((3, 4)),
         ),
         Direction.East: (
-            connectors.DungeonSingleFloor((7, 2)),
-            connectors.DungeonSingleDoor((7, 2)),
+            connectors.DungeonSingleFloor((6, 2)),
+            connectors.DungeonSingleDoor((6, 2)),
         ),
         Direction.West: (
             connectors.DungeonSingleFloor((0, 2)),
