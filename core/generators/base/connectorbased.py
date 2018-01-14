@@ -199,7 +199,8 @@ class ConnectorBasedGenerator(object):
                     direction=connector_link.direction,
                     piece=piece,
                     connector_coord=connector_link.coordinate,
-                    connector=connector_link.connector
+                    connector=connector_link.connector,
+                    old_origin=connector_link.origin
                 )
                 if cls._all_tiles_fit(piece, spawn_grid, new_origin_coord):
                     cls._write_piece(
@@ -246,7 +247,7 @@ class ConnectorBasedGenerator(object):
         return True
 
     @classmethod
-    def _get_origin_for_new_piece(cls, direction, piece, connector_coord, connector):
+    def _get_origin_for_new_piece(cls, direction, piece, connector_coord, connector, old_origin):
         """
         This returns the top left coordinate
         for a room moved in a specified direction.
@@ -255,52 +256,66 @@ class ConnectorBasedGenerator(object):
         width = piece.get_width()
         height = piece.get_height()
         connector_x, connector_y = connector_coord
+        old_origin_x, old_origin_y = old_origin
+        local_connector_x, local_connector_y = (connector_x - old_origin_x, connector_y - old_origin_y)
+
+        def minimal_delta_x(coordinate):
+            cx, cy = coordinate
+            return local_connector_x - cx
+
+        def minimal_delta_y(coordinate):
+            cx, cy = coordinate
+            return local_connector_y - cy
+
         if Direction.North is direction:
             # When Going North
             # The X offset is the X Position of the SOUTHERN connector of the new piece
             # The Y offset is TOTAL HEIGHT -1,
             # Both offsets are SUBTRACTED
-            offset_x, _ = min(connector.local_coordinates, key=lambda coord: coord[0])
+            offset_x, _ = min(connector.local_coordinates, key=minimal_delta_x)
+            offset_x = local_connector_x - offset_x
             offset_y = height
         elif Direction.South is direction:
             # When Going South
             # The X Offset is the X Position of the WESTERN connector of the new piece
             # The Y Offset is ZERO, because the NORTH side is at the same spot as the connector
             # Both offsets are SUBTRACTED
-            offset_x, _ = min(connector.local_coordinates, key=lambda coord: coord[0])
-            offset_y = 0
+            offset_x, _ = min(connector.local_coordinates, key=minimal_delta_x)
+            offset_x = local_connector_x - offset_x
+            offset_y = connector_y
         elif Direction.East is direction:
             # When Going East
             # The X Offset is ZERO, because the LEFT side is at the same spot as the connector
             # The Y offset is the Y Position of the WESTERN connector of the new piece
             # Both offsets are SUBTRACTED
-            offset_x = 0
-            _, offset_y = min(connector.local_coordinates, key=lambda coord: coord[1])
+            offset_x = connector_x
+            _, offset_y = min(connector.local_coordinates, key=minimal_delta_y)
+            offset_y = local_connector_y - offset_y
         elif Direction.West is direction:
             # When Going West
             # The X offset is TOTAL WIDTH -1
             # The Y offset is the Y Position of the EASTERN connector of the new piece
             # Both offsets are SUBTRACTED
             offset_x = width
-            _, offset_y = min(connector.local_coordinates, key=lambda coord: coord[1])
+            _, offset_y = min(connector.local_coordinates, key=minimal_delta_y)
+            offset_y = local_connector_y - offset_y
         else:
             raise Exception("Unhandled Direction")
 
         return (
-            connector_x - offset_x,
-            connector_y - offset_y
+            old_origin_x - offset_x,
+            old_origin_y - offset_y
         )
 
     @classmethod
     def filter_map_pieces_by_amounts(cls, level, map_pieces):
         pieces_with_amounts = []
-        for map_piece in map_pieces:
-            amount = len([room for room in level.rooms if room.design_piece == map_piece])
-            piece_spawn = next((piece_spawn for piece_spawn in cls.pieces if piece_spawn is map_piece))
-            if piece_spawn.spawn_limit is None:
-                pieces_with_amounts.append((amount, piece_spawn))
-            elif amount < piece_spawn.spawn_limit:
-                pieces_with_amounts.append((amount, piece_spawn))
+        for map_piece_spawn in map_pieces:
+            amount = len([room for room in level.rooms if room.design_piece == map_piece_spawn.map_piece])
+            if map_piece_spawn.spawn_limit is None:
+                pieces_with_amounts.append((amount, map_piece_spawn))
+            elif amount < map_piece_spawn.spawn_limit:
+                pieces_with_amounts.append((amount, map_piece_spawn))
 
         pieces_with_amounts = sorted(pieces_with_amounts, key=lambda piece: piece[0])
 
