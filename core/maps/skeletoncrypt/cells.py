@@ -27,12 +27,12 @@ class LargeCellArea(MapPiece):
         )
     ]
     connectors = {
-        Direction.East: (
-            connectors.DungeonDoubleDoor((0, 3), (0, 4)),
-            connectors.DungeonDoubleDoor((0, 4)),
-        ),
         Direction.West: (
+            connectors.DungeonDoubleDoor((0, 3), (0, 4)),
+            connectors.DungeonSingleDoor((0, 3)),
+        ),
+        Direction.East: (
             connectors.DungeonDoubleDoor((8, 3), (8, 4)),
-            connectors.DungeonSingleDoor((8, 4)),
+            connectors.DungeonSingleDoor((8, 3)),
         ),
     }
