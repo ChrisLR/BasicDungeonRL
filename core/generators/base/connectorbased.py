@@ -251,7 +251,6 @@ class ConnectorBasedGenerator(object):
         """
         This returns the top left coordinate
         for a room moved in a specified direction.
-        We Overlap one edge with the other room to "connect" them.
         """
         width = new_piece.get_width()
         height = new_piece.get_height()
@@ -260,41 +259,31 @@ class ConnectorBasedGenerator(object):
             (n_connector for n_connector
              in new_piece.connectors.get(get_inverse_direction(direction))
              if type(n_connector) == type(connector)))
+
         connector_x, connector_y = connector_coord
         old_origin_x, old_origin_y = old_origin
-        local_connector_x, local_connector_y = (connector_x - old_origin_x, connector_y - old_origin_y)
+        local_connector_x = connector_x - old_origin_x
+        local_connector_y = connector_y - old_origin_y
 
         if Direction.North is direction:
-            # When Going North
-            # The X offset is the X Position of the SOUTHERN connector of the new piece
-            # The Y offset is TOTAL HEIGHT -1,
-            # Both offsets are SUBTRACTED
-            minimal_x, _ = min(new_connector.local_coordinates, key=lambda coordinate: coordinate[0])
+            minimal_x, _ = min(new_connector.local_coordinates,
+                               key=lambda coordinate: coordinate[0])
             offset_x = local_connector_x - minimal_x
             offset_y = -height
         elif Direction.South is direction:
-            # When Going South
-            # The X Offset is the X Position of the WESTERN connector of the new piece
-            # The Y Offset is ZERO, because the NORTH side is at the same spot as the connector
-            # Both offsets are SUBTRACTED
-            minimal_x, _ = min(new_connector.local_coordinates, key=lambda coordinate: coordinate[0])
+            minimal_x, _ = min(new_connector.local_coordinates,
+                               key=lambda coordinate: coordinate[0])
             offset_x = local_connector_x - minimal_x
-            offset_y = local_connector_y
+            offset_y = local_connector_y + 1
         elif Direction.East is direction:
-            # When Going East
-            # The X Offset is ZERO, because the LEFT side is at the same spot as the connector
-            # The Y offset is the Y Position of the WESTERN connector of the new piece
-            # Both offsets are SUBTRACTED
-            offset_x = local_connector_x
-            _, minimal_y = min(new_connector.local_coordinates, key=lambda coordinate: coordinate[1])
+            offset_x = local_connector_x + 1
+            _, minimal_y = min(new_connector.local_coordinates,
+                               key=lambda coordinate: coordinate[1])
             offset_y = local_connector_y - minimal_y
         elif Direction.West is direction:
-            # When Going West
-            # The X offset is TOTAL WIDTH -1
-            # The Y offset is the Y Position of the EASTERN connector of the new piece
-            # Both offsets are SUBTRACTED
             offset_x = -width
-            _, minimal_y = min(new_connector.local_coordinates, key=lambda coordinate: coordinate[1])
+            _, minimal_y = min(new_connector.local_coordinates,
+                               key=lambda coordinate: coordinate[1])
             offset_y = local_connector_y - minimal_y
         else:
             raise Exception("Unhandled Direction")
