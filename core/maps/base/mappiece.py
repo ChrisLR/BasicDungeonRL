@@ -10,7 +10,7 @@ class MapPiece(object):
     def write_tiles_level(cls, level, left_x, top_y):
         local_x = 0
         local_y = 0
-        for line in cls.tiles.splitlines():
+        for line in cls.tiles:
             for char in line:
                 tile_link = cls.symbolic_links.get(char, None)
                 if tile_link:
@@ -24,8 +24,8 @@ class MapPiece(object):
 
     @classmethod
     def get_width(cls):
-        return max([len(line) for line in cls.tiles.splitlines()])
+        return max([len(line) for line in cls.tiles])
 
     @classmethod
     def get_height(cls):
-        return len(cls.tiles.splitlines())
+        return len(cls.tiles)

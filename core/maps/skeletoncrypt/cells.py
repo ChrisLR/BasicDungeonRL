@@ -8,14 +8,16 @@ from core.tiles import floors, doors, walls
 
 class LargeCellArea(MapPiece):
     name = "Large Cell Area"
-    tiles = "#########\n" \
-            "#.#.#.#.#\n" \
-            "#+#+#+#+#\n" \
-            "#.......#\n" \
-            "#.......#\n" \
-            "#+#+#+#+#\n" \
-            "#.#.#.#.#\n" \
-            "#########\n"
+    tiles = [
+        "#########",
+        "#.#.#.#.#",
+        "#+#+#+#+#",
+        "#.......#",
+        "#.......#",
+        "#+#+#+#+#",
+        "#.#.#.#.#",
+        "#########",
+    ]
     symbolic_links = {
         ".": floors.DungeonFloor,
         "+": doors.DungeonDoor,

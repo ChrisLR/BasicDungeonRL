@@ -7,11 +7,13 @@ from core.tiles import floors, doors, walls
 
 class GoblinHut1(MapPiece):
     name = "Goblin Hut 1"
-    tiles = "......\n" \
-            ".####.\n" \
-            ".#,,#.\n" \
-            ".#++#.\n" \
-            "......\n"
+    tiles = [
+        "......",
+        ".####.",
+        ".#,,#.",
+        ".#++#.",
+        "......"
+    ]
     symbolic_links = {
         ".": floors.Grass,
         ",": floors.WoodenFloor,
@@ -27,11 +29,13 @@ class GoblinHut1(MapPiece):
 
 class GoblinHut2(MapPiece):
     name = "Goblin Hut 2"
-    tiles = "......\n" \
-            ".####.\n" \
-            ".#,,+.\n" \
-            ".####.\n" \
-            "......\n"
+    tiles = [
+        "......",
+        ".####.",
+        ".#,,+.",
+        ".####.",
+        "......",
+    ]
     symbolic_links = {
         ".": floors.Grass,
         ",": floors.WoodenFloor,
@@ -47,11 +51,13 @@ class GoblinHut2(MapPiece):
 
 class GoblinHut3(MapPiece):
     name = "Goblin Hut 3"
-    tiles = "......\n" \
-            ".#++#.\n" \
-            ".#,,#.\n" \
-            ".####.\n" \
-            "......\n"
+    tiles = [
+        "......",
+        ".#++#.",
+        ".#,,#.",
+        ".####.",
+        "......",
+    ]
     symbolic_links = {
         ".": floors.Grass,
         ",": floors.WoodenFloor,
@@ -67,11 +73,13 @@ class GoblinHut3(MapPiece):
 
 class GoblinHut4(MapPiece):
     name = "Goblin Hut 4"
-    tiles = "......\n" \
-            ".####.\n" \
-            ".+,,#.\n" \
-            ".####.\n" \
-            "......\n"
+    tiles = [
+        "......",
+        ".####.",
+        ".+,,#.",
+        ".####.",
+        "......"
+    ]
     symbolic_links = {
         ".": floors.Grass,
         ",": floors.WoodenFloor,
@@ -87,11 +95,13 @@ class GoblinHut4(MapPiece):
 
 class GrassyClearing(MapPiece):
     name = "Grassy Clearing"
-    tiles = "......\n" \
-            "......\n" \
-            "......\n" \
-            "......\n" \
-            "......\n"
+    tiles = [
+        "......",
+        "......",
+        "......",
+        "......",
+        "......",
+    ]
     symbolic_links = {
         ".": floors.Grass,
     }
@@ -104,13 +114,15 @@ class GrassyClearing(MapPiece):
 
 class LargeHut(MapPiece):
     name = "Large Hut"
-    tiles = "........\n" \
-            "..####..\n" \
-            ".##,,##.\n" \
-            ".#,,,,+.\n" \
-            ".##,,##.\n" \
-            "..####..\n" \
-            "........\n"
+    tiles = [
+        "........",
+        "..####..",
+        ".##,,##.",
+        ".#,,,,+.",
+        ".##,,##.",
+        "..####..",
+        "........"
+    ]
     symbolic_links = {
         "#": walls.WoodenWall,
         ".": floors.Grass,

@@ -6,11 +6,13 @@ from core.tiles import floors, walls
 
 class SingleVerticalTunnel(MapPiece):
     name = "Single Vertical Tunnel"
-    tiles = "###\n" \
-            "#.#\n" \
-            "#.#\n" \
-            "#.#\n" \
-            "###\n"
+    tiles = [
+        "###",
+        "#.#",
+        "#.#",
+        "#.#",
+        "###",
+    ]
 
     symbolic_links = {
         ".": floors.DungeonFloor,
@@ -30,11 +32,13 @@ class SingleVerticalTunnel(MapPiece):
 
 class DoubleVerticalTunnel(MapPiece):
     name = "Double Vertical Tunnel"
-    tiles = "####\n" \
-            "#..#\n" \
-            "#..#\n" \
-            "#..#\n" \
-            "####\n"
+    tiles = [
+        "####",
+        "#..#",
+        "#..#",
+        "#..#",
+        "####",
+    ]
 
     symbolic_links = {
         ".": floors.DungeonFloor,
@@ -62,9 +66,11 @@ class DoubleVerticalTunnel(MapPiece):
 
 class SingleHorizontalTunnel(MapPiece):
     name = "Horizontal Tunnel"
-    tiles = "######\n" \
-            "#....#\n" \
-            "######\n"
+    tiles = [
+        "######",
+        "#....#",
+        "######",
+    ]
 
     symbolic_links = {
         ".": floors.DungeonFloor,
@@ -93,10 +99,12 @@ class SingleHorizontalTunnel(MapPiece):
 
 class DoubleHorizontalTunnel(MapPiece):
     name = "Double Horizontal Tunnel"
-    tiles = "######\n" \
-            "#....#\n" \
-            "#....#\n" \
-            "######\n"
+    tiles = [
+        "######",
+        "#....#",
+        "#....#",
+        "######",
+    ]
 
     symbolic_links = {
         ".": floors.DungeonFloor,
@@ -125,12 +133,14 @@ class DoubleHorizontalTunnel(MapPiece):
 
 class DoubleFourPointTunnel(MapPiece):
     name = "Double FourPoint Tunnel"
-    tiles = "########\n" \
-            "###..###\n" \
-            "#......#\n" \
-            "#......#\n" \
-            "###..###\n" \
-            "########\n"
+    tiles = [
+        "########",
+        "###..###",
+        "#......#",
+        "#......#",
+        "###..###",
+        "########",
+    ]
 
     symbolic_links = {
         ".": floors.DungeonFloor,
@@ -159,11 +169,13 @@ class DoubleFourPointTunnel(MapPiece):
 
 class SingleFourPointTunnel(MapPiece):
     name = "Single FourPoint Tunnel"
-    tiles = "#######\n" \
-            "###.###\n" \
-            "#.....#\n" \
-            "###.###\n" \
-            "#######\n"
+    tiles = [
+        "#######",
+        "###.###",
+        "#.....#",
+        "###.###",
+        "#######",
+    ]
 
     symbolic_links = {
         ".": floors.DungeonFloor,
@@ -192,10 +204,12 @@ class SingleFourPointTunnel(MapPiece):
 
 class WestDoubleToEastSingleHorizontalTunnel(MapPiece):
     name = "West Double to East Horizontal Tunnel"
-    tiles = "######\n" \
-            "#....#\n" \
-            "#..###\n" \
-            "######\n"
+    tiles = [
+        "######",
+        "#....#",
+        "#..###",
+        "######",
+    ]
 
     symbolic_links = {
         ".": floors.DungeonFloor,
@@ -216,10 +230,12 @@ class WestDoubleToEastSingleHorizontalTunnel(MapPiece):
 
 class EastDoubleToWestSingleHorizontalTunnel(MapPiece):
     name = "East Double to West Horizontal Tunnel"
-    tiles = "######\n" \
-            "#....#\n" \
-            "###..#\n" \
-            "######\n"
+    tiles = [
+        "######",
+        "#....#",
+        "###..#",
+        "######",
+    ]
 
     symbolic_links = {
         ".": floors.DungeonFloor,
@@ -240,11 +256,13 @@ class EastDoubleToWestSingleHorizontalTunnel(MapPiece):
 
 class NorthDoubleToSouthSingleVerticalTunnel(MapPiece):
     name = "North Double To South Single Vertical Tunnel"
-    tiles = "####\n" \
-            "#..#\n" \
-            "#.##\n" \
-            "#.##\n" \
-            "####\n"
+    tiles = [
+        "####",
+        "#..#",
+        "#.##",
+        "#.##",
+        "####",
+    ]
 
     symbolic_links = {
         ".": floors.DungeonFloor,
@@ -265,11 +283,13 @@ class NorthDoubleToSouthSingleVerticalTunnel(MapPiece):
 
 class SouthDoubleToNorthSingleVerticalTunnel(MapPiece):
     name = "South Double To North Single Vertical Tunnel"
-    tiles = "####\n" \
-            "#.##\n" \
-            "#.##\n" \
-            "#..#\n" \
-            "####\n"
+    tiles = [
+        "####",
+        "#.##",
+        "#.##",
+        "#..#",
+        "####",
+    ]
 
     symbolic_links = {
         ".": floors.DungeonFloor,

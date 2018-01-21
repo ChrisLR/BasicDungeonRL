@@ -8,14 +8,16 @@ from core.tiles import floors, doors, walls
 
 class Arena(MapPiece):
     name = "Arena"
-    tiles = "##########\n" \
-            "#........#\n" \
-            "#........#\n" \
-            "#........#\n" \
-            "#........#\n"\
-            "#........#\n" \
-            "#........#\n" \
-            "##########\n"
+    tiles = [
+        "##########",
+        "#........#",
+        "#........#",
+        "#........#",
+        "#........#",
+        "#........#",
+        "#........#",
+        "##########",
+    ]
     symbolic_links = {
         ".": floors.DungeonFloor,
         "+": doors.DungeonDoor,
