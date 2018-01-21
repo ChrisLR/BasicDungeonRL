@@ -1,6 +1,6 @@
 from core.generators.base import ConnectorBasedGenerator
 from core.generators.spawns import MapPieceSpawn
-from core.maps.skeletoncrypt import tunnels, arena, cells
+from core.maps.skeletoncrypt import tunnels, arena, cells, rooms
 from core.generators import spawns
 from core.tiles import floors
 from core.world.level import Level
@@ -21,6 +21,12 @@ class SkeletonCrypt(ConnectorBasedGenerator):
         MapPieceSpawn(25, tunnels.NorthDoubleToSouthSingleVerticalTunnel),
         MapPieceSpawn(25, tunnels.SouthDoubleToNorthSingleVerticalTunnel),
         MapPieceSpawn(20, cells.LargeCellArea, spawn_limit=1),
+        MapPieceSpawn(30, rooms.SimpleRoom3x3),
+        MapPieceSpawn(30, rooms.SimpleRoom4x4),
+        MapPieceSpawn(30, rooms.SimpleRoom5x5),
+        MapPieceSpawn(30, rooms.SmallCircularRoom),
+        MapPieceSpawn(30, rooms.MediumCircularRoom),
+        MapPieceSpawn(30, rooms.LargeCircularRoom),
     ]
     max_amount_of_rooms = 10
 
