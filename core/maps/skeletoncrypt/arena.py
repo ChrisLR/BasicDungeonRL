@@ -16,7 +16,7 @@ class Arena(MapPiece):
         "#........#",
         "#........#",
         "#........#",
-        "##########",
+        "##########"
     ]
     symbolic_links = {
         ".": floors.DungeonFloor,

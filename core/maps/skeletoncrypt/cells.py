@@ -16,7 +16,7 @@ class LargeCellArea(MapPiece):
         "#.......#",
         "#+#+#+#+#",
         "#.#.#.#.#",
-        "#########",
+        "#########"
     ]
     symbolic_links = {
         ".": floors.DungeonFloor,

@@ -11,7 +11,7 @@ class SingleVerticalTunnel(MapPiece):
         "#.#",
         "#.#",
         "#.#",
-        "###",
+        "###"
     ]
 
     symbolic_links = {
@@ -37,7 +37,7 @@ class DoubleVerticalTunnel(MapPiece):
         "#..#",
         "#..#",
         "#..#",
-        "####",
+        "####"
     ]
 
     symbolic_links = {
@@ -69,7 +69,7 @@ class SingleHorizontalTunnel(MapPiece):
     tiles = [
         "######",
         "#....#",
-        "######",
+        "######"
     ]
 
     symbolic_links = {
@@ -103,7 +103,7 @@ class DoubleHorizontalTunnel(MapPiece):
         "######",
         "#....#",
         "#....#",
-        "######",
+        "######"
     ]
 
     symbolic_links = {
@@ -139,7 +139,7 @@ class DoubleFourPointTunnel(MapPiece):
         "#......#",
         "#......#",
         "###..###",
-        "########",
+        "########"
     ]
 
     symbolic_links = {
@@ -174,7 +174,7 @@ class SingleFourPointTunnel(MapPiece):
         "###.###",
         "#.....#",
         "###.###",
-        "#######",
+        "#######"
     ]
 
     symbolic_links = {
@@ -208,7 +208,7 @@ class WestDoubleToEastSingleHorizontalTunnel(MapPiece):
         "######",
         "#....#",
         "#..###",
-        "######",
+        "######"
     ]
 
     symbolic_links = {
@@ -234,7 +234,7 @@ class EastDoubleToWestSingleHorizontalTunnel(MapPiece):
         "######",
         "#....#",
         "###..#",
-        "######",
+        "######"
     ]
 
     symbolic_links = {
@@ -261,7 +261,7 @@ class NorthDoubleToSouthSingleVerticalTunnel(MapPiece):
         "#..#",
         "#.##",
         "#.##",
-        "####",
+        "####"
     ]
 
     symbolic_links = {
@@ -288,7 +288,7 @@ class SouthDoubleToNorthSingleVerticalTunnel(MapPiece):
         "#.##",
         "#.##",
         "#..#",
-        "####",
+        "####"
     ]
 
     symbolic_links = {

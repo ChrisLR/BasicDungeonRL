@@ -17,8 +17,8 @@ def get_base_connectors(tiles):
     :param tiles: The tiles to evaluate
     :return: The Connector Dict
     """
-    height = len(tiles)
-    width = max((len(row) for row in tiles))
+    height = len(tiles) - 1
+    width = max((len(row) for row in tiles)) - 1
     center_width = int(width / 2)
     center_height = int(height / 2)
     return {
@@ -40,14 +40,14 @@ def get_base_connectors(tiles):
             connectors.DungeonSingleDoor((width, center_height)),
             connectors.DungeonDoubleDoor(
                 (width, center_height),
-                (width, center_height + 1),
+                (width + 1, center_height),
             ),
         ),
         Direction.West: (
             connectors.DungeonSingleDoor((0, center_height)),
             connectors.DungeonDoubleDoor(
                 (0, center_height),
-                (0, center_height + 1),
+                (0, center_height),
             ),
         )
     }
