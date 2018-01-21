@@ -2,24 +2,20 @@ from core.generators.base import ConnectorBasedGenerator
 from core.generators.spawns import MapPieceSpawn
 from core.maps.skeletoncrypt import tunnels, arena, cells, rooms
 from core.generators import spawns
-from core.tiles import floors
+from core.tiles import walls
 from core.world.level import Level
 
 
 class SkeletonCrypt(ConnectorBasedGenerator):
-    filler_tile = floors.WoodenFloor
+    filler_tile = walls.DungeonWall
     pieces = [
         MapPieceSpawn(20, arena.Arena, spawn_limit=1),
-        MapPieceSpawn(10, tunnels.DoubleFourPointTunnel),
-        MapPieceSpawn(75, tunnels.SingleHorizontalTunnel),
-        MapPieceSpawn(75, tunnels.SingleVerticalTunnel),
+        MapPieceSpawn(20, tunnels.DoubleFourPointTunnel),
+        MapPieceSpawn(10, tunnels.SingleHorizontalTunnel),
+        MapPieceSpawn(10, tunnels.SingleVerticalTunnel),
         MapPieceSpawn(10, tunnels.SingleFourPointTunnel),
-        MapPieceSpawn(75, tunnels.DoubleHorizontalTunnel),
-        MapPieceSpawn(75, tunnels.DoubleVerticalTunnel),
-        MapPieceSpawn(25, tunnels.EastDoubleToWestSingleHorizontalTunnel),
-        MapPieceSpawn(25, tunnels.WestDoubleToEastSingleHorizontalTunnel),
-        MapPieceSpawn(25, tunnels.NorthDoubleToSouthSingleVerticalTunnel),
-        MapPieceSpawn(25, tunnels.SouthDoubleToNorthSingleVerticalTunnel),
+        MapPieceSpawn(20, tunnels.DoubleHorizontalTunnel),
+        MapPieceSpawn(20, tunnels.DoubleVerticalTunnel),
         MapPieceSpawn(20, cells.LargeCellArea, spawn_limit=1),
         MapPieceSpawn(30, rooms.SimpleRoom3x3),
         MapPieceSpawn(30, rooms.SimpleRoom4x4),
@@ -28,7 +24,7 @@ class SkeletonCrypt(ConnectorBasedGenerator):
         MapPieceSpawn(30, rooms.MediumCircularRoom),
         MapPieceSpawn(30, rooms.LargeCircularRoom),
     ]
-    max_amount_of_rooms = 10
+    max_amount_of_rooms = 50
 
     @classmethod
     def generate(cls):
