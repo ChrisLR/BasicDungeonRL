@@ -11,9 +11,18 @@ def turn_into_corpse(game_object):
     new_corpse.display.ascii_character = '%'
     new_corpse.display.foreground_color = Colors.DARK_RED
     new_corpse.register_component(game_object.location.copy())
+    level = game_object.location.level
+
     if game_object.weight:
         new_corpse.register_component(game_object.weight.copy())
-    level = game_object.location.level
+
+    if game_object.equipment:
+        wielded_weapons = list(game_object.equipment.get_wielded_items())
+        for wielded_weapon in wielded_weapons:
+            game_object.equipment.remove(wielded_weapon)
+            wielded_weapon.location.set_local_coords(game_object.location.get_local_coords())
+            level.add_object(wielded_weapon)
+
     level.remove_object(game_object)
     level.add_object(new_corpse)
 

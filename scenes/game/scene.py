@@ -62,7 +62,7 @@ class GameScene(UIScene):
     def update_turn(self):
         time_update_result = self.game_context.game_time.pass_turns()
         current_level = self.game_context.player.location.level
-        game_objects = current_level.game_objects
+        game_objects = list(current_level.game_objects)
         for game_object in game_objects:
             game_object.round_update()
 
