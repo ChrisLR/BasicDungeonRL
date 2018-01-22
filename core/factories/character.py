@@ -1,4 +1,4 @@
-from core import components
+from core import components, flags
 from core.gameobject import GameObject
 from core.outfits.outfitter import OutfitterService
 
@@ -38,5 +38,7 @@ class CharacterFactory(object):
         new_character.register_component(components.Vision(20))
 
         OutfitterService.outfit_starting_player(new_character)
+
+        new_character.flags.add(flags.GameObjectFlags.Character)
 
         return new_character

@@ -1,6 +1,8 @@
+import random
+
+from core import flags
 from core.factories.recipes import listing
 from core.gameobject import GameObject
-import random
 
 
 class MonsterFactory(object):
@@ -12,6 +14,7 @@ class MonsterFactory(object):
 
         item_components = cls.get_recursive_components(base_monster, recipe)
         new = GameObject(blocking=True, name=base_monster.name)
+        new.flags.add(flags.GameObjectFlags.Character)
         for component in item_components:
             new.register_component(component)
 
