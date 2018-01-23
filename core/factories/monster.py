@@ -1,6 +1,6 @@
 import random
 
-from core import flags
+from core import components, flags
 from core.factories.recipes import listing
 from core.gameobject import GameObject
 
@@ -21,6 +21,9 @@ class MonsterFactory(object):
         if recipe.outfits:
             outfit = random.choice(recipe.outfits)
             outfit.apply(new)
+
+        if new.equipment:
+            new.register_component(components.Inventory())
 
         return new
 

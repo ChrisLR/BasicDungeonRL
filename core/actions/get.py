@@ -4,7 +4,7 @@ from services.selection import DirectionalSelection, filters
 
 class Get(Action):
     target_selection_types = DirectionalSelection,
-    target_filters = filters.TileExclusionFilter, filters.ListBasedSelectionFilter,
+    target_filters = filters.TileExclusionFilter, filters.HierarchyFilter,
 
     @classmethod
     def can_execute(cls, character, selection=None):

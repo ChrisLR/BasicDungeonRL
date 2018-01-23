@@ -49,6 +49,21 @@ class Inventory(Component):
 
         return items
 
+    def get_item_hierarchy(self):
+        """
+        Returns all items with their hierarchy, includes equipment.
+        """
+        item_hierarchy = {}
+        if self.host.equipment:
+            parent_items = self.host.equipment.get_all_items()
+            for parent_item in parent_items:
+                if parent_item.container:
+                    item_hierarchy[parent_item] = parent_item.container.items_held
+                else:
+                    item_hierarchy[parent_item] = []
+
+        return item_hierarchy
+
     def _recursive_get_container_items(self, container, item_list):
         containers = []
         for item in container.items_held:

@@ -85,6 +85,17 @@ class GameObject(object):
         if component.properties:
             self.properties.update(component.properties)
 
+    def register_forward(self, component):
+        """
+        This registers another object's component but does not change the host.
+        """
+        if component.NAME in self.components:
+            self.unregister_component(component)
+
+        self.components[component.NAME] = component
+        if component.properties:
+            self.properties.update(component.properties)
+
     def unregister_component(self, component):
         if component.NAME in self.components:
             component.on_unregister()

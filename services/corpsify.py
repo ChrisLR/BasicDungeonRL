@@ -23,6 +23,9 @@ def turn_into_corpse(game_object):
             wielded_weapon.location.set_local_coords(game_object.location.get_local_coords())
             level.add_object(wielded_weapon)
 
+    if game_object.inventory:
+        new_corpse.register_forward(game_object.inventory)
+
     level.remove_object(game_object)
     level.add_object(new_corpse)
 
