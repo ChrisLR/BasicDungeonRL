@@ -25,6 +25,10 @@ class MonsterFactory(object):
         if new.equipment:
             new.register_component(components.Inventory())
 
+        if base_monster.treasure_type:
+            # TODO Call Treasure Factory here.
+            pass
+
         return new
 
     @classmethod

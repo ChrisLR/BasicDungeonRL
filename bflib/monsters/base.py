@@ -4,7 +4,6 @@ from bflib.characters import specialabilities
 from bflib.characters.classes.fighter import Fighter
 from bflib.monsters.appearingset import AppearingSet
 from bflib.sizes import Size
-from bflib.treasuretypes import TreasureType
 
 
 class Monster(object):
@@ -20,6 +19,6 @@ class Monster(object):
     save_as = Fighter.level_table.levels[1].saving_throws_set
     size = Size
     special_abilities = specialabilities.SpecialAbilitySet
-    treasure_type = TreasureType
+    treasure_type = None
     weight = units.Pound
     xp = 0
