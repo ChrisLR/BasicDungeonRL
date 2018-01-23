@@ -25,7 +25,7 @@ class ItemRecipe(Recipe):
         ]
 
         if item_type.price:
-            new_components.append(components.Sellable(item_type.price))
+            new_components.append(components.Valuable(item_type.price))
 
         if item_type.wear_locations:
             new_components.append(components.Wearable(item_type.wear_locations))

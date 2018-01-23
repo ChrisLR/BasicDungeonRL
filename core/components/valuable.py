@@ -1,8 +1,9 @@
 from core.components.base import Component
 
 
-class Sellable(Component):
-    NAME = "sellable"
+class Valuable(Component):
+    NAME = "valuable"
+
     __slots__ = ["base_price"]
 
     def __init__(self, base_price):
@@ -14,4 +15,4 @@ class Sellable(Component):
         return self.base_price
 
     def copy(self):
-        return Sellable(self.base_price)
+        return Valuable(self.base_price)

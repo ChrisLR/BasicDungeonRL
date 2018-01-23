@@ -11,7 +11,7 @@ from bflib.treasuretypes import TreasureType
 from core.factories.router import route_to_factory
 import collections
 import random
-from singledispatch import singledispatch
+from functools import singledispatch
 
 
 class TreasureFactory(object):
@@ -37,11 +37,22 @@ class TreasureFactory(object):
     @classmethod
     @singledispatch
     def generate(cls, treasure_type):
-        pass
+        return route_to_factory(treasure_type)
 
     @classmethod
     @generate.register(coins.Coin)
     def generate_coins(cls, treasure_type):
+        return [route_to_factory(treasure_type)
+                for _ in treasure_type.amount]
+
+    @classmethod
+    @generate.register(Jewelry)
+    def generate_jewelry(cls, treasure_type):
+        pass
+
+    @classmethod
+    @generate.register(Gem)
+    def generate_gem(cls, treasure_type):
         pass
 
     @classmethod

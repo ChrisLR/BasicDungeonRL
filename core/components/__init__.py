@@ -23,7 +23,7 @@ from core.components.openable import Openable
 from core.components.race import Race
 from core.components.restrictions import Restrictions
 from core.components.savingthrows import SavingThrows
-from core.components.sellable import Sellable
+from core.components.valuable import Valuable
 from core.components.shield import Shield
 from core.components.size import Size
 from core.components.spawninfo import SpawnInfo
@@ -59,7 +59,7 @@ component_names = {
     Race.NAME,
     Restrictions.NAME,
     SavingThrows.NAME,
-    Sellable.NAME,
+    Valuable.NAME,
     Shield.NAME,
     Size.NAME,
     SpawnInfo.NAME,

@@ -1,4 +1,5 @@
 from core.factories.recipes.items.base import ItemRecipe
+from core.factories.recipes.items.coin import CoinRecipe
 from core.factories.recipes.items.ammunition import *
 from core.factories.recipes.items.armor import *
 from core.factories.recipes.items.containers import *
