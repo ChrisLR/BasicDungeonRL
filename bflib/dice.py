@@ -7,22 +7,19 @@ from functools import total_ordering
 @total_ordering
 class Dice(object):
     __metaclass__ = abc.ABCMeta
-    __slots__ = ["amount", "flat_bonus"]
+    __slots__ = ["amount", "flat_bonus", "multiplier"]
 
     @abc.abstractclassmethod
     def sides(self):
         pass
 
-    def __init__(self, amount, flat_bonus=0):
+    def __init__(self, amount, flat_bonus=0, multiplier=1):
         self.amount = amount
         self.flat_bonus = flat_bonus
+        self.multiplier = multiplier
 
     def roll(self):
-        return sum((random.randint(1, self.sides) for _ in range(0, self.amount))) + self.flat_bonus
-
-    @classmethod
-    def roll(cls):
-        return random.randint(1, cls.sides)
+        return (sum((random.randint(1, self.sides) for _ in range(0, self.amount))) + self.flat_bonus) * self.multiplier
 
     @classmethod
     def manual_roll(cls, amount, flat_bonus=0):
@@ -35,7 +32,7 @@ class Dice(object):
                 return dice
 
     def __int__(self):
-        return (self.sides * self.amount) + self.flat_bonus
+        return ((self.sides * self.amount) + self.flat_bonus) * self.multiplier
 
     def __eq__(self, other):
         return int(self) == int(other)

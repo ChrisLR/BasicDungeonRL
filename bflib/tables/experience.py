@@ -1,3 +1,12 @@
+class ExperienceRow(object):
+    __slots__ = ["hit_dice", "xp_value", "special_ability_bonus"]
+
+    def __init__(self, hit_dice, xp_value, special_ability_bonus):
+        self.hit_dice = hit_dice
+        self.xp_value = xp_value
+        self.special_ability_bonus = special_ability_bonus
+
+
 class ExperienceTable(object):
     inner_table = {
         row.hit_dice: row for row in
@@ -48,12 +57,3 @@ class ExperienceTable(object):
             row = cls.inner_table[hit_die_value]
 
         return row.xp_value + (row.special_ability_bonus * include_bonus)
-
-
-class ExperienceRow(object):
-    __slots__ = ["hit_dice", "xp_value", "special_ability_bonus"]
-
-    def __init__(self, hit_dice, xp_value, special_ability_bonus):
-        self.hit_dice = hit_dice
-        self.xp_value = xp_value
-        self.special_ability_bonus = special_ability_bonus
