@@ -32,7 +32,10 @@ class TreasureFactory(object):
                         treasure_type = element.treasure_value_type
 
                     treasure = cls.generate(treasure_type)
-                    treasures.append(treasure)
+                    if isinstance(treasure, collections.Iterable):
+                        treasures.extend(treasure)
+                    else:
+                        treasures.append(treasure)
 
     @classmethod
     @singledispatch
