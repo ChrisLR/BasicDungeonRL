@@ -11,6 +11,7 @@ class TreasureType(Enum):
     G = "F"
     H = "H"
     I = "I"
+    J = "J"
     K = "K"
     L = "L"
     M = "M"
