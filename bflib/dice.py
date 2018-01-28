@@ -92,6 +92,7 @@ class D20(Dice):
 class D100(Dice):
     sides = 100
 
+
 dice_listing = (
     D1,
     D2,

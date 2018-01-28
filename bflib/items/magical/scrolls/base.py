@@ -6,6 +6,7 @@ from bflib.sizes import Size
 
 
 @listing.register_type
+@listing.register_item
 class MagicScroll(Scroll, MagicItem):
     name = "Magic Scroll"
 

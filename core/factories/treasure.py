@@ -86,4 +86,3 @@ class TreasureFactory(object):
         RandomMagicItem: generate_magic_item,
         Weapon: generate_magic_weapon,
     }
-

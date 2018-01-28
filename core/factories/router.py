@@ -4,6 +4,7 @@ from bflib.monsters.base import Monster
 from core.factories.character import CharacterFactory
 from core.factories.items import ItemFactory
 from core.factories.monster import MonsterFactory
+import inspect
 
 type_mapping = {
     Item: ItemFactory,
@@ -14,6 +15,9 @@ types = [Item, Character, Monster]
 
 
 def route_to_factory(base_object_type):
+    if not inspect.isclass(base_object_type):
+        base_object_type = type(base_object_type)
+
     for base_type in types:
         if issubclass(base_object_type, base_type):
             factory = type_mapping.get(base_type, None)

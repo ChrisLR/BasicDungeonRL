@@ -8,5 +8,10 @@ class SpawnChain(object):
         self.percent = percent
         self.spawn_sets = spawn_sets
 
+    def on_spawn(self, spawned_object, origin):
+        for spawn_set in self.spawn_sets:
+            spawn_set.on_spawn(spawned_object, origin)
+
     def to_tuple_list(self):
-        return [(spawn_set.spawn_type, spawn_set.spawn_point) for spawn_set in self.spawn_sets]
+        return [(spawn_set.spawn_type, spawn_set.spawn_point)
+                for spawn_set in self.spawn_sets]

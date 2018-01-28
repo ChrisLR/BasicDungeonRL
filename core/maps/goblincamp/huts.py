@@ -135,5 +135,16 @@ class LargeHut(MapPiece):
             spawns.SpawnSet(25, Goblin, spawns.SpawnPoint(3, 2)),
             spawns.SpawnSet(25, Goblin, spawns.SpawnPoint(3, 4)),
             spawns.SpawnSet(100, items.Spear, spawns.SpawnPoint(4, 2))
+        ),
+        spawns.OnceSpawner(
+            spawns.ContainerSpawnSet(
+                100, items.Chest, spawns.SpawnPoint(3, 2),
+                child_spawner=spawns.OnceSpawner(
+                    spawns.SpawnSet(
+                        100, items.coins.Gold,
+                        spawns.SpawnPoint(0, 0), amount=100
+                    )
+                )
+            )
         )
     ]

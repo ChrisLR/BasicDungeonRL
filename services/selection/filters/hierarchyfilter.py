@@ -27,8 +27,8 @@ class HierarchyFilter(SelectionFilter):
             elif target.container:
                 container = target.container
                 if container:
-                    if container.openable:
-                        if not container.openable.closed:
+                    if target.openable:
+                        if not target.openable.closed:
                             item_hierarchy[target] = container.items_held
                     else:
                         item_hierarchy[target] = container.items_held

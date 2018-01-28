@@ -93,7 +93,7 @@ class DesignPieceGenerator(object):
         piece.write_tiles_level(level, pointer_x, pointer_y)
         for spawner in piece.spawners:
             for spawned_object in spawner.spawn(
-                    offset_coords=(pointer_x, pointer_y)):
+                    origin=(pointer_x, pointer_y)):
                 level.add_object(spawned_object)
 
     @classmethod

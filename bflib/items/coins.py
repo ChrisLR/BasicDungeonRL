@@ -1,11 +1,13 @@
-from bflib.items.base import Item
+from bflib import units
 from bflib.items import listing
+from bflib.items.base import Item
 
 
 @listing.register_type
 class Coin(Item):
     __slots__ = ["amount"]
     value_in_copper = 0
+    weight = units.Pound(0.1)
 
     def __init__(self, amount):
         self.amount = amount
@@ -28,24 +30,29 @@ class Coin(Item):
 
 @listing.register_item
 class Copper(Coin):
+    name = "Copper Coin"
     value_in_copper = 1
 
 
 @listing.register_item
 class Silver(Coin):
+    name = "Silver Coin"
     value_in_copper = 10
 
 
 @listing.register_item
 class Electrum(Coin):
+    name = "Electrum Coin"
     value_in_copper = 50
 
 
 @listing.register_item
 class Gold(Coin):
+    name = "Gold Coin"
     value_in_copper = 100
 
 
 @listing.register_item
 class Platinum(Coin):
+    name = "Platinum Coin"
     value_in_copper = 500

@@ -1,6 +1,22 @@
 from bflib.keywords.specialability import TurnUndeadKeyword
 
 
+class TurnUndeadCell(object):
+    __slots__ = ["undead_hit_dice", "turn_keyword"]
+
+    def __init__(self, undead_hit_dice, turn_keyword):
+        self.undead_hit_dice = undead_hit_dice
+        self.turn_keyword = turn_keyword
+
+
+class TurnUndeadRow(object):
+    __slots__ = ["cleric_level", "cells"]
+
+    def __init__(self, cleric_level, *cells):
+        self.cleric_level = cleric_level
+        self.cells = cells
+
+
 class TurnUndeadTable(object):
     inner_table = {cell.cleric_level: cell for cell in (
         TurnUndeadRow(
@@ -64,19 +80,3 @@ class TurnUndeadTable(object):
             TurnUndeadCell(9, TurnUndeadKeyword.No),
         ),
     )}
-
-
-class TurnUndeadCell(object):
-    __slots__ = ["undead_hit_dice", "turn_keyword"]
-
-    def __init__(self, undead_hit_dice, turn_keyword):
-        self.undead_hit_dice = undead_hit_dice
-        self.turn_keyword = turn_keyword
-
-
-class TurnUndeadRow(object):
-    __slots__ = ["cleric_level", "cells"]
-
-    def __init__(self, cleric_level, *cells):
-        self.cleric_level = cleric_level
-        self.cells = cells
