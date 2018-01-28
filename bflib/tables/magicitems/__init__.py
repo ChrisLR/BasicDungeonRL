@@ -1,0 +1,1 @@
+from bflib.tables.magicitems.magicitemtype import MagicItemTypeTable
