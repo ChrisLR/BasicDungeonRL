@@ -1,4 +1,5 @@
 from bflib import dice
+import inspect
 
 
 class MeleeAttack(object):
@@ -37,8 +38,12 @@ class MeleeAttack(object):
 
     @classmethod
     def make_melee_damage_roll(cls, attacker, damage_dice, other_modifier=0):
+
         total_damage = 0
-        total_damage += damage_dice.roll()
+        if inspect.isclass(damage_dice):
+            total_damage += damage_dice.manual_roll(1)
+        else:
+            total_damage += damage_dice.roll()
         total_damage += attacker.stats.strength_modifier if attacker.stats else 0
         total_damage += other_modifier
         if total_damage <= 0:

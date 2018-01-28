@@ -24,6 +24,9 @@ class Get(Action):
             if not character.inventory.add(target):
                 if not character.equipment.wield(target):
                     return False
-            target.location.level.remove_object(target)
+
+            target_level = target.location.level
+            if target_level:
+                target_level.remove_object(target)
 
         return True

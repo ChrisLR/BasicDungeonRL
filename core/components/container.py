@@ -1,5 +1,6 @@
 from bflib import units
 from core.components.base import Component
+from core.components.contained import Contained
 
 
 class Container(Component):
@@ -22,12 +23,18 @@ class Container(Component):
                     return False
 
         self.items_held.append(item)
+        if item.contained:
+            item.contained.parent_container.remove_item(item)
+            item.contained.parent_container = self
+        else:
+            item.register_component(Contained(self))
 
         return True
 
     def remove_item(self, item):
         if item in self.items_held:
             self.items_held.remove(item)
+            item.unregister_component(Contained(self))
             return True
 
         return False
