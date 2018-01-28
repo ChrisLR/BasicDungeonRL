@@ -1,17 +1,14 @@
 from bflib.tables.treasure import TreasureTable, RandomMagicItem
-from bflib import dice
 from bflib.items import coins
 from bflib.items.armor.base import Armor
 from bflib.items.gems.base import Gem
 from bflib.items.jewelry.base import Jewelry
 from bflib.items.potions.base import Potion
 from bflib.items.weapons.base import Weapon
-from bflib.items.writing.magical import MagicScroll
-from bflib.treasuretypes import TreasureType
+from bflib.items.magical.scrolls.base import MagicScroll
 from core.factories.router import route_to_factory
 import collections
 import random
-from functools import singledispatch
 
 
 class TreasureFactory(object):

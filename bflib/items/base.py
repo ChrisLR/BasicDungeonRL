@@ -9,3 +9,7 @@ class Item(object):
     size = Size.Medium
     wear_locations = tuple()
     weight = units.Pound
+
+
+class MagicItem(Item):
+    pass

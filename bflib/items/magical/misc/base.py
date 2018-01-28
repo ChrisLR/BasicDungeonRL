@@ -1,13 +1,13 @@
 from bflib import units
 from bflib.items import coins, listing
-from bflib.items.writing.common import Scroll
+from bflib.items.jewelry.base import Jewelry
+from bflib.items.magical.base import MagicItem
 from bflib.sizes import Size
 
 
 @listing.register_type
-@listing.register_item
-class MagicScroll(Scroll):
-    name = "Magic Scroll"
+class MiscMagical(Jewelry, MagicItem):
+    name = "Misc Magical"
 
     price = coins.Gold
     size = Size.Small

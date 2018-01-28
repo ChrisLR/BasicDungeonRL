@@ -5,7 +5,7 @@ from bflib.items.gems.base import Gem
 from bflib.items.jewelry.base import Jewelry
 from bflib.items.potions.base import Potion
 from bflib.items.weapons.base import Weapon
-from bflib.items.writing.magical import MagicScroll
+from bflib.items.magical.scrolls.base import MagicScroll
 from bflib.treasuretypes import TreasureType
 
 
