@@ -9,36 +9,6 @@ from services.selection.filters.base import SelectionFilter
 from ui.views import KeyAssignedListView, SelectableButtonView
 
 
-class HierarchyFilter(SelectionFilter):
-    """
-    A Selection Filter that includes a hierarchy based on containers/contained
-    """
-
-    def __init__(self):
-        super().__init__()
-        self.view = None
-
-    def filter(self, targets):
-        item_hierarchy = {}
-        for target in targets:
-            inventory = target.inventory
-            if inventory:
-                item_hierarchy[target] = inventory.get_item_hierarchy()
-            elif target.container:
-                container = target.container
-                if container:
-                    if target.openable:
-                        if not target.openable.closed:
-                            item_hierarchy[target] = container.items_held
-                    else:
-                        item_hierarchy[target] = container.items_held
-            else:
-                item_hierarchy[target] = []
-
-        self.view = HierarchyFilterView(self, item_hierarchy)
-        game.game_context.director.push_scene(self.view)
-
-
 class HierarchyFilterView(UIScene):
     covers_screen = False
 
@@ -99,3 +69,44 @@ class HierarchyFilterView(UIScene):
         if val == terminal.TK_ESCAPE:
             self.host_filter.canceled = True
             self.director.pop_scene()
+
+
+class SingleHierarchyFilterView(HierarchyFilterView):
+    def select_object(self, value):
+        self.finish()
+        self.selections = [value]
+
+
+class HierarchyFilter(SelectionFilter):
+    """
+    A Selection Filter that includes a hierarchy based on containers/contained
+    """
+    view_type = HierarchyFilterView
+
+    def __init__(self):
+        super().__init__()
+        self.view = None
+
+    def filter(self, targets):
+        item_hierarchy = {}
+        for target in targets:
+            inventory = target.inventory
+            if inventory:
+                item_hierarchy[target] = inventory.get_item_hierarchy()
+            elif target.container:
+                container = target.container
+                if container:
+                    if container.openable:
+                        if not container.openable.closed:
+                            item_hierarchy[target] = container.items_held
+                    else:
+                        item_hierarchy[target] = container.items_held
+            else:
+                item_hierarchy[target] = []
+
+        self.view = self.view_type(self, item_hierarchy)
+        game.game_context.director.push_scene(self.view)
+
+
+class SingleHierarchyFilter(HierarchyFilter):
+    view_type = SingleHierarchyFilterView
