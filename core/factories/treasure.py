@@ -38,50 +38,55 @@ class TreasureFactory(object):
                         treasures.append(treasure)
 
     @classmethod
-    @singledispatch
-    def generate(cls, treasure_type):
-        return route_to_factory(treasure_type)
+    def create_containers(cls):
+        pass
 
     @classmethod
-    @generate.register(coins.Coin)
+    def generate(cls, treasure_type):
+        generator = cls._mapping.get(treasure_type, route_to_factory)
+        return generator(treasure_type)
+
+    @classmethod
     def generate_coins(cls, treasure_type):
         return [route_to_factory(treasure_type)
                 for _ in treasure_type.amount]
 
     @classmethod
-    @generate.register(Jewelry)
     def generate_jewelry(cls, treasure_type):
         pass
 
     @classmethod
-    @generate.register(Gem)
     def generate_gem(cls, treasure_type):
         pass
 
     @classmethod
-    @generate.register(Potion)
     def generate_potion(cls, treasure_type):
         pass
 
     @classmethod
-    @generate.register(MagicScroll)
     def generate_scroll(cls, treasure_type):
         pass
 
     @classmethod
-    @generate.register(RandomMagicItem)
     def generate_magic_item(cls, treasure_type):
         pass
 
     @classmethod
-    @generate.register(Weapon)
     def generate_magic_weapon(cls, treasure_type):
         pass
 
     @classmethod
-    @generate.register(Armor)
     def generate_magic_armor(cls, treasure_type):
         pass
 
-    def create_containers(self):
-        pass
+    _mapping = {
+        Armor: generate_magic_armor,
+        coins.Coin: generate_coins,
+        Jewelry: generate_jewelry,
+        Gem: generate_gem,
+        Potion:generate_potion,
+        MagicScroll: generate_scroll,
+        RandomMagicItem: generate_magic_item,
+        Weapon: generate_magic_weapon,
+    }
+
