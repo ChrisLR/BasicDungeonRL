@@ -35,5 +35,7 @@ class MagicWeaponTable(object):
         MagicWeaponRow(98, 100, weapons.Spear),
     ]
 
-    
-
+    @classmethod
+    def get(cls, roll_value):
+        return next((row for row in cls.rows
+                     if row.min_percent <= roll_value <= row.max_percent))
