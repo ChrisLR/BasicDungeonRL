@@ -5,7 +5,7 @@ from services.selection import filters
 
 class Wield(Action):
     target_selection_types = selection_service.Inventory,
-    target_filters = filters.ListBasedSelectionFilter,
+    target_filters = filters.ListBased,
 
     @classmethod
     def can_execute(cls, character, selection=None):

@@ -1,7 +1,7 @@
 from services.selection.filters.base import SelectionFilter
 
 
-class ComponentFilter(SelectionFilter):
+class Component(SelectionFilter):
     """
     A Selection Filter using components.
     """

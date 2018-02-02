@@ -1,5 +1,6 @@
-from services.selection.filters.componentfilter import ComponentFilter
-from services.selection.filters.listfilter import ListBasedSelectionFilter
-from services.selection.filters.tilefilter import TileExclusionFilter
-from services.selection.filters.hierarchyfilter import (
-    HierarchyFilter, SingleHierarchyFilter)
+from services.selection.filters.component import Component
+from services.selection.filters.conscious import Conscious
+from services.selection.filters.hierarchy import (
+    Hierarchy, SingleHierarchy)
+from services.selection.filters.listfilter import ListBased
+from services.selection.filters.tilefilter import TileExclusion

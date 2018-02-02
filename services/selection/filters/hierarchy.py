@@ -21,7 +21,10 @@ class HierarchyFilterView(UIScene):
             WindowView(
                 "",
                 subviews=[
-                    KeyAssignedListView(self.button_controls.values(), 64),
+                    KeyAssignedListView(
+                        self.button_controls.values(),
+                        value_column_width=max(len(value.text) + 5 for value in self.button_controls.values()),
+                        layout_options=LayoutOptions.column_left(0.9)),
                 ],
                 layout_options=LayoutOptions(width=0.5, left=0.3, height=0.9, right=None, bottom=None),
             ),
@@ -49,7 +52,8 @@ class HierarchyFilterView(UIScene):
     def _create_selectable_button(self, game_object, depth=0):
         return SelectableButtonView(
             "{}{}".format("-" * depth, game_object.name),
-            functools.partial(self.select_object, value=game_object)
+            functools.partial(self.select_object, value=game_object),
+            align_horz='left'
         )
 
     def finish(self):
@@ -77,7 +81,7 @@ class SingleHierarchyFilterView(HierarchyFilterView):
         self.selections = [value]
 
 
-class HierarchyFilter(SelectionFilter):
+class Hierarchy(SelectionFilter):
     """
     A Selection Filter that includes a hierarchy based on containers/contained
     """
@@ -96,8 +100,8 @@ class HierarchyFilter(SelectionFilter):
             elif target.container:
                 container = target.container
                 if container:
-                    if container.openable:
-                        if not container.openable.closed:
+                    if target.openable:
+                        if not target.openable.closed:
                             item_hierarchy[target] = container.items_held
                     else:
                         item_hierarchy[target] = container.items_held
@@ -108,5 +112,5 @@ class HierarchyFilter(SelectionFilter):
         game.game_context.director.push_scene(self.view)
 
 
-class SingleHierarchyFilter(HierarchyFilter):
+class SingleHierarchy(Hierarchy):
     view_type = SingleHierarchyFilterView

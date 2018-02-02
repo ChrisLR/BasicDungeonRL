@@ -9,7 +9,7 @@ from services.selection.filters.base import SelectionFilter
 from ui.views import KeyAssignedListView, SelectableButtonView
 
 
-class ListBasedSelectionFilter(SelectionFilter):
+class ListBased(SelectionFilter):
     """
     A Selection Filter using the type inheritance to filter.
     """
@@ -33,7 +33,8 @@ class ListFilterView(UIScene):
                 target,
                 SelectableButtonView(
                     target.name,
-                    functools.partial(self.select_object, value=target)
+                    functools.partial(self.select_object, value=target),
+                    align_horz='left'
                 )
             )
             for target in targets
@@ -42,7 +43,10 @@ class ListFilterView(UIScene):
             WindowView(
                 "",
                 subviews=[
-                    KeyAssignedListView(self.button_controls.values(), 64),
+                    KeyAssignedListView(
+                        self.button_controls.values(),
+                        value_column_width=max(len(value.text) + 5 for value in self.button_controls.values()),
+                        layout_options=LayoutOptions.column_left(0.9)),
                 ],
                 layout_options=LayoutOptions(width=0.5, left=0.3, height=0.9, right=None, bottom=None),
             ),

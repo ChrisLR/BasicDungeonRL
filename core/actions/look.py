@@ -4,7 +4,6 @@ from services.selection import CursorSelection
 
 class Look(Action):
     target_selection_types = CursorSelection,
-    target_filters = None
 
     @classmethod
     def can_execute(cls, character, selection=None):

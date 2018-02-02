@@ -4,7 +4,7 @@ from services.selection import EquippedSelection, filters
 
 class Remove(Action):
     target_selection_types = EquippedSelection,
-    target_filters = filters.ListBasedSelectionFilter,
+    target_filters = filters.ListBased,
 
     @classmethod
     def can_execute(cls, character, selection=None):

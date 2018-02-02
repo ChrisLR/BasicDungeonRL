@@ -5,13 +5,13 @@ from services.selection import filters
 
 
 # noinspection PyAbstractClass
-class WearableFilter(filters.ComponentFilter):
+class WearableFilter(filters.Component):
     component = components.Wearable
 
 
 class Wear(Action):
     target_selection_types = selection_service.Inventory, selection_service.Wielded
-    target_filters = WearableFilter, filters.ListBasedSelectionFilter
+    target_filters = WearableFilter, filters.ListBased
 
     @classmethod
     def can_execute(cls, character, selection=None):

@@ -2,7 +2,7 @@ from core.tiles.base import Tile
 from services.selection.filters.base import SelectionFilter
 
 
-class TileExclusionFilter(SelectionFilter):
+class TileExclusion(SelectionFilter):
     """
     Excludes any Tiles
     """

@@ -4,7 +4,7 @@ from services.selection import AllItems, filters
 
 class Drop(Action):
     target_selection_types = AllItems,
-    target_filters = filters.ListBasedSelectionFilter,
+    target_filters = filters.ListBased,
 
     @classmethod
     def can_execute(cls, character, selection=None):
