@@ -34,7 +34,8 @@ class ClassSelectionScene(UIScene):
             character_class:
                 SelectableButtonView(
                     character_class.name, partial(self.set_character_class, character_class),
-                    color_fg=self._inactive_fg if character_class in self.enabled_classes else self._disabled_fg
+                    color_fg=self._inactive_fg if character_class in self.enabled_classes else self._disabled_fg,
+                    align_horz='left'
                 )
             for character_class in self.sorted_classes
         }

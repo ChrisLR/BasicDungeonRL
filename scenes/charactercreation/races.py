@@ -30,7 +30,8 @@ class RaceSelectionScene(UIScene):
             race:
                 SelectableButtonView(
                     race.name, partial(self.set_race, race),
-                    color_fg=self._inactive_fg if race in self.enabled_races else self._disabled_fg
+                    color_fg=self._inactive_fg if race in self.enabled_races else self._disabled_fg,
+                    align_horz='left'
                 )
             for race in self.sorted_races
         }
