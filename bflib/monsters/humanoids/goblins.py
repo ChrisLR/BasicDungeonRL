@@ -16,7 +16,7 @@ class Goblin(Humanoid):
     hit_dice = dice.D1(1)
     attack_bonus = AttackBonusTable.get_by_hit_dice(1)
     attack_sets = None
-    base_armor_class = 14
+    base_armor_class = 11
 
     morale = 7
     movement = movement.MovementSet(walk=units.FeetPerGameTurn(30))

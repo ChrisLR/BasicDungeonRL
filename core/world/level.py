@@ -58,14 +58,20 @@ class Level(GameObject):
     def remove_object(self, game_object):
         display = game_object.display
         if display:
-            self.displays[display.priority].remove(game_object)
+            try:
+                self.displays[display.priority].remove(game_object)
+            except ValueError:
+                pass
 
         location = game_object.location
         if location:
             coords = location.get_local_coords()
             object_set = self.objects_by_coords.get(coords)
             if object_set:
-                object_set.remove(game_object)
+                try:
+                    object_set.remove(game_object)
+                except ValueError:
+                    pass
             self.reset_walkable_for_coordinate(coords, object_set)
 
         self._game_objects.discard(game_object)

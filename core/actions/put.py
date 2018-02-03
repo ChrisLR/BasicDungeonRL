@@ -1,41 +1,80 @@
 from core.actions.base import Action
-from services.selection import DirectionalSelection, filters
+from services import echo, selection
+from services.selection import filters
 
 
 class Put(Action):
-    target_selection_types = DirectionalSelection,
-    target_filters = (
-        filters.TileExclusion,
-        filters.SingleHierarchy
+    target_selection = selection.TargetSelectionChain(
+        selection.TargetSelectionSet(
+            name="Container",
+            selections=selection.DirectionalSelection,
+            filters=(
+                filters.TileExclusion,
+                filters.SingleHierarchy
+            )
+        ),
+        selection.TargetSelectionSet(
+            name="Content",
+            selections=selection.AllItems,
+            filters=(
+                filters.TileExclusion,
+                filters.Hierarchy
+            )
+        )
     )
 
     @classmethod
-    def can_execute(cls, character, selection=None):
+    def can_execute(cls, character, target_selection=None):
         if not character.equipment and not character.inventory:
             return False
 
-        if not selection:
+        if not target_selection:
             return False
 
-        if not selection[0].container:
+        container_object = target_selection.get("Container").targets[0]
+        if not container_object or not container_object.container:
+            return False
+
+        if not target_selection.get("Content"):
             return False
 
         return True
 
     @classmethod
-    def execute(cls, character, selection=None):
-        if not selection:
+    def execute(cls, character, target_selection=None):
+        if not target_selection:
             return False
 
-        target = selection[0]
+        container_object = target_selection.get("Container").targets[0]
+        container = container_object.container
+        content = target_selection.get("Content")
 
-        for target in selection:
-            if not character.inventory.add(target):
-                if not character.equipment.wield(target):
-                    return False
+        for game_object in content:
+            if (not character.equipment.remove(game_object)
+                    and not character.inventory.remove(game_object)):
+                if echo.functions.is_player(character):
+                    echo.echo_service.echo(
+                        "You cant drop {}".format(game_object.name))
+                continue
 
-            target_level = target.location.level
+            if not container.add_item(game_object):
+                if echo.functions.is_player(character):
+                    echo.echo_service.echo(
+                        "You cant put {} in {}".format(
+                            game_object.name, container_object.name))
+                continue
+
+            target_level = game_object.location.level
             if target_level:
-                target_level.remove_object(target)
+                target_level.remove_object(game_object)
+
+            if echo.functions.is_player(character):
+                echo.echo_service.echo(
+                    "You put {} in {}".format(
+                        game_object.name, container_object.name))
+            else:
+                echo.echo_service.echo(
+                    "{} puts {} in {}".format(
+                        character.name, game_object.name, container_object.name))
 
         return True

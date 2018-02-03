@@ -55,14 +55,18 @@ class Combat(Component):
 
     @property
     def armor_class(self):
-        total_armor_class = 0
+        armor_classes = []
         if self.host.monster:
-            total_armor_class += self.host.monster.base_armor_class
+            natural_armor = self.host.monster.base_armor_class
+            armor_classes.append(natural_armor)
 
         if self.host.equipment:
-            total_armor_class += self.host.equipment.get_melee_total_armor_class()
+            melee_ac = self.host.equipment.get_melee_total_armor_class()
+            armor_classes.append(melee_ac)
 
-        return total_armor_class
+        best_ac = max(armor_classes)
+
+        return best_ac
 
     def copy(self):
         return Combat()

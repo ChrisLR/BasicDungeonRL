@@ -76,8 +76,9 @@ class Inventory(Component):
             self._recursive_get_container_items(new_container, item_list)
 
     def remove(self, item):
-        if self.host.equipment:
-            containers = (item.container for item in self.host.equipment.get_all_items() if item.container)
+        equipment = self.host.equipment
+        if equipment:
+            containers = (item.container for item in equipment.get_all_items() if item.container)
             for container in containers:
                 if container.remove_item(item):
                     return True

@@ -1,24 +1,26 @@
 from core.actions.base import Action
-from services.selection import EquippedSelection, filters
+from services.selection import EquippedSelection, filters, TargetSelectionSet
 
 
 class Remove(Action):
-    target_selection_types = EquippedSelection,
-    target_filters = filters.ListBased,
+    target_selection = TargetSelectionSet(
+        selections=EquippedSelection,
+        filters=filters.ListBased
+    )
 
     @classmethod
-    def can_execute(cls, character, selection=None):
+    def can_execute(cls, character, target_selection=None):
         if not character.equipment:
             return False
 
-        if not selection:
+        if not target_selection:
             return False
         return True
 
     @classmethod
-    def execute(cls, character, selection=None):
+    def execute(cls, character, target_selection=None):
         level = character.location.level
-        for target in selection:
+        for target in target_selection:
             if not character.equipment.remove(target):
                 return False
             else:

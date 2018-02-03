@@ -27,10 +27,11 @@ class ActionStack(object):
         :type action: Action
         """
 
-        if action.target_selection_types:
-            self.action_resolutions.append(ActionResolution(action, self.game_object))
+        if action.target_selection:
+            self.action_resolutions.append(
+                ActionResolution(action, self.game_object, action.target_selection.copy()))
         else:
-            self._start_action(ActionResolution(action, self.game_object))
+            self._start_action(ActionResolution(action, self.game_object, None))
             self.update_turn_callback()
 
     def update(self):
@@ -44,12 +45,11 @@ class ActionStack(object):
 
         current_resolution = self.action_resolutions[-1]
         current_resolution.update()
-        if current_resolution.finished_selection:
-            if current_resolution.finished_filter:
-                self._start_action(current_resolution)
-                self.action_resolutions.remove(current_resolution)
-                if not self.action_resolutions:
-                    self.update_turn_callback()
+        if current_resolution.finished:
+            self._start_action(current_resolution)
+            self.action_resolutions.remove(current_resolution)
+            if not self.action_resolutions:
+                self.update_turn_callback()
 
     @staticmethod
     def _start_action(action_resolution):
@@ -59,5 +59,5 @@ class ActionStack(object):
         :type action_resolution: ActionResolution
         """
 
-        if action_resolution.can_execute_action:
+        if action_resolution.can_execute_action():
             action_resolution.execute_action()
