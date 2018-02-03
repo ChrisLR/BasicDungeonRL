@@ -1,10 +1,12 @@
 from core.actions.base import Action
-from services.selection import EquippedSelection, filters
+from services.selection import EquippedSelection, filters, TargetSelectionSet
 
 
 class Remove(Action):
-    target_selection_types = EquippedSelection,
-    target_filters = filters.ListBased,
+    target_selection = TargetSelectionSet(
+        selections=EquippedSelection,
+        filters=filters.ListBased
+    )
 
     @classmethod
     def can_execute(cls, character, selection=None):

@@ -1,10 +1,12 @@
 from core.actions.base import Action
-from services.selection import AllItems, filters
+from services.selection import AllItems, filters, TargetSelectionSet
 
 
 class Drop(Action):
-    target_selection_types = AllItems,
-    target_filters = filters.ListBased,
+    target_selection = TargetSelectionSet(
+        selections=AllItems,
+        filters=filters.ListBased,
+    )
 
     @classmethod
     def can_execute(cls, character, selection=None):

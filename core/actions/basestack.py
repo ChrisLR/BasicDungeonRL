@@ -27,7 +27,7 @@ class ActionStack(object):
         :type action: Action
         """
 
-        if action.target_selection_types:
+        if action.target_selection:
             self.action_resolutions.append(ActionResolution(action, self.game_object))
         else:
             self._start_action(ActionResolution(action, self.game_object))

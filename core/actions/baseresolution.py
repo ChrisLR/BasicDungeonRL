@@ -27,8 +27,8 @@ class ActionResolution(object):
         else:
             self.pending_filters = None
 
-        if action.target_selection_types:
-            self.selections = [selection(executor) for selection in action.target_selection_types]
+        if action.target_selection:
+            self.selections = [selection(executor) for selection in action.target_selection]
             self._start_next_selection()
         else:
             self.selections = None

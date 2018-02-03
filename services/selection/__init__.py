@@ -4,3 +4,4 @@ from services.selection.directional import DirectionalSelection
 from services.selection.equipped import EquippedSelection
 from services.selection.inventory import Inventory
 from services.selection.wielded import Wielded
+from services.selection.base import TargetSelectionSet, TargetSelectionChain

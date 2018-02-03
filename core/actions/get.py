@@ -1,13 +1,16 @@
 from core.actions.base import Action
 from services.selection import DirectionalSelection, filters
+from services.selection.base import TargetSelectionSet
 
 
 class Get(Action):
-    target_selection_types = DirectionalSelection,
-    target_filters = (
-        filters.TileExclusion,
-        filters.Conscious,
-        filters.Hierarchy,
+    target_selection = TargetSelectionSet(
+        selections=DirectionalSelection,
+        filters=(
+            filters.TileExclusion,
+            filters.Conscious,
+            filters.Hierarchy
+        )
     )
 
     @classmethod

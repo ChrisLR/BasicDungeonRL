@@ -1,11 +1,13 @@
 from core.actions.base import Action
-from services import selection as selection_service
+from services import selection
 from services.selection import filters
 
 
 class Wield(Action):
-    target_selection_types = selection_service.Inventory,
-    target_filters = filters.ListBased,
+    target_selection = selection.TargetSelectionSet(
+        selections=selection.Inventory,
+        filters=filters.ListBased,
+    )
 
     @classmethod
     def can_execute(cls, character, selection=None):

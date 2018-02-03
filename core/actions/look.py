@@ -1,9 +1,9 @@
 from core.actions.base import Action
-from services.selection import CursorSelection
+from services.selection import CursorSelection, TargetSelectionSet
 
 
 class Look(Action):
-    target_selection_types = CursorSelection,
+    target_selection = TargetSelectionSet(CursorSelection)
 
     @classmethod
     def can_execute(cls, character, selection=None):

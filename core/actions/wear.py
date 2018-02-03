@@ -1,6 +1,6 @@
 from core import components
 from core.actions.base import Action
-from services import selection as selection_service
+from services import selection
 from services.selection import filters
 
 
@@ -10,8 +10,10 @@ class WearableFilter(filters.Component):
 
 
 class Wear(Action):
-    target_selection_types = selection_service.Inventory, selection_service.Wielded
-    target_filters = WearableFilter, filters.ListBased
+    target_selection = selection.TargetSelectionSet(
+        selections=(selection.Inventory, selection.Wielded),
+        filters=(WearableFilter, filters.ListBased),
+    )
 
     @classmethod
     def can_execute(cls, character, selection=None):
