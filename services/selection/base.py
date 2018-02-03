@@ -23,8 +23,8 @@ class TargetSelectionSet(object):
         return len(self.selections)
 
     def __iter__(self):
-        for selection in self.selections:
-            yield selection
+        for target in self.targets:
+            yield target
 
     __slots__ = ("selections", "filters", "name", "targets")
 
@@ -37,14 +37,14 @@ class TargetSelectionSet(object):
         :param targets: Result of the selections and filters
         """
         if not isinstance(selections, abc.Iterable):
-            selections = tuple(selections)
+            selections = [selections]
 
         if filters is not None:
             if not isinstance(filters, abc.Iterable):
-                filters = tuple(filters)
+                filters = [filters]
 
         self.selections = selections
-        self.filters = filters if filters else tuple()
+        self.filters = filters if filters else []
         self.targets = targets if targets else []
         self.name = name
 

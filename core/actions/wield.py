@@ -10,17 +10,17 @@ class Wield(Action):
     )
 
     @classmethod
-    def can_execute(cls, character, selection=None):
+    def can_execute(cls, character, target_selection=None):
         if not character.equipment:
             return False
 
-        if not selection:
+        if not target_selection:
             return False
         return True
 
     @classmethod
-    def execute(cls, character, selection=None):
-        for target in selection:
+    def execute(cls, character, target_selection=None):
+        for target in target_selection:
             if not character.equipment.wield(target):
                 return False
             else:

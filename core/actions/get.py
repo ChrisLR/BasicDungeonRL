@@ -14,20 +14,20 @@ class Get(Action):
     )
 
     @classmethod
-    def can_execute(cls, character, selection=None):
+    def can_execute(cls, character, target_selection=None):
         if not character.equipment and not character.inventory:
             return False
 
-        if not selection:
+        if not target_selection:
             return False
         return True
 
     @classmethod
-    def execute(cls, character, selection=None):
-        if not selection:
+    def execute(cls, character, target_selection=None):
+        if not target_selection:
             return False
 
-        for target in selection:
+        for target in target_selection:
             if not character.inventory.add(target):
                 if not character.equipment.wield(target):
                     return False

@@ -11,12 +11,12 @@ class Walk(Action):
         return _walk_direction_mapping.get(direction)
 
     @classmethod
-    def can_execute(cls, character, selection=None):
+    def can_execute(cls, character, target_selection=None):
         # TODO Some characters might not be in a condition to move.
         return True
 
     @classmethod
-    def execute(cls, character, selection=None):
+    def execute(cls, character, target_selection=None):
         if cls.direction:
             direction = cls.direction
         else:

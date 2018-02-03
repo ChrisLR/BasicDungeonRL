@@ -24,30 +24,30 @@ class Put(Action):
     )
 
     @classmethod
-    def can_execute(cls, character, selection=None):
+    def can_execute(cls, character, target_selection=None):
         if not character.equipment and not character.inventory:
             return False
 
-        if not selection:
+        if not target_selection:
             return False
 
-        container_object = selection.get("Container")
+        container_object = target_selection.get("Container")
         if not container_object or not container_object.container:
             return False
 
-        if not selection.get("Content"):
+        if not target_selection.get("Content"):
             return False
 
         return True
 
     @classmethod
-    def execute(cls, character, selection=None):
-        if not selection:
+    def execute(cls, character, target_selection=None):
+        if not target_selection:
             return False
 
-        container_object = selection.get("Container")
+        container_object = target_selection.get("Container")
         container = container_object.container
-        content = selection.get("Content")
+        content = target_selection.get("Content")
 
         for game_object in content:
             if not container.add_item(game_object):
