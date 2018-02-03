@@ -89,4 +89,4 @@ class TargetSelectionChain(abc.Sequence):
             for target_selection_set
             in self.target_selection_sets]
 
-        return TargetSelectionChain(copies_of_sets)
+        return TargetSelectionChain(*copies_of_sets)

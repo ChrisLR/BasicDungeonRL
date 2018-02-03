@@ -34,6 +34,7 @@ class ActionResolution(object):
 
         if isinstance(target_selection, TargetSelectionChain):
             self.pending_target_selections = list(self.target_selections.target_selection_sets)
+            self.pending_target_selections.reverse()
         else:
             self.pending_target_selections = [self.target_selections]
         self.start_next_target_selection()

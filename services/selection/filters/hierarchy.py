@@ -77,8 +77,8 @@ class HierarchyFilterView(UIScene):
 
 class SingleHierarchyFilterView(HierarchyFilterView):
     def select_object(self, value):
-        self.finish()
         self.selections = [value]
+        self.finish()
 
 
 class Hierarchy(SelectionFilter):

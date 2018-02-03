@@ -1,5 +1,5 @@
 from core.actions.base import Action
-from services import selection
+from services import echo, selection
 from services.selection import filters
 
 
@@ -31,7 +31,7 @@ class Put(Action):
         if not target_selection:
             return False
 
-        container_object = target_selection.get("Container")
+        container_object = target_selection.get("Container").targets[0]
         if not container_object or not container_object.container:
             return False
 
@@ -45,15 +45,36 @@ class Put(Action):
         if not target_selection:
             return False
 
-        container_object = target_selection.get("Container")
+        container_object = target_selection.get("Container").targets[0]
         container = container_object.container
         content = target_selection.get("Content")
 
         for game_object in content:
-            if not container.add_item(game_object):
+            if (not character.equipment.remove(game_object)
+                    and not character.inventory.remove(game_object)):
+                if echo.functions.is_player(character):
+                    echo.echo_service.echo(
+                        "You cant drop {}".format(game_object.name))
                 continue
+
+            if not container.add_item(game_object):
+                if echo.functions.is_player(character):
+                    echo.echo_service.echo(
+                        "You cant put {} in {}".format(
+                            game_object.name, container_object.name))
+                continue
+
             target_level = game_object.location.level
             if target_level:
                 target_level.remove_object(game_object)
+
+            if echo.functions.is_player(character):
+                echo.echo_service.echo(
+                    "You put {} in {}".format(
+                        game_object.name, container_object.name))
+            else:
+                echo.echo_service.echo(
+                    "{} puts {} in {}".format(
+                        character.name, game_object.name, container_object.name))
 
         return True
