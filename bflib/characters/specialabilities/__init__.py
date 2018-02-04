@@ -13,15 +13,15 @@ from bflib.characters.specialabilities.detects import (
 from bflib.characters.specialabilities.immunities import (
     CharmImmunity, GhoulParalysisImmunity, HoldImmunity, SleepImmunity
 )
+from bflib.characters.specialabilities.monster import (
+    CombatFrenzy, LastBreath, Mindless)
 from bflib.characters.specialabilities.resistances import (
     EdgedWeaponResistance, SurpriseResistance, ProjectileResistance,
     ResistanceSpecialAbility
 )
 from bflib.characters.specialabilities.set import SpecialAbilitySet
-from bflib.characters.specialabilities.stealth import HalflingHide
+from bflib.characters.specialabilities.stealth import BugBearStealth, HalflingHide
 from bflib.characters.specialabilities.thief import (
     ClimbWalls, Hide, Listen, OpenLock, MoveSilently,
     PickPockets, RemoveTraps, SneakAttack
 )
-from bflib.characters.specialabilities.monster import (
-    CombatFrenzy, LastBreath, Mindless)

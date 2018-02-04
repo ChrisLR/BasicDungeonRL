@@ -13,7 +13,9 @@ class Experience(Component):
     def __init__(self, character_classes, starting_level=1):
         super().__init__()
         self.level_tables = [character_class.level_table for character_class in character_classes]
-        self.experience = 0
+        starting_experience = min((level_table.get(starting_level).experience_required
+                                   for level_table in self.level_tables))
+        self.experience = starting_experience
         self.level = starting_level
 
     def add_experience(self, points):

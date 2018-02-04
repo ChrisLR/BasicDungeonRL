@@ -17,6 +17,7 @@ class Race(object):
     average_lifespan = timedelta(0)
 
     restriction_set = restrictions.RestrictionSet()
+    racial_class = None
     racial_language = languages.Common
     special_ability_set = specialabilities.SpecialAbilitySet()
     saving_throw_set = savingthrows.SavingThrowSet()

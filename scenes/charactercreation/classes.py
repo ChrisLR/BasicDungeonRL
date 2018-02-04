@@ -26,9 +26,13 @@ class ClassSelectionScene(UIScene):
         self.ability_score_set = ability_score_set
         self.name = name
         self.race = race
-
-        self.sorted_classes = sorted(classes.listing, key=lambda c_class: c_class.name)
-        self.enabled_classes, self.disabled_classes = self.filter_class_choices()
+        if self.race.racial_class is None:
+            self.sorted_classes = sorted(classes.listing, key=lambda c_class: c_class.name)
+            self.enabled_classes, self.disabled_classes = self.filter_class_choices()
+        else:
+            self.sorted_classes = [self.race.racial_class]
+            self.enabled_classes = self.sorted_classes
+            self.disabled_classes = []
 
         self.buttons = {
             character_class:

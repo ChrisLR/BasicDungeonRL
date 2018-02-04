@@ -13,10 +13,13 @@ class OutfitterService(object):
 
     @staticmethod
     def get_starter_package(game_object):
-        return random.choice([
+        choices = [
             pack for pack in starter_packages
             if pack.check_if_applicable(game_object)
-        ])
+        ]
+        if choices:
+            return random.choice(choices)
+        return None
 
     @classmethod
     def outfit_starting_player(cls, game_object):
@@ -24,4 +27,5 @@ class OutfitterService(object):
                     cls.get_starter_package(game_object))
 
         for package in packages:
-            package.apply(game_object)
+            if package is not None:
+                package.apply(game_object)

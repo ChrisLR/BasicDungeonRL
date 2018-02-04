@@ -15,10 +15,13 @@ class Level(object):
 
 
 class LevelTable(object):
-    __slots__ = ["levels"]
+    __slots__ = ["levels", "max"]
 
     def __init__(self, levels=None):
         self.levels = {level.value: level for level in levels} if levels else {}
+        self.max = max(self.levels.keys()) if self.levels else 0
 
     def get(self, level):
+        if level > self.max:
+            return self.levels.get(self.max, None)
         return self.levels.get(level, None)
