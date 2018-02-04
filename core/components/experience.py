@@ -1,5 +1,6 @@
 from core.components.base import Component
 from bflib.characters import specialabilities
+from services import echo
 
 
 class Experience(Component):
@@ -20,6 +21,10 @@ class Experience(Component):
         percent_bonus = sum((int(response) for response in responses))
         points += round(((points * percent_bonus) / 100))
         self.experience += points
+        if self.experience > self.exp_for_next_level:
+            self.level += 1
+            if echo.is_player(self.host):
+                echo.echo_service.echo("You advance to level {}".format(self.level))
 
     def copy(self):
         new = Experience(self.experience_pools.copy())

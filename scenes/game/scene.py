@@ -36,9 +36,6 @@ class GameScene(UIScene):
         if is_active:
             self.game_context.action_stack.update()
 
-        # TODO GODMODE!
-        self.game_context.player.health.current = 1000
-
         player_health = self.game_context.player.health
         if player_health and not player_health.conscious:
             time.sleep(1)
