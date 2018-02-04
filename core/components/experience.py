@@ -22,6 +22,11 @@ class Experience(Component):
         self.experience = starting_experience
         self.level = starting_level
 
+    def evaluate_level_tables(self):
+        character_classes = self.host.character_class.base_classes
+        self.level_tables = [character_class.level_table
+                             for character_class in character_classes]
+
     def add_experience(self, points):
         responses = self.host.query.special_ability(specialabilities.ExperienceBonus)
         percent_bonus = sum((int(response) for response in responses))
@@ -29,14 +34,32 @@ class Experience(Component):
         self.experience += points
         exp_for_next_level = self.exp_for_next_level
         if exp_for_next_level is not None:
-            if self.experience > self.exp_for_next_level:
+            if self.level == 0:
+                self.add_new_class()
+                # Level up will be called by the action
+                return
+
+            if self.experience >= self.exp_for_next_level:
                 self.level_up()
+        else:
+            if self.level == 0:
+                self.add_new_class()
 
     def level_up(self):
         self.level += 1
         if echo.is_player(self.host):
             echo.echo_service.echo("You advance to level {}".format(self.level))
         self.host.health.on_level_up()
+
+    def add_new_class(self):
+        # This means we were in negative levels and must choose
+        # A new class
+        from core.game.manager import game
+        from core.actions.addclass import AddClass
+
+        # TODO Each GameObject needs its own ActionStack
+        game.game_context.action_stack.add_action_to_stack(AddClass)
+        return
 
     def copy(self):
         new = Experience(self.experience_pools.copy())
@@ -49,8 +72,27 @@ class Experience(Component):
 
     @property
     def exp_for_next_level(self):
-        next_levels = (level_table.get(self.level + 1) for level_table in self.level_tables)
-        if any(level.experience_required for level in next_levels):
-            return sum((level.experience_required
-                        for level in next_levels if level))
+        next_levels = (level_table.get(self.level + 1)
+                       for level_table in self.level_tables)
+        required_experience = [
+            level.experience_required
+            for level in next_levels
+            if level.experience_required is not None
+        ]
+        if required_experience:
+            return sum(required_experience)
         return None
+
+    @property
+    def effective_level(self):
+        """
+        This include the lowest negative level
+        """
+        lowest = min([level_table.min for level_table in self.level_tables])
+        if lowest == 1:
+            return self.level
+        elif lowest == 0:
+            return self.level + 1
+        elif lowest <= -1:
+            return self.level + (lowest * -1) + 1
+        return self.level

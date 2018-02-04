@@ -8,7 +8,8 @@ class SelectionFilter(object):
     """
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self):
+    def __init__(self, executor):
+        self.executor = executor
         self.canceled = False
         self.resolution = None
 

@@ -9,20 +9,6 @@ from services.selection.filters.base import SelectionFilter
 from ui.views import KeyAssignedListView, SelectableButtonView
 
 
-class ListBased(SelectionFilter):
-    """
-    A Selection Filter using the type inheritance to filter.
-    """
-
-    def __init__(self):
-        super().__init__()
-        self.view = None
-
-    def filter(self, targets):
-        self.view = ListFilterView(self, targets)
-        game.game_context.director.push_scene(self.view)
-
-
 class ListFilterView(UIScene):
     covers_screen = False
 
@@ -72,3 +58,28 @@ class ListFilterView(UIScene):
         if val == terminal.TK_ESCAPE:
             self.host_filter.canceled = True
             self.director.pop_scene()
+
+
+class ListBased(SelectionFilter):
+    """
+    A Selection Filter using the type inheritance to filter.
+    """
+    view_class = ListFilterView
+
+    def __init__(self, executor):
+        super().__init__(executor)
+        self.view = None
+
+    def filter(self, targets):
+        self.view = self.view_class(self, targets)
+        game.game_context.director.push_scene(self.view)
+
+
+class SingleListFilterView(ListFilterView):
+    def select_object(self, value):
+        self.selections = [value]
+        self.finish()
+
+
+class SingleListBased(ListBased):
+    view_class = SingleListFilterView

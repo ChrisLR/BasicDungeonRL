@@ -25,7 +25,9 @@ class HudView(RectView):
             ('WIS:', lambda: str(player_stats.wisdom)),
             ('CHA:', lambda: str(player_stats.charisma)),
             ('POS:', lambda: str(player.location.get_local_coords())),
-            ('LVL:', lambda: str(player.experience.level)),
+            ('LVL:', lambda: "{}({})".format(
+                player.experience.level,
+                player.experience.effective_level)),
             ('EXP:', lambda: "{}/{}".format(
                 player.experience.current_exp,
                 player.experience.exp_for_next_level)),

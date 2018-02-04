@@ -1,4 +1,4 @@
-from collections import abc
+from collections import abc, Sequence
 
 
 class Selection(object):
@@ -25,6 +25,15 @@ class TargetSelectionSet(object):
     def __iter__(self):
         for target in self.targets:
             yield target
+
+    def __getitem__(self, item):
+        if isinstance(self.targets, Sequence):
+            return self.targets[item]
+        else:
+            if item == 0:
+                return self.targets
+
+        raise TypeError()
 
     __slots__ = ("selections", "filters", "name", "targets")
 

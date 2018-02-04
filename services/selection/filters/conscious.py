@@ -5,8 +5,8 @@ class Conscious(SelectionFilter):
     """
     Removes all conscious game objects
     """
-    def __init__(self):
-        super().__init__()
+    def __init__(self, executor):
+        super().__init__(executor)
         self.view = None
 
     def filter(self, targets):

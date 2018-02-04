@@ -45,7 +45,10 @@ class ActionResolution(object):
 
         next_selection = self.pending_target_selections[0]
         if next_selection.filters:
-            self.pending_filters = [target_filter() for target_filter in next_selection.filters]
+            self.pending_filters = [
+                target_filter(self.executor)
+                for target_filter in next_selection.filters
+            ]
         else:
             self.pending_filters = None
 

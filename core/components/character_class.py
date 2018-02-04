@@ -10,6 +10,11 @@ class CharacterClass(Component):
         super().__init__()
         self.base_classes = base_classes
 
+    def add_class(self, new_class):
+        self.base_classes += (new_class,)
+        # TODO This should be an Event
+        self.host.health.adjust_hit_dice()
+
     def contains(self, base_class):
         if base_class in self.base_classes:
             return True
@@ -17,9 +22,11 @@ class CharacterClass(Component):
     def get_attack_bonus(self, level):
         best_attack_bonus = 0
         for base_class in self.base_classes:
-            current_attack_bonus = base_class.level_table.get(level).attack_bonus
-            if current_attack_bonus > best_attack_bonus:
-                best_attack_bonus = current_attack_bonus
+            current_level = base_class.level_table.get(level)
+            if current_level is not None:
+                current_attack_bonus = current_level.attack_bonus
+                if current_attack_bonus > best_attack_bonus:
+                    best_attack_bonus = current_attack_bonus
 
         return best_attack_bonus
 
