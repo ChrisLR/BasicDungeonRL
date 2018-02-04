@@ -1,14 +1,12 @@
-import bflib.items.weapons.melee.daggers
-import bflib.items.weapons.melee.maces
 import bflib.items.weapons.melee.staves
 from bflib import dice
 from bflib import restrictions
 from bflib.characters import abilityscores
 from bflib.characters import specialabilities
-from bflib.characters.classes.level import Level, LevelTable
 from bflib.characters.classes.base import CharacterClass
+from bflib.characters.classes.level import Level, LevelTable
 from bflib.characters.savingthrows import SavingThrowSet
-from bflib.items import armor, weapons
+from bflib.items import armor
 from bflib.spells import SpellSlotSet
 
 
