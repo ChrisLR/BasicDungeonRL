@@ -22,9 +22,13 @@ class Experience(Component):
         points += round(((points * percent_bonus) / 100))
         self.experience += points
         if self.experience > self.exp_for_next_level:
-            self.level += 1
-            if echo.is_player(self.host):
-                echo.echo_service.echo("You advance to level {}".format(self.level))
+            self.level_up()
+
+    def level_up(self):
+        self.level += 1
+        if echo.is_player(self.host):
+            echo.echo_service.echo("You advance to level {}".format(self.level))
+        self.host.health.on_level_up()
 
     def copy(self):
         new = Experience(self.experience_pools.copy())

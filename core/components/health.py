@@ -129,18 +129,24 @@ class Health(Component):
 
     def on_register(self, host):
         super().on_register(host)
-        if host.experience:
-            level = host.experience.level
+        self.adjust_hit_dice()
+
+    def on_level_up(self):
+        self.adjust_hit_dice()
+
+    def adjust_hit_dice(self):
+        if self.host.experience:
+            level = self.host.experience.level
         else:
             level = 1
 
-        if host.character_class:
-            hit_die = host.character_class.get_hit_dice(level)
+        if self.host.character_class:
+            hit_die = self.host.character_class.get_hit_dice(level)
         else:
             hit_die = 0
 
-        if host.monster:
-            hit_die = host.monster.base_monster.hit_dice
+        if self.host.monster:
+            hit_die = self.host.monster.base_monster.hit_dice
 
         self.update_hit_dice(hit_die)
         self.current = self.max
