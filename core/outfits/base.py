@@ -15,14 +15,17 @@ class Outfit(object):
     @classmethod
     def apply(cls, game_object):
         if game_object.equipment:
-            unpacked_worn_items = cls.unpack(cls.worn_items)
-            unpacked_wielded_items = cls.unpack(cls.wielded_items)
+            unpacked_worn_items = cls.unpack(cls.worn_items.copy())
+            unpacked_wielded_items = cls.unpack(cls.wielded_items.copy())
             cls._equip_worn_items(unpacked_worn_items, game_object)
             cls._equip_wielded_items(unpacked_wielded_items, game_object)
 
         if game_object.inventory:
-            unpacked_inventory_items = cls.unpack(cls.inventory_items)
+            unpacked_inventory_items = cls.unpack(cls.inventory_items.copy())
             cls._add_inventory_items(unpacked_inventory_items, game_object)
+
+        if not game_object.equipment.worn_items:
+            print('WTF')
 
     @staticmethod
     def _equip_worn_items(unpacked_worn_items, game_object):

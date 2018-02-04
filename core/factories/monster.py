@@ -18,12 +18,12 @@ class MonsterFactory(object):
         for component in item_components:
             new.register_component(component)
 
+        if new.equipment:
+            new.register_component(components.Inventory())
+
         if recipe.outfits:
             outfit = random.choice(recipe.outfits)
             outfit.apply(new)
-
-        if new.equipment:
-            new.register_component(components.Inventory())
 
         if base_monster.treasure_type:
             # TODO Call Treasure Factory here.
