@@ -16,21 +16,21 @@ class Bugbear(CharacterClass):
     level_table = LevelTable(
         levels=(
             Level(
-                value=1,
+                value=-1,
                 attack_bonus=1,
                 experience_required=-3000,
                 hit_dice=dice.D8(1),
                 saving_throws_set=Fighter.level_table.get(1).saving_throws_set,
             ),
             Level(
-                value=2,
+                value=0,
                 attack_bonus=2,
                 experience_required=-1500,
                 hit_dice=dice.D8(2),
                 saving_throws_set=Fighter.level_table.get(1).saving_throws_set
             ),
             Level(
-                value=3,
+                value=1,
                 attack_bonus=2,
                 experience_required=0,
                 hit_dice=dice.D8(2),
