@@ -24,9 +24,6 @@ class Outfit(object):
             unpacked_inventory_items = cls.unpack(cls.inventory_items.copy())
             cls._add_inventory_items(unpacked_inventory_items, game_object)
 
-        if not game_object.equipment.worn_items:
-            print('WTF')
-
     @staticmethod
     def _equip_worn_items(unpacked_worn_items, game_object):
         for item in unpacked_worn_items:
