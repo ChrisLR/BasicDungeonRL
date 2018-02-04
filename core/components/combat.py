@@ -1,6 +1,7 @@
 from bflib import attacks, dice
 from bflib.tables.attackbonus import AttackBonusTable
 from core.components.base import Component
+from bflib.characters import specialabilities
 
 
 class Combat(Component):
@@ -55,18 +56,28 @@ class Combat(Component):
 
     @property
     def armor_class(self):
-        armor_classes = []
+        no_armor = 11
+        total_ac = no_armor
+        dexterity_bonus = self.host.stats.dexterity_modifier
+        if dexterity_bonus:
+            total_ac += dexterity_bonus
+
         if self.host.monster:
-            natural_armor = self.host.monster.base_armor_class
-            armor_classes.append(natural_armor)
+            natural_armor = self.host.monster.base_armor_class - no_armor
+            total_ac += natural_armor
 
         if self.host.equipment:
             melee_ac = self.host.equipment.get_melee_total_armor_class()
-            armor_classes.append(melee_ac)
+            if melee_ac > no_armor:
+                melee_ac -= no_armor
 
-        best_ac = max(armor_classes)
+            melee_defense_bonus = sum(
+                [int(response) for response
+                 in self.host.query.special_ability(specialabilities.MeleeDefenseBonus)]
+            )
+            total_ac += melee_ac + melee_defense_bonus
 
-        return best_ac
+        return total_ac
 
     def copy(self):
         return Combat()
