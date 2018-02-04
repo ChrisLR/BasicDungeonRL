@@ -62,7 +62,7 @@ class NaturalAttack(MeleeAttack):
                 )
 
                 cls.echo(attacker, defender, True, damage)
-                defender.health.take_damage(damage)
+                defender.health.take_damage(damage, attacker)
             else:
                 cls.echo(attacker, defender, False, 0)
 

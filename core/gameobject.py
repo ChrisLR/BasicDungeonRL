@@ -1,14 +1,16 @@
+from core.components.query import Query
+
+
 class GameObject(object):
-    __slots__ = ["_blocking", "components", "flags", "observers", "properties", "responders", "name"]
+    __slots__ = ["_blocking", "components", "flags", "properties", "name"]
 
     def __init__(self, blocking=False, name="", flags=None):
         self._blocking = blocking
         self.components = {}
         self.flags = flags if flags else set()
-        self.observers = {}
-        self.responders = {}
         self.properties = {}
         self.name = name
+        self.register_component(Query())
 
     @property
     def blocking(self):
@@ -48,33 +50,6 @@ class GameObject(object):
     def days_update(self):
         for component in self.components.values():
             component.days_update()
-
-    def transmit_message(self, sender, message_type, **kwargs):
-        if message_type in self.observers:
-            for observer, func in self.observers[message_type]:
-                if observer != sender:
-                    func(**kwargs)
-
-    def transmit_query(self, sender, query_type, **kwargs):
-        responses = []
-        if query_type in self.responders:
-            for responder, func in self.responders[query_type]:
-                if responder != sender:
-                    responses.append(func(**kwargs))
-
-        return responses
-
-    def register_observer(self, observer, message_type, func):
-        if message_type not in self.observers:
-            self.observers[message_type] = []
-        if func not in self.observers[message_type]:
-            self.observers[message_type].append((observer, func))
-
-    def register_query_responder(self, responder, query_type, func):
-        if query_type not in self.responders:
-            self.responders[query_type] = []
-        if func not in self.responders[query_type]:
-            self.responders[query_type].append((responder, func))
 
     def register_component(self, component):
         if component.NAME in self.components:

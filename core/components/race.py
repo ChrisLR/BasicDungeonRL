@@ -1,4 +1,5 @@
 from core.components import Component
+from core import queries
 
 
 class Race(Component):
@@ -8,6 +9,13 @@ class Race(Component):
     def __init__(self, base_race):
         super().__init__()
         self.base_race = base_race
+
+    def on_register(self, host):
+        super().on_register(host)
+        host.query.register_responder(queries.SpecialAbility, self, self.respond_special_abilities)
+
+    def respond_special_abilities(self, query):
+        query.respond(self.base_race.special_ability_set.special_abilities)
 
     @property
     def name(self):

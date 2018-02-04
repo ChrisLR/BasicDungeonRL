@@ -42,7 +42,7 @@ class Health(Component):
         if self.current >= 0:
             self.conscious = True
 
-    def take_damage(self, damage):
+    def take_damage(self, damage, attacker=None):
         self.current -= damage
         if self.host.stats:
             constitution = int(self.host.stats.constitution)
@@ -70,6 +70,8 @@ class Health(Component):
                     )
                 self.host.blocking = False
                 corpsify.turn_into_corpse(self.host)
+                if attacker and attacker.experience:
+                    attacker.experience.add_experience(self.host.query.experience_value())
 
     def update_hit_dice(self, new_hit_dice):
         if inspect.isclass(new_hit_dice):
