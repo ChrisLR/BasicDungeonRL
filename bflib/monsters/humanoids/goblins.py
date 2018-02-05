@@ -25,4 +25,4 @@ class Goblin(Humanoid):
     special_abilities = SpecialAbilitySet((Darkvision,))
     size = Size.Small
     weight = units.Pound(45)
-    xp = 1000
+    xp = 10
