@@ -25,3 +25,4 @@ from bflib.characters.specialabilities.thief import (
     ClimbWalls, Hide, Listen, OpenLock, MoveSilently,
     PickPockets, RemoveTraps, SneakAttack
 )
+from bflib.characters.specialabilities.scent import PowerfulScent

@@ -34,7 +34,7 @@ class Experience(Component):
         self.experience += points
         exp_for_next_level = self.exp_for_next_level
         if exp_for_next_level is not None:
-            if self.level == 0:
+            if self.level == 0 and self.experience >= 0:
                 self.add_new_class()
                 # Level up will be called by the action
                 return
