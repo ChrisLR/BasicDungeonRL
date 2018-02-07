@@ -42,6 +42,9 @@ class Health(Component):
         if self.current >= 0:
             self.conscious = True
 
+        if self.current > self.max:
+            self.current = self.max
+
     def take_damage(self, damage, attacker=None):
         self.current -= damage
         if self.host.stats:
