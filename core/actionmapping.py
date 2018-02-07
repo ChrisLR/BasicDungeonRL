@@ -18,7 +18,8 @@ lowercase_mapping = {
     terminal.TK_R: actions.Remove,
     terminal.TK_D: actions.Drop,
     terminal.TK_X: actions.Look,
-    terminal.TK_P: actions.Put
+    terminal.TK_P: actions.Put,
+    terminal.TK_9: actions.UseAbility
 }
 
 uppercase_mapping = {

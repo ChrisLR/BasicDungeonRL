@@ -8,3 +8,4 @@ from core.actions.put import Put
 from core.actions.remove import Remove
 from core.actions.wear import Wear
 from core.actions.wield import Wield
+from core.actions.useability import UseAbility

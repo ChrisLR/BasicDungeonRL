@@ -8,6 +8,7 @@ from core.components.container import Container
 from core.components.contained import Contained
 from core.components.corpse import Corpse
 from core.components.display import Display
+from core.components.effects import Effects
 from core.components.equipment import Equipment
 from core.components.experience import Experience
 from core.components.health import Health
@@ -45,6 +46,7 @@ component_names = {
     Contained.NAME,
     Corpse.NAME,
     Display.NAME,
+    Effects.NAME,
     Equipment.NAME,
     Experience.NAME,
     Health.NAME,

@@ -22,6 +22,7 @@ class MonsterRecipe(Recipe):
             components.Display(Colors.RED, Colors.BLACK, name[0], DisplayPriority.Enemy),
             components.Location(),
             components.Monster(monster_type),
+            components.Effects(),
             components.Health(),
             components.Combat(),
             components.Size(monster_type.size),

@@ -22,6 +22,7 @@ class ItemRecipe(Recipe):
             components.Weight(item_type.weight),
             components.Location(),
             components.Display(Colors.GRAY, Colors.BLACK, name[0], DisplayPriority.Item),
+            components.Effects(),
         ]
 
         if item_type.price:

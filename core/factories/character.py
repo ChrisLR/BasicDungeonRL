@@ -36,6 +36,7 @@ class CharacterFactory(object):
         new_character.register_component(components.Combat())
         new_character.register_component(components.Inventory())
         new_character.register_component(components.Vision(20))
+        new_character.register_component(components.Effects())
 
         OutfitterService.outfit_starting_player(new_character)
 
