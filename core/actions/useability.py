@@ -1,6 +1,7 @@
 from core.actions.base import Action
 from services import echo, selection
 from services.selection import filters
+from core.game.manager import game
 
 
 # TODO This wont work as is because of target selection.
@@ -22,4 +23,4 @@ class UseAbility(Action):
         if not target_selection:
             return False
 
-        return target_selection[0].execute(character)
+        return game.game_context.action_stack.add_action_to_stack(target_selection[0])

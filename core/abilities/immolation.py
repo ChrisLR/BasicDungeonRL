@@ -1,7 +1,7 @@
 from bflib import units
 from core.abilities.base import Ability
 from core.effects.burning import Burning
-
+from services.selection import CursorSelection, TargetSelectionSet
 
 """
 Yes for anyone wondering, its a joke, for debug.
@@ -10,44 +10,40 @@ Yes for anyone wondering, its a joke, for debug.
 
 class Immolation(Ability):
     name = "Immolation"
+    target_selection = TargetSelectionSet(CursorSelection)
 
     @classmethod
-    def can_execute(cls, game_object):
+    def can_execute(cls, character, target_selection=None):
         return True
 
     @classmethod
-    def execute(cls, game_object):
+    def execute(cls, character, target_selection=None):
         """
         Set yourself on fire! Whoosh!
         """
-        game_object.effects.add_effect(Burning(units.CombatRound(4)))
+        for target in target_selection:
+            target.effects.add_effect(Burning(units.CombatRound(4)))
 
 
-class SmallImmolation(Ability):
+class SmallImmolation(Immolation):
     name = "SmallImmolation"
 
     @classmethod
-    def can_execute(cls, game_object):
-        return True
-
-    @classmethod
-    def execute(cls, game_object):
+    def execute(cls, character, target_selection=None):
         """
         Set yourself on fire, just a bit.
         """
-        game_object.effects.add_effect(Burning(units.CombatRound(0)))
+        for target in target_selection:
+            target.effects.add_effect(Burning(units.CombatRound(0)))
 
 
-class InfiniteImmolation(Ability):
+class InfiniteImmolation(Immolation):
     name = "InfiniteImmolation"
 
     @classmethod
-    def can_execute(cls, game_object):
-        return True
-
-    @classmethod
-    def execute(cls, game_object):
+    def execute(cls, character, target_selection=None):
         """
         Set yourself on fire, FOR ETERNITY
         """
-        game_object.effects.add_effect(Burning(None))
+        for target in target_selection:
+            target.effects.add_effect(Burning(None))

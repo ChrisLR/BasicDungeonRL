@@ -29,11 +29,11 @@ class Burning(Effect):
         super().update(game_object)
         damage = dice.D6(self.power).roll()
         # TODO This should be elemental Fire Damage.
-        game_object.health.take_damage(damage)
         if echo.is_player(game_object):
             echo.echo_service.echo("You burn for {} damage!".format(damage))
         else:
             echo.echo_service.echo("{} burns for {} damage!".format(game_object.name, damage))
+        game_object.health.take_damage(damage)
 
     def on_finish(self, game_object):
         if echo.is_player(game_object):
