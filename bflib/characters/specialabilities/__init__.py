@@ -26,3 +26,6 @@ from bflib.characters.specialabilities.thief import (
     PickPockets, RemoveTraps, SneakAttack
 )
 from bflib.characters.specialabilities.scent import PowerfulScent
+from bflib.characters.specialabilities.vulnerabilities import (
+    FeebleConstitution
+)

@@ -2,24 +2,21 @@ from datetime import timedelta
 
 import bflib.items.weapons.ranged.bows
 from bflib import languages, restrictions, units
-from bflib.characters import abilityscores, classes, specialabilities, \
-    savingthrows
+from bflib.characters import abilityscores, specialabilities, savingthrows
 from bflib.characters.races.base import Race
 
 
-class Dwarf(Race):
-    name = "Dwarf"
-    average_height = units.Feet(4)
-    average_weight = units.Pound(120)
-    average_lifespan = timedelta(days=36500)
+class Goblin(Race):
+    name = "Goblin"
+    average_height = units.Feet(3)
+    average_weight = units.Pound(45)
+    average_lifespan = timedelta(days=18250)
 
     restriction_set = restrictions.RestrictionSet(
         ability_score=restrictions.AbilityScoreRestrictionSet(
-            minimum_set=abilityscores.AbilityScoreSet(constitution=9),
-            maximum_set=abilityscores.AbilityScoreSet(charisma=17),
-        ),
-        classes=restrictions.ClassRestrictionSet(
-            included=(classes.Cleric, classes.Fighter, classes.Thief)
+            minimum_set=abilityscores.AbilityScoreSet(dexterity=9),
+            maximum_set=abilityscores.AbilityScoreSet(
+                strength=16, constitution=16),
         ),
         weapons=restrictions.WeaponRestrictionSet(
             excluded=(
@@ -29,10 +26,13 @@ class Dwarf(Race):
             )
         )
     )
-    racial_language = languages.Dwarvish
+    racial_language = languages.Goblin
     special_ability_set = specialabilities.SpecialAbilitySet((
         specialabilities.Darkvision,
+        specialabilities.FeebleConstitution(1),
+        specialabilities.MeleeDefenseBonus(2),
         specialabilities.DetectNewConstructions,
+        specialabilities.DetectSecretDoor,
         specialabilities.DetectShiftingWalls,
         specialabilities.DetectSlantingPassages,
         specialabilities.DetectTraps,

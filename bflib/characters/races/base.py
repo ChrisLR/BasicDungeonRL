@@ -1,9 +1,7 @@
 import abc
 from datetime import timedelta
 
-from bflib import languages
-from bflib import restrictions
-from bflib import units
+from bflib import languages, restrictions, units
 from bflib.characters import specialabilities, savingthrows
 from bflib.keywords.items import WearLocation, WieldLocation
 
@@ -19,6 +17,7 @@ class Race(object):
     restriction_set = restrictions.RestrictionSet()
     racial_class = None
     racial_language = languages.Common
+    size = None
     special_ability_set = specialabilities.SpecialAbilitySet()
     saving_throw_set = savingthrows.SavingThrowSet()
 

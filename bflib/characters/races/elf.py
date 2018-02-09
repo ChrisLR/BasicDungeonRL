@@ -1,9 +1,6 @@
 from datetime import timedelta
 
-from bflib import dice
-from bflib import languages
-from bflib import restrictions
-from bflib import units
+from bflib import dice, languages, restrictions, units
 from bflib.characters import abilityscores, specialabilities, savingthrows
 from bflib.characters.races.base import Race
 
