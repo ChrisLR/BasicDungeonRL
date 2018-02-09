@@ -6,13 +6,16 @@ from bflib.units.time import TimeUnit, CombatRound
 class Effect(object):
     __metaclass__ = abc.ABCMeta
     name = ""
+    base_effect = None
 
-    def __init__(self, duration, power=1):
+    def __init__(self, duration, power=1, dice=None):
         """
         :param duration: Duration of the effect, None is infinite.
         :type duration: TimeUnit
+        :param dice: Dice instance if needed.
         :param power: Arbitrary multiplier for an effect.
         """
+        self.dice = dice
         self.duration = duration.to_seconds() if duration is not None else None
         self.elapsed = 0
         self.power = power

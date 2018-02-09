@@ -4,6 +4,7 @@ from core.components.armor import Armor
 from core.components.base import Component
 from core.components.character_class import CharacterClass
 from core.components.combat import Combat
+from core.components.consumable import Consumable
 from core.components.container import Container
 from core.components.contained import Contained
 from core.components.corpse import Corpse
@@ -42,6 +43,7 @@ component_names = {
     CharacterClass.NAME,
     CharacterStats.NAME,
     Combat.NAME,
+    Consumable.NAME,
     Container.NAME,
     Contained.NAME,
     Corpse.NAME,

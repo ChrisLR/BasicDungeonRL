@@ -11,4 +11,4 @@ from core.factories.recipes.items.survival import *
 from core.factories.recipes.items.tools import *
 from core.factories.recipes.items.weapons import *
 from core.factories.recipes.items.writing import *
-
+from core.factories.recipes.items.potions import *

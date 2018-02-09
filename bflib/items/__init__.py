@@ -5,6 +5,7 @@ from bflib.items.containers import *
 from bflib.items.food import *
 from bflib.items.lights import *
 from bflib.items.magical import *
+from bflib.items.potions import *
 from bflib.items.riding import *
 from bflib.items.shields import *
 from bflib.items.survival import *

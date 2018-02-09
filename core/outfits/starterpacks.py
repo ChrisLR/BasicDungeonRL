@@ -16,6 +16,7 @@ class BasicPack(Outfit):
         items.DryRations,
         items.LargeSack,
         (2, items.SmallSack),
+        items.PotionOfHealing,
     ]
     coins = items.coins.Gold(60)
 

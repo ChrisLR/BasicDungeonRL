@@ -39,4 +39,4 @@ class Burning(Effect):
         if echo.is_player(game_object):
             echo.echo_service.echo("You are no longer burning.")
         else:
-            echo.echo_service.echo("{} is no longer burning!".format(game_object.name))
+            echo.echo_service.echo("{} is no longer burning.".format(game_object.name))
