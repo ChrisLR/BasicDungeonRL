@@ -34,7 +34,7 @@ from core.components.specialcontainer import SpecialContainer
 from core.components.stats import CharacterStats
 from core.components.wearable import Wearable
 from core.components.weight import Weight
-from core.components.vision import Vision
+from core.components.vision import Vision, SimpleVision
 
 component_names = {
     AI.NAME,
@@ -71,6 +71,7 @@ component_names = {
     SpawnInfo.NAME,
     SpecialContainer.NAME,
     Vision.NAME,
+    SimpleVision.NAME,
     Wearable.NAME,
     Weight.NAME,
 }

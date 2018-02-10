@@ -29,6 +29,9 @@ class MonsterFactory(object):
             # TODO Call Treasure Factory here.
             pass
 
+        if not new.vision:
+            new.register_component(components.SimpleVision())
+
         return new
 
     @classmethod

@@ -1,8 +1,8 @@
-from bflib import monsters
+import random
+
+from bflib import dice, monsters
 from core.ai import behaviors
 from core.ai.personalities.base import Personality
-from clubsandwich.geom import Point
-import random
 
 
 class Goblin(Personality):
@@ -72,6 +72,7 @@ class Goblin(Personality):
             enemy.location.point
             for enemy in enemies
             if enemy.health.dead is False
+            and host.vision.can_see_object(enemy)
         ]
         if living_enemies:
             return host.location.point.get_closest_point(living_enemies)
@@ -81,10 +82,13 @@ class Goblin(Personality):
         if last_behavior and not last_behavior.finished:
             return last_behavior
 
-        level = host.location.level
-        target_coordinate = (
-            random.randint(1, level.max_x),
-            random.randint(1, level.max_y)
-        )
-
-        return behaviors.Move(host, target_coordinate)
+        if random.randint(0, 100) < 10:
+            level = host.location.level
+            target_coordinate = (
+                random.randint(1, level.max_x),
+                random.randint(1, level.max_y)
+            )
+    
+            return behaviors.Move(host, target_coordinate)
+        else:
+            return behaviors.Wait(host, dice.D6(1))
