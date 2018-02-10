@@ -2,7 +2,7 @@ from datetime import timedelta
 
 import bflib.items.weapons.ranged.bows
 from bflib import languages, restrictions, units
-from bflib.characters import abilityscores, specialabilities, savingthrows
+from bflib.characters import abilityscores, specialabilities
 from bflib.characters.races.base import Race
 
 
@@ -36,11 +36,6 @@ class Goblin(Race):
         specialabilities.DetectShiftingWalls,
         specialabilities.DetectSlantingPassages,
         specialabilities.DetectTraps,
+        specialabilities.OpenLock(10),
+        specialabilities.RemoveTraps(10),
     ))
-    saving_throw_set = savingthrows.SavingThrowSet(
-        death_poison=4,
-        dragon_breath=3,
-        paralysis_stone=4,
-        spells=4,
-        wands=4
-    )

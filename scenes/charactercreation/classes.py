@@ -86,7 +86,9 @@ class ClassSelectionScene(UIScene):
             if value in self.class_choices:
                 self.deselect_class(value)
             else:
-                if self.race.restriction_set.classes.access_combined:
+                race_restriction_set = self.race.restriction_set
+                if race_restriction_set.classes and \
+                        race_restriction_set.classes.access_combined:
                     if len(self.class_choices) < 2:
                         self.select_class(value)
                 else:
