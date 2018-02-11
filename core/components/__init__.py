@@ -17,6 +17,7 @@ from core.components.inventory import Inventory
 from core.components.light import Light
 from core.components.liquidcontainer import LiquidContainer
 from core.components.location import Location
+from core.components.lock import Lock
 from core.components.melee import Melee
 from core.components.money import Money
 from core.components.monster import Monster
@@ -53,6 +54,7 @@ component_names = {
     Experience.NAME,
     Health.NAME,
     Location.NAME,
+    Lock.NAME,
     Light.NAME,
     LiquidContainer.NAME,
     Inventory.NAME,
