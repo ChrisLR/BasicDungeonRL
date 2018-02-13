@@ -19,13 +19,17 @@ class Open(Action):
 
         for target in target_selection:
             if target.openable and target.openable.closed:
-                target.openable.open()
-                if echo.functions.is_player(character):
-                    echo.echo_service.echo(
-                        "You open {}".format(target.name))
+                if target.openable.open():
+                    if echo.functions.is_player(character):
+                        echo.echo_service.echo(
+                            "You open {}".format(target.name))
+                    else:
+                        echo.echo_service.echo(
+                            "{} opens {}".format(character.name, target.name))
+                    return True
                 else:
-                    echo.echo_service.echo(
-                        "{} opens {}".format(character.name, target.name))
-                return True
+                    if echo.functions.is_player(character):
+                        echo.echo_service.echo(
+                            "The {} is locked!".format(target.name))
 
         return False

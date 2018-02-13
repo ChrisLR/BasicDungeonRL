@@ -1,5 +1,8 @@
 from bflib.monsters import animals
+from bflib import items
+from core import components
 from core.factories.monster import MonsterFactory
+from core.factories.router import route_to_factory
 from core.tiles import floors, walls
 from core.world.level import Level
 
@@ -16,6 +19,7 @@ class TestingGenerator(object):
                     level.add_tile((x, y), floors.DungeonFloor)
 
         cls.place_monster(level)
+        cls.place_magic_chest(level)
         return level
 
     @classmethod
@@ -23,6 +27,14 @@ class TestingGenerator(object):
         player.location.level = level
         player.location.set_local_coords((24, 24))
         level.add_object(player)
+
+    @classmethod
+    def place_magic_chest(cls, level):
+        chest = route_to_factory(items.Chest)
+        chest.location.set_local_coords((25, 25))
+        chest.lock.locked = True
+        level.add_object(chest)
+        chest.container.add_item(route_to_factory(items.Longsword))
 
     @classmethod
     def place_monster(cls, level):

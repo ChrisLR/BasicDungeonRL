@@ -92,6 +92,10 @@ class Hierarchy(SelectionFilter):
         self.view = None
 
     def filter(self, targets):
+        if not targets:
+            self.canceled = True
+            return
+
         item_hierarchy = {}
         for target in targets:
             inventory = target.inventory
@@ -103,6 +107,8 @@ class Hierarchy(SelectionFilter):
                     if target.openable:
                         if not target.openable.closed:
                             item_hierarchy[target] = container.items_held
+                        else:
+                            item_hierarchy[target] = []
                     else:
                         item_hierarchy[target] = container.items_held
             else:

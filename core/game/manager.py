@@ -19,8 +19,8 @@ class Game(object):
         self.loop.run()
 
     def new_game(self):
-        # generator = generators.TestingGenerator
-        generator = generators.GoblinCampGenerator
+        generator = generators.TestingGenerator
+        # generator = generators.GoblinCampGenerator
         # generator = generators.SkeletonCrypt
         level = generator.generate()
         self.game_context.player.display.priority = DisplayPriority.Player

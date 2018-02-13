@@ -11,12 +11,19 @@ class Openable(Component):
         self.on_state_change_callback = on_state_change_callback
 
     def open(self):
+        lock = self.host.lock
+        if lock and lock.locked:
+            return False
+
         self.closed = False
         self.call_state_change()
 
+        return True
+
     def close(self):
-        self.closed = True
-        self.call_state_change()
+        if self.closed is False:
+            self.closed = True
+            self.call_state_change()
 
     def call_state_change(self):
         if self.on_state_change_callback:
