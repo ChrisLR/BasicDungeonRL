@@ -35,6 +35,18 @@ class Put(Action):
         if not container_object or not container_object.container:
             return False
 
+        if container_object.lock and container_object.lock.locked:
+            if echo.functions.is_player(character):
+                echo.echo_service.echo(
+                    "You cant do that, {} is locked.".format(container_object.name))
+            return False
+
+        if container_object.openable and container_object.openable.closed:
+            if echo.functions.is_player(character):
+                echo.echo_service.echo(
+                    "You cant do that, {} is closed.".format(container_object.name))
+            return False
+
         if not target_selection.get("Content"):
             return False
 
