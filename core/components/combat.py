@@ -56,11 +56,16 @@ class Combat(Component):
 
     @property
     def armor_class(self):
+        health = self.host.health
+        if health and not health.conscious:
+            return 0
+
         no_armor = 11
         total_ac = no_armor
         dexterity_bonus = self.host.stats.dexterity_modifier
         if dexterity_bonus:
-            total_ac += dexterity_bonus
+            if not health or (health and health.conscious):
+                total_ac += dexterity_bonus
 
         if self.host.monster:
             natural_armor = self.host.monster.base_armor_class - no_armor
@@ -71,11 +76,11 @@ class Combat(Component):
             if melee_ac > no_armor:
                 melee_ac -= no_armor
 
-            melee_defense_bonus = sum(
-                [int(response) for response
-                 in self.host.query.special_ability(specialabilities.MeleeDefenseBonus)]
-            )
+            melee_defense_bonus = self.host.query.special_ability(specialabilities.MeleeDefenseBonus)
             total_ac += melee_ac + melee_defense_bonus
+
+        if health and not health.conscious:
+            total_ac -= no_armor
 
         return total_ac
 

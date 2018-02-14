@@ -1,5 +1,5 @@
-from core.components.base import Component
 from bflib.characters import specialabilities
+from core.components.base import Component
 from services import echo
 
 
@@ -28,8 +28,7 @@ class Experience(Component):
                              for character_class in character_classes]
 
     def add_experience(self, points):
-        responses = self.host.query.special_ability(specialabilities.ExperienceBonus)
-        percent_bonus = sum((int(response) for response in responses))
+        percent_bonus = self.host.query.special_ability(specialabilities.ExperienceBonus)
         points += round(((points * percent_bonus) / 100))
         self.experience += points
         exp_for_next_level = self.exp_for_next_level
