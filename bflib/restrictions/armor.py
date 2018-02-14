@@ -1,5 +1,6 @@
 from bflib.restrictions.base import Restriction
 from bflib.items.shields.base import Shield
+from bflib.items.armor.base import Armor
 
 
 class ArmorRestrictionSet(Restriction):
@@ -35,7 +36,7 @@ class ArmorRestrictionSet(Restriction):
             if isinstance(item, Shield):
                 return False
 
-        if self.included is not None:
+        if isinstance(item, Armor) and self.included is not None:
             for included_type in self.included:
                 if isinstance(item, included_type):
                     return True
