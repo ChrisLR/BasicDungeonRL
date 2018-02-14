@@ -16,7 +16,7 @@ class UseAbility(Action):
     def can_execute(cls, character, target_selection=None):
         if not target_selection:
             return False
-        return target_selection[0].can_execute(character)
+        return True
 
     @classmethod
     def execute(cls, character, target_selection=None):
