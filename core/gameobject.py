@@ -2,9 +2,10 @@ from core.components.query import Query
 
 
 class GameObject(object):
-    __slots__ = ["_blocking", "components", "flags", "properties", "name"]
+    __slots__ = ["_blocking", "base", "components", "flags", "properties", "name"]
 
-    def __init__(self, blocking=False, name="", flags=None):
+    def __init__(self, base=None, blocking=False, name="", flags=None):
+        self.base = base
         self._blocking = blocking
         self.components = {}
         self.flags = flags if flags else set()

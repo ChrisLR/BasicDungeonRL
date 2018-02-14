@@ -11,7 +11,7 @@ class ItemFactory(object):
             raise Exception("Found no recipes for item {}".format(base_item))
 
         item_components = cls.get_recursive_components(base_item, recipe)
-        new = GameObject(blocking=False, name=base_item.name)
+        new = GameObject(base=base_item, blocking=False, name=base_item.name)
         new.flags.add(flags.GameObjectFlags.Character)
         for component in item_components:
             new.register_component(component)
