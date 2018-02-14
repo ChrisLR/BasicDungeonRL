@@ -34,3 +34,6 @@ class SpecialAbility(CumulativeQuery):
             else:
                 if isinstance(value, ability_type):
                     self.result.append(value)
+
+    def sum(self):
+        return sum(int(element) for element in self.result)

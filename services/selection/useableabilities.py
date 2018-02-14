@@ -1,3 +1,4 @@
+from core.abilities import OpenLock
 from core.abilities.immolation import Immolation, InfiniteImmolation, SmallImmolation
 from services.selection.base import Selection
 
@@ -11,4 +12,4 @@ class UseableAbilities(Selection):
         self.view = None
 
     def resolve(self):
-        self.resolution = [Immolation, InfiniteImmolation, SmallImmolation]
+        self.resolution = [Immolation, InfiniteImmolation, SmallImmolation, OpenLock]
