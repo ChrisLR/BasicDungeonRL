@@ -18,12 +18,10 @@ class Goblin(Race):
             maximum_set=abilityscores.AbilityScoreSet(
                 strength=16, constitution=16),
         ),
-        weapons=restrictions.WeaponRestrictionSet(
-            excluded=(
-                bflib.items.weapons.melee.swords.TwoHandedSword,
-                bflib.items.weapons.melee.polearms.Polearm,
-                bflib.items.weapons.ranged.bows.Longbow,
-            )
+        weapon_size=restrictions.WeaponSizeRestrictionSet(
+            large=restrictions.WeaponSizeRestrictionSet.keywords.CannotWield,
+            medium=restrictions.WeaponSizeRestrictionSet.keywords.NeedsTwoHands,
+            small=restrictions.WeaponSizeRestrictionSet.keywords.CanWield,
         )
     )
     racial_language = languages.Goblin
