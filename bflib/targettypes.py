@@ -12,3 +12,7 @@ class AreaOfEffect(TargetType):
     def __init__(self, shape, radius):
         self.shape = shape
         self.radius = radius
+
+
+class Room(TargetType):
+    name = "Room"
