@@ -1,3 +1,4 @@
+from core.components.events import Events
 from core.components.query import Query
 
 
@@ -12,6 +13,7 @@ class GameObject(object):
         self.properties = {}
         self.name = name
         self.register_component(Query())
+        self.register_component(Events())
 
     @property
     def blocking(self):

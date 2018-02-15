@@ -11,6 +11,7 @@ from core.components.corpse import Corpse
 from core.components.display import Display
 from core.components.effects import Effects
 from core.components.equipment import Equipment
+from core.components.events import Events
 from core.components.experience import Experience
 from core.components.health import Health
 from core.components.inventory import Inventory
@@ -33,6 +34,7 @@ from core.components.size import Size
 from core.components.spawninfo import SpawnInfo
 from core.components.specialcontainer import SpecialContainer
 from core.components.stats import CharacterStats
+from core.components.traps import Trap
 from core.components.wearable import Wearable
 from core.components.weight import Weight
 from core.components.vision import Vision, SimpleVision
@@ -51,6 +53,7 @@ component_names = {
     Display.NAME,
     Effects.NAME,
     Equipment.NAME,
+    Events.NAME,
     Experience.NAME,
     Health.NAME,
     Location.NAME,
@@ -72,6 +75,7 @@ component_names = {
     Size.NAME,
     SpawnInfo.NAME,
     SpecialContainer.NAME,
+    Trap.NAME,
     Vision.NAME,
     SimpleVision.NAME,
     Wearable.NAME,

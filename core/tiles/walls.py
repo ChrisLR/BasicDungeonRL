@@ -3,11 +3,15 @@ from core.tiles.base import Tile
 from core.util.colors import Colors
 
 
-class DungeonWall(Tile):
+class Wall(Tile):
+    pass
+
+
+class DungeonWall(Wall):
     name = "Dungeon Wall"
     display = Display(Colors.GRAY, Colors.BLACK, "#")
 
 
-class WoodenWall(Tile):
+class WoodenWall(Wall):
     name = "Wooden Wall"
     display = Display(Colors.BROWN, Colors.BLACK, "#")
