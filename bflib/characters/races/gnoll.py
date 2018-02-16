@@ -28,6 +28,6 @@ class Gnoll(Race):
         specialabilities.PowerfulScent,
     ))
     saving_throw_set = savingthrows.SavingThrowSet(
-        death_poison=4,
-        paralysis_stone=4,
+        death_poison=-4,
+        paralysis_stone=-4,
     )
