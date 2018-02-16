@@ -15,10 +15,11 @@ class Burning(Effect):
         :return:
         """
         # You are on fire!
-        if echo.is_player(game_object):
-            echo.echo_service.echo("You are on fire!")
-        else:
-            echo.echo_service.echo("{} is on fire!".format(game_object.name))
+        echo.see(
+            actor=game_object,
+            actor_message="You are on fire!",
+            observer_message="{} is on fire!".format(game_object.name),
+        )
 
     def update(self, game_object):
         """
@@ -29,14 +30,21 @@ class Burning(Effect):
         super().update(game_object)
         damage = dice.D6(self.power).roll()
         # TODO This should be elemental Fire Damage.
-        if echo.is_player(game_object):
-            echo.echo_service.echo("You burn for {} damage!".format(damage))
-        else:
-            echo.echo_service.echo("{} burns for {} damage!".format(game_object.name, damage))
+        echo.see(
+            actor=game_object,
+            actor_message="You burn for {} damage!".format(damage),
+            observer_message="{} burns for {} damage!".format(
+                game_object.name, damage
+            ),
+        )
+
         game_object.health.take_damage(damage)
 
     def on_finish(self, game_object):
-        if echo.is_player(game_object):
-            echo.echo_service.echo("You are no longer burning.")
-        else:
-            echo.echo_service.echo("{} is no longer burning.".format(game_object.name))
+        echo.see(
+            actor=game_object,
+            actor_message="You are no longer burning.",
+            observer_message="{} is no longer burning.".format(
+                game_object.name
+            ),
+        )

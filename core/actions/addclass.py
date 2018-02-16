@@ -36,9 +36,10 @@ class AddClass(Action):
         else:
             character.register_component(CharacterClass(selected_class))
 
-        if echo.is_player(character):
-            echo.echo_service.echo(
-                "You begin learning the path of {}!"
-                "".format(selected_class.name))
+        echo.player_echo(
+            actor=character,
+            message="You begin learning the path of {}!".format(
+                selected_class.name)
+        )
 
         return True

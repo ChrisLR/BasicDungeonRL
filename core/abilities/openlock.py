@@ -22,8 +22,8 @@ class OpenLock(Ability):
             return False
 
         if target_selection[0].lock.has_failed(character):
-            if echo.is_player(character):
-                echo.echo_service.echo("You can not make another attempt this level.")
+            echo.player_echo(
+                character, "You can not make another attempt this level.")
             return False
 
         if character.query.special_ability(OpenLockAbility) <= 0:
@@ -37,20 +37,23 @@ class OpenLock(Ability):
         item = target_selection[0]
         value = dice.D100(1).roll()
         if value > open_lock_value:
-            if echo.is_player(character):
-                echo.echo_service.echo(
-                    "You fail at picking {}'s lock!".format(item.name))
-            else:
-                echo.echo_service.echo(
-                    "{} fails at picking {}'s lock!".format(character.name, item.name))
+            echo.see(
+                actor=character,
+                actor_message="You fail at picking {}'s lock!"
+                              "".format(item.name),
+                observer_message="{} fails at picking {}'s lock!"
+                                 "".format(character.name, item.name)
+            )
             item.lock.add_failed_attempt(character, character.experience.level)
             return False
         else:
             item.lock.unlock()
-            if echo.is_player(character):
-                echo.echo_service.echo(
-                    "You succeed in picking {}'s lock!".format(item.name))
-            else:
-                echo.echo_service.echo(
-                    "{} succeeds in picking {}'s lock!".format(character.name, item.name))
+            echo.see(
+                actor=character,
+                actor_message="You succeed in picking {}'s lock!"
+                              "".format(item.name),
+                observer_message="{} succeeds in picking {}'s lock!"
+                                 "".format(character.name, item.name)
+            )
+
         return True

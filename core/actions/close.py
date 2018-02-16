@@ -20,12 +20,13 @@ class Close(Action):
         for target in target_selection:
             if target.openable and not target.openable.closed:
                 target.openable.close()
-                if echo.functions.is_player(character):
-                    echo.echo_service.echo(
-                        "You close {}".format(target.name))
-                else:
-                    echo.echo_service.echo(
-                        "{} closes {}".format(character.name, target.name))
+                echo.see(
+                    actor=character,
+                    actor_message="You close {}".format(target.name),
+                    observer_message="{} closes {}".format(
+                        character.name, target.name
+                    ),
+                )
 
                 return True
 

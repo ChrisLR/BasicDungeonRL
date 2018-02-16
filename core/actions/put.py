@@ -36,15 +36,21 @@ class Put(Action):
             return False
 
         if container_object.lock and container_object.lock.locked:
-            if echo.functions.is_player(character):
-                echo.echo_service.echo(
-                    "You cant do that, {} is locked.".format(container_object.name))
+            echo.player_echo(
+                actor=character,
+                message="You cant do that, {} is locked.".format(
+                    container_object.name)
+            )
+
             return False
 
         if container_object.openable and container_object.openable.closed:
-            if echo.functions.is_player(character):
-                echo.echo_service.echo(
-                    "You cant do that, {} is closed.".format(container_object.name))
+            echo.player_echo(
+                actor=character,
+                message="You cant do that, {} is closed.".format(
+                    container_object.name)
+            )
+
             return False
 
         if not target_selection.get("Content"):
@@ -64,29 +70,33 @@ class Put(Action):
         for game_object in content:
             if (not character.equipment.remove(game_object)
                     and not character.inventory.remove(game_object)):
-                if echo.functions.is_player(character):
-                    echo.echo_service.echo(
-                        "You cant drop {}".format(game_object.name))
+                echo.player_echo(
+                    actor=character,
+                    message="You cant drop {}".format(game_object.name)
+                )
+
                 continue
 
             if not container.add_item(game_object):
-                if echo.functions.is_player(character):
-                    echo.echo_service.echo(
-                        "You cant put {} in {}".format(
-                            game_object.name, container_object.name))
+                echo.player_echo(
+                    actor=character,
+                    message="You cant put {} in {}".format(
+                        game_object.name, container_object.name)
+                )
                 continue
 
             target_level = game_object.location.level
             if target_level:
                 target_level.remove_object(game_object)
 
-            if echo.functions.is_player(character):
-                echo.echo_service.echo(
-                    "You put {} in {}".format(
-                        game_object.name, container_object.name))
-            else:
-                echo.echo_service.echo(
-                    "{} puts {} in {}".format(
-                        character.name, game_object.name, container_object.name))
+                echo.see(
+                    actor=character,
+                    actor_message="You put {} in {}".format(
+                        game_object.name, container_object.name
+                    ),
+                    observer_message="{} puts {} in {}".format(
+                        character.name, game_object.name, container_object.name
+                    )
+                )
 
         return True

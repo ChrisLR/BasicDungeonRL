@@ -16,6 +16,16 @@ class Projectile(Trap):
         """
         Applies the effect defined to the target, if any.
         """
+        base_effect = cls.base_trap.effect
+        if base_effect is not None:
+            saving_throw = cls.base_trap.saving_throw
+            if saving_throw and target.savingthrows:
+                saved = target.savingthrows.make(saving_throw)
+            else:
+                saved = False
+
+            if not saved:
+                target.effects.add_base_effect(base_effect)
 
     @classmethod
     def _make_attack(cls, target):

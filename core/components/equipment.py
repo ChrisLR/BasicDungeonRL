@@ -105,10 +105,12 @@ class Equipment(Component):
                 self.wielded_items[location] = item
                 hands -= 1
 
-            if echo.functions.is_player(self.host):
-                echo.echo_service.echo("You wield {}.".format(item.name))
-            else:
-                echo.echo_service.echo("{} wields {}.".format(self.host.name, item.name))
+            echo.see(
+                actor=self.host,
+                actor_message="You wield {}.".format(item.name),
+                observer_message="{} wields {}.".format(
+                    self.host.name, item.name),
+            )
 
             return True
         return False

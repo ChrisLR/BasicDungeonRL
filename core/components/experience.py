@@ -46,8 +46,10 @@ class Experience(Component):
 
     def level_up(self):
         self.level += 1
-        if echo.is_player(self.host):
-            echo.echo_service.echo("You advance to level {}".format(self.level))
+        echo.player_echo(
+            actor=self.host,
+            message="You advance to level {}".format(self.level)
+        )
         self.host.health.on_level_up()
 
     def add_new_class(self):

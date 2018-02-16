@@ -56,22 +56,24 @@ class Health(Component):
         if -constitution < self.current <= 0:
             if self.conscious:
                 self.conscious = False
-                if echo.is_player(self.host):
-                    echo.echo_service.echo("You are unconscious!")
-                else:
-                    echo.echo_service.echo(
-                        "{} falls unconscious!".format(echo.name_or_you(self.host))
+                echo.see(
+                    actor=self.host,
+                    actor_message="You are unconscious!",
+                    observer_message="{} falls unconscious!".format(
+                        echo.name_or_you(self.host)
                     )
+                )
 
         if self.current <= -constitution:
             if not self.dead:
                 self.dead = True
-                if echo.is_player(self.host):
-                    echo.echo_service.echo("You are dead!")
-                else:
-                    echo.echo_service.echo(
-                        "{} is dead!".format(echo.name_or_you(self.host).capitalize())
-                    )
+                echo.see(
+                    actor=self.host,
+                    actor_message="You are dead!",
+                    observer_message="{} is dead!".format(
+                        echo.name_or_you(self.host).capitalize())
+                )
+
                 self.host.blocking = False
                 corpsify.turn_into_corpse(self.host)
                 if attacker and attacker.experience:

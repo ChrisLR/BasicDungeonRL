@@ -14,15 +14,16 @@ class Inventory(Component):
             containers = (item.container for item in self.host.equipment.get_all_items() if item.container)
             for container in containers:
                 if container.add_item(item):
-                    if echo.functions.is_player(self.host):
-                        echo.echo_service.echo("You add {} to your {}.".format(
-                            item.name, container.host.name))
-                    else:
-                        echo.echo_service.echo("{} adds {} to {} {}.".format(
+                    echo.see(
+                        actor=self.host,
+                        actor_message="You add {} to your {}.".format(
+                            item.name, container.host.name),
+                        observer_message="{} adds {} to {} {}.".format(
                             self.host.name, item.name,
                             echo.functions.his_her_it(self.host),
-                            container.host.name)
+                            container.host.name
                         )
+                    )
 
                     return True
 
