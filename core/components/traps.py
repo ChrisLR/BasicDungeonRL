@@ -20,12 +20,13 @@ class Trap(Component):
             host.events.register_listener(event_type, self, self.trigger)
 
     def on_unregister(self):
-        super().on_unregister()
         for event_type in self.triggers:
             self.host.events.unregister_listener(event_type, self)
+        super().on_unregister()
 
     def trigger(self, event):
-        self.core_trap.trigger(event)
+        self.core_trap.trigger(self.host, event)
+        self.host.unregister_component(self)
 
     def copy(self):
         return Trap(self.core_trap)

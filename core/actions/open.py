@@ -1,4 +1,5 @@
 from core.actions.base import Action
+from core import events
 from services import echo
 from services.selection import DirectionalSelection, TargetSelectionSet
 
@@ -26,6 +27,8 @@ class Open(Action):
                         observer_message="{} opens {}".format(
                             character.name, target.name),
                     )
+                    if target.events:
+                        target.events.transmit(events.Opened(character))
 
                     return True
                 else:

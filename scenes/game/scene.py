@@ -18,7 +18,6 @@ class GameScene(UIScene):
         game_view_layout_options = LayoutOptions(top=10, height=30, bottom=None, left=0, right=None, width=0.99)
         hud_view_layout_options = LayoutOptions(top=0, height=0.2, bottom=None, left=0, right=None, width=0.99)
         self.console = ScrollingTextView(12, 110, layout_options=console_layout_options)
-        echo_service.console = self.console
         game_context.game.new_game()
         self.game_view = GameView(game_context, layout_options=game_view_layout_options)
         self.game_context = game_context
@@ -40,6 +39,11 @@ class GameScene(UIScene):
         if player_health and not player_health.conscious:
             time.sleep(1)
             self.update_turn()
+
+        if echo_service.messages:
+            for message in echo_service.messages:
+                self.console.add_lines(message)
+            echo_service.messages = []
 
     def terminal_read(self, val):
         self.game_context.director = self.director

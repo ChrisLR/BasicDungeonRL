@@ -14,15 +14,13 @@ class Alarm(Trap):
 
 class Arrow(Trap):
     name = "Arrow Trap"
-    attack = WeaponAttack(dice.D6(1, flat_bonus=1))
-    attack_bonus = 1
+    attack = WeaponAttack(dice.D6(1, flat_bonus=1), attack_bonus=1)
     target_type = targettypes.Touch
 
 
 class Blade(Trap):
     name = "Blade Trap"
-    attack = WeaponAttack(dice.D8(1, flat_bonus=1))
-    attack_bonus = 1
+    attack = WeaponAttack(dice.D8(1, flat_bonus=1), attack_bonus=1)
     target_type = targettypes.AreaOfEffect(Shape.Line, units.Feet(10))
 
 
@@ -63,8 +61,7 @@ class Pit(Trap):
 
 class PoisonDart(Trap):
     name = "Poison Dart Trap"
-    attack = WeaponAttack(dice.D4(1))
-    attack_bonus = 1
+    attack = WeaponAttack(dice.D4(1), attack_bonus=1)
     effect = effects.FatalPoison
     saving_throw = savingthrows.DeathPoison
     target_type = targettypes.Touch

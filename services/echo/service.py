@@ -3,12 +3,10 @@ from services.echo.functions import is_player
 
 class EchoService(object):
     def __init__(self):
-        self.console = None
-        self.game_context = None
+        self.messages = []
 
     def echo(self, message):
-        if self.console:
-            self.console.add_lines(message + "\n")
+        self.messages.append(message + "\n")
 
 
 echo_service = EchoService()
@@ -27,6 +25,8 @@ def see(actor, actor_message, observer_message):
     if is_player(actor):
         player_echo(actor, actor_message)
     else:
-        player = echo_service.game_context.player
-        if player.vision.can_see_object(actor):
-            system_echo(observer_message)
+        from core.game.manager import game
+        player = game.game_context.player
+        if player:
+            if player.vision.can_see_object(actor):
+                system_echo(observer_message)

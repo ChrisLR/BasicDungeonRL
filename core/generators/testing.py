@@ -1,6 +1,6 @@
 from bflib.monsters import animals
 from bflib import items
-from core import components
+from core import components, traps
 from core.factories.monster import MonsterFactory
 from core.factories.router import route_to_factory
 from core.tiles import floors, walls
@@ -32,7 +32,7 @@ class TestingGenerator(object):
     def place_magic_chest(cls, level):
         chest = route_to_factory(items.Chest)
         chest.location.set_local_coords((25, 25))
-        chest.lock.locked = True
+        chest.register_component(components.Trap(traps.Arrow))
         level.add_object(chest)
         chest.container.add_item(route_to_factory(items.Longsword))
 

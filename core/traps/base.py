@@ -10,5 +10,5 @@ class Trap(object):
         return self.base_trap.name
 
     @abc.abstractclassmethod
-    def trigger(self, event):
+    def trigger(self, host, event):
         pass
