@@ -11,6 +11,21 @@ class Trap(Component):
         super().__init__()
         self.core_trap = core_trap
         self.triggers = []
+        self.failed_attempts = {}
+
+    def add_failed_attempt(self, character, level):
+        """ Attempts to remove can only be made once per level. """
+        self.failed_attempts[character] = level
+
+    def has_failed(self, character):
+        attempt = self.failed_attempts.get(character)
+        if attempt is None:
+            return False
+
+        if character.experience.level == attempt:
+            return True
+
+        return False
 
     def on_register(self, host):
         super().on_register(host)
