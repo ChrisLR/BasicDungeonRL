@@ -1,7 +1,10 @@
-from core.gameobject import GameObject
+import inspect
+
 from clubsandwich.geom import Point
 from tcod import map as tcod_map
-import inspect
+
+from core import components
+from core.gameobject import GameObject
 
 
 class Level(GameObject):
@@ -89,6 +92,14 @@ class Level(GameObject):
         self.tiles[coordinates] = tile
         self.set_inner_walkable(coordinates, not tile.blocking)
         self.set_inner_transparent(coordinates, not tile.opaque)
+        if not tile.location:
+            tile.register_component(components.Location())
+            tile.location.level = self
+            tile.location.set_local_coords(coordinates)
+        else:
+            tile.location.level = self
+            tile.location.set_local_coords(coordinates)
+
         self.call_on_tile_change()
 
     def get_tile(self, coordinates):

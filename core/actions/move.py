@@ -1,6 +1,7 @@
 from core.actions.base import Action
 from core.actions.bump import Bump
 from core.direction import Direction, move_direction_mapping
+from core import events
 
 
 class Walk(Action):
@@ -51,6 +52,14 @@ class Walk(Action):
                     return Bump.execute(character, game_object)
 
         character.location.set_local_coords(new_coords)
+
+        if tile:
+            tile.events.transmit(events.WalkedOn(character))
+
+        if game_objects:
+            for game_object in game_objects:
+                game_object.events.transmit(events.WalkedOn(character))
+
         return True
 
 

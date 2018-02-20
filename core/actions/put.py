@@ -89,14 +89,14 @@ class Put(Action):
             if target_level:
                 target_level.remove_object(game_object)
 
-                echo.see(
-                    actor=character,
-                    actor_message="You put {} in {}".format(
-                        game_object.name, container_object.name
-                    ),
-                    observer_message="{} puts {} in {}".format(
-                        character.name, game_object.name, container_object.name
-                    )
+            echo.see(
+                actor=character,
+                actor_message="You put {} in {}".format(
+                    game_object.name, container_object.name
+                ),
+                observer_message="{} puts {} in {}".format(
+                    character.name, game_object.name, container_object.name
                 )
+            )
 
         return True

@@ -20,6 +20,7 @@ class TestingGenerator(object):
 
         cls.place_monster(level)
         cls.place_magic_chest(level)
+        cls.place_trapped_floor(level)
         return level
 
     @classmethod
@@ -41,4 +42,13 @@ class TestingGenerator(object):
         monster = MonsterFactory.create_new(animals.Deer)
         monster.location.level = level
         monster.location.set_local_coords((23, 23))
+        monster.register_component(components.Openable())
+        monster.register_component(components.Lock())
+        monster.register_component(components.Container(None, None, None))
+        monster.register_component(components.Trap(traps.Arrow))
         level.add_object(monster)
+
+    @classmethod
+    def place_trapped_floor(cls, level):
+        tile = level.get_tile((22, 22))
+        tile.register_component(components.Trap(traps.Arrow))

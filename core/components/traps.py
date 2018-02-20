@@ -1,5 +1,6 @@
 from core.components.base import Component
 from core import events
+from core.tiles.floors import Floor
 
 
 class Trap(Component):
@@ -15,6 +16,9 @@ class Trap(Component):
         super().on_register(host)
         if host.container:
             self.triggers.append(events.Opened)
+
+        if isinstance(host, Floor):
+            self.triggers.append(events.WalkedOn)
 
         for event_type in self.triggers:
             host.events.register_listener(event_type, self, self.trigger)
