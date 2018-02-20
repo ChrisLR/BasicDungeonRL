@@ -9,6 +9,12 @@ from services.selection import DirectionalSelection, filters, TargetSelectionSet
 class OnlyWithLocks(filters.Component):
     component = components.Lock
 
+    def filter(self, targets):
+        self.resolution = [
+            target for target in targets
+            if target.lock and target.lock.locked
+        ]
+
 
 class OpenLock(Ability):
     name = "Open Lock"
@@ -18,7 +24,11 @@ class OpenLock(Ability):
 
     @classmethod
     def can_execute(cls, character, target_selection=None):
-        if not target_selection or not target_selection[0].lock:
+        if not target_selection:
+            return False
+
+        lock = target_selection[0].lock
+        if not lock or not lock.locked:
             return False
 
         if target_selection[0].lock.has_failed(character):

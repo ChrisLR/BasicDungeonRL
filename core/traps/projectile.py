@@ -60,7 +60,6 @@ class Projectile(Trap):
             cls.on_miss_echo(host, target)
             return False
 
-
     @classmethod
     def _retrieve_targets(cls, origin_target):
         """
@@ -77,7 +76,7 @@ class Arrow(Projectile):
     def on_trigger_echo(cls, host, origin_target):
         echo.see(
             host, "",
-            "An arrow shoots from {} toward {} !".format(
+            "An arrow shoots from {} towards {} !".format(
                 host.name, echo.name_or_you(origin_target))
         )
 
