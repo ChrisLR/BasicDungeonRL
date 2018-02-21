@@ -30,10 +30,10 @@ class RemoveTraps(Ability):
 
     @classmethod
     def execute(cls, character, target_selection=None):
-        remove_trap_value = character.query.special_ability(RemoveTrapsAbility)
+        remove_trap_target = character.query.special_ability(RemoveTrapsAbility)
         item = target_selection[0]
         value = dice.D100(1).roll()
-        if not target_selection[0].trap or value > remove_trap_value:
+        if not target_selection[0].trap or value > remove_trap_target:
             return echo.player_echo(character, "You think there is no trap.")
         else:
             echo.player_echo(
@@ -47,7 +47,7 @@ class RemoveTraps(Ability):
             observer_message="{} attempts to disarm {}'s trap..."
                              "".format(character.name, item.name)
         )
-        if value > remove_trap_value:
+        if value > remove_trap_target:
             item.trap.add_failed_attempt(character, character.experience.level)
             return False
         else:

@@ -43,10 +43,10 @@ class OpenLock(Ability):
 
     @classmethod
     def execute(cls, character, target_selection=None):
-        open_lock_value = character.query.special_ability(OpenLockAbility)
+        open_lock_target = character.query.special_ability(OpenLockAbility)
         item = target_selection[0]
         value = dice.D100(1).roll()
-        if value > open_lock_value:
+        if value > open_lock_target:
             echo.see(
                 actor=character,
                 actor_message="You fail at picking {}'s lock!"
