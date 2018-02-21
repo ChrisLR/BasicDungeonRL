@@ -13,6 +13,10 @@ class Trap(Component):
         self.triggers = []
         self.failed_attempts = {}
 
+    @property
+    def name(self):
+        return self.core_trap.base_trap.name
+
     def add_failed_attempt(self, character, level):
         """ Attempts to remove can only be made once per level. """
         self.failed_attempts[character] = level

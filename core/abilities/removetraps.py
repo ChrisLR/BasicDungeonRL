@@ -37,7 +37,7 @@ class RemoveTraps(Ability):
             return echo.player_echo(character, "You think there is no trap.")
         else:
             echo.player_echo(
-                character, "You found a " + item.trap.core_trap.name)
+                character, "You found a " + item.trap.name)
 
         value = dice.D100(1).roll()
         echo.see(
