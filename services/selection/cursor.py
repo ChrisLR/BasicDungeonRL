@@ -9,10 +9,6 @@ from services.selection.base import Selection
 
 
 class CursorSelection(Selection):
-    def __init__(self, executor):
-        super().__init__(executor)
-        self.view = None
-
     def resolve(self):
         self.view = CursorScene(self, self.executor)
         game.game_context.director.push_scene(self.view)

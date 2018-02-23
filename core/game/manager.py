@@ -1,9 +1,10 @@
 from bearlibterminal import terminal
 from clubsandwich.director import DirectorLoop
 
+from core import generators
 from core.displaypriority import DisplayPriority
 from core.game.context import GameContext
-from core import generators
+from scenes.mainmenu import MainMenuScene
 
 
 class Game(object):
@@ -14,7 +15,6 @@ class Game(object):
         self.running = False
 
     def start(self):
-        from scenes.mainmenu import MainMenuScene
         self.loop = MainLoop(MainMenuScene(self.game_context))
         self.loop.run()
 

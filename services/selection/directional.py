@@ -3,18 +3,13 @@ from clubsandwich.ui import UIScene, LabelView
 
 from core import actionmapping
 from core.direction import move_direction_mapping
-from core.game.manager import game
 from services.selection.base import Selection
 
 
 class DirectionalSelection(Selection):
-    def __init__(self, executor):
-        super().__init__(executor)
-        self.view = None
-
     def resolve(self):
         self.view = DirectionalView(self)
-        game.game_context.director.push_scene(self.view)
+        self.game_context.director.push_scene(self.view)
 
     def select_targets(self, direction):
         origin = self.executor.location.get_local_coords()

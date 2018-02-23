@@ -1,5 +1,6 @@
 from bflib import dice
 from bflib.characters.specialabilities import Hide as HideAbility
+from core import effects
 from core.abilities.base import Ability
 from services import echo
 
@@ -30,5 +31,6 @@ class Hide(Ability):
             return False
         else:
             echo.player_echo(character, "You attempt to hide.")
+            character.effects.add_effect(effects.Hidden(None))
 
         return True

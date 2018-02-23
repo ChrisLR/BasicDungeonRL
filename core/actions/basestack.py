@@ -6,14 +6,14 @@ class ActionStack(object):
     """
     An action stack keeping track of the action resolutions of a game object.
     """
-    __slots__ = ["game_object", "action_resolutions", "update_turn_callback"]
+    __slots__ = ["game_context", "game_object", "action_resolutions", "update_turn_callback"]
 
-    def __init__(self, game_object, update_turn_callback=None):
+    def __init__(self, game_context, game_object, update_turn_callback=None):
         """
         :param game_object: The executor game object
         :param update_turn_callback: The callback, if any, to update to next turn.
         """
-
+        self.game_context = game_context
         self.game_object = game_object
         self.action_resolutions = []
         self.update_turn_callback = update_turn_callback
@@ -29,9 +29,9 @@ class ActionStack(object):
 
         if action.target_selection:
             self.action_resolutions.append(
-                ActionResolution(action, self.game_object, action.target_selection.copy()))
+                ActionResolution(action, self.game_object, action.target_selection.copy(), self.game_context))
         else:
-            self._start_action(ActionResolution(action, self.game_object, None))
+            self._start_action(ActionResolution(action, self.game_object, None, self.game_context))
             self.update_turn_callback()
 
     def update(self):

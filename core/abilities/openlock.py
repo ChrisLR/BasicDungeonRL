@@ -1,13 +1,13 @@
 from bflib import dice
 from bflib.characters.specialabilities import OpenLock as OpenLockAbility
-from core import components
 from core.abilities.base import Ability
-from services import echo
-from services.selection import DirectionalSelection, filters, TargetSelectionSet
+from core.components import Lock
+from services import echo, selection
+from services.selection import filters
 
 
 class OnlyWithLocks(filters.Component):
-    component = components.Lock
+    component = Lock
 
     def filter(self, targets):
         self.resolution = [
@@ -18,8 +18,8 @@ class OnlyWithLocks(filters.Component):
 
 class OpenLock(Ability):
     name = "Open Lock"
-    target_selection = TargetSelectionSet(
-        selections=DirectionalSelection,
+    target_selection = selection.TargetSelectionSet(
+        selections=selection.DirectionalSelection,
         filters=(OnlyWithLocks, filters.SingleListBased))
 
     @classmethod

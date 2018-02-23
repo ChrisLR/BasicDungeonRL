@@ -2,10 +2,12 @@ from collections import abc, Sequence
 
 
 class Selection(object):
-    def __init__(self, executor):
+    def __init__(self, game_context, executor):
+        self.game_context = game_context
         self.executor = executor
         self.resolution = None
         self.canceled = False
+        self.view = None
 
     def resolve(self):
         """

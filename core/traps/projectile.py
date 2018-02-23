@@ -1,5 +1,6 @@
 from bflib import traps as base_traps
 from core.attacks.base import RangedAttack
+from core.effects import get_core_effect_from_base
 from core.traps.base import Trap
 from services import echo
 
@@ -41,7 +42,7 @@ class Projectile(Trap):
                 saved = False
 
             if not saved:
-                target.effects.add_base_effect(base_effect)
+                target.effects.add_effect(get_core_effect_from_base(base_effect))
 
     @classmethod
     def _make_attack(cls, host, target):

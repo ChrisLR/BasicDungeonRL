@@ -53,6 +53,7 @@ class Walk(Action):
 
         character.location.set_local_coords(new_coords)
 
+        character.events.transmit(events.Moved(character))
         if tile:
             tile.events.transmit(events.WalkedOn(character))
 

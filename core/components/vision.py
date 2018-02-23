@@ -18,10 +18,7 @@ class Vision(Component):
             return self._can_see(game_object)
 
     def _can_see(self, game_object):
-        # TODO This should account for being blind,
-        # invisible characters, hidden ones etc.
-        return True
-
+        return can_see(self.host, game_object)
 
     def round_update(self):
         self.update_field_of_vision()
@@ -105,6 +102,14 @@ class SimpleVision(Component):
         return True
 
     def _can_see(self, game_object):
-        # TODO This should account for being blind,
-        # invisible characters, hidden ones etc.
+        return can_see(self.host, game_object)
+
+
+def can_see(host, game_object):
+    visible = game_object.query.visibility()
+    if visible is True:
         return True
+
+    # TODO Here, we could iterate through what conditions would allow a host
+    # TODO to counter specific anti visibilities.
+    return False

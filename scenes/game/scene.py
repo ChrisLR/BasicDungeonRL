@@ -21,7 +21,7 @@ class GameScene(UIScene):
         game_context.game.new_game()
         self.game_view = GameView(game_context, layout_options=game_view_layout_options)
         self.game_context = game_context
-        game_context.action_stack = ActionStack(game_context.player, self.update_turn)
+        game_context.action_stack = ActionStack(game_context, game_context.player, self.update_turn)
         self.hud_view = HudView(
             game_context,
             layout_options=hud_view_layout_options

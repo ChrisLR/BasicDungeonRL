@@ -4,7 +4,6 @@ import collections
 from bearlibterminal import terminal
 from clubsandwich.ui import ButtonView, UIScene, WindowView, LayoutOptions
 
-from core.game.manager import game
 from services.selection.filters.base import SelectionFilter
 from ui.views import KeyAssignedListView, SelectableButtonView
 
@@ -66,13 +65,9 @@ class ListBased(SelectionFilter):
     """
     view_class = ListFilterView
 
-    def __init__(self, executor):
-        super().__init__(executor)
-        self.view = None
-
     def filter(self, targets):
         self.view = self.view_class(self, targets)
-        game.game_context.director.push_scene(self.view)
+        self.game_context.director.push_scene(self.view)
 
 
 class SingleListFilterView(ListFilterView):
