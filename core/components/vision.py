@@ -50,10 +50,12 @@ class SimpleVision(Component):
         :param fov_range: Range of Vision
         """
         super().__init__()
-        self.seen_objects = set()
+        self.seen_objects = None
         self.fov_range = fov_range
 
     def can_see_object(self, game_object):
+        if self.seen_objects is None:
+            self.update_vision()
         return game_object in self.seen_objects
 
     def round_update(self):
