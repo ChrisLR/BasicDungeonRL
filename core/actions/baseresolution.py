@@ -35,7 +35,6 @@ class ActionResolution(object):
 
         if isinstance(target_selection, TargetSelectionChain):
             self.pending_target_selections = list(self.target_selections.target_selection_sets)
-            self.pending_target_selections.reverse()
         else:
             self.pending_target_selections = [self.target_selections]
         self.start_next_target_selection()
@@ -55,7 +54,7 @@ class ActionResolution(object):
 
         if next_selection.selections:
             self.pending_selections = [
-                selection(self.game_context, self.executor)
+                selection(self.game_context, self.executor, next_selection)
                 for selection in next_selection.selections
             ]
             self._start_next_selection()

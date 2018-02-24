@@ -14,8 +14,9 @@ class Vision(Component):
         self.fov_range = fov_range
 
     def can_see_object(self, game_object):
-        if game_object.location.get_local_coords() in self.fov:
-            return self._can_see(game_object)
+        if self.fov:
+            if game_object.location.get_local_coords() in self.fov:
+                return self._can_see(game_object)
 
     def _can_see(self, game_object):
         return can_see(self.host, game_object)

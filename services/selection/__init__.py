@@ -3,6 +3,6 @@ from services.selection.base import TargetSelectionSet, TargetSelectionChain
 from services.selection.cursor import CursorSelection
 from services.selection.directional import DirectionalSelection
 from services.selection.equipped import EquippedSelection
-from services.selection.inventory import Inventory
+from services.selection.inventory import Inventory, ChainedInventory
 from services.selection.useableabilities import UseableAbilities
 from services.selection.wielded import Wielded

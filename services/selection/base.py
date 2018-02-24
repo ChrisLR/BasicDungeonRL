@@ -2,9 +2,10 @@ from collections import abc, Sequence
 
 
 class Selection(object):
-    def __init__(self, game_context, executor):
+    def __init__(self, game_context, executor, parent_selection_set):
         self.game_context = game_context
         self.executor = executor
+        self.parent_selection_set = parent_selection_set
         self.resolution = None
         self.canceled = False
         self.view = None
@@ -37,14 +38,15 @@ class TargetSelectionSet(object):
 
         raise TypeError()
 
-    __slots__ = ("selections", "filters", "name", "targets")
+    __slots__ = ("selections", "filters", "name", "parent_chain", "targets")
 
-    def __init__(self, selections, filters=None, name=None, targets=None):
+    def __init__(self, selections, filters=None, name=None, targets=None, parent_chain=None):
         """
         Represent a Set of Selections and filters, may be named.
         :param selections: Selections to apply, will be converted if single
         :param filters: Optional filters to apply on selections result
         :param name: Name of the Set
+        :param parent_chain: Parent TargetChain if present.
         :param targets: Result of the selections and filters
         """
         if not isinstance(selections, abc.Iterable):
@@ -58,6 +60,7 @@ class TargetSelectionSet(object):
         self.filters = filters if filters else []
         self.targets = targets if targets else []
         self.name = name
+        self.parent_chain = parent_chain
 
     def copy(self):
         return TargetSelectionSet(
@@ -78,6 +81,9 @@ class TargetSelectionChain(abc.Sequence):
 
     def __init__(self, *target_selection_sets):
         self.target_selection_sets = target_selection_sets
+        for target_selection_set in self.target_selection_sets:
+            target_selection_set.parent_chain = self
+
         self._mapping = {
             target_selection_set.name: target_selection_set
             for target_selection_set in self.target_selection_sets
