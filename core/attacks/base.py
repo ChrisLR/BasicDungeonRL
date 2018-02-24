@@ -7,7 +7,7 @@ class MeleeAttack(object):
     needs_weapon = False
 
     @classmethod
-    def make_melee_hit_roll(cls, attacker, defender):
+    def make_melee_hit_roll(cls, attacker, defender, sneak_attack=False):
         target_ac = defender.combat.armor_class
         if target_ac is None:
             target_ac = 0
@@ -17,7 +17,10 @@ class MeleeAttack(object):
         # TODO If attacker is behind defender, +2 to hit roll
         # TODO If attacker invisible, +4
         # TODO If defender invisible, -4
-        # TODO If defender is pinned, +4
+        # TODO If defender is pinned, +
+        if sneak_attack:
+            modifier += 4
+
         if not defender.health.conscious:
             modifier += 8
 
@@ -37,7 +40,7 @@ class MeleeAttack(object):
             return False
 
     @classmethod
-    def make_melee_damage_roll(cls, attacker, damage_dice, other_modifier=0):
+    def make_melee_damage_roll(cls, attacker, damage_dice, other_modifier=0, sneak_attack=False):
 
         total_damage = 0
         if inspect.isclass(damage_dice):
@@ -47,9 +50,15 @@ class MeleeAttack(object):
         total_damage += attacker.stats.strength_modifier if attacker.stats else 0
         total_damage += other_modifier
         if total_damage <= 0:
-            return 1
+            if sneak_attack:
+                return 2
+            else:
+                return 1
         else:
-            return total_damage
+            if sneak_attack:
+                return total_damage * 2
+            else:
+                return total_damage
 
 
 class RangedAttack(object):

@@ -108,6 +108,9 @@ class SimpleVision(Component):
 
 
 def can_see(host, game_object):
+    if host.health and (not host.health.conscious or host.health.dead):
+        return False
+
     visible = game_object.query.visibility()
     if visible is True:
         return True

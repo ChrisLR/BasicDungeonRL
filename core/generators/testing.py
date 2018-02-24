@@ -47,6 +47,7 @@ class TestingGenerator(object):
         monster.register_component(components.Lock())
         monster.register_component(components.Container(None, None, None))
         monster.register_component(components.Trap(traps.Arrow))
+        monster.vision.fov_range = 0
         level.add_object(monster)
 
     @classmethod
