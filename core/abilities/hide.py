@@ -31,6 +31,7 @@ class Hide(Ability):
             return False
         else:
             echo.player_echo(character, "You attempt to hide.")
-            character.effects.add_effect(effects.Hidden(None))
+            if not character.effects.has_effect(effects.Hidden):
+                character.effects.add_effect(effects.Hidden(None))
 
         return True

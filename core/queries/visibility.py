@@ -13,6 +13,7 @@ class Visibility(CumulativeQuery):
     def respond(self, value):
         self._result.add(value)
 
+    @property
     def result(self):
         if not self._result:
             return True

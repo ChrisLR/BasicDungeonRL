@@ -23,9 +23,8 @@ class Hidden(Effect):
         # TODO This hack is bad
         from core.abilities.movesilently import MoveSilently
 
-        if MoveSilently.can_execute(event.actor):
-            if not MoveSilently.execute(event.actor):
-                self._moved = True
+        if not MoveSilently.can_execute(event.actor) or not MoveSilently.execute(event.actor):
+            self._moved = True
 
     def _visibility_responder(self, query):
         query.respond(type(self))
