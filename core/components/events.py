@@ -23,7 +23,7 @@ class Events(Component):
 
     def transmit(self, event):
         event_type = type(event)
-        responders = self.mapping.get(event_type)
+        responders = self.mapping.get(event_type).copy()
         for _, func in responders.items():
             func(event)
 
