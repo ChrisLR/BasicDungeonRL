@@ -18,10 +18,20 @@ class Hide(Ability):
 
     @classmethod
     def execute(cls, character, target_selection=None):
+        for game_object in character.location.level.game_objects:
+            if game_object is character:
+                continue
+
+            if game_object.vision and game_object.vision.can_see_object(character):
+                echo.player_echo(character, "You may not hide in plain sight.")
+                return False
+
         hide_target = character.query.special_ability(HideAbility)
         value = dice.D100(1).roll()
-        # TODO Actual Mechanic to keep a STEALTHED value or effect, so others dont see.
         if value > hide_target:
+            if character.effects.has_effect(effects.Hidden):
+                character.effects.remove_effect(effects.Hidden)
+
             echo.see(
                 actor=character,
                 actor_message="You attempt to hide.",
