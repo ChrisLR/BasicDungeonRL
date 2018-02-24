@@ -43,12 +43,10 @@ class TestingGenerator(object):
         monster = MonsterFactory.create_new(animals.Deer)
         monster.location.level = level
         monster.location.set_local_coords((23, 23))
-        monster.vision.fov_range = 10
         monster.register_component(components.Openable())
         monster.register_component(components.Lock())
         monster.register_component(components.Container(None, None, None))
         monster.register_component(components.Trap(traps.Arrow))
-        monster.register_component(components.AI(Peekaboo))
         level.add_object(monster)
 
     @classmethod
