@@ -2,6 +2,7 @@ import random
 
 from core import components, flags
 from core.factories.recipes import listing
+from core.factories.treasure import TreasureFactory
 from core.gameobject import GameObject
 
 
@@ -21,13 +22,15 @@ class MonsterFactory(object):
         if new.equipment:
             new.register_component(components.Inventory())
 
+            if base_monster.treasure_type:
+                items = TreasureFactory.create_new(base_monster.treasure_type)
+                for item in items:
+                    if not item.wearable or not new.equipment.wear(item):
+                        new.inventory.add(item)
+
         if recipe.outfits:
             outfit = random.choice(recipe.outfits)
             outfit.apply(new)
-
-        if base_monster.treasure_type:
-            # TODO Call Treasure Factory here.
-            pass
 
         if not new.vision:
             new.register_component(components.SimpleVision())

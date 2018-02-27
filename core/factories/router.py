@@ -1,10 +1,11 @@
+import inspect
+
 from bflib.characters.base import Character
 from bflib.items.base import Item
 from bflib.monsters.base import Monster
 from core.factories.character import CharacterFactory
 from core.factories.items import ItemFactory
 from core.factories.monster import MonsterFactory
-import inspect
 
 type_mapping = {
     Item: ItemFactory,
