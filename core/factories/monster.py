@@ -32,6 +32,8 @@ class MonsterFactory(object):
         if not new.vision:
             new.register_component(components.SimpleVision())
 
+        new.register_component(components.Effects())
+
         return new
 
     @classmethod
