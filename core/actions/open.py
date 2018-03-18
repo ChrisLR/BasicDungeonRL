@@ -5,6 +5,7 @@ from services.selection import DirectionalSelection, TargetSelectionSet
 
 
 class Open(Action):
+    id = "open"
     target_selection = TargetSelectionSet(DirectionalSelection)
 
     @classmethod

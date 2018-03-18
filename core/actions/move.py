@@ -65,34 +65,42 @@ class Walk(Action):
 
 
 class WalkNW(Walk):
+    id = "walk_nw"
     direction = Direction.NorthWest
 
 
 class WalkN(Walk):
+    id = "walk_n"
     direction = Direction.North
 
 
 class WalkNE(Walk):
+    id = "walk_ne"
     direction = Direction.NorthEast
 
 
 class WalkE(Walk):
+    id = "walk_e"
     direction = Direction.East
 
 
 class WalkSE(Walk):
+    id = "walk_se"
     direction = Direction.SouthEast
 
 
 class WalkS(Walk):
+    id = "walk_s"
     direction = Direction.South
 
 
 class WalkSW(Walk):
+    id = "walk_sw"
     direction = Direction.SouthWest
 
 
 class WalkW(Walk):
+    id = "walk_w"
     direction = Direction.West
 
 

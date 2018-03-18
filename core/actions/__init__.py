@@ -1,12 +1,17 @@
-from core.actions.close import Close
-from core.actions.drop import Drop
-from core.actions.eat import Eat
-from core.actions.get import Get
-from core.actions.look import Look
-from core.actions.move import Walk, WalkNW, WalkN, WalkNE, WalkE, WalkSE, WalkS, WalkSW, WalkW
-from core.actions.open import Open
-from core.actions.put import Put
-from core.actions.remove import Remove
-from core.actions.wear import Wear
-from core.actions.wield import Wield
-from core.actions.useability import UseAbility
+from core.actions import listing
+from core.actions import (
+    addclass,
+    bump,
+    close,
+    drop,
+    eat,
+    get,
+    look,
+    move,
+    open,
+    put,
+    remove,
+    useability,
+    wear,
+    wield
+)

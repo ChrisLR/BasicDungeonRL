@@ -4,6 +4,7 @@ from services.selection.base import TargetSelectionSet
 
 
 class Get(Action):
+    id = "get"
     target_selection = TargetSelectionSet(
         selections=DirectionalSelection,
         filters=(

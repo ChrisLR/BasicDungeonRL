@@ -7,9 +7,12 @@ from services.selection.filters.unusedcharacterclasses import (
 )
 from services.selection.filters.listfilter import SingleListBased
 from core.components.character_class import CharacterClass
+from core.actions.listing import register
 
 
+@register
 class AddClass(Action):
+    id = "add_class"
     """
     Special Action triggered Internally.
     Allows adding a Class to a character.

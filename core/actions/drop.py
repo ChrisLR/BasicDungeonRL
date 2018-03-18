@@ -3,6 +3,7 @@ from services.selection import AllItems, filters, TargetSelectionSet
 
 
 class Drop(Action):
+    id = "drop"
     target_selection = TargetSelectionSet(
         selections=AllItems,
         filters=filters.ListBased,

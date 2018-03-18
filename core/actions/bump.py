@@ -1,8 +1,11 @@
 from core.actions.base import Action
 from core.attacks.functions import auto_attack
+from core.actions.listing import register
 
 
+@register
 class Bump(Action):
+    id = "bump"
     @classmethod
     def execute(cls, character, target):
         if character.combat and target.combat:

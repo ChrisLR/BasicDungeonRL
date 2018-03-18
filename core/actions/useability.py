@@ -7,6 +7,7 @@ from core.game.manager import game
 # TODO This wont work as is because of target selection.
 # TODO Abilities Should be treated like an action themselves.
 class UseAbility(Action):
+    id = "use_ability"
     target_selection = selection.TargetSelectionSet(
         selections=selection.UseableAbilities,
         filters=filters.SingleListBased

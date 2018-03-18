@@ -1,9 +1,12 @@
 from core.actions.base import Action
 from services import echo
 from services.selection import DirectionalSelection, TargetSelectionSet
+from core.actions.listing import register
 
 
+@register
 class Close(Action):
+    id = "close"
     target_selection = TargetSelectionSet(DirectionalSelection)
 
     @classmethod

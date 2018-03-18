@@ -3,6 +3,7 @@ from services.selection import CursorSelection, TargetSelectionSet
 
 
 class Look(Action):
+    id = "look"
     target_selection = TargetSelectionSet(CursorSelection)
 
     @classmethod

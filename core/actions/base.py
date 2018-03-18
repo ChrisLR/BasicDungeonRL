@@ -3,6 +3,7 @@ import abc
 
 class Action(object):
     __metaclass__ = abc.ABCMeta
+    id = None
 
     must_recall = False
     recall_delay = None

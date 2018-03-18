@@ -8,6 +8,7 @@ class ConsumableFilter(filters.Component):
 
 
 class Eat(Action):
+    id = "eat"
     target_selection = TargetSelectionSet(
         selections=AllItems,
         filters=(ConsumableFilter, filters.SingleListBased),
