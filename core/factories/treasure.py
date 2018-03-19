@@ -10,13 +10,12 @@ from bflib.items.magical.scrolls.base import MagicScroll
 from bflib.items.potions.base import Potion
 from bflib.items.weapons.base import Weapon
 from bflib.tables.treasure import TreasureTable, RandomMagicItem
-from core.factories.router import route_to_factory
+from core.system import SystemObject
 
 
-class TreasureFactory(object):
-    """
-    This
-    """
+class TreasureFactory(SystemObject):
+    name = "treasure"
+    type_map = None
 
     @classmethod
     def create_new(cls, treasure_type, wearable_for_size=None):

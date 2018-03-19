@@ -1,12 +1,20 @@
 import random
 
+from bflib.monsters.base import Monster
 from core import components, flags
 from core.factories.recipes import listing
 from core.factories.treasure import TreasureFactory
 from core.gameobject import GameObject
+from core.system import SystemObject
 
 
-class MonsterFactory(object):
+class MonsterFactory(SystemObject):
+    name = "monster"
+    type_map = Monster
+
+    def __init__(self, system):
+        self.system = system
+
     @classmethod
     def create_new(cls, base_monster):
         recipe = listing.get_recipe(base_monster)

@@ -1,8 +1,13 @@
 class System(object):
-    __slots__ = ["factory", "game", "ui", "services"]
+    __slots__ = ["factory", "game", "ui", "service"]
 
-    def __init__(self, game, factory, ui, services):
+    def __init__(self, game=None, factory=None, ui=None, service=None):
         self.factory = factory
         self.game = game
         self.ui = ui
-        self.services = services
+        self.service = service
+
+
+class SystemObject(object):
+    def __init__(self, system):
+        self.system = system

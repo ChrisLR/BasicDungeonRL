@@ -1,9 +1,14 @@
+from bflib.characters.base import Character
 from core import components, flags
 from core.gameobject import GameObject
 from core.outfits.outfitter import OutfitterService
+from core.system import SystemObject
 
 
-class CharacterFactory(object):
+class CharacterFactory(SystemObject):
+    name = "character"
+    type_map = Character
+
     @classmethod
     def create_new(cls, ability_score_set, base_classes, base_race, name,
                    symbol, fg_color, bg_color, display_priority=0):

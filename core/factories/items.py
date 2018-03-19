@@ -1,9 +1,14 @@
+from bflib.items.base import Item
 from core import flags
 from core.factories.recipes import listing
 from core.gameobject import GameObject
+from core.system import SystemObject
 
 
-class ItemFactory(object):
+class ItemFactory(SystemObject):
+    name = "item"
+    type_map = Item
+
     @classmethod
     def create_new(cls, base_item):
         recipe = listing.get_recipe(base_item)

@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Sex(Enum):
+class Gender(Enum):
     Male = "Male"
     Female = "Female"
     Neuter = "Neuter"
