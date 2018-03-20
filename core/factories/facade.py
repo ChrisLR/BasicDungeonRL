@@ -4,18 +4,16 @@ from core.factories.character import CharacterFactory
 from core.factories.items import ItemFactory
 from core.factories.monster import MonsterFactory
 from core.factories.treasure import TreasureFactory
-from core.system import SystemObject
 
 
-class Facade(SystemObject):
-    def __init__(self, system):
-        super().__init__(system)
-        system.factory = self
+class Facade(object):
+    def __init__(self, game):
+        self.game = game
         factories = (CharacterFactory, ItemFactory, MonsterFactory, TreasureFactory)
         self._factory_mapping = {}
         self._type_mapping = {}
         for factory in factories:
-            factory_instance = factory(system)
+            factory_instance = factory(game)
             self._factory_mapping[factory.name] = factory_instance
             if factory.type_map is not None:
                 self._type_mapping[factory.type_map] = factory_instance

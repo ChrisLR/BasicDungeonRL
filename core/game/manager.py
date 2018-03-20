@@ -1,22 +1,29 @@
 from bearlibterminal import terminal
 from clubsandwich.director import DirectorLoop
 
-from core import generators
+from core import factories, generators
+import services
+import ui
+from core.util.gametime import GameTime
 from core.displaypriority import DisplayPriority
-from core.game.context import GameContext
 from scenes.mainmenu import MainMenuScene
 
 
 class Game(object):
     def __init__(self):
-        self.game_context = GameContext()
-        self.game_context.game = self
-        self.loop = None
+        self.game_time = GameTime()
+        self.camera = None
+        self.game_scene = None
+        self.director = None
         self.running = False
+        self.factory = factories.Facade(self)
+        self.service = services.Facade(self)
+        self.ui = ui
 
     def start(self):
-        self.loop = MainLoop(MainMenuScene(self.game_context))
-        self.loop.run()
+        if self.director is None:
+            self.director = MainLoop(MainMenuScene(self))
+            self.director.run()
 
     def new_game(self):
         # generator = generators.TestingGenerator
@@ -40,6 +47,3 @@ class MainLoop(DirectorLoop):
     def terminal_init(self):
         super().terminal_init()
         terminal.set("window: title='BasicDungeonRL', size=120x50;")
-
-
-game = Game()
