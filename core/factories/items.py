@@ -2,10 +2,9 @@ from bflib.items.base import Item
 from core import flags
 from core.factories.recipes import listing
 from core.gameobject import GameObject
-from core.system import SystemObject
 
 
-class ItemFactory(SystemObject):
+class ItemFactory(object):
     name = "item"
     type_map = Item
 

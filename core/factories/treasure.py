@@ -10,10 +10,9 @@ from bflib.items.magical.scrolls.base import MagicScroll
 from bflib.items.potions.base import Potion
 from bflib.items.weapons.base import Weapon
 from bflib.tables.treasure import TreasureTable, RandomMagicItem
-from core.system import SystemObject
 
 
-class TreasureFactory(SystemObject):
+class TreasureFactory(object):
     name = "treasure"
     type_map = None
 

@@ -1,11 +1,15 @@
 attacks_listing = {}
+listing_by_name = {}
 
 
 def register(attack_type):
     if attack_type.base_attack in attacks_listing:
-        raise Exception("Recipe already registered for this base_object_type.")
-    else:
-        attacks_listing[attack_type.base_attack] = attack_type
+        raise Exception("Attack already registered for this base_object_type.")
+    elif attack_type.name in listing_by_name:
+        raise Exception("Attack already registered for this name.")
+
+    attacks_listing[attack_type.base_attack] = attack_type
+    listing_by_name[attack_type.name] = attack_type
 
     return attack_type
 
@@ -23,3 +27,7 @@ def get_attack(base_attack):
             return get_attack(attack_type)
 
     return attack
+
+
+def get_attack_by_name(name):
+    return listing_by_name.get(name)

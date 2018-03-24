@@ -2,7 +2,12 @@ from bflib import dice
 import inspect
 
 
-class MeleeAttack(object):
+class Attack(object):
+    def __init__(self, game):
+        self.game = game
+
+
+class MeleeAttack(Attack):
     base_attack = None
     needs_weapon = False
 
@@ -61,7 +66,7 @@ class MeleeAttack(object):
                 return total_damage
 
 
-class RangedAttack(object):
+class RangedAttack(Attack):
     def __init__(self, base_attack, attacker, defender):
         self.base_attack = base_attack
         self.attacker = attacker

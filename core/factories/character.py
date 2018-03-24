@@ -2,10 +2,9 @@ from bflib.characters.base import Character
 from core import components, flags
 from core.gameobject import GameObject
 from core.outfits.outfitter import OutfitterService
-from core.system import SystemObject
 
 
-class CharacterFactory(SystemObject):
+class CharacterFactory(object):
     name = "character"
     type_map = Character
 

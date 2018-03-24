@@ -1,5 +1,4 @@
 from core.ai.behaviors.base import Behavior
-from core.attacks.functions import auto_attack
 
 
 class MeleeAttack(Behavior):
@@ -14,5 +13,6 @@ class MeleeAttack(Behavior):
         enemies = self.host.ai.short_term_state.enemies
         enemy = next((enemy for enemy in game_objects if enemy in enemies), None)
         if enemy and not enemy.health.dead:
-            auto_attack(self.host, enemy)
+            self.host.game.attack.auto_attack(self.host, enemy)
+
         self.finished = True

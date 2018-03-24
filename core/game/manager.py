@@ -1,23 +1,23 @@
 from bearlibterminal import terminal
 from clubsandwich.director import DirectorLoop
 
-from core import factories, generators
-import services
 import ui
-from core.util.gametime import GameTime
+from core import factories, generators
 from core.displaypriority import DisplayPriority
+from core.util.gametime import GameTime
 from scenes.mainmenu import MainMenuScene
+from services.echo import EchoService
 
 
 class Game(object):
     def __init__(self):
         self.game_time = GameTime()
         self.camera = None
+        self.echo = EchoService(self)
         self.game_scene = None
         self.director = None
         self.running = False
         self.factory = factories.Facade(self)
-        self.service = services.Facade(self)
         self.ui = ui
 
     def start(self):
