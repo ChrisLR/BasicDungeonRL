@@ -1,6 +1,5 @@
 import random
 
-from core.factories.router import route_to_factory
 from core.generators.spawns.objects.spawnchain import SpawnChain
 
 
@@ -13,9 +12,9 @@ class OnceSpawner(object):
     def __init__(self, *spawns):
         self.spawns = spawns  # type: list
 
-    def spawn(self, origin):
+    def spawn(self, game, origin):
         selected_set = self.select_spawn()
-        return self.spawn_set(selected_set, origin)
+        return self.spawn_set(game, selected_set, origin)
 
     def select_spawn(self):
         randomized_spawns = list(self.spawns)
@@ -26,7 +25,7 @@ class OnceSpawner(object):
                 return spawn_set
 
     @staticmethod
-    def spawn_set(spawn_set, origin):
+    def spawn_set(game, spawn_set, origin):
         if spawn_set is None:
             return []
 
@@ -41,11 +40,9 @@ class OnceSpawner(object):
             new_spawn_point = (spawn_x + offset_x, spawn_y + offset_y)
             if spawn_set.amount:
                 for _ in range(spawn_set.amount):
-                    spawned_objects.append(
-                        route_to_factory(spawn_set.spawn_type))
+                    spawned_objects.append(game.factory.route(spawn_set.spawn_type))
             else:
-                spawned_objects.append(
-                    route_to_factory(spawn_set.spawn_type))
+                spawned_objects.append(game.factory.route(spawn_set.spawn_type))
 
             for spawned_object in spawned_objects:
                 spawned_object.location.set_local_coords(new_spawn_point)

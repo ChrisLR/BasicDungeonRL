@@ -27,6 +27,9 @@ class ConnectorBasedGenerator(object):
     filler_tile = None
     max_amount_of_rooms = 1
 
+    def __init__(self, game):
+        self.game = game
+
     @classmethod
     def _generate(cls, level):
         spawn_grid = cls._prepare_spawn_grid(level)
@@ -98,13 +101,12 @@ class ConnectorBasedGenerator(object):
         return sorted(
             pieces, key=lambda piece: len(piece.connectors), reverse=True)
 
-    @classmethod
     def _write_piece(
-            cls, level, piece, spawn_grid, origin,
+            self, level, piece, spawn_grid, origin,
             unresolved_connectors, origin_direction=None):
 
         level.add_room(Room(*origin, piece))
-        cls._add_unresolved_connectors(
+        self._add_unresolved_connectors(
             piece=piece,
             origin=origin,
             unresolved_connectors=unresolved_connectors,
@@ -120,8 +122,7 @@ class ConnectorBasedGenerator(object):
 
         piece.write_tiles_level(level, pointer_x, pointer_y)
         for spawner in piece.spawners:
-            for spawned_object in spawner.spawn(
-                    offset_coords=(pointer_x, pointer_y)):
+            for spawned_object in spawner.spawn(self.game, offset_coords=(pointer_x, pointer_y)):
                 level.add_object(spawned_object)
 
     @classmethod
