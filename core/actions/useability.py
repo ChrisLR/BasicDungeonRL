@@ -1,7 +1,6 @@
 from core.actions.base import Action
 from services import echo, selection
 from services.selection import filters
-from core.game.manager import game
 
 
 # TODO This wont work as is because of target selection.

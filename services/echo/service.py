@@ -8,13 +8,13 @@ class EchoService(object):
             self.messages.append(message.do(context))
         self.messages.append(message + "\n")
 
-    def see(self, actor, actor_message, observer_message, context):
+    def see(self, actor, message, context):
         if actor.player:
-            return self._echo(actor_message, context)
+            return self._echo(message, context)
 
         player = self.game.player
         if player and player.vision.can_see_object(actor):
-            self._echo(observer_message, context)
+            self._echo(message, context)
 
     def system(self, message):
         self._echo(message)

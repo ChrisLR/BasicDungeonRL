@@ -5,16 +5,16 @@ from ui.camera import Camera
 
 
 class GameView(RectView):
-    def __init__(self, game_context, **kwargs):
+    def __init__(self, game, **kwargs):
         super().__init__(fill=True,  **kwargs)
-        self.game_context = game_context
-        player = self.game_context.player
+        self.game = game
+        player = self.game.player
         self.camera = Camera(location=player.location.copy(), screen_size=Size(120, 30))
         self.camera.character_focus = player
-        self.game_context.camera = self.camera
+        self.game.camera = self.camera
 
     def draw(self, ctx):
-        player = self.game_context.player
+        player = self.game.player
         self.camera.focus_on_game_object()
 
         if player.vision.fov:
@@ -46,4 +46,3 @@ class GameView(RectView):
                             relative_point,
                             game_object.display.get_draw_info()
                         )
-

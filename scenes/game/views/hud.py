@@ -2,13 +2,13 @@ from clubsandwich.ui import RectView, LabelView, LayoutOptions
 
 
 class HudView(RectView):
-    def __init__(self, game_context, **kwargs):
-        self.game_context = game_context
+    def __init__(self, game, **kwargs):
+        self.game = game
         self.last_top = 0.2
         self.last_left = 0
         self.label_value_pairs = []
         self._subviews = []
-        player = game_context.player
+        player = game.player
         player_stats = player.stats
         self.create_multiple_label_value_pairs(
             ('Name:', lambda: player.name),

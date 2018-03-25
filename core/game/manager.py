@@ -19,6 +19,7 @@ class Game(object):
         self.running = False
         self.factory = factories.Facade(self)
         self.ui = ui
+        self.player = None
 
     def start(self):
         if self.director is None:
@@ -30,8 +31,8 @@ class Game(object):
         generator = generators.GoblinCampGenerator
         # generator = generators.SkeletonCrypt
         level = generator.generate()
-        self.game_context.player.display.priority = DisplayPriority.Player
-        generator.place_player(level, self.game_context.player)
+        self.player.display.priority = DisplayPriority.Player
+        generator.place_player(level, self.player)
 
         self.running = True
 

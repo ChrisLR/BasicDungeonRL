@@ -8,8 +8,8 @@ from scenes.charactercreation.attributes import AttributeSelectionScene
 class MainMenuScene(UIScene):
     ID = "MainMenu"
 
-    def __init__(self, system):
-        setattr(self.director, "system", system)
+    def __init__(self, game):
+        self.game = game
         self.covers_screen = True
         views = [
             LabelView(
@@ -18,7 +18,7 @@ class MainMenuScene(UIScene):
             ),
             ButtonView(
                 text="Play",
-                callback=lambda: self.director.replace_scene(AttributeSelectionScene(system)),
+                callback=lambda: self.director.replace_scene(AttributeSelectionScene(game)),
                 layout_options=LayoutOptions(top=0.5, height=0.2, left=0.4, right=None, bottom=None, width=0.1),
             ),
             ButtonView(

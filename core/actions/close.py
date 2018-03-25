@@ -1,7 +1,8 @@
+from core import contexts
 from core.actions.base import Action
-from services import echo
-from services.selection import DirectionalSelection, TargetSelectionSet
 from core.actions.listing import register
+from messaging import StringBuilder, Verb, Actor, Target
+from services.selection import DirectionalSelection, TargetSelectionSet
 
 
 @register
@@ -9,28 +10,21 @@ class Close(Action):
     id = "close"
     target_selection = TargetSelectionSet(DirectionalSelection)
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         if not target_selection:
             return False
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
+    def execute(self, character, target_selection=None):
         if not target_selection:
             return False
 
         for target in target_selection:
             if target.openable and not target.openable.closed:
                 target.openable.close()
-                echo.see(
-                    actor=character,
-                    actor_message="You close {}".format(target.name),
-                    observer_message="{} closes {}".format(
-                        character.name, target.name
-                    ),
-                )
-
+                context = contexts.Action(character, target)
+                message = StringBuilder(Actor, Verb("close", Actor), Target)
+                self.game.echo.see(character, message, context)
                 return True
 
         return False

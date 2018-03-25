@@ -41,3 +41,23 @@ class AttackerWeapon(MessageVariable):
 
     def __str__(self):
         return self.value.name
+
+
+class Actor(MessageVariable):
+    def get_value(self, context):
+        self.value = context.actor
+
+    def __str__(self):
+        if self.value.player:
+            return "you"
+        return self.value.name
+
+
+class Target(MessageVariable):
+    def get_value(self, context):
+        self.value = context.target
+
+    def __str__(self):
+        if self.value.player:
+            return "you"
+        return self.value.name

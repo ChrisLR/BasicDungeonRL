@@ -20,9 +20,9 @@ class ClassSelectionScene(UIScene):
     _active_fg = "#efff14"
     _disabled_fg = '#424242'
 
-    def __init__(self, game_context, ability_score_set, name, race):
+    def __init__(self, game, ability_score_set, name, race):
         self.covers_screen = True
-        self.game_context = game_context
+        self.game = game
         self.ability_score_set = ability_score_set
         self.name = name
         self.race = race
@@ -111,8 +111,8 @@ class ClassSelectionScene(UIScene):
             display_priority=DisplayPriority.Player
         )
 
-        self.game_context.player = player
-        self.director.replace_scene(GameScene(self.game_context))
+        self.game.player = player
+        self.director.replace_scene(GameScene(self.game))
 
 
 def get_left_layout(top, **kwargs):

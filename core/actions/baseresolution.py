@@ -8,11 +8,11 @@ class ActionResolution(object):
     An object tracking an action's target resolution.
     """
     __slots__ = [
-        "action", "executor", "game_context", "pending_selections", "pending_filters",
+        "action", "executor", "game", "pending_selections", "pending_filters",
         "target_selections", "pending_target_selections"
     ]
 
-    def __init__(self, action, executor, target_selection, game_context):
+    def __init__(self, action, executor, target_selection, game):
         """
         Filters and Selections will be instantiated to be resolved.
         Result of which are stored in target_selection.targets list.
@@ -26,7 +26,7 @@ class ActionResolution(object):
 
         self.action = action
         self.executor = executor
-        self.game_context = game_context
+        self.game = game
         self.pending_filters = None
         self.pending_selections = None
         self.target_selections = target_selection.copy() if target_selection else None
@@ -46,7 +46,7 @@ class ActionResolution(object):
         next_selection = self.pending_target_selections[0]
         if next_selection.filters:
             self.pending_filters = [
-                target_filter(self.game_context, self.executor)
+                target_filter(self.game, self.executor)
                 for target_filter in next_selection.filters
             ]
         else:
@@ -54,7 +54,7 @@ class ActionResolution(object):
 
         if next_selection.selections:
             self.pending_selections = [
-                selection(self.game_context, self.executor, next_selection)
+                selection(self.game, self.executor, next_selection)
                 for selection in next_selection.selections
             ]
             self._start_next_selection()

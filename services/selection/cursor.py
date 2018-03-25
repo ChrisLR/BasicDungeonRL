@@ -4,20 +4,19 @@ from clubsandwich.ui import UIScene, LabelView, RectView
 
 from core import actionmapping
 from core.direction import move_direction_mapping
-from core.game.manager import game
 from services.selection.base import Selection
 
 
 class CursorSelection(Selection):
     def resolve(self):
-        self.view = CursorScene(self, self.executor)
-        game.game_context.director.push_scene(self.view)
+        self.view = CursorScene(self.game, self, self.executor)
+        self.game.director.push_scene(self.view)
 
 
 class CursorScene(UIScene):
     covers_screen = False
 
-    def __init__(self, selection, executor):
+    def __init__(self, game, selection, executor):
         views = game.game_context.game_scene.view.subviews.copy()
         self.label = LabelView("")
         self.cursor_view = CursorView(game.game_context.camera, self)
@@ -60,10 +59,10 @@ class CursorScene(UIScene):
 class CursorView(RectView):
     covers_screen = False
 
-    def __init__(self, camera, parent_scene):
-        super().__init__(layout_options=game.game_context.game_scene.game_view.layout_options)
+    def __init__(self, game, parent_scene):
+        super().__init__(layout_options=game.game_scene.game_view.layout_options)
         self.parent_scene = parent_scene
-        self.camera = camera
+        self.camera = game.camera
 
     def draw(self, ctx):
         cursor_position = self.parent_scene.cursor_position

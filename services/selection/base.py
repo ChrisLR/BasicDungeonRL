@@ -2,8 +2,8 @@ from collections import abc, Sequence
 
 
 class Selection(object):
-    def __init__(self, game_context, executor, parent_selection_set):
-        self.game_context = game_context
+    def __init__(self, game, executor, parent_selection_set):
+        self.game = game
         self.executor = executor
         self.parent_selection_set = parent_selection_set
         self.resolution = None
