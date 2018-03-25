@@ -10,7 +10,7 @@ class WearableFilter(filters.Component):
 
 
 class Wear(Action):
-    id = "wear"
+    name = "wear"
     target_selection = selection.TargetSelectionSet(
         selections=(selection.Inventory, selection.Wielded),
         filters=(WearableFilter, filters.ListBased),

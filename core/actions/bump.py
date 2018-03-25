@@ -4,7 +4,7 @@ from core.actions.listing import register
 
 @register
 class Bump(Action):
-    id = "bump"
+    name = "bump"
 
     def execute(self, character, target_selection=None):
         target = target_selection[0]

@@ -1,25 +1,22 @@
+from core import events
 from core.actions.base import Action
 from core.actions.bump import Bump
 from core.direction import Direction, move_direction_mapping
-from core import events
 
 
 class Walk(Action):
     direction = None
 
-    @classmethod
-    def from_direction(cls, direction):
+    def from_direction(slef, direction):
         return _walk_direction_mapping.get(direction)
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         # TODO Some characters might not be in a condition to move.
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
-        if cls.direction:
-            direction = cls.direction
+    def execute(self, character, target_selection=None):
+        if self.direction:
+            direction = self.direction
         else:
             return False
 

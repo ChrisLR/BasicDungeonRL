@@ -3,7 +3,7 @@ from services.selection import EquippedSelection, filters, TargetSelectionSet
 
 
 class Remove(Action):
-    id = "remove"
+    name = "remove"
     target_selection = TargetSelectionSet(
         selections=EquippedSelection,
         filters=filters.ListBased

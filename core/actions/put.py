@@ -4,7 +4,7 @@ from services.selection import filters
 
 
 class Put(Action):
-    id = "put"
+    name = "put"
     target_selection = selection.TargetSelectionChain(
         selection.TargetSelectionSet(
             name="Container",

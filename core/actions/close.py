@@ -7,7 +7,7 @@ from services.selection import DirectionalSelection, TargetSelectionSet
 
 @register
 class Close(Action):
-    id = "close"
+    name = "close"
     target_selection = TargetSelectionSet(DirectionalSelection)
 
     def can_execute(self, character, target_selection=None):

@@ -4,7 +4,7 @@ from services.selection import filters
 
 
 class Wield(Action):
-    id = "wield"
+    name = "wield"
     target_selection = selection.TargetSelectionSet(
         selections=selection.Inventory,
         filters=filters.ListBased,

@@ -11,7 +11,7 @@ from services.selection.filters.unusedcharacterclasses import (
 
 @register
 class AddClass(Action):
-    id = "add_class"
+    name = "add_class"
     """
     Special Action triggered Internally.
     Allows adding a Class to a character.
