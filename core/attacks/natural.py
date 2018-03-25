@@ -1,24 +1,24 @@
 from bflib import attacks
 from bflib.characters import specialabilities
+from core import contexts, events
 from core.attacks import listing
 from core.attacks.base import MeleeAttack
-from core import events
 from messaging import StringBuilder, Attacker, Defender, Verb, His
 
 
 class NaturalAttack(MeleeAttack):
     on_success = StringBuilder(Attacker, Verb("hit", Attacker), Defender)
     on_failure = StringBuilder(Defender, Verb("dodge", Defender), Attacker, "'s attack!")
-    on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "attack!")
+    on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "attack,")
 
     def can_execute(self, attacker, defender):
         return True
 
     def echo(self, attacker, defender, success, damage, sneak_attack=False):
-        
+        context = contexts.Combat(attacker, defender)
         if success:
             if sneak_attack:
-                message = self.on_stealth
+                message = self.on_stealth + "for {} damage!".format(damage)
             else:
                 message = self.on_success + "for {} damage!".format(damage)
         else:
