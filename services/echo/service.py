@@ -19,6 +19,6 @@ class EchoService(object):
     def system(self, message):
         self._echo(message)
 
-    def player(self, actor, message, context):
+    def player(self, actor, message, context=None):
         if actor.player:
             self._echo(message, context)

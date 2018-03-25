@@ -10,11 +10,11 @@ class Actor(Component):
         self.action_stack = None
 
     def can_execute(self, action_id, target_selection=None):
-        action = actions.listing.get_by_id(action_id)
+        action = actions.listing.get_by_name(action_id)
         return action.can_execute(self.host, target_selection)
 
     def execute(self, action_id, target_selection=None):
-        action = actions.listing.get_by_id(action_id)
+        action = actions.listing.get_by_name(action_id)
         return action.execute(self.host, target_selection)
 
     def copy(self):

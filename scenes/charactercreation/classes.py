@@ -9,7 +9,6 @@ from clubsandwich.ui import (
 
 from bflib.characters import classes
 from core.displaypriority import DisplayPriority
-from core.factories.character import CharacterFactory
 from core.util.colors import Colors
 from scenes.game.scene import GameScene
 from ui.views import SelectableButtonView, KeyAssignedListView
@@ -100,7 +99,7 @@ class ClassSelectionScene(UIScene):
         if not self.class_choices:
             return
 
-        player = CharacterFactory.create_new(
+        player = self.game.factory.create_new_character(
             ability_score_set=self.ability_score_set,
             base_classes=self.class_choices,
             base_race=self.race,

@@ -7,6 +7,7 @@ from core.displaypriority import DisplayPriority
 from core.util.gametime import GameTime
 from scenes.mainmenu import MainMenuScene
 from services.echo import EchoService
+from core.outfits.outfitter import OutfitterService
 
 
 class Game(object):
@@ -20,6 +21,7 @@ class Game(object):
         self.factory = factories.Facade(self)
         self.ui = ui
         self.player = None
+        self.outfit = OutfitterService(self)
 
     def start(self):
         if self.director is None:

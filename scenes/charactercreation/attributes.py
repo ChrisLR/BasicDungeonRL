@@ -111,7 +111,7 @@ class AttributeSelectionScene(UIScene):
         if self.points_left <= 0:
             self.director.replace_scene(
                 RaceSelectionScene(
-                    game_context=self.game,
+                    game=self.game,
                     ability_score_set=AbilityScoreSet(**self.stats),
                     name=self.name
                 )

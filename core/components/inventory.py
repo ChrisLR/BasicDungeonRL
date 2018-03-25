@@ -1,5 +1,6 @@
+from core import contexts
 from core.components.base import Component
-from services import echo
+from messaging import StringBuilder, Actor, Target, His, Verb
 
 
 class Inventory(Component):
@@ -14,16 +15,9 @@ class Inventory(Component):
             containers = (item.container for item in self.host.equipment.get_all_items() if item.container)
             for container in containers:
                 if container.add_item(item):
-                    echo.see(
-                        actor=self.host,
-                        actor_message="You add {} to your {}.".format(
-                            item.name, container.host.name),
-                        observer_message="{} adds {} to {} {}.".format(
-                            self.host.name, item.name,
-                            echo.functions.his_her_it(self.host),
-                            container.host.name
-                        )
-                    )
+                    message = StringBuilder(Actor, Verb("add", Actor), "to", His, Target)
+                    context = contexts.Action(self.host, container.host.name)
+                    self.host.game.echo.see(self.host, message, context)
 
                     return True
 

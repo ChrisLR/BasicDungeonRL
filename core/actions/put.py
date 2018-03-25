@@ -1,6 +1,8 @@
 from core.actions.base import Action
 from services import echo, selection
 from services.selection import filters
+from messaging import StringBuilder, Verb, Actor, Target
+from core import contexts
 
 
 class Put(Action):
@@ -24,8 +26,7 @@ class Put(Action):
         )
     )
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         if not character.equipment and not character.inventory:
             return False
 
@@ -34,33 +35,19 @@ class Put(Action):
 
         container_object = target_selection.get("Container").targets[0]
         if not container_object or not container_object.container:
-            return False
-
-        if container_object.lock and container_object.lock.locked:
-            echo.player_echo(
-                actor=character,
-                message="You cant do that, {} is locked.".format(
-                    container_object.name)
-            )
-
-            return False
+            return
 
         if container_object.openable and container_object.openable.closed:
-            echo.player_echo(
-                actor=character,
-                message="You cant do that, {} is closed.".format(
-                    container_object.name)
-            )
-
-            return False
+            if container_object.lock and container_object.lock.locked:
+                self.game.echo.player(character, "You cant do that, {} is locked.".format(container_object.name))
+                return False
 
         if not target_selection.get("Content"):
             return False
 
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
+    def execute(self, character, target_selection=None):
         if not target_selection:
             return False
 
@@ -69,35 +56,22 @@ class Put(Action):
         content = target_selection.get("Content")
 
         for game_object in content:
-            if (not character.equipment.remove(game_object)
-                    and not character.inventory.remove(game_object)):
-                echo.player_echo(
-                    actor=character,
-                    message="You cant drop {}".format(game_object.name)
-                )
-
+            if not character.equipment.remove(game_object) and not character.inventory.remove(game_object):
+                self.game.echo.player(character, "You cant drop {}".format(game_object.name))
                 continue
 
             if not container.add_item(game_object):
-                echo.player_echo(
+                self.game.echo.player(
                     actor=character,
-                    message="You cant put {} in {}".format(
-                        game_object.name, container_object.name)
-                )
+                    message="You cant put {} in {}".format(game_object.name, container_object.name))
                 continue
 
             target_level = game_object.location.level
             if target_level:
                 target_level.remove_object(game_object)
 
-            echo.see(
-                actor=character,
-                actor_message="You put {} in {}".format(
-                    game_object.name, container_object.name
-                ),
-                observer_message="{} puts {} in {}".format(
-                    character.name, game_object.name, container_object.name
-                )
-            )
+            context = contexts.Action(actor=character, target=container_object)
+            message = StringBuilder(Actor, Verb("put", Actor), "in", Target)
+            self.game.echo.see(character, message, context)
 
         return True

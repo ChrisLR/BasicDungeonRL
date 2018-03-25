@@ -1,15 +1,16 @@
 from bflib.characters.base import Character
 from core import components, flags
 from core.gameobject import GameObject
-from core.outfits.outfitter import OutfitterService
 
 
 class CharacterFactory(object):
     name = "character"
     type_map = Character
 
-    @classmethod
-    def create_new(cls, ability_score_set, base_classes, base_race, name,
+    def __init__(self, game):
+        self.game = game
+
+    def create_new(self, ability_score_set, base_classes, base_race, name,
                    symbol, fg_color, bg_color, display_priority=0):
         new_character = GameObject(blocking=True, name=name)
         new_character.register_component(
@@ -42,7 +43,7 @@ class CharacterFactory(object):
         new_character.register_component(components.Vision(20))
         new_character.register_component(components.Effects())
 
-        OutfitterService.outfit_starting_player(new_character)
+        self.game.outfit.outfit_starting_player(new_character)
 
         new_character.flags.add(flags.GameObjectFlags.Character)
 

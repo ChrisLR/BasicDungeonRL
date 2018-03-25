@@ -11,13 +11,15 @@ class MonsterFactory(object):
     name = "monster"
     type_map = Monster
 
-    @classmethod
-    def create_new(cls, base_monster):
+    def __init__(self, game):
+        self.game = game
+
+    def create_new(self, base_monster):
         recipe = listing.get_recipe(base_monster)
         if recipe is None:
             raise Exception("Found no recipes for monster {}".format(base_monster))
 
-        item_components = cls.get_recursive_components(base_monster, recipe)
+        item_components = self.get_recursive_components(base_monster, recipe)
         new = GameObject(base=base_monster, blocking=True, name=base_monster.name)
         new.flags.add(flags.GameObjectFlags.Character)
         for component in item_components:
@@ -34,7 +36,7 @@ class MonsterFactory(object):
 
         if recipe.outfits:
             outfit = random.choice(recipe.outfits)
-            outfit.apply(new)
+            outfit.apply(self.game, new)
 
         if not new.vision:
             new.register_component(components.SimpleVision())
@@ -43,8 +45,7 @@ class MonsterFactory(object):
 
         return new
 
-    @classmethod
-    def get_recursive_components(cls, base_monster, recipe, result_components=None):
+    def get_recursive_components(self, base_monster, recipe, result_components=None):
         if result_components is None:
             result_components = []
 
@@ -53,6 +54,6 @@ class MonsterFactory(object):
             result_components.extend(built_components)
 
         for required_recipe in recipe.depends_on:
-            cls.get_recursive_components(base_monster, required_recipe, result_components)
+            self.get_recursive_components(base_monster, required_recipe, result_components)
 
         return result_components

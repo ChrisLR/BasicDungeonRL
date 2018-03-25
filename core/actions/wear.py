@@ -16,8 +16,7 @@ class Wear(Action):
         filters=(WearableFilter, filters.ListBased),
     )
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         if not character.equipment:
             return False
 
@@ -25,8 +24,7 @@ class Wear(Action):
             return False
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
+    def execute(self, character, target_selection=None):
         for target in target_selection:
             if target in character.equipment.wielded_items():
                 character.equipment.remove(target)

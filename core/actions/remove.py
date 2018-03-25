@@ -9,8 +9,7 @@ class Remove(Action):
         filters=filters.ListBased
     )
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         if not character.equipment:
             return False
 
@@ -18,8 +17,7 @@ class Remove(Action):
             return False
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
+    def execute(self, character, target_selection=None):
         level = character.location.level
         for target in target_selection:
             if not character.equipment.remove(target):
