@@ -33,3 +33,11 @@ class Defender(MessageVariable):
         if self.value.player:
             return "you"
         return self.value.name
+
+
+class AttackerWeapon(MessageVariable):
+    def get_value(self, context):
+        self.value = context.attacker_weapon
+
+    def __str__(self):
+        return self.value.name
