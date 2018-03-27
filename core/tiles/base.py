@@ -7,8 +7,8 @@ class Tile(GameObject):
     opaque = True
     display = None
 
-    def __init__(self):
-        super().__init__(blocking=self.blocking, name=self.name)
+    def __init__(self, game):
+        super().__init__(game=game, blocking=self.blocking, name=self.name)
         self.content = []
 
     def add_content(self, game_object):

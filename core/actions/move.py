@@ -1,7 +1,6 @@
 from core import events
 from core.actions.base import Action
 from core.actions.bump import Bump
-from core.actions import listing
 from core.direction import Direction, move_direction_mapping
 
 
@@ -62,49 +61,41 @@ class Walk(Action):
         return True
 
 
-@listing.register
 class WalkNW(Walk):
     name = "walk_nw"
     direction = Direction.NorthWest
 
 
-@listing.register
 class WalkN(Walk):
     name = "walk_n"
     direction = Direction.North
 
 
-@listing.register
 class WalkNE(Walk):
     name = "walk_ne"
     direction = Direction.NorthEast
 
 
-@listing.register
 class WalkE(Walk):
     name = "walk_e"
     direction = Direction.East
 
 
-@listing.register
 class WalkSE(Walk):
     name = "walk_se"
     direction = Direction.SouthEast
 
 
-@listing.register
 class WalkS(Walk):
     name = "walk_s"
     direction = Direction.South
 
 
-@listing.register
 class WalkSW(Walk):
     name = "walk_sw"
     direction = Direction.SouthWest
 
 
-@listing.register
 class WalkW(Walk):
     name = "walk_w"
     direction = Direction.West

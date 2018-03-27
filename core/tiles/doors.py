@@ -22,8 +22,8 @@ class Door(Tile):
             self.opaque = False
             self.display.ascii_character = self.opened_ascii
 
-    def __init__(self, closed=True):
-        super().__init__()
+    def __init__(self, game, closed=True):
+        super().__init__(game)
         self.register_component(Openable(closed, on_state_change_callback=self.state_change))
         self.display = self.display.copy()
 

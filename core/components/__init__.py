@@ -25,6 +25,7 @@ from core.components.monster import Monster
 from core.components.morale import Morale
 from core.components.movement import Movement
 from core.components.openable import Openable
+from core.components.player import Player
 from core.components.race import Race
 from core.components.restrictions import Restrictions
 from core.components.savingthrows import SavingThrows
@@ -67,6 +68,7 @@ component_names = {
     Morale.NAME,
     Movement.NAME,
     Openable.NAME,
+    Player.NAME,
     Race.NAME,
     Restrictions.NAME,
     SavingThrows.NAME,

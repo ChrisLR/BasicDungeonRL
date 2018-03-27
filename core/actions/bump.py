@@ -1,8 +1,6 @@
 from core.actions.base import Action
-from core.actions.listing import register
 
 
-@register
 class Bump(Action):
     name = "bump"
 

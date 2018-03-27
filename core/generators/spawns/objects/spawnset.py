@@ -10,7 +10,7 @@ class SpawnSet(object):
         self.spawn_type = spawn_type
         self.spawn_point = spawn_point
 
-    def on_spawn(self, spawned_object, origin):
+    def on_spawn(self, game, spawned_object, origin):
         pass
 
 
@@ -32,10 +32,8 @@ class ContainerSpawnSet(object):
         self.spawn_point = spawn_point
         self.child_spawner = child_spawner
 
-    def on_spawn(self, spawned_object, origin):
-        spawned_children = self.child_spawner.spawn(origin)
+    def on_spawn(self, game, spawned_object, origin):
+        spawned_children = self.child_spawner.spawn(game, origin)
         for children in spawned_children:
-            if children.weight.score is None:
-                print('FEK')
             spawned_object.container.add_item(children)
             children.location.update_from_other(spawned_object.location)

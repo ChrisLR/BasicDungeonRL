@@ -14,8 +14,8 @@ class Level(GameObject):
         "_game_objects", "rooms", "room_grid"
     ]
 
-    def __init__(self, max_x, max_y):
-        super().__init__()
+    def __init__(self, game, max_x, max_y):
+        super().__init__(game)
         self.displays = {}
         self.tiles = {}
         self.max_x = max_x
@@ -87,7 +87,7 @@ class Level(GameObject):
             self.max_y = y
 
         if inspect.isclass(tile):
-            tile = tile()
+            tile = tile(self.game)
 
         self.tiles[coordinates] = tile
         self.set_inner_walkable(coordinates, not tile.blocking)

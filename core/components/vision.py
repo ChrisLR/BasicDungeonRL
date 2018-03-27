@@ -28,6 +28,9 @@ class Vision(Component):
         return Vision()
 
     def update_field_of_vision(self):
+        if not self.host.location.level:
+            return
+
         x, y = self.host.location.get_local_coords()
         self.fov = tdl.map.quick_fov(x, y, self.is_transparent, 'basic', radius=self.fov_range)
 

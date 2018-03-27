@@ -20,7 +20,12 @@ class MonsterFactory(object):
             raise Exception("Found no recipes for monster {}".format(base_monster))
 
         item_components = self.get_recursive_components(base_monster, recipe)
-        new = GameObject(base=base_monster, blocking=True, name=base_monster.name)
+        new = GameObject(
+            game=self.game,
+            base=base_monster,
+            blocking=True,
+            name=base_monster.name
+        )
         new.flags.add(flags.GameObjectFlags.Character)
         for component in item_components:
             new.register_component(component)

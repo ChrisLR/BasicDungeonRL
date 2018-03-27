@@ -1,11 +1,9 @@
 from core import contexts
 from core.actions.base import Action
-from core.actions.listing import register
 from messaging import StringBuilder, Verb, Actor, Target
 from services.selection import DirectionalSelection, TargetSelectionSet
 
 
-@register
 class Close(Action):
     name = "close"
     target_selection = TargetSelectionSet(DirectionalSelection)

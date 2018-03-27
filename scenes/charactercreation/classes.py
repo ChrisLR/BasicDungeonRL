@@ -8,9 +8,9 @@ from clubsandwich.ui import (
 )
 
 from bflib.characters import classes
+from core import components
 from core.displaypriority import DisplayPriority
 from core.util.colors import Colors
-from scenes.game.scene import GameScene
 from ui.views import SelectableButtonView, KeyAssignedListView
 
 
@@ -109,9 +109,10 @@ class ClassSelectionScene(UIScene):
             bg_color=Colors.BLACK,
             display_priority=DisplayPriority.Player
         )
+        player.register_component(components.Player())
 
         self.game.player = player
-        self.director.replace_scene(GameScene(self.game))
+        self.game.new_game()
 
 
 def get_left_layout(top, **kwargs):

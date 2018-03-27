@@ -23,6 +23,6 @@ class ActionMapping(object):
             terminal.TK_X: game.actions.get_action_by_name("look"),
             terminal.TK_P: game.actions.get_action_by_name("put"),
         }
-        self.uppercase_mapping = {
+        self.uppercase = {
             terminal.TK_W: game.actions.get_action_by_name("wield"),
         }

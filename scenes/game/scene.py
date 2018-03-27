@@ -52,9 +52,9 @@ class GameScene(UIScene):
             return
         
         if terminal.state(terminal.TK_SHIFT):
-            action = actionmapping.uppercase_mapping.get(val, None)
+            action = self.game.action_mapping.uppercase.get(val, None)
         else:
-            action = actionmapping.lowercase_mapping.get(val, None)
+            action = self.game.action_mapping.lowercase.get(val, None)
 
         if action:
             self.game.action_stack.add_action_to_stack(action)

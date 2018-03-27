@@ -46,6 +46,6 @@ class OnceSpawner(object):
 
             for spawned_object in spawned_objects:
                 spawned_object.location.set_local_coords(new_spawn_point)
-                spawn_set.on_spawn(spawned_object, origin)
+                spawn_set.on_spawn(game, spawned_object, origin)
 
         return spawned_objects

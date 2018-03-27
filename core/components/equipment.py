@@ -1,6 +1,7 @@
 from bflib import units
 from core.components import Component
-from services import echo
+from messaging import StringBuilder, Actor, Target, Verb
+from core import contexts
 
 
 class Equipment(Component):
@@ -105,12 +106,9 @@ class Equipment(Component):
                 self.wielded_items[location] = item
                 hands -= 1
 
-            echo.see(
-                actor=self.host,
-                actor_message="You wield {}.".format(item.name),
-                observer_message="{} wields {}.".format(
-                    self.host.name, item.name),
-            )
+            context = contexts.Action(self.host, item)
+            message = StringBuilder(Actor, Verb("wield", Actor), Target, ".")
+            self.host.game.echo.see(self.host, message, context)
 
             return True
         return False

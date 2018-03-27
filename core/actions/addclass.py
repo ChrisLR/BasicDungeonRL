@@ -1,5 +1,4 @@
 from core.actions.base import Action
-from core.actions.listing import register
 from core.components.character_class import CharacterClass
 from services.selection import TargetSelectionSet
 from services.selection.characterclasses import CharacterClasses
@@ -9,7 +8,6 @@ from services.selection.filters.unusedcharacterclasses import (
 )
 
 
-@register
 class AddClass(Action):
     name = "add_class"
     """
