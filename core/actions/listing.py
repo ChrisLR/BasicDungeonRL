@@ -35,11 +35,9 @@ action_listing = {
     Wear,
     Wield
 }
-action_mapping = {}
-
-
-def register(action):
-    action_mapping[action.name] = action
+action_mapping = {
+    action.name: action for action in action_listing
+}
 
 
 def get_by_name(action_name):

@@ -2,7 +2,7 @@ from bearlibterminal import terminal
 from clubsandwich.director import DirectorLoop
 
 import ui
-from core import actions, factories, generators
+from core import actions, attacks, factories, generators
 from core.displaypriority import DisplayPriority
 from core.util.gametime import GameTime
 from scenes.mainmenu import MainMenuScene
@@ -14,6 +14,7 @@ from core.actionmapping import ActionMapping
 
 class Game(object):
     def __init__(self):
+        self.attacks = attacks.Facade(self)
         self.actions = actions.Facade(self)
         self.game_time = GameTime()
         self.camera = None

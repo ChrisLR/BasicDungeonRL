@@ -1,15 +1,14 @@
 from bearlibterminal import terminal
 from clubsandwich.ui import UIScene, LabelView
 
-from core import actionmapping
 from core.direction import move_direction_mapping
 from services.selection.base import Selection
 
 
 class DirectionalSelection(Selection):
     def resolve(self):
-        self.view = DirectionalView(self)
-        self.game_context.director.push_scene(self.view)
+        self.view = DirectionalView(self.game, self)
+        self.game.director.push_scene(self.view)
 
     def select_targets(self, direction):
         origin = self.executor.location.get_local_coords()
@@ -28,8 +27,9 @@ class DirectionalSelection(Selection):
 class DirectionalView(UIScene):
     covers_screen = False
 
-    def __init__(self, selection):
+    def __init__(self, game, selection):
         super().__init__([LabelView("Choose a direction.")])
+        self.game = game
         self.selection = selection
 
     def terminal_read(self, val):
@@ -38,7 +38,7 @@ class DirectionalView(UIScene):
             self.selection.canceled = True
             self.director.pop_scene()
 
-        action = actionmapping.lowercase_mapping.get(val, None)
+        action = self.game.action_mapping.lowercase.get(val, None)
         if not action:
             return
 

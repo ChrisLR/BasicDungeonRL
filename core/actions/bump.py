@@ -12,6 +12,6 @@ class Bump(Action):
             if character.ai and target not in character.ai.short_term_state.enemies:
                 return
 
-            self.game.attack.auto_attack(character, target)
+            self.game.attacks.auto_attack(character, target)
 
         return False

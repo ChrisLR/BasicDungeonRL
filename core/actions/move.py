@@ -1,13 +1,13 @@
 from core import events
 from core.actions.base import Action
-from core.actions.bump import Bump
 from core.direction import Direction, move_direction_mapping
 
 
 class Walk(Action):
     direction = None
 
-    def from_direction(self, direction):
+    @classmethod
+    def from_direction(cls, direction):
         return _walk_direction_mapping.get(direction)
 
     def can_execute(self, character, target_selection=None):
@@ -46,7 +46,8 @@ class Walk(Action):
         if game_objects:
             for game_object in game_objects:
                 if game_object.blocking:
-                    return Bump.execute(character, game_object)
+                    bump = self.game.actions.get_action_by_name("bump")
+                    return bump.execute(character, (game_object,))
 
         character.location.set_local_coords(new_coords)
 
