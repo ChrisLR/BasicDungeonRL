@@ -1,14 +1,15 @@
 from clubsandwich.ui import LayoutOptions
 from clubsandwich.ui.misc_views import LabelView, ButtonView
-from clubsandwich.ui.ui_scene import UIScene
 
+from clubsandwich.ui import UIScene
 from scenes.charactercreation.attributes import AttributeSelectionScene
 
 
 class MainMenuScene(UIScene):
     ID = "MainMenu"
 
-    def __init__(self, game_context):
+    def __init__(self, game):
+        self.game = game
         self.covers_screen = True
         views = [
             LabelView(
@@ -17,7 +18,7 @@ class MainMenuScene(UIScene):
             ),
             ButtonView(
                 text="Play",
-                callback=lambda: self.director.replace_scene(AttributeSelectionScene(game_context)),
+                callback=lambda: self.director.replace_scene(AttributeSelectionScene(game)),
                 layout_options=LayoutOptions(top=0.5, height=0.2, left=0.4, right=None, bottom=None, width=0.1),
             ),
             ButtonView(

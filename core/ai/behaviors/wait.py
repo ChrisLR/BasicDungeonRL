@@ -1,5 +1,4 @@
 from core.ai.behaviors.base import Behavior
-from core.attacks.functions import auto_attack
 
 
 class Wait(Behavior):

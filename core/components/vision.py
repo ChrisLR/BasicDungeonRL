@@ -14,14 +14,12 @@ class Vision(Component):
         self.fov_range = fov_range
 
     def can_see_object(self, game_object):
-        if game_object.location.get_local_coords() in self.fov:
-            return self._can_see(game_object)
+        if self.fov:
+            if game_object.location.get_local_coords() in self.fov:
+                return self._can_see(game_object)
 
     def _can_see(self, game_object):
-        # TODO This should account for being blind,
-        # invisible characters, hidden ones etc.
-        return True
-
+        return can_see(self.host, game_object)
 
     def round_update(self):
         self.update_field_of_vision()
@@ -30,6 +28,9 @@ class Vision(Component):
         return Vision()
 
     def update_field_of_vision(self):
+        if not self.host.location.level:
+            return
+
         x, y = self.host.location.get_local_coords()
         self.fov = tdl.map.quick_fov(x, y, self.is_transparent, 'basic', radius=self.fov_range)
 
@@ -53,10 +54,12 @@ class SimpleVision(Component):
         :param fov_range: Range of Vision
         """
         super().__init__()
-        self.seen_objects = set()
+        self.seen_objects = None
         self.fov_range = fov_range
 
     def can_see_object(self, game_object):
+        if self.seen_objects is None:
+            self.update_vision()
         return game_object in self.seen_objects
 
     def round_update(self):
@@ -105,6 +108,17 @@ class SimpleVision(Component):
         return True
 
     def _can_see(self, game_object):
-        # TODO This should account for being blind,
-        # invisible characters, hidden ones etc.
+        return can_see(self.host, game_object)
+
+
+def can_see(host, game_object):
+    if host.health and (not host.health.conscious or host.health.dead):
+        return False
+
+    visible = game_object.query.visibility()
+    if visible is True:
         return True
+
+    # TODO Here, we could iterate through what conditions would allow a host
+    # TODO to counter specific anti visibilities.
+    return False

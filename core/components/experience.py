@@ -1,5 +1,5 @@
-from core.components.base import Component
 from bflib.characters import specialabilities
+from core.components.base import Component
 from services import echo
 
 
@@ -28,8 +28,7 @@ class Experience(Component):
                              for character_class in character_classes]
 
     def add_experience(self, points):
-        responses = self.host.query.special_ability(specialabilities.ExperienceBonus)
-        percent_bonus = sum((int(response) for response in responses))
+        percent_bonus = self.host.query.special_ability(specialabilities.ExperienceBonus)
         points += round(((points * percent_bonus) / 100))
         self.experience += points
         exp_for_next_level = self.exp_for_next_level
@@ -47,8 +46,10 @@ class Experience(Component):
 
     def level_up(self):
         self.level += 1
-        if echo.is_player(self.host):
-            echo.echo_service.echo("You advance to level {}".format(self.level))
+        echo.player_echo(
+            actor=self.host,
+            message="You advance to level {}".format(self.level)
+        )
         self.host.health.on_level_up()
 
     def add_new_class(self):

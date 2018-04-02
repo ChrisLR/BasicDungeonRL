@@ -2,7 +2,10 @@ from bflib.characters.savingthrows import DeathPoison, DragonBreath, ParalysisSt
 
 
 class SavingThrowSet(object):
-    __slots__ = ["death_poison", "dragon_breath", "paralysis_stone", "spells", "wands"]
+    __slots__ = [
+        "death_poison", "dragon_breath", "paralysis_stone",
+        "spells", "wands", "_mapping"
+    ]
 
     def __init__(self, death_poison=0, dragon_breath=0, paralysis_stone=0, spells=0, wands=0):
         self.death_poison = DeathPoison(death_poison)
@@ -10,3 +13,13 @@ class SavingThrowSet(object):
         self.paralysis_stone = ParalysisStone(paralysis_stone)
         self.spells = Spells(spells)
         self.wands = Wands(wands)
+        self._mapping = {
+            DeathPoison: self.death_poison,
+            DragonBreath: self.dragon_breath,
+            ParalysisStone: self.paralysis_stone,
+            Spells: self.spells,
+            Wands: self.wands,
+        }
+
+    def get(self, saving_throw_type):
+        return self._mapping[saving_throw_type]

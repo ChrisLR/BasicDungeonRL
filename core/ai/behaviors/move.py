@@ -26,7 +26,7 @@ class Move(Behavior):
         move_action = None
         for enum, coord in direction.move_direction_mapping.items():
             if coord == next_step:
-                move_action = Walk.from_direction(enum)
+                move_action = Walk.from_direction(enum)(self.host.game)
                 break
 
         if move_action:

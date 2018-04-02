@@ -8,10 +8,12 @@ class SelectionFilter(object):
     """
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, executor):
+    def __init__(self, game_context, executor):
+        self.game_context = game_context
         self.executor = executor
         self.canceled = False
         self.resolution = None
+        self.view = None
 
     @abc.abstractmethod
     def filter(self, targets):

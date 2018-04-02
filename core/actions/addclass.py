@@ -1,15 +1,15 @@
 from core.actions.base import Action
-from services import echo
+from core.components.character_class import CharacterClass
 from services.selection import TargetSelectionSet
 from services.selection.characterclasses import CharacterClasses
+from services.selection.filters.listfilter import SingleListBased
 from services.selection.filters.unusedcharacterclasses import (
     PossibleCharacterClass
 )
-from services.selection.filters.listfilter import SingleListBased
-from core.components.character_class import CharacterClass
 
 
 class AddClass(Action):
+    name = "add_class"
     """
     Special Action triggered Internally.
     Allows adding a Class to a character.
@@ -20,14 +20,12 @@ class AddClass(Action):
         filters=(PossibleCharacterClass, SingleListBased),
     )
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         if not target_selection:
             return False
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
+    def execute(self, character, target_selection=None):
         selected_class = target_selection[0]
         if character.character_class:
             character.character_class.add_class(selected_class)
@@ -36,9 +34,9 @@ class AddClass(Action):
         else:
             character.register_component(CharacterClass(selected_class))
 
-        if echo.is_player(character):
-            echo.echo_service.echo(
-                "You begin learning the path of {}!"
-                "".format(selected_class.name))
+        self.game.echo.player(
+            actor=character,
+            message="You begin learning the path of {}!".format(selected_class.name)
+        )
 
         return True

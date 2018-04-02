@@ -13,18 +13,18 @@ class Query(Component):
 
     def initialize_query_types(self):
         for query in listing.query_listing:
-            self.mapping[query] = []
+            self.mapping[query] = {}
 
     def register_responder(self, query_type, responder, func):
-        self.mapping[query_type].append((responder, func))
+        self.mapping[query_type][responder] = func
 
     def unregister_responder(self, query_type, responder):
-        self.mapping[query_type].remove(responder)
+        del self.mapping[query_type][responder]
 
     def execute(self, query):
         query_type = type(query)
         responders = self.mapping.get(query_type)
-        for _, func in responders:
+        for _, func in responders.items():
             func(query)
             if query.finished:
                 return query.result

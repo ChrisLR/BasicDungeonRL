@@ -38,6 +38,7 @@ class SingleQuery(Query):
     def respond(self, value):
         self._result = value
 
+    @property
     def finished(self):
         return bool(self.result)
 
@@ -58,6 +59,7 @@ class CumulativeQuery(Query):
     def result(self):
         return self._result
 
+    @property
     def finished(self):
         # This returns False so it keeps iterating until the end
         return False
@@ -81,5 +83,6 @@ class NonDefaultQuery(Query):
         if value != self.expected_result:
             self._result = value
 
+    @property
     def finished(self):
         return bool(self._result)

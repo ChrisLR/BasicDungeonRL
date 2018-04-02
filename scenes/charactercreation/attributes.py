@@ -14,9 +14,9 @@ from ui.views.validatedintstepperview import ValidatedIntStepperView
 
 
 class AttributeSelectionScene(UIScene):
-    def __init__(self, game_context):
+    def __init__(self, game):
         self.covers_screen = True
-        self.game_context = game_context
+        self.game = game
         stat_initial = 7
         stat_minimum = 3
         stat_maximum = 18
@@ -111,7 +111,7 @@ class AttributeSelectionScene(UIScene):
         if self.points_left <= 0:
             self.director.replace_scene(
                 RaceSelectionScene(
-                    game_context=self.game_context,
+                    game=self.game,
                     ability_score_set=AbilityScoreSet(**self.stats),
                     name=self.name
                 )
@@ -139,4 +139,3 @@ def get_right_layout(top, **kwargs):
         layout_options.update(kwargs)
 
     return layout_options
-

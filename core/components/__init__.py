@@ -11,18 +11,21 @@ from core.components.corpse import Corpse
 from core.components.display import Display
 from core.components.effects import Effects
 from core.components.equipment import Equipment
+from core.components.events import Events
 from core.components.experience import Experience
 from core.components.health import Health
 from core.components.inventory import Inventory
 from core.components.light import Light
 from core.components.liquidcontainer import LiquidContainer
 from core.components.location import Location
+from core.components.lock import Lock
 from core.components.melee import Melee
 from core.components.money import Money
 from core.components.monster import Monster
 from core.components.morale import Morale
 from core.components.movement import Movement
 from core.components.openable import Openable
+from core.components.player import Player
 from core.components.race import Race
 from core.components.restrictions import Restrictions
 from core.components.savingthrows import SavingThrows
@@ -32,6 +35,7 @@ from core.components.size import Size
 from core.components.spawninfo import SpawnInfo
 from core.components.specialcontainer import SpecialContainer
 from core.components.stats import CharacterStats
+from core.components.traps import Trap
 from core.components.wearable import Wearable
 from core.components.weight import Weight
 from core.components.vision import Vision, SimpleVision
@@ -50,9 +54,11 @@ component_names = {
     Display.NAME,
     Effects.NAME,
     Equipment.NAME,
+    Events.NAME,
     Experience.NAME,
     Health.NAME,
     Location.NAME,
+    Lock.NAME,
     Light.NAME,
     LiquidContainer.NAME,
     Inventory.NAME,
@@ -62,6 +68,7 @@ component_names = {
     Morale.NAME,
     Movement.NAME,
     Openable.NAME,
+    Player.NAME,
     Race.NAME,
     Restrictions.NAME,
     SavingThrows.NAME,
@@ -70,6 +77,7 @@ component_names = {
     Size.NAME,
     SpawnInfo.NAME,
     SpecialContainer.NAME,
+    Trap.NAME,
     Vision.NAME,
     SimpleVision.NAME,
     Wearable.NAME,

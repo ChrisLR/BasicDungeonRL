@@ -4,7 +4,6 @@ import functools
 from bearlibterminal import terminal
 from clubsandwich.ui import ButtonView, UIScene, WindowView, LayoutOptions
 
-from core.game.manager import game
 from services.selection.filters.base import SelectionFilter
 from ui.views import KeyAssignedListView, SelectableButtonView
 
@@ -87,11 +86,11 @@ class Hierarchy(SelectionFilter):
     """
     view_type = HierarchyFilterView
 
-    def __init__(self, executor):
-        super().__init__(executor)
-        self.view = None
-
     def filter(self, targets):
+        if not targets:
+            self.canceled = True
+            return
+
         item_hierarchy = {}
         for target in targets:
             inventory = target.inventory
@@ -103,13 +102,15 @@ class Hierarchy(SelectionFilter):
                     if target.openable:
                         if not target.openable.closed:
                             item_hierarchy[target] = container.items_held
+                        else:
+                            item_hierarchy[target] = []
                     else:
                         item_hierarchy[target] = container.items_held
             else:
                 item_hierarchy[target] = []
 
         self.view = self.view_type(self, item_hierarchy)
-        game.game_context.director.push_scene(self.view)
+        self.game_context.director.push_scene(self.view)
 
 
 class SingleHierarchy(Hierarchy):

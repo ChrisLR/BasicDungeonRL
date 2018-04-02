@@ -1,5 +1,5 @@
+from core import events
 from core.actions.base import Action
-from core.actions.bump import Bump
 from core.direction import Direction, move_direction_mapping
 
 
@@ -10,15 +10,13 @@ class Walk(Action):
     def from_direction(cls, direction):
         return _walk_direction_mapping.get(direction)
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         # TODO Some characters might not be in a condition to move.
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
-        if cls.direction:
-            direction = cls.direction
+    def execute(self, character, target_selection=None):
+        if self.direction:
+            direction = self.direction
         else:
             return False
 
@@ -48,41 +46,59 @@ class Walk(Action):
         if game_objects:
             for game_object in game_objects:
                 if game_object.blocking:
-                    return Bump.execute(character, game_object)
+                    bump = self.game.actions.get_action_by_name("bump")
+                    return bump.execute(character, (game_object,))
 
         character.location.set_local_coords(new_coords)
+
+        character.events.transmit(events.Moved(character))
+        if tile:
+            tile.events.transmit(events.WalkedOn(character))
+
+        if game_objects:
+            for game_object in game_objects:
+                game_object.events.transmit(events.WalkedOn(character))
+
         return True
 
 
 class WalkNW(Walk):
+    name = "walk_nw"
     direction = Direction.NorthWest
 
 
 class WalkN(Walk):
+    name = "walk_n"
     direction = Direction.North
 
 
 class WalkNE(Walk):
+    name = "walk_ne"
     direction = Direction.NorthEast
 
 
 class WalkE(Walk):
+    name = "walk_e"
     direction = Direction.East
 
 
 class WalkSE(Walk):
+    name = "walk_se"
     direction = Direction.SouthEast
 
 
 class WalkS(Walk):
+    name = "walk_s"
     direction = Direction.South
 
 
 class WalkSW(Walk):
+    name = "walk_sw"
     direction = Direction.SouthWest
 
 
 class WalkW(Walk):
+    name = "walk_w"
     direction = Direction.West
 
 

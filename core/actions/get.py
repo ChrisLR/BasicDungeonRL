@@ -4,6 +4,7 @@ from services.selection.base import TargetSelectionSet
 
 
 class Get(Action):
+    name = "get"
     target_selection = TargetSelectionSet(
         selections=DirectionalSelection,
         filters=(
@@ -13,8 +14,7 @@ class Get(Action):
         )
     )
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         if not character.equipment and not character.inventory:
             return False
 
@@ -22,14 +22,13 @@ class Get(Action):
             return False
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
+    def execute(self, character, target_selection=None):
         if not target_selection:
             return False
 
         for target in target_selection:
             if not character.inventory.add(target):
-                if not character.equipment.wield(target):
+                if character.equipment.wield(target):
                     return False
 
             target_level = target.location.level

@@ -8,10 +8,9 @@ from clubsandwich.ui import (
 )
 
 from bflib.characters import classes
+from core import components
 from core.displaypriority import DisplayPriority
-from core.factories.character import CharacterFactory
 from core.util.colors import Colors
-from scenes.game.scene import GameScene
 from ui.views import SelectableButtonView, KeyAssignedListView
 
 
@@ -20,9 +19,9 @@ class ClassSelectionScene(UIScene):
     _active_fg = "#efff14"
     _disabled_fg = '#424242'
 
-    def __init__(self, game_context, ability_score_set, name, race):
+    def __init__(self, game, ability_score_set, name, race):
         self.covers_screen = True
-        self.game_context = game_context
+        self.game = game
         self.ability_score_set = ability_score_set
         self.name = name
         self.race = race
@@ -100,7 +99,7 @@ class ClassSelectionScene(UIScene):
         if not self.class_choices:
             return
 
-        player = CharacterFactory.create_new(
+        player = self.game.factory.create_new_character(
             ability_score_set=self.ability_score_set,
             base_classes=self.class_choices,
             base_race=self.race,
@@ -110,9 +109,10 @@ class ClassSelectionScene(UIScene):
             bg_color=Colors.BLACK,
             display_priority=DisplayPriority.Player
         )
+        player.register_component(components.Player())
 
-        self.game_context.player = player
-        self.director.replace_scene(GameScene(self.game_context))
+        self.game.player = player
+        self.game.new_game()
 
 
 def get_left_layout(top, **kwargs):

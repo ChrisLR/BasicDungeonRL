@@ -1,9 +1,8 @@
-from core.sex import Sex
+from core.gender import Gender
 
 
 def is_player(game_object):
-    from core.game.manager import game
-    if game.game_context.player == game_object:
+    if game_object.player:
         return True
     return False
 
@@ -12,10 +11,10 @@ def his_her_it(value):
     if is_player(value):
         return "your"
 
-    if hasattr(value, 'sex'):
-        if value.sex == Sex.Male:
+    if hasattr(value, 'gender'):
+        if value.sex == Gender.Male:
             return "his"
-        if value.sex == Sex.Female:
+        if value.sex == Gender.Female:
             return "her"
     return "its"
 
@@ -24,10 +23,10 @@ def him_her_it(value):
     if is_player(value):
         return "you"
 
-    if hasattr(value, 'sex'):
-        if value.sex == Sex.Male:
+    if hasattr(value, 'gender'):
+        if value.sex == Gender.Male:
             return "him"
-        if value.sex == Sex.Female:
+        if value.sex == Gender.Female:
             return "her"
     return "its"
 
@@ -36,10 +35,10 @@ def he_her_it(value):
     if is_player(value):
         return "you"
 
-    if hasattr(value, 'sex'):
-        if value.sex == Sex.Male:
+    if hasattr(value, 'gender'):
+        if value.sex == Gender.Male:
             return "he"
-        if value.sex == Sex.Female:
+        if value.sex == Gender.Female:
             return "her"
     return "it"
 

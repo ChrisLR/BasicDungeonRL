@@ -4,8 +4,8 @@ from core.gameobject import GameObject
 class Area(GameObject):
     __slots__ = ["generated_levels", "generators"]
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, game):
+        super().__init__(game)
         self.generated_levels = {}
         self.generators = {}
 

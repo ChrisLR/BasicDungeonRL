@@ -4,8 +4,8 @@ from core.gameobject import GameObject
 class Region(GameObject):
     __slots__ = ["areas"]
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, game):
+        super().__init__(game)
         self.areas = {}
 
     def add_area(self, coordinates, area):

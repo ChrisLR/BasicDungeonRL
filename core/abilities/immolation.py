@@ -22,7 +22,9 @@ class Immolation(Ability):
         Set yourself on fire! Whoosh!
         """
         for target in target_selection:
-            target.effects.add_effect(Burning(units.CombatRound(4)))
+            effector = target.effects
+            if effector:
+                effector.add_effect(Burning(units.CombatRound(4)))
 
 
 class SmallImmolation(Immolation):
@@ -33,8 +35,11 @@ class SmallImmolation(Immolation):
         """
         Set yourself on fire, just a bit.
         """
+
         for target in target_selection:
-            target.effects.add_effect(Burning(units.CombatRound(0)))
+            effector = target.effects
+            if effector:
+                effector.add_effect(Burning(units.CombatRound(0)))
 
 
 class InfiniteImmolation(Immolation):
@@ -46,4 +51,6 @@ class InfiniteImmolation(Immolation):
         Set yourself on fire, FOR ETERNITY
         """
         for target in target_selection:
-            target.effects.add_effect(Burning(None))
+            effector = target.effects
+            if effector:
+                effector.add_effect(Burning(None))

@@ -29,7 +29,7 @@ class Elf(Race):
         specialabilities.SurpriseResistance
     ))
     saving_throw_set = savingthrows.SavingThrowSet(
-        paralysis_stone=1,
-        spells=2,
-        wands=2
+        paralysis_stone=-1,
+        spells=-2,
+        wands=-2
     )

@@ -3,13 +3,13 @@ from services.selection import EquippedSelection, filters, TargetSelectionSet
 
 
 class Remove(Action):
+    name = "remove"
     target_selection = TargetSelectionSet(
         selections=EquippedSelection,
         filters=filters.ListBased
     )
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         if not character.equipment:
             return False
 
@@ -17,8 +17,7 @@ class Remove(Action):
             return False
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
+    def execute(self, character, target_selection=None):
         level = character.location.level
         for target in target_selection:
             if not character.equipment.remove(target):

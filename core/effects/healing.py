@@ -20,11 +20,12 @@ class Healing(Effect):
         :param game_object:
         :return:
         """
-        # You are on fire!
-        if echo.is_player(game_object):
-            echo.echo_service.echo("You are healing!")
-        else:
-            echo.echo_service.echo("{} is healing!".format(game_object.name))
+        # You are on healing!
+        echo.see(
+            actor=game_object,
+            actor_message="You are healing!",
+            observer_message="{} is healing!".format(game_object.name),
+        )
 
     def update(self, game_object):
         """
@@ -34,15 +35,19 @@ class Healing(Effect):
         """
         super().update(game_object)
         health = self.dice.roll()
+        echo.see(
+            actor=game_object,
+            actor_message="You recover {} health.".format(health),
+            observer_message="{} recovers {} health.".format(
+                game_object.name, health
+            ),
+        )
 
-        if echo.is_player(game_object):
-            echo.echo_service.echo("You recover {} health.".format(health))
-        else:
-            echo.echo_service.echo("{} recovers {} health.".format(game_object.name, health))
         game_object.health.restore_health(health)
 
     def on_finish(self, game_object):
-        if echo.is_player(game_object):
-            echo.echo_service.echo("You are no longer healing.")
-        else:
-            echo.echo_service.echo("{} is no longer healing.".format(game_object.name))
+        echo.see(
+            actor=game_object,
+            actor_message="You are no longer healing.",
+            observer_message="{} is no longer healing.".format(game_object.name)
+        )

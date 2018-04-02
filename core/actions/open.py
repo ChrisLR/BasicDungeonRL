@@ -1,31 +1,35 @@
 from core.actions.base import Action
-from services import echo
+from core import contexts, events
 from services.selection import DirectionalSelection, TargetSelectionSet
+from messaging import StringBuilder, Verb, Actor, Target
 
 
 class Open(Action):
+    name = "open"
     target_selection = TargetSelectionSet(DirectionalSelection)
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         if not target_selection:
             return False
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
+    def execute(self, character, target_selection=None):
         if not target_selection:
             return False
 
         for target in target_selection:
             if target.openable and target.openable.closed:
-                target.openable.open()
-                if echo.functions.is_player(character):
-                    echo.echo_service.echo(
-                        "You open {}".format(target.name))
+                if target.openable.open():
+                    context = contexts.Action(character, target)
+                    message = StringBuilder(Actor, Verb("open", Actor), Target)
+                    self.game.echo.see(character, message, context)
+                    if target.events:
+                        target.events.transmit(events.Opened(character))
+
+                    return True
                 else:
-                    echo.echo_service.echo(
-                        "{} opens {}".format(character.name, target.name))
-                return True
+                    context = contexts.Action(character, target)
+                    message = StringBuilder(Actor, Verb("try", Actor), "to open", Target, "but it is locked!")
+                    self.game.echo.see(character, message, context)
 
         return False

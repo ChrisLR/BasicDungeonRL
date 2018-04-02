@@ -1,5 +1,6 @@
 import inspect
 
+from bflib.characters import specialabilities
 from core.components.base import Component
 from services import echo, corpsify
 
@@ -55,28 +56,32 @@ class Health(Component):
         if -constitution < self.current <= 0:
             if self.conscious:
                 self.conscious = False
-                if echo.is_player(self.host):
-                    echo.echo_service.echo("You are unconscious!")
-                else:
-                    echo.echo_service.echo(
-                        "{} falls unconscious!".format(echo.name_or_you(self.host))
+                echo.see(
+                    actor=self.host,
+                    actor_message="You are unconscious!",
+                    observer_message="{} falls unconscious!".format(
+                        echo.name_or_you(self.host)
                     )
+                )
 
         if self.current <= -constitution:
             if not self.dead:
                 self.dead = True
-                if echo.is_player(self.host):
-                    echo.echo_service.echo("You are dead!")
-                else:
-                    echo.echo_service.echo(
-                        "{} is dead!".format(echo.name_or_you(self.host).capitalize())
-                    )
+                echo.see(
+                    actor=self.host,
+                    actor_message="You are dead!",
+                    observer_message="{} is dead!".format(
+                        echo.name_or_you(self.host).capitalize())
+                )
+
                 self.host.blocking = False
                 corpsify.turn_into_corpse(self.host)
                 if attacker and attacker.experience:
                     attacker.experience.add_experience(self.host.query.experience_value())
 
     def update_hit_dice(self, new_hit_dice):
+        penalty = self.host.query.special_ability(specialabilities.FeebleConstitution)
+
         if inspect.isclass(new_hit_dice):
             new_hit_dice = new_hit_dice(amount=1)
 
@@ -86,14 +91,15 @@ class Health(Component):
             if self.first_enforced_maximum:
                 self._base_max_health = new_hit_dice.sides * new_hit_dice.amount
             else:
-                self._base_max_health = new_hit_dice.roll()
+                penalty = self.host.query.special_ability(specialabilities.FeebleConstitution)
+                self._base_max_health = new_hit_dice.roll() - penalty
         else:
             if type(new_hit_dice) in self._hit_dices:
                 delta_amount = new_hit_dice.amount - current_hit_dice.amount
                 if delta_amount > 0:
                     health_gain = 0
                     for i in range(0, delta_amount):
-                        roll = new_hit_dice.manual_roll(1, new_hit_dice.flat_bonus)
+                        roll = new_hit_dice.manual_roll(1, new_hit_dice.flat_bonus - penalty)
                         health_gain += roll
                         self._health_rolls.append(roll)
 

@@ -7,10 +7,6 @@ class Component(SelectionFilter):
     """
     component = None
 
-    def __init__(self, executor):
-        super().__init__(executor)
-        self.view = None
-
     def filter(self, targets):
         if self.component is None:
             raise NotImplementedError()

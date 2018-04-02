@@ -4,13 +4,13 @@ from services.selection import filters
 
 
 class Wield(Action):
+    name = "wield"
     target_selection = selection.TargetSelectionSet(
         selections=selection.Inventory,
         filters=filters.ListBased,
     )
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         if not character.equipment:
             return False
 
@@ -18,8 +18,7 @@ class Wield(Action):
             return False
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
+    def execute(self, character, target_selection=None):
         for target in target_selection:
             if not character.equipment.wield(target):
                 return False

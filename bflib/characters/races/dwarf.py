@@ -38,9 +38,9 @@ class Dwarf(Race):
         specialabilities.DetectTraps,
     ))
     saving_throw_set = savingthrows.SavingThrowSet(
-        death_poison=4,
-        dragon_breath=3,
-        paralysis_stone=4,
-        spells=4,
-        wands=4
+        death_poison=-4,
+        dragon_breath=-3,
+        paralysis_stone=-4,
+        spells=-4,
+        wands=-4
     )

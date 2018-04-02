@@ -1,5 +1,6 @@
+from core import components, contexts
 from core.actions.base import Action
-from core import components
+from messaging import StringBuilder, Verb, Actor, Target
 from services.selection import AllItems, filters, TargetSelectionSet
 
 
@@ -8,24 +9,28 @@ class ConsumableFilter(filters.Component):
 
 
 class Eat(Action):
+    name = "eat"
     target_selection = TargetSelectionSet(
         selections=AllItems,
         filters=(ConsumableFilter, filters.SingleListBased),
     )
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         if not target_selection:
             return False
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
-        effects = target_selection[0].consumable.effects
+    def execute(self, character, target_selection=None):
+        target = target_selection[0]
+        effects = target.consumable.effects
         for effect in effects:
             character.effects.add_effect(effect)
 
-        if not character.inventory.remove(target_selection[0]):
-            character.equipment.remove(target_selection[0])
+        if not character.inventory.remove(target):
+            character.equipment.remove(target)
+
+        context = contexts.Action(character, target)
+        message = StringBuilder(Actor, Verb("eat", Actor), Target)
+        self.game.echo.see(character, message, context)
 
         return True

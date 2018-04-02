@@ -1,1 +1,1 @@
-from bflib.effects.common import Healing
+from bflib.effects.common import Blind, Deaf, FatalPoison, Healing, StrongSmell

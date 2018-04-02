@@ -1,5 +1,6 @@
 from bflib.dice import Dice
 from core.components import Component
+from core import queries
 
 
 class CharacterClass(Component):
@@ -9,6 +10,22 @@ class CharacterClass(Component):
     def __init__(self, *base_classes):
         super().__init__()
         self.base_classes = base_classes
+
+    def on_register(self, host):
+        super().on_register(host)
+        host.query.register_responder(queries.SpecialAbility, self, self.respond_special_abilities)
+
+    def respond_special_abilities(self, query):
+        level = self.host.experience.level
+        special_abilities = []
+        for base_class in self.base_classes:
+            class_level = base_class.level_table.get(level)
+            if base_class.special_abilities:
+                special_abilities.extend(base_class.special_abilities)
+            if class_level.special_ability_set:
+                special_abilities.extend(class_level.special_ability_set)
+
+        query.respond(special_abilities)
 
     def add_class(self, new_class):
         self.base_classes += (new_class,)
