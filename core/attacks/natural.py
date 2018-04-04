@@ -23,7 +23,7 @@ class NaturalAttack(MeleeAttack):
                 message = self.on_success + "for {} damage!".format(damage)
         else:
             message = self.on_failure
-        self.game.echo.player(message, context)
+        self.game.echo.player(attacker, message, context)
 
     def execute(self, attacker, defender, attack_set):
         sneak_attack = False
@@ -54,44 +54,53 @@ class NaturalAttack(MeleeAttack):
 
 @listing.register
 class Bite(NaturalAttack):
+    name = "bite"
     base_attack = attacks.Bite
 
 
 @listing.register
 class Claw(NaturalAttack):
+    name = "claw"
     base_attack = attacks.Claw
 
 
 @listing.register
 class Crush(NaturalAttack):
+    name = "crush"
     base_attack = attacks.Crush
 
 
 @listing.register
 class ConfusionBySwarm(NaturalAttack):
+    name = "Confusion By Swarm"
     base_attack = attacks.ConfusionBySwarm
 
 
 @listing.register
 class Gaze(NaturalAttack):
+    name = "gaze"
     base_attack = attacks.Gaze
 
 
 @listing.register
 class Headbutt(NaturalAttack):
+    name = "headbutt"
     base_attack = attacks.Headbutt
 
 
 @listing.register
 class Hoof(NaturalAttack):
+    name = "hoof"
     base_attack = attacks.Hoof
 
 
 @listing.register
 class Sting(NaturalAttack):
+    name = "sting"
     base_attack = attacks.Sting
 
 
 @listing.register
 class Punch(NaturalAttack):
+    name = "punch"
     base_attack = attacks.Punch

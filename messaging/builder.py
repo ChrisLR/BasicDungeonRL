@@ -28,3 +28,5 @@ class StringBuilder(object):
 
     def __add__(self, other):
         self.args.append(other)
+
+        return self

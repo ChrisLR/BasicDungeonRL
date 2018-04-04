@@ -9,6 +9,7 @@ from messaging import StringBuilder, Attacker, Defender, Verb, His, AttackerWeap
 
 @listing.register
 class WeaponAttack(MeleeAttack):
+    name = "weapon"
     base_attack = attacks.WeaponAttack
     on_success = StringBuilder(Attacker, Verb("hit", Attacker), Defender, "with", His(Attacker), AttackerWeapon)
     on_failure = StringBuilder(Attacker, Verb("miss", Attacker), Defender, "!")
@@ -72,4 +73,5 @@ class WeaponAttack(MeleeAttack):
                 message = self.on_success + "for {} damage!".format(damage)
         else:
             message = self.on_failure
-        self.game.echo.player(message, context)
+        self.game.echo.player(attacker, message, context)
+

@@ -1,6 +1,7 @@
 import random
 
 from core.attacks import listing
+from core.attacks import natural, weapon
 
 
 class Facade(object):
@@ -39,6 +40,7 @@ class Facade(object):
             attack = listing.get_attack(attack_set.attack)
             if attack is None:
                 raise Exception("Attack {} is not implemented.".format(attack_set.attack.name))
+            attack = attack(self.game)
             attack.execute(attacker, defender, attack_set)
 
         return True

@@ -1,11 +1,12 @@
 from bflib.items.base import Item
 from core import components
-from core.factories.items import ItemFactory
 from core.util.colors import Colors
 
 
 def turn_into_corpse(game_object):
-    new_corpse = ItemFactory.create_new(Item)
+    # TODO This is lame
+    item_factory = game_object.game.factory.get("item")
+    new_corpse = item_factory.create_new(Item)
     new_corpse.name = "Corpse of " + game_object.name
     new_corpse.register_component(components.Corpse(game_object))
     new_corpse.display.ascii_character = '%'

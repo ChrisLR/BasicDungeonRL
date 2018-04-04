@@ -5,8 +5,9 @@ class EchoService(object):
 
     def _echo(self, message, context=None):
         if context:
-            self.messages.append(message.do(context))
-        self.messages.append(message + "\n")
+            self.messages.append(message.do(context) + "\n")
+        else:
+            self.messages.append(message + "\n")
 
     def see(self, actor, message, context):
         if actor.player:

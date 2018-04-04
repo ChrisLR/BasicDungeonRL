@@ -17,7 +17,7 @@ class MessageVariable(object):
 
 class Attacker(MessageVariable):
     def get_value(self, context):
-        self.value = context.attacker
+        return context.attacker
 
     def __str__(self):
         if self.value.player:
@@ -27,7 +27,7 @@ class Attacker(MessageVariable):
 
 class Defender(MessageVariable):
     def get_value(self, context):
-        self.value = context.defender
+        return context.defender
 
     def __str__(self):
         if self.value.player:
@@ -37,7 +37,7 @@ class Defender(MessageVariable):
 
 class AttackerWeapon(MessageVariable):
     def get_value(self, context):
-        self.value = context.attacker_weapon
+        return context.attacker_weapon
 
     def __str__(self):
         return self.value.name
@@ -45,7 +45,7 @@ class AttackerWeapon(MessageVariable):
 
 class Actor(MessageVariable):
     def get_value(self, context):
-        self.value = context.actor
+        return context.actor
 
     def __str__(self):
         if self.value.player:
@@ -55,7 +55,7 @@ class Actor(MessageVariable):
 
 class Target(MessageVariable):
     def get_value(self, context):
-        self.value = context.target
+        return context.target
 
     def __str__(self):
         if self.value.player:

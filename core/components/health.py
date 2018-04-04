@@ -2,7 +2,9 @@ import inspect
 
 from bflib.characters import specialabilities
 from core.components.base import Component
-from services import echo, corpsify
+from services import corpsify
+from messaging import StringBuilder, Attacker, Defender
+from core.contexts.combat import Combat
 
 
 class Health(Component):
@@ -47,6 +49,8 @@ class Health(Component):
             self.current = self.max
 
     def take_damage(self, damage, attacker=None):
+        context = Combat(attacker=attacker, defender=self.host)
+        echo = self.host.game.echo
         self.current -= damage
         if self.host.stats:
             constitution = int(self.host.stats.constitution)
@@ -58,10 +62,8 @@ class Health(Component):
                 self.conscious = False
                 echo.see(
                     actor=self.host,
-                    actor_message="You are unconscious!",
-                    observer_message="{} falls unconscious!".format(
-                        echo.name_or_you(self.host)
-                    )
+                    message=StringBuilder(Attacker, "falls unconscious!"),
+                    context=context
                 )
 
         if self.current <= -constitution:
@@ -69,9 +71,8 @@ class Health(Component):
                 self.dead = True
                 echo.see(
                     actor=self.host,
-                    actor_message="You are dead!",
-                    observer_message="{} is dead!".format(
-                        echo.name_or_you(self.host).capitalize())
+                    message=StringBuilder(Attacker, "is dead!"),
+                    context=context
                 )
 
                 self.host.blocking = False
