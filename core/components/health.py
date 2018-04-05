@@ -2,9 +2,9 @@ import inspect
 
 from bflib.characters import specialabilities
 from core.components.base import Component
-from services import corpsify
-from messaging import StringBuilder, Attacker, Defender
 from core.contexts.combat import Combat
+from messaging import StringBuilder, Defender, Verb
+from services import corpsify
 
 
 class Health(Component):
@@ -62,7 +62,7 @@ class Health(Component):
                 self.conscious = False
                 echo.see(
                     actor=self.host,
-                    message=StringBuilder(Attacker, "falls unconscious!"),
+                    message=StringBuilder(Defender, Verb("fall", Defender), "unconscious!"),
                     context=context
                 )
 
@@ -71,7 +71,7 @@ class Health(Component):
                 self.dead = True
                 echo.see(
                     actor=self.host,
-                    message=StringBuilder(Attacker, "is dead!"),
+                    message=StringBuilder(Defender, Verb("are", Defender), "dead!"),
                     context=context
                 )
 

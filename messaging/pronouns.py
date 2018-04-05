@@ -9,8 +9,12 @@ class Pronoun(object):
         self.value = ""
 
     def format(self, context):
-        subject = self.subject.get_value(context)
-        gender = subject.gender
+        subject = self.subject(context).value
+        if hasattr(subject, 'gender'):
+            gender = subject.gender
+        else:
+            gender = None
+
         if subject.player:
             self.value = self.PLAYER
         elif gender is None:

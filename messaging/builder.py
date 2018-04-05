@@ -10,23 +10,21 @@ class StringBuilder(object):
     def do(self, context):
         p_args = []
         for arg in self.args:
-            try:
-                if isinstance(arg, str):
-                    p_args.append(arg)
-                elif isinstance(arg, Verb):
-                    p_args.append(str(arg.format(context)))
-                elif isinstance(arg, Pronoun):
-                    p_args.append(str(arg.format(context)))
-                elif issubclass(arg, MessageVariable):
-                    p_args.append(str(arg(context)))
-            except TypeError:
-                p_args.append(str(arg))
+            if isinstance(arg, str):
+                p_args.append(arg)
+            elif isinstance(arg, Verb):
+                p_args.append(str(arg.format(context)))
+            elif isinstance(arg, Pronoun):
+                p_args.append(str(arg.format(context)))
+            elif issubclass(arg, MessageVariable):
+                p_args.append(str(arg(context)))
 
         partial_result = " ".join(p_args).capitalize()
 
         return partial_result.replace(" '", "'")
 
     def __add__(self, other):
-        self.args.append(other)
+        args = self.args.copy()
+        args.append(other)
 
-        return self
+        return StringBuilder(*args)

@@ -5,11 +5,13 @@ class Verb(object):
         self.value = ""
 
     def format(self, context):
-        subject = self.subject.get_value(context)
+        subject = self.subject(context).value
         if subject.player:
             self.value = self.verb
         else:
             self.value = third_personify(self.verb)
+
+        return self
 
     def __str__(self):
         return self.value
@@ -24,8 +26,16 @@ mapping = {
     "o": lambda verb: verb + "es",
 }
 
+direct_mapping = {
+    "are": "is"
+}
+
 
 def third_personify(verb):
+    direct = direct_mapping.get(verb)
+    if direct is not None:
+        return direct
+
     last_letter = verb[-1]
     result = mapping.get(last_letter, lambda v: v + "s")
 
