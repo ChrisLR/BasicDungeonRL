@@ -11,7 +11,7 @@ class Pronoun(object):
     def format(self, context):
         subject = self.subject(context).value
         if hasattr(subject, 'gender'):
-            gender = subject.gender
+            gender = subject.gender.value
         else:
             gender = None
 
@@ -23,6 +23,8 @@ class Pronoun(object):
             self.value = self.MALE
         elif gender == "Female":
             self.value = self.FEMALE
+
+        return self
 
     def __str__(self):
         return self.value

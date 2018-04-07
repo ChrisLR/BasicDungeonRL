@@ -13,6 +13,7 @@ from core.components.effects import Effects
 from core.components.equipment import Equipment
 from core.components.events import Events
 from core.components.experience import Experience
+from core.components.gender import Gender
 from core.components.health import Health
 from core.components.inventory import Inventory
 from core.components.light import Light
@@ -56,6 +57,7 @@ component_names = {
     Equipment.NAME,
     Events.NAME,
     Experience.NAME,
+    Gender.NAME,
     Health.NAME,
     Location.NAME,
     Lock.NAME,

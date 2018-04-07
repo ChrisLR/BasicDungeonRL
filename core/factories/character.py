@@ -1,5 +1,6 @@
 from bflib.characters.base import Character
 from core import components, flags
+from core.gender import Gender
 from core.gameobject import GameObject
 
 
@@ -42,6 +43,9 @@ class CharacterFactory(object):
         new_character.register_component(components.Inventory())
         new_character.register_component(components.Vision(20))
         new_character.register_component(components.Effects())
+
+        # TODO People will want to choose this
+        new_character.register_component(components.Gender(Gender.Male))
 
         self.game.outfit.outfit_starting_player(new_character)
 
