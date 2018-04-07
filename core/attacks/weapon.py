@@ -73,5 +73,5 @@ class WeaponAttack(MeleeAttack):
                 message = self.on_success + "for {} damage!".format(damage)
         else:
             message = self.on_failure
-        self.game.echo.player(attacker, message, context)
+        self.game.echo.see(attacker, message, context)
 

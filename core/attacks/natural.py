@@ -8,7 +8,7 @@ from messaging import StringBuilder, Attacker, Defender, Verb, His
 
 class NaturalAttack(MeleeAttack):
     on_success = StringBuilder(Attacker, Verb("hit", Attacker), Defender)
-    on_failure = StringBuilder(Defender, Verb("dodge", Defender), Attacker, "'s attack!")
+    on_failure = StringBuilder(Defender, Verb("dodge", Defender), His(Attacker), "attack!")
     on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "attack,")
 
     def can_execute(self, attacker, defender):
@@ -23,7 +23,7 @@ class NaturalAttack(MeleeAttack):
                 message = self.on_success + "for {} damage!".format(damage)
         else:
             message = self.on_failure
-        self.game.echo.player(attacker, message, context)
+        self.game.echo.see(attacker, message, context)
 
     def execute(self, attacker, defender, attack_set):
         sneak_attack = False
