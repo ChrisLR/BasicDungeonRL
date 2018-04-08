@@ -7,11 +7,13 @@ from messaging import StringBuilder, Attacker, Defender, Verb, His
 
 
 class NaturalAttack(MeleeAttack):
+    name = ""
     on_success = StringBuilder(Attacker, Verb("hit", Attacker), Defender)
     on_failure = StringBuilder(Defender, Verb("dodge", Defender), His(Attacker), "attack!")
     on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "attack,")
 
     def can_execute(self, attacker, defender):
+        # Natural attacks should come from the body, in turn it should check for it when used.
         return True
 
     def echo(self, attacker, defender, success, damage, sneak_attack=False):
@@ -56,51 +58,79 @@ class NaturalAttack(MeleeAttack):
 class Bite(NaturalAttack):
     name = "bite"
     base_attack = attacks.Bite
+    on_success = StringBuilder(Attacker, Verb("bite", Attacker), Defender)
+    on_failure = StringBuilder(Defender, Verb("dodge", Defender), His(Attacker), "attack!")
+    on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "bite,")
 
 
 @listing.register
 class Claw(NaturalAttack):
     name = "claw"
     base_attack = attacks.Claw
+    on_success = StringBuilder(Attacker, Verb("claw", Attacker), Defender)
+    on_failure = StringBuilder(Defender, Verb("dodge", Defender), His(Attacker), "attack!")
+    on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "claw,")
 
 
 @listing.register
 class Crush(NaturalAttack):
     name = "crush"
     base_attack = attacks.Crush
+    on_success = StringBuilder(Attacker, Verb("crush", Attacker), Defender)
+    on_failure = StringBuilder(Defender, Verb("dodge", Defender), His(Attacker), "attack!")
+    on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "crushing attack,")
 
 
 @listing.register
 class ConfusionBySwarm(NaturalAttack):
     name = "Confusion By Swarm"
     base_attack = attacks.ConfusionBySwarm
+    on_success = StringBuilder(Attacker, Verb("confuse", Attacker), Defender)
+    on_failure = StringBuilder(Defender, Verb("dodge", Defender), His(Attacker), "attack!")
+    on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "confusing attack,")
 
 
 @listing.register
 class Gaze(NaturalAttack):
     name = "gaze"
     base_attack = attacks.Gaze
+    on_success = StringBuilder(Attacker, Verb("gaze", Attacker), Defender)
+    on_failure = StringBuilder(Defender, Verb("dodge", Defender), His(Attacker), "attack!")
+    on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "gaze,")
 
 
 @listing.register
 class Headbutt(NaturalAttack):
     name = "headbutt"
     base_attack = attacks.Headbutt
+    on_success = StringBuilder(Attacker, Verb("headbutt", Attacker), Defender)
+    on_failure = StringBuilder(Defender, Verb("dodge", Defender), His(Attacker), "attack!")
+    on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "headbutt,")
 
 
 @listing.register
 class Hoof(NaturalAttack):
     name = "hoof"
     base_attack = attacks.Hoof
+    on_success = StringBuilder(Attacker, Verb("hoof", Attacker), Defender)
+    on_failure = StringBuilder(Defender, Verb("dodge", Defender), His(Attacker), "attack!")
+    on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "hoof,")
 
 
 @listing.register
 class Sting(NaturalAttack):
     name = "sting"
     base_attack = attacks.Sting
+    on_success = StringBuilder(Attacker, Verb("sting", Attacker), Defender)
+    on_failure = StringBuilder(Defender, Verb("dodge", Defender), His(Attacker), "attack!")
+    on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "sting,")
 
 
 @listing.register
 class Punch(NaturalAttack):
     name = "punch"
     base_attack = attacks.Punch
+    on_success = StringBuilder(Attacker, Verb("punch", Attacker), Defender)
+    on_failure = StringBuilder(Defender, Verb("dodge", Defender), His(Attacker), "attack!")
+    on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "punch,")
+

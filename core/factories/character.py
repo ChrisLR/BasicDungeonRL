@@ -1,5 +1,5 @@
 from bflib.characters.base import Character
-from core import components, flags
+from core import bodies, components, flags
 from core.gender import Gender
 from core.gameobject import GameObject
 
@@ -46,9 +46,15 @@ class CharacterFactory(object):
 
         # TODO People will want to choose this
         new_character.register_component(components.Gender(Gender.Male))
+        new_character.register_component(components.Body(assign_racial_body(base_race)))
 
         self.game.outfit.outfit_starting_player(new_character)
 
         new_character.flags.add(flags.GameObjectFlags.Character)
 
         return new_character
+
+
+def assign_racial_body(base_race):
+    # TODO This is lame, we will need a better long term solution.
+    return bodies.HumanoidBody()

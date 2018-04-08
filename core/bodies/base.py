@@ -40,6 +40,7 @@ class Body(object):
         self.structural_material = self.template_structural_material()
         self.blood = self.template_blood()
         self.body_parts = body_parts
+        self.bound_abilities = {}
 
     @staticmethod
     def _random_roll_body_part(body_parts):
@@ -71,3 +72,14 @@ class Body(object):
             key=lambda body_part: body_part.relative_size, reverse=True)
 
         return self._random_roll_body_part(size_sorted_body_parts)
+
+    def bind_ability(self, ability, body_parts):
+        self.bound_abilities[ability] = body_parts
+
+    def check_ability(self, ability):
+        # TODO Ideally this would also check for damaged limbs, out of scope for now.
+        bound_body_parts = self.bound_abilities.get(ability)
+        if bound_body_parts is not None:
+            if all((bp for bp in bound_body_parts if bp in self.body_parts)):
+                return True
+        return False

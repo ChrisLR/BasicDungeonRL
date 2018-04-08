@@ -2,6 +2,7 @@ from core.components.ai import AI
 from core.components.ammunition import Ammunition
 from core.components.armor import Armor
 from core.components.base import Component
+from core.components.body import Body
 from core.components.character_class import CharacterClass
 from core.components.combat import Combat
 from core.components.consumable import Consumable
@@ -45,6 +46,7 @@ component_names = {
     AI.NAME,
     Ammunition.NAME,
     Armor.NAME,
+    Body.NAME,
     CharacterClass.NAME,
     CharacterStats.NAME,
     Combat.NAME,
