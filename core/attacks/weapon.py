@@ -16,7 +16,7 @@ class WeaponAttack(MeleeAttack):
     on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "attack,")
 
     def can_execute(self, attacker, defender):
-        if attacker.equipment.wielded_items:
+        if attacker.equipment.get_wielded_items():
             return True
         return False
 
@@ -28,7 +28,7 @@ class WeaponAttack(MeleeAttack):
                 sneak_attack = True
 
         attacker.events.transmit(events.Attacking(attacker))
-        for _ in range(1, attack_set.amount):
+        for _ in range(attack_set.amount):
             if sorted_melee_weapons:
                 weapon = sorted_melee_weapons.pop()
                 damage_dice = weapon.melee.melee_damage

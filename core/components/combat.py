@@ -22,7 +22,7 @@ class Combat(Component):
         if self.host.equipment:
             attack_sets.append(
                 attacks.AttackSet(
-                    attacks.WeaponAttack, amount=len(self.host.equipment.wield_locations)
+                    attacks.WeaponAttack, amount=len(self.host.equipment.get_wielded_grasp_slots())
                 )
             )
 

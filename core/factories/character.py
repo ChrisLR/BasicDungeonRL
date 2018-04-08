@@ -25,8 +25,6 @@ class CharacterFactory(object):
               in new_character.character_class.base_classes)
         ))
         new_character.register_component(components.Equipment(
-            wear_locations=new_character.race.base_race.wear_locations,
-            wield_locations=new_character.race.base_race.wield_locations,
             armor_restrictions=new_character.restrictions.armor,
             weapon_restrictions=new_character.restrictions.weapons,
             weapon_size_restrictions=new_character.restrictions.weapon_size

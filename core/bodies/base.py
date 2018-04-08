@@ -98,3 +98,12 @@ class Body(object):
 
     def get_attacks(self):
         return self.bound_attacks.keys()
+
+    def get_body_parts(self):
+        return self.body_parts
+
+    def get_body_parts_with_slots(self, keyword):
+        return [body_part for body_part in self.body_parts if body_part.has_item_slot(keyword)]
+
+    def get_graspable_body_parts(self):
+        return [body_part for body_part in self.body_parts if body_part.can_grasp]

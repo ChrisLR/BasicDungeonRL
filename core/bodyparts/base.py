@@ -1,10 +1,13 @@
+from bflib.keywords.items import WearLocation, WieldLocation
+from bflib.items.itemslot import ItemSlot
 from core.threatlevels import ThreatLevel
 
 
 class BodyPart(object):
     NAME = ""
     abilities = tuple()
-    item_slots = tuple()
+    base_item_slots = tuple()
+    base_grasp_slots = tuple()
     threat_level = None
     base_relative_size = None
 
@@ -15,6 +18,8 @@ class BodyPart(object):
         self.name = name if name is not None else self.NAME
         self.relative_size = (relative_size if relative_size is not None
                               else self.base_relative_size)
+        self.item_slots = [ItemSlot(keyword) for keyword in self.base_item_slots]
+        self.grasp_slots = [ItemSlot(keyword) for keyword in self.base_grasp_slots]
 
     def attach(self, *bodyparts):
         self.attached_children.extend(bodyparts)
@@ -29,6 +34,10 @@ class BodyPart(object):
         self.embedded_children.extend(bodyparts)
         for bodypart in bodyparts:
             bodypart.parent = self
+
+    def has_item_slot(self, keyword):
+        return any((item_slot for item_slot in self.item_slots
+                    if item_slot.keyword == keyword))
 
     def remove(self, bodypart):
         self.embedded_children.remove(bodypart)
@@ -48,54 +57,65 @@ class Head(BodyPart):
     NAME = "head"
     base_relative_size = 25
     threat_level = ThreatLevel.Major
+    base_item_slots = WearLocation.Head, WearLocation.Face
 
 
 class Neck(BodyPart):
     NAME = "neck"
     base_relative_size = 10
     threat_level = ThreatLevel.Critical
+    base_item_slots = WearLocation.Neck,
 
 
 class Torso(BodyPart):
     NAME = "torso"
     base_relative_size = 50
     threat_level = ThreatLevel.Major
+    base_item_slots = (
+        WearLocation.Torso, WearLocation.Back, WearLocation.Bandolier, WearLocation.Belt, WearLocation.Waist)
 
 
 class Arm(BodyPart):
     NAME = "arm"
     base_relative_size = 25
     threat_level = ThreatLevel.Major
+    base_item_slots = WearLocation.Arms,
 
 
 class Leg(BodyPart):
     NAME = "leg"
     base_relative_size = 25
     threat_level = ThreatLevel.Major
+    base_item_slots = WearLocation.Legs,
 
 
 class Hand(BodyPart):
     NAME = "hand"
     base_relative_size = 10
     threat_level = ThreatLevel.Minor
+    base_item_slots = WearLocation.Hands, WearLocation.Rings
+    base_grasp_slots = WieldLocation.Any,
 
 
 class Foot(BodyPart):
     NAME = "foot"
     base_relative_size = 10
     threat_level = ThreatLevel.Minor
+    base_item_slots = WearLocation.Feet,
 
 
 class Eye(BodyPart):
     NAME = "eye"
     base_relative_size = 5
     threat_level = ThreatLevel.Critical
+    base_item_slots = WearLocation.Eye,
 
 
 class Ear(BodyPart):
     NAME = "ear"
     base_relative_size = 5
     threat_level = ThreatLevel.Minor
+    base_item_slots = WearLocation.Ear,
 
 
 class Mouth(BodyPart):
@@ -150,3 +170,4 @@ class Tail(BodyPart):
     NAME = "Tail"
     base_relative_size = 25
     threat_level = ThreatLevel.Minor
+    base_item_slots = WearLocation.Tail,
