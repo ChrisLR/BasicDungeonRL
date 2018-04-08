@@ -1,7 +1,7 @@
+from bflib import attacks, dice
+from core import materials, bodyparts
 from core.bodies.base import Body
 from core.bodies.blood import Blood
-from core import materials, bodyparts
-from bflib import attacks, dice
 
 
 class HumanoidBody(Body):
@@ -14,7 +14,7 @@ class HumanoidBody(Body):
     template_inner_material = materials.Flesh
     template_outer_material = materials.Skin
 
-    def __init__(self, game):
+    def __init__(self):
         head = bodyparts.Head()
         brain = bodyparts.Brain()
         left_eye = bodyparts.Eye("Left Eye")

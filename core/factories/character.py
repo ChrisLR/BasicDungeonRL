@@ -46,7 +46,7 @@ class CharacterFactory(object):
 
         # TODO People will want to choose this
         new_character.register_component(components.Gender(Gender.Male))
-        new_character.register_component(components.Body(assign_racial_body(base_race, self.game)))
+        new_character.register_component(components.Body(assign_racial_body(base_race)))
 
         self.game.outfit.outfit_starting_player(new_character)
 
@@ -55,6 +55,6 @@ class CharacterFactory(object):
         return new_character
 
 
-def assign_racial_body(base_race, game):
+def assign_racial_body(base_race):
     # TODO This is lame, we will need a better long term solution.
-    return bodies.HumanoidBody(game)
+    return bodies.HumanoidBody()

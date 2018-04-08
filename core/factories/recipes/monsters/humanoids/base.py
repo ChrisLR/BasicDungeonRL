@@ -31,7 +31,7 @@ class HumanoidRecipe(Recipe):
                     WieldLocation.RightHand
                 ]
             ),
-            components.Body(bodies.HumanoidBody(game))
+            components.Body(bodies.HumanoidBody())
         ]
 
         return new_components
