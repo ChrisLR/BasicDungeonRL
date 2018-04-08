@@ -1,6 +1,7 @@
 from bflib.keywords.items import WearLocation, WieldLocation
 from bflib.monsters.humanoids.base import Humanoid
-from core import components
+
+from core import bodies, components
 from core.factories.recipes import listing, Recipe
 from core.factories.recipes.monsters import MonsterRecipe
 
@@ -13,7 +14,7 @@ class HumanoidRecipe(Recipe):
     outfits = None
 
     @staticmethod
-    def build_components(monster_type):
+    def build_components(monster_type, game):
         # TODO This method of assigning wear locations is bad.
         new_components = [
             components.Equipment(
@@ -29,7 +30,8 @@ class HumanoidRecipe(Recipe):
                     WieldLocation.LeftHand,
                     WieldLocation.RightHand
                 ]
-            )
+            ),
+            components.Body(bodies.HumanoidBody(game))
         ]
 
         return new_components

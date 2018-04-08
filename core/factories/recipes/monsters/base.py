@@ -15,7 +15,7 @@ class MonsterRecipe(Recipe):
     outfits = None
 
     @staticmethod
-    def build_components(monster_type):
+    def build_components(monster_type, game):
         name = monster_type.name if monster_type.name else monster_type.__name__
 
         new_components = [

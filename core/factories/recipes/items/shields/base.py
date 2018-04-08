@@ -13,7 +13,7 @@ class ShieldRecipe(Recipe):
     depends_on = [ItemRecipe]
 
     @staticmethod
-    def build_components(item_type):
+    def build_components(item_type, game):
         new_components = [
             components.Shield(
                 armor_class_melee=item_type.armor_class_melee,

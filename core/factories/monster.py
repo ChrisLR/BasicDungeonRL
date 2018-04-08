@@ -54,7 +54,7 @@ class MonsterFactory(object):
         if result_components is None:
             result_components = []
 
-        built_components = recipe.build_components(base_monster)
+        built_components = recipe.build_components(base_monster, self.game)
         if built_components:
             result_components.extend(built_components)
 

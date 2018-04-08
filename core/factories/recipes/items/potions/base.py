@@ -13,7 +13,7 @@ class PotionRecipe(Recipe):
     depends_on = [ItemRecipe]
 
     @staticmethod
-    def build_components(item_type):
+    def build_components(item_type, game):
         effect_type = next((effect for effect in effects.listing if effect.name == item_type.effect.name))
         effect = effect_type(item_type.effect.duration, dice=item_type.effect.dice)
         new_components = [

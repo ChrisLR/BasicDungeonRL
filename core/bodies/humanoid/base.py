@@ -1,6 +1,7 @@
 from core.bodies.base import Body
 from core.bodies.blood import Blood
 from core import materials, bodyparts
+from bflib import attacks, dice
 
 
 class HumanoidBody(Body):
@@ -13,7 +14,7 @@ class HumanoidBody(Body):
     template_inner_material = materials.Flesh
     template_outer_material = materials.Skin
 
-    def __init__(self):
+    def __init__(self, game):
         head = bodyparts.Head()
         brain = bodyparts.Brain()
         left_eye = bodyparts.Eye("Left Eye")
@@ -41,4 +42,12 @@ class HumanoidBody(Body):
         right_arm.attach(right_hand)
         left_leg.attach(left_foot)
         right_leg.attach(right_foot)
+
         super().__init__(head.get_all_descendants())
+        punch_attack = attacks.AttackSet(attacks.Punch(dice.D4(1)))
+        self.bind_attack(punch_attack, (left_arm, left_hand))
+        self.bind_attack(punch_attack, (right_arm, right_hand))
+
+        kick_attack = attacks.AttackSet(attacks.Kick(dice.D4(1)))
+        self.bind_attack(kick_attack, (left_leg, left_foot))
+        self.bind_attack(kick_attack, (right_leg, right_foot))

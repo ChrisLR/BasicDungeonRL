@@ -134,3 +134,11 @@ class Punch(NaturalAttack):
     on_failure = StringBuilder(Defender, Verb("dodge", Defender), His(Attacker), "attack!")
     on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "punch,")
 
+
+@listing.register
+class Kick(NaturalAttack):
+    name = "kick"
+    base_attack = attacks.Kick
+    on_success = StringBuilder(Attacker, Verb("kick", Attacker), Defender)
+    on_failure = StringBuilder(Defender, Verb("dodge", Defender), His(Attacker), "attack!")
+    on_stealth = StringBuilder(Attacker, Verb("surprise", Attacker), Defender, "with", His(Attacker), "kick,")

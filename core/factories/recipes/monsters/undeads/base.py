@@ -13,7 +13,7 @@ class UndeadRecipe(Recipe):
     outfits = None
 
     @staticmethod
-    def build_components(monster_type):
+    def build_components(monster_type, game):
         # TODO This method of assigning wear locations is bad.
         new_components = [
             components.Equipment(

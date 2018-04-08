@@ -25,12 +25,9 @@ class Combat(Component):
                     attacks.WeaponAttack, amount=len(self.host.equipment.wield_locations)
                 )
             )
-            # TODO This is an ugly hack and proves we need a real body component.
-            attack_sets.append(
-                attacks.AttackSet(
-                    attacks.Punch(dice.D4), amount=len(self.host.equipment.wield_locations)
-                )
-            )
+
+        if self.host.body:
+            attack_sets.extend(self.host.body.get_attacks())
 
         if self.host.monster and self.host.monster.base_monster.attack_sets:
             attack_sets.extend(

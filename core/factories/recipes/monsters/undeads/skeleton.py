@@ -16,7 +16,7 @@ class SkeletonRecipe(Recipe):
     outfits = (skeleton_outfits.SkeletonPack1, skeleton_outfits.SkeletonPack2)
 
     @staticmethod
-    def build_components(monster_type):
+    def build_components(monster_type, game):
         new_components = [
             components.AI(personalities.MindlessBerserk),
         ]

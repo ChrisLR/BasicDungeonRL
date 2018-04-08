@@ -13,7 +13,7 @@ class CoinRecipe(Recipe):
     depends_on = [ItemRecipe]
 
     @staticmethod
-    def build_components(item_type):
+    def build_components(item_type, game):
         name = item_type.name if item_type.name else item_type.__name__
 
         # This is weird, I know, but a coin is both a price and an item.

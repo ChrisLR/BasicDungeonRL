@@ -41,6 +41,7 @@ class Body(object):
         self.blood = self.template_blood()
         self.body_parts = body_parts
         self.bound_abilities = {}
+        self.bound_attacks = {}
 
     @staticmethod
     def _random_roll_body_part(body_parts):
@@ -76,6 +77,17 @@ class Body(object):
     def bind_ability(self, ability, body_parts):
         self.bound_abilities[ability] = body_parts
 
+    def bind_attack(self, attack, body_parts):
+        self.bound_attacks[attack] = body_parts
+
+    def check_attack(self, attack):
+        # TODO Ideally this would also check for damaged limbs, out of scope for now.
+        bound_body_parts = self.bound_attacks.get(attack)
+        if bound_body_parts is not None:
+            if all((bp for bp in bound_body_parts if bp in self.body_parts)):
+                return True
+        return False
+
     def check_ability(self, ability):
         # TODO Ideally this would also check for damaged limbs, out of scope for now.
         bound_body_parts = self.bound_abilities.get(ability)
@@ -83,3 +95,6 @@ class Body(object):
             if all((bp for bp in bound_body_parts if bp in self.body_parts)):
                 return True
         return False
+
+    def get_attacks(self):
+        return self.bound_attacks.keys()
