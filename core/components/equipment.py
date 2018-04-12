@@ -66,12 +66,21 @@ class Equipment(Component):
                         proper_slot.item = item
                     else:
                         return False
+
+                context = contexts.Action(self.host, item)
+                message = StringBuilder(Actor, Verb("wear", Actor), Target, ".")
+                self.host.game.echo.see(self.host, message, context)
+
+                return True
             else:
                 # Single Location Slot
                 proper_slot = next((item_slot for item_slot in empty_item_slots
                                     if item_slot.keyword == wear_location_set), None)
                 if proper_slot is not None:
                     proper_slot.item = item
+                    context = contexts.Action(self.host, item)
+                    message = StringBuilder(Actor, Verb("wear", Actor), Target, ".")
+                    self.host.game.echo.see(self.host, message, context)
                     return True
         return False
 

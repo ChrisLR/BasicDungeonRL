@@ -27,12 +27,18 @@ class Get(Action):
             return False
 
         for target in target_selection:
-            if not character.inventory.add(target):
-                if character.equipment.wield(target):
-                    return False
+            if not self.added_worn_wielded(character, target):
+                return False
 
             target_level = target.location.level
             if target_level:
                 target_level.remove_object(target)
 
+        return True
+
+    def added_worn_wielded(self, character, target):
+        if (not character.inventory.add(target)
+                and not character.equipment.wear(target)
+                and not character.equipment.wield(target)):
+            return False
         return True
