@@ -1,7 +1,7 @@
 from bflib import units
+from core import contexts
 from core.components import Component
 from messaging import StringBuilder, Actor, Target, Verb
-from core import contexts
 
 
 class Equipment(Component):
@@ -13,52 +13,37 @@ class Equipment(Component):
     This component attaches itself to anything with a bodies.
     It represents equipment worn or wielded
     """
-    def __init__(self, wear_locations, wield_locations, armor_restrictions=None, weapon_restrictions=None,
+    def __init__(self, armor_restrictions=None, weapon_restrictions=None,
                  weapon_size_restrictions=None):
         super().__init__()
         self.armor_restrictions = armor_restrictions
         self.weapon_restrictions = weapon_restrictions
         self.weapon_size_restrictions = weapon_size_restrictions
 
-        self.wear_locations = wear_locations
-        self.wield_locations = wield_locations
-        self.empty_wield_locations = list(wield_locations)
-
-        self.worn_items = {}
-        self.wielded_items = {}
-
     def copy(self):
         new_equipment = Equipment(
-            wear_locations=self.wear_locations,
-            wield_locations=self.wield_locations,
             armor_restrictions=self.armor_restrictions,
             weapon_restrictions=self.weapon_restrictions
         )
-        new_equipment.worn_items = {location: item.copy() for location, item in self.worn_items.items()}
-        new_equipment.wielded_items = {location: item.copy() for location, item in self.wielded_items.items()}
 
         return new_equipment
 
     def remove(self, item):
-        found_locations = []
-        for location, worn_item in self.worn_items.items():
-            if worn_item == item:
-                found_locations.append(location)
+        found_slots = False
+        for item_slot in self.get_worn_item_slots():
+            if item_slot.item == item:
+                found_slots = True
+                item_slot.item = None
 
-        if found_locations:
-            for location in found_locations:
-                self.empty_wield_locations.append(location)
-                del self.worn_items[location]
+        if found_slots:
             return True
 
-        for location, wielded_item in self.wielded_items.items():
-            if wielded_item == item:
-                found_locations.append(location)
+        for item_slot in self.get_wielded_grasp_slots():
+            if item_slot.item == item:
+                item_slot.item = None
+                found_slots = True
 
-        if found_locations:
-            for location in found_locations:
-                self.empty_wield_locations.append(location)
-                del self.wielded_items[location]
+        if found_slots:
             return True
 
         return False
@@ -70,21 +55,33 @@ class Equipment(Component):
         if not item.wearable:
             return False
 
+        empty_item_slots = self.get_empty_item_slots()
         for wear_location_set in item.wearable.wear_locations:
             if hasattr(wear_location_set, '__iter__'):
                 # Multiple Location Slot
                 for slot in wear_location_set:
-                    if self.worn_items.get(slot, None):
+                    proper_slot = next((item_slot for item_slot in empty_item_slots
+                                        if item_slot.keyword == slot), None)
+                    if proper_slot is not None:
+                        proper_slot.item = item
+                    else:
                         return False
 
-                for slot in wear_location_set:
-                    self.worn_items[slot] = item
+                context = contexts.Action(self.host, item)
+                message = StringBuilder(Actor, Verb("wear", Actor), Target, ".")
+                self.host.game.echo.see(self.host, message, context)
+
+                return True
             else:
                 # Single Location Slot
-                if not self.worn_items.get(wear_location_set, None):
-                    self.worn_items[wear_location_set] = item
+                proper_slot = next((item_slot for item_slot in empty_item_slots
+                                    if item_slot.keyword == wear_location_set), None)
+                if proper_slot is not None:
+                    proper_slot.item = item
+                    context = contexts.Action(self.host, item)
+                    message = StringBuilder(Actor, Verb("wear", Actor), Target, ".")
+                    self.host.game.echo.see(self.host, message, context)
                     return True
-
         return False
 
     def wield(self, item):
@@ -100,10 +97,11 @@ class Equipment(Component):
                 if keyword == self.weapon_size_restrictions.keywords.NeedsTwoHands:
                     hands = 2
 
-        if len(self.empty_wield_locations) >= hands:
+        empty_grasp_slots = self.get_empty_grasp_slots()
+        if len(empty_grasp_slots) >= hands:
             while hands > 0:
-                location = self.empty_wield_locations.pop(0)
-                self.wielded_items[location] = item
+                item_slot = empty_grasp_slots.pop(0)
+                item_slot.item = item
                 hands -= 1
 
             context = contexts.Action(self.host, item)
@@ -128,12 +126,32 @@ class Equipment(Component):
         return armor_ac + shield_ac
 
     def get_all_items(self):
-        items = list(self.worn_items.values())
-        items.extend(self.wielded_items.values())
+        items = self.get_worn_items()
+        items.extend(self.get_wielded_items())
+
         return items
 
+    def get_empty_item_slots(self):
+        body_parts = self.host.body.get_body_parts()
+        return [item_slot for body_part in body_parts for item_slot in body_part.item_slots if not item_slot.item]
+
+    def get_empty_grasp_slots(self):
+        body_parts = self.host.body.get_body_parts()
+        return [item_slot for body_part in body_parts for item_slot in body_part.grasp_slots if not item_slot.item]
+
     def get_worn_items(self):
-        return self.worn_items.values()
+        return [item_slot.item for item_slot in self.get_worn_item_slots()]
+
+    def get_worn_item_slots(self):
+        body_parts = self.host.body.get_body_parts()
+        return [item_slot for body_part in body_parts for item_slot in body_part.item_slots if item_slot.item]
+
+    def get_wielded_items(self):
+        return [item_slot.item for item_slot in self.get_wielded_grasp_slots()]
+
+    def get_wielded_grasp_slots(self):
+        body_parts = self.host.body.get_body_parts()
+        return [grasp_slot for body_part in body_parts for grasp_slot in body_part.grasp_slots if grasp_slot.item]
 
     def get_load_of_worn_items(self):
         worn_items = self.get_worn_items()
@@ -142,6 +160,3 @@ class Equipment(Component):
             total_weight += item.weight.score
 
         return total_weight
-
-    def get_wielded_items(self):
-        return self.wielded_items.values()

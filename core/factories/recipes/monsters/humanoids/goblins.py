@@ -16,7 +16,7 @@ class GoblinRecipe(Recipe):
     outfits = (goblin_outfits.GoblinPack1, goblin_outfits.GoblinPack2)
 
     @staticmethod
-    def build_components(monster_type):
+    def build_components(monster_type, game):
         new_components = [
             components.AI(personalities.Goblin),
         ]

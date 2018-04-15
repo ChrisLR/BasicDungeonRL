@@ -4,5 +4,5 @@ class Recipe(object):
     depends_on = []
 
     @staticmethod
-    def build_components(object_type):
+    def build_components(object_type, game):
         pass

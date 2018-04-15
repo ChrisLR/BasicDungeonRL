@@ -36,3 +36,7 @@ class Sting(NaturalAttack):
 
 class Punch(NaturalAttack):
     name = "Punch"
+
+
+class Kick(NaturalAttack):
+    name = "Kick"

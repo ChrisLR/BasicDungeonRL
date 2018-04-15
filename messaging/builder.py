@@ -21,7 +21,7 @@ class StringBuilder(object):
 
         partial_result = " ".join(p_args).capitalize()
 
-        return partial_result.replace(" '", "'")
+        return partial_result.replace(" '", "'").replace(" .", ".")
 
     def __add__(self, other):
         args = self.args.copy()

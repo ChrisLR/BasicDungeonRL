@@ -26,7 +26,7 @@ class Wear(Action):
 
     def execute(self, character, target_selection=None):
         for target in target_selection:
-            if target in character.equipment.wielded_items():
+            if target in character.equipment.get_wielded_items():
                 character.equipment.remove(target)
 
             if not character.equipment.wear(target):

@@ -33,7 +33,7 @@ class ItemFactory(object):
         if result_components is None:
             result_components = []
 
-        result_components.extend(recipe.build_components(base_item))
+        result_components.extend(recipe.build_components(base_item, self.game))
         for required_recipe in recipe.depends_on:
             self.get_recursive_components(base_item, required_recipe, result_components)
 

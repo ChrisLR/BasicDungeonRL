@@ -61,3 +61,13 @@ class Target(MessageVariable):
         if self.value.player:
             return "you"
         return self.value.name
+
+
+class TargetOne(Target):
+    def get_value(self, context):
+        return context.target_one
+
+
+class TargetTwo(Target):
+    def get_value(self, context):
+        return context.target_two

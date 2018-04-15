@@ -1,7 +1,8 @@
-from bflib.dice import D6
 from bflib import effects
+from bflib.dice import D6
+from core.contexts import Action
 from core.effects.base import Effect
-from services import echo
+from messaging import StringBuilder, Actor, Verb
 
 
 class Healing(Effect):
@@ -20,11 +21,13 @@ class Healing(Effect):
         :param game_object:
         :return:
         """
-        # You are on healing!
-        echo.see(
+        context = Action(game_object, None)
+        message = StringBuilder(Actor, Verb("start", Actor),  "healing!")
+
+        game_object.game.echo.see(
             actor=game_object,
-            actor_message="You are healing!",
-            observer_message="{} is healing!".format(game_object.name),
+            message=message,
+            context=context,
         )
 
     def update(self, game_object):
@@ -35,19 +38,22 @@ class Healing(Effect):
         """
         super().update(game_object)
         health = self.dice.roll()
-        echo.see(
+        context = Action(game_object, None)
+        message = StringBuilder(Actor, Verb("recover", Actor), "%s health!" % health)
+
+        game_object.game.echo.see(
             actor=game_object,
-            actor_message="You recover {} health.".format(health),
-            observer_message="{} recovers {} health.".format(
-                game_object.name, health
-            ),
+            message=message,
+            context=context,
         )
 
         game_object.health.restore_health(health)
 
     def on_finish(self, game_object):
-        echo.see(
+        context = Action(game_object, None)
+        message = StringBuilder(Actor, Verb("is", Actor), "no longer healing.")
+        game_object.game.echo.see(
             actor=game_object,
-            actor_message="You are no longer healing.",
-            observer_message="{} is no longer healing.".format(game_object.name)
+            message=message,
+            context=context,
         )

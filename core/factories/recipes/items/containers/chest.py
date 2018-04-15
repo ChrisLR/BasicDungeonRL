@@ -13,7 +13,7 @@ class ChestRecipe(Recipe):
     depends_on = [ItemRecipe]
 
     @staticmethod
-    def build_components(item_type):
+    def build_components(item_type, game):
         new_components = [
             components.Container(
                 container_type=item_type.container_type,

@@ -13,7 +13,7 @@ class ContainerRecipe(Recipe):
     depends_on = [ItemRecipe]
 
     @staticmethod
-    def build_components(item_type):
+    def build_components(item_type, game):
         new_components = [
             components.Container(
                 container_type=item_type.container_type,
@@ -33,7 +33,7 @@ class LiquidContainerRecipe(Recipe):
     depends_on = [ItemRecipe]
 
     @staticmethod
-    def build_components(item_type):
+    def build_components(item_type, game):
         new_components = [
             components.LiquidContainer(
                 container_type=item_type.container_type,
@@ -52,7 +52,7 @@ class SpecialContainerRecipe(Recipe):
     depends_on = [ItemRecipe]
 
     @staticmethod
-    def build_components(item_type):
+    def build_components(item_type, game):
         new_components = [
             components.SpecialContainer(
                 container_type=item_type.container_type,

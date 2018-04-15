@@ -14,7 +14,7 @@ class ItemRecipe(Recipe):
     depends_on = []
 
     @staticmethod
-    def build_components(item_type):
+    def build_components(item_type, game):
         name = item_type.name if item_type.name else item_type.__name__
 
         new_components = [

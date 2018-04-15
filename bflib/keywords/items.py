@@ -7,6 +7,8 @@ class WearLocation(Enum):
     Back = "back"
     Bandolier = "bandolier"
     Belt = "belt"
+    Ear = "ear"
+    Eye = "eye"
     Feet = "feet"
     Face = "face"
     Hands = "hands"
@@ -14,6 +16,7 @@ class WearLocation(Enum):
     Legs = "legs"
     Neck = "neck"
     Rings = "rings"
+    Tail = "tail"
     Torso = "torso"
     Waist = "waist"
     none = None

@@ -1,6 +1,6 @@
 from core import contexts
 from core.components.base import Component
-from messaging import StringBuilder, Actor, Target, His, Verb
+from messaging import StringBuilder, Actor, TargetOne, TargetTwo, His, Verb
 
 
 class Inventory(Component):
@@ -15,8 +15,8 @@ class Inventory(Component):
             containers = (item.container for item in self.host.equipment.get_all_items() if item.container)
             for container in containers:
                 if container.add_item(item):
-                    message = StringBuilder(Actor, Verb("add", Actor), "to", His, Target)
-                    context = contexts.Action(self.host, container.host.name)
+                    message = StringBuilder(Actor, Verb("add", Actor), TargetOne, "to", His(Actor), TargetTwo)
+                    context = contexts.TwoTargetAction(self.host, item, container.host)
                     self.host.game.echo.see(self.host, message, context)
 
                     return True
