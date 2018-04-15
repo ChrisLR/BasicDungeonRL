@@ -1,8 +1,10 @@
 from bflib import dice
 from bflib.characters.specialabilities import OpenLock as OpenLockAbility
+from core import contexts
 from core.abilities.base import Ability
 from core.components import Lock
-from services import echo, selection
+from messaging import StringBuilder, Actor, Verb, Target
+from services import selection
 from services.selection import filters
 
 
@@ -22,8 +24,7 @@ class OpenLock(Ability):
         selections=selection.DirectionalSelection,
         filters=(OnlyWithLocks, filters.SingleListBased))
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         if not target_selection:
             return False
 
@@ -32,8 +33,8 @@ class OpenLock(Ability):
             return False
 
         if target_selection[0].lock.has_failed(character):
-            echo.player_echo(
-                character, "You can not make another attempt this level.")
+            self.game.echo.player(character, "You can not make another attempt this level.")
+
             return False
 
         if character.query.special_ability(OpenLockAbility) <= 0:
@@ -41,29 +42,29 @@ class OpenLock(Ability):
 
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
+    def execute(self, character, target_selection=None):
         open_lock_target = character.query.special_ability(OpenLockAbility)
         item = target_selection[0]
         value = dice.D100(1).roll()
         if value > open_lock_target:
-            echo.see(
+            context = contexts.Action(character, item)
+            message = StringBuilder(Actor, Verb("fail", Actor), "at picking", Target, "'s lock!")
+            self.game.echo.see(
                 actor=character,
-                actor_message="You fail at picking {}'s lock!"
-                              "".format(item.name),
-                observer_message="{} fails at picking {}'s lock!"
-                                 "".format(character.name, item.name)
+                message=message,
+                context=context
             )
             item.lock.add_failed_attempt(character, character.experience.level)
+
             return False
-        else:
-            item.lock.unlock()
-            echo.see(
-                actor=character,
-                actor_message="You succeed in picking {}'s lock!"
-                              "".format(item.name),
-                observer_message="{} succeeds in picking {}'s lock!"
-                                 "".format(character.name, item.name)
-            )
+
+        item.lock.unlock()
+        context = contexts.Action(character, item)
+        message = StringBuilder(Actor, Verb("succeed", Actor), "at picking", Target, "'s lock!")
+        self.game.echo.see(
+            actor=character,
+            message=message,
+            context=context
+        )
 
         return True

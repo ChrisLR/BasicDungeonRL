@@ -1,10 +1,10 @@
 from bflib import dice
 from bflib.characters.specialabilities import PickPockets as PickPocketAbility
-from core import components
 from core.abilities.base import Ability
-from services import echo
+from core import contexts
 from services import selection
 from services.selection import filters, TargetSelectionSet, TargetSelectionChain
+from messaging import StringBuilder, Actor, Verb, TargetOne, TargetTwo
 
 
 class PickPocket(Ability):
@@ -38,37 +38,28 @@ class PickPocket(Ability):
 
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
+    def execute(self, character, target_selection=None):
         holder = target_selection.get("Holder")
         item = target_selection.get("Item")
         pick_pocket_target = character.query.special_ability(PickPocketAbility)
         value = dice.D100(1).roll()
-
+        context = contexts.TwoTargetAction(character, holder, item)
         if value > pick_pocket_target:
             if value == 100 or value >= pick_pocket_target * 2:
-                echo.see(
-                    actor=character,
-                    actor_message="{} catches you trying to steal!".format(holder.name),
-                    observer_message="{} catches {} trying to steal!".format(
-                        echo.name_or_you(holder),
-                        character.name,
-                    )
-                )
+                message = StringBuilder(TargetOne, Verb("catch", TargetOne), Actor, "trying to steal")
+                self.game.echo.see(character, message, context)
             else:
-                echo.player_echo(
-                    actor=character,
-                    message="You fail your pick pocket attempt!"
-                )
+                self.game.echo.player(character, "You fail your pick pocket attempt!")
 
             return False
         else:
             if holder.inventory.remove(item):
                 if character.inventory.add(item):
-                    echo.player_echo(
-                        character, "You steal {} from {} !".format(item.name, holder.name))
+                    message = StringBuilder(Actor, Verb("steal", Actor), TargetTwo, "from", TargetOne)
+                    self.game.echo.player(character, message)
                 else:
                     holder.inventory.add(item)
-                    echo.player_echo(
-                        character, "You are too full to steal {} from {} !".format(item.name, holder.name))
+                    message = StringBuilder(Actor, "are too full to steal", TargetTwo, "from", TargetOne, "!")
+                    self.game.echo.player(character, message)
+
         return True

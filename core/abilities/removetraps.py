@@ -1,9 +1,9 @@
 from bflib import dice
 from bflib.characters.specialabilities import RemoveTraps as RemoveTrapsAbility
-from core import components
+from core import components, contexts
 from core.abilities.base import Ability
-from services import echo
 from services.selection import DirectionalSelection, filters, TargetSelectionSet
+from messaging import StringBuilder, Actor, Verb, Target
 
 
 class RemoveTraps(Ability):
@@ -12,15 +12,13 @@ class RemoveTraps(Ability):
         selections=DirectionalSelection,
         filters=filters.SingleListBased)
 
-    @classmethod
-    def can_execute(cls, character, target_selection=None):
+    def can_execute(self, character, target_selection=None):
         if not target_selection:
             return False
 
         if target_selection[0].trap:
             if target_selection[0].trap.has_failed(character):
-                echo.player_echo(
-                    character, "You think there is no trap.")
+                self.game.echo.player(character, "You think there is no trap.")
                 return False
 
         if character.query.special_ability(RemoveTrapsAbility) <= 0:
@@ -28,25 +26,21 @@ class RemoveTraps(Ability):
 
         return True
 
-    @classmethod
-    def execute(cls, character, target_selection=None):
+    def execute(self, character, target_selection=None):
         remove_trap_target = character.query.special_ability(RemoveTrapsAbility)
         item = target_selection[0]
         value = dice.D100(1).roll()
+        context = contexts.Action(character, item)
         if not target_selection[0].trap or value > remove_trap_target:
-            return echo.player_echo(character, "You think there is no trap.")
+            self.game.echo.player(character, "You think there is no trap.")
+            return False
         else:
-            echo.player_echo(
-                character, "You found a " + item.trap.name)
+            message = StringBuilder(Actor, Verb("found", Actor), "a", Target)
+            self.game.player(character, message, context)
 
         value = dice.D100(1).roll()
-        echo.see(
-            actor=character,
-            actor_message="You attempt to disarm {}'s trap..."
-                          "".format(item.name),
-            observer_message="{} attempts to disarm {}'s trap..."
-                             "".format(character.name, item.name)
-        )
+        message = StringBuilder(Actor, Verb("attempt", Actor), "to disarm", Target, "'s trap...")
+        self.game.see(character, message, context)
         if value > remove_trap_target:
             item.trap.add_failed_attempt(character, character.experience.level)
             return False
