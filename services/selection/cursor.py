@@ -2,7 +2,6 @@ from bearlibterminal import terminal
 from clubsandwich.geom import Point
 from clubsandwich.ui import UIScene, LabelView, RectView
 
-from core import actionmapping
 from core.direction import move_direction_mapping
 from services.selection.base import Selection
 
@@ -17,6 +16,8 @@ class CursorScene(UIScene):
     covers_screen = False
 
     def __init__(self, game, selection, executor):
+        self.game = game
+        self.action_mapping = game.action_mapping
         views = game.game_context.game_scene.view.subviews.copy()
         self.label = LabelView("")
         self.cursor_view = CursorView(game.game_context.camera, self)
@@ -39,7 +40,7 @@ class CursorScene(UIScene):
             self.selection.resolution = game_objects
             self.director.pop_scene()
 
-        action = actionmapping.lowercase_mapping.get(val, None)
+        action = self.action_mapping.lowercase_mapping.get(val, None)
         if not action:
             return
 
@@ -70,4 +71,3 @@ class CursorView(RectView):
         screen_position.x += 1
         screen_position.y += 1
         ctx.print(screen_position, "X")
-
