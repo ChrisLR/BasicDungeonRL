@@ -9,9 +9,9 @@ from core.actions.move import WalkE, WalkN, WalkNE, WalkNW, WalkS, WalkSE, WalkS
 from core.actions.open import Open
 from core.actions.put import Put
 from core.actions.remove import Remove
+from core.actions.useability import UseAbility
 from core.actions.wear import Wear
 from core.actions.wield import Wield
-
 
 action_listing = {
     AddClass,
@@ -33,7 +33,8 @@ action_listing = {
     Put,
     Remove,
     Wear,
-    Wield
+    Wield,
+    UseAbility
 }
 action_mapping = {
     action.name: action for action in action_listing

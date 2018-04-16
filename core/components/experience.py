@@ -46,20 +46,16 @@ class Experience(Component):
 
     def level_up(self):
         self.level += 1
-        echo.player_echo(
-            actor=self.host,
-            message="You advance to level {}".format(self.level)
-        )
+        self.host.echo.player(self.host, "You advance to level {}".format(self.level))
         self.host.health.on_level_up()
 
     def add_new_class(self):
         # This means we were in negative levels and must choose
         # A new class
-        from core.game.manager import game
-        from core.actions.addclass import AddClass
 
         # TODO Each GameObject needs its own ActionStack
-        game.game_context.action_stack.add_action_to_stack(AddClass)
+        add_class_action = self.host.game.actions.get("add_class")
+        self.host.game.action_stack.add_action_to_stack(add_class_action)
         return
 
     def copy(self):

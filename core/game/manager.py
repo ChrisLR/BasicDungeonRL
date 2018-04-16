@@ -14,6 +14,7 @@ from core.actionmapping import ActionMapping
 
 class Game(object):
     def __init__(self):
+        self.action_stack = None
         self.abilities = abilities.Facade(self)
         self.attacks = attacks.Facade(self)
         self.actions = actions.Facade(self)

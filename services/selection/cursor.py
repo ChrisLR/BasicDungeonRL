@@ -18,9 +18,9 @@ class CursorScene(UIScene):
     def __init__(self, game, selection, executor):
         self.game = game
         self.action_mapping = game.action_mapping
-        views = game.game_context.game_scene.view.subviews.copy()
+        views = game.game_scene.view.subviews.copy()
         self.label = LabelView("")
-        self.cursor_view = CursorView(game.game_context.camera, self)
+        self.cursor_view = CursorView(game, self)
         views.append(self.label)
         views.append(self.cursor_view)
         super().__init__(views=views)
