@@ -12,3 +12,4 @@ class PotionOfHealing(Potion):
     price = None
     size = Size.Small
     weight = units.Pound(0.5)
+3
