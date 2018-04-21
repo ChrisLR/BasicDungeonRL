@@ -29,6 +29,7 @@ from core.components.movement import Movement
 from core.components.openable import Openable
 from core.components.player import Player
 from core.components.race import Race
+from core.components.ranged import Ranged
 from core.components.restrictions import Restrictions
 from core.components.savingthrows import SavingThrows
 from core.components.valuable import Valuable
@@ -74,6 +75,7 @@ component_names = {
     Openable.NAME,
     Player.NAME,
     Race.NAME,
+    Ranged.NAME,
     Restrictions.NAME,
     SavingThrows.NAME,
     Valuable.NAME,
