@@ -67,12 +67,7 @@ class MeleeAttack(Attack):
 
 
 class RangedAttack(Attack):
-    def __init__(self, base_attack, attacker, defender):
-        self.base_attack = base_attack
-        self.attacker = attacker
-        self.defender = defender
-        self.success = None
-        self.total_damage = 0
+    base_attack = None
 
     def execute(self):
         self.success = self.make_hit_roll()
