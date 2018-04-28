@@ -4,6 +4,7 @@ from core.actions.close import Close
 from core.actions.drop import Drop
 from core.actions.eat import Eat
 from core.actions.get import Get
+from core.actions.fire import Fire
 from core.actions.look import Look
 from core.actions.move import WalkE, WalkN, WalkNE, WalkNW, WalkS, WalkSE, WalkSW, WalkW
 from core.actions.open import Open
@@ -20,6 +21,7 @@ action_listing = {
     Drop,
     Eat,
     Get,
+    Fire,
     Look,
     WalkE,
     WalkN,
@@ -36,6 +38,7 @@ action_listing = {
     Wield,
     UseAbility
 }
+
 action_mapping = {
     action.name: action for action in action_listing
 }

@@ -25,6 +25,14 @@ class Attacker(MessageVariable):
         return self.value.name
 
 
+class Ammunition(MessageVariable):
+    def get_value(self, context):
+        return context.ammunition
+
+    def __str__(self):
+        return self.value.name
+
+
 class Defender(MessageVariable):
     def get_value(self, context):
         return context.defender

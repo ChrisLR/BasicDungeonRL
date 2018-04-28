@@ -1,5 +1,5 @@
 from bflib import traps as base_traps
-from core.attacks.base import RangedAttack
+from core.attacks.ranged import RangedAttack
 from core.effects import get_core_effect_from_base
 from core.traps.base import Trap
 from services import echo
@@ -96,3 +96,4 @@ class Arrow(Projectile):
             "It misses {} !".format(
                 echo.name_or_you(target))
         )
+3
