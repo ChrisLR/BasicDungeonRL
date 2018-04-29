@@ -1,5 +1,3 @@
-from functools import partial
-
 from core.actions.base import Action
 from core.util import distance
 from services.selection import CursorSelection, filters
@@ -29,28 +27,34 @@ class Fire(Action):
 
     def _is_ammunition(self, item):
         if item.ammunition:
-            return item.ammunition.ammunition_type
+            return True
 
     def _get_ranged_items(self, character):
         if self.ranged_items is None:
             wielded_items = character.equipment.get_wielded_items()
-            self.ranged_items = filter(self._is_ranged, wielded_items)
+            self.ranged_items = [item for item in wielded_items
+                                 if self._is_ranged(item)]
 
         return self.ranged_items
 
     def _filter_out_ranged_items_without_ammo(self, character, ranged_items):
         if self.ranged_items_with_ammo is None:
-            ammunition_types = {
-                item.ammunition.ammunition_type
+            ammunition = {
+                item: {item.base, item.ammunition.ammunition_type}
                 for item in character.inventory.get_all_items()
                 if self._is_ammunition(item)
             }
 
-            ranged_items_with_ammo = [
-                item for item in ranged_items
-                if item.ranged.ammunition_type in ammunition_types
-            ]
+            ranged_items_with_ammo = set()
+            compatible_ammo = {}
+            for ranged_item in ranged_items:
+                for ammo_item, ammunition_types in ammunition.items():
+                    if ranged_item.ranged.ammunition_type in ammunition_types:
+                        compatible_ammo[ammo_item] = ammunition_types
+                        ranged_items_with_ammo.add(ranged_item)
+
             self.ranged_items_with_ammo = ranged_items_with_ammo
+            self.compatible_ammo = compatible_ammo
 
         return self.ranged_items_with_ammo
 
@@ -65,10 +69,10 @@ class Fire(Action):
             character_coords = character.location.get_local_coords()
             target_coords = target.location.get_local_coords()
             self.target_range = distance.manhattan_distance_to(character_coords, target_coords)
-            self.in_range_items = filter(
-                partial(self._in_range, target_range=self.target_range),
-                ranged_items
-            )
+            self.in_range_items = [
+                ranged_item for ranged_item in ranged_items
+                if self._in_range(ranged_item, self.target_range)
+            ]
 
         return self.in_range_items
 
@@ -100,6 +104,12 @@ class Fire(Action):
         target = self._get_target(target_selection)
         in_range_items = self._get_in_range_items(character, target, ranged_items_with_ammo)
         ranged_attack = self.game.attacks.get_attack_by_name("ranged")
-        ranged_attack.execute(character, target, in_range_items, self.target_range)
+        ranged_attack.execute(
+            attacker=character,
+            defender=target,
+            fired_weapons=in_range_items,
+            distance=self.target_range,
+            compatible_ammo=self.compatible_ammo
+        )
 
         return True
