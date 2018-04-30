@@ -59,6 +59,8 @@ class Fire(Action):
         return self.ranged_items_with_ammo
 
     def _get_target(self, target_selection):
+        # TODO A ray should be traced to see if another object is in the way.
+        # TODO We should pass those objects to the ranged attack.
         if self.target is None:
             self.target = next(filter(self._has_health, target_selection), None)
 
@@ -76,7 +78,7 @@ class Fire(Action):
 
         return self.in_range_items
 
-    def can_execute(self, character, target_selection=None):
+    def can_select(self, character):
         ranged_items = self._get_ranged_items(character)
         if not ranged_items:
             character.game.echo.player(character, "You are not wielding any ranged weapons.")
@@ -87,11 +89,14 @@ class Fire(Action):
             character.game.echo.player(character, "You have no ammunition for your ranged weapons.")
             return False
 
+        return True
+
+    def can_execute(self, character, target_selection=None):
         target = self._get_target(target_selection)
         if not target:
             return False
 
-        in_range_items = self._get_in_range_items(character, target, ranged_items_with_ammo)
+        in_range_items = self._get_in_range_items(character, target, self.ranged_items_with_ammo)
         if not in_range_items:
             character.game.echo.player(character, "Target is too far.")
             return False
