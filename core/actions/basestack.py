@@ -26,7 +26,9 @@ class ActionStack(object):
         :param action: The action to be executed.
         :type action: Action
         """
-
+        if not action.can_select(self.game_object):
+            return
+        
         if action.target_selection:
             self.action_resolutions.append(
                 ActionResolution(action, self.game_object, action.target_selection.copy(), self.game))
