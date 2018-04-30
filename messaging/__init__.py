@@ -1,6 +1,7 @@
 from messaging.builder import StringBuilder
 from messaging.variables import (
     MessageVariable,
+    Ammunition,
     Attacker,
     Defender,
     AttackerWeapon,

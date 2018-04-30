@@ -14,6 +14,9 @@ class Action(object):
     def __init__(self, game):
         self.game = game
 
+    def can_select(self, character):
+        return True
+
     def can_execute(self, character, target_selection=None):
         return True
 

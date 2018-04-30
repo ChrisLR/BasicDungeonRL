@@ -38,7 +38,7 @@ class DirectionalView(UIScene):
             self.selection.canceled = True
             self.director.pop_scene()
 
-        action = self.game.action_mapping.lowercase.get(val, None)
+        action = self.game.action_mapping.get_lowercase(val)
         if not action:
             return
 

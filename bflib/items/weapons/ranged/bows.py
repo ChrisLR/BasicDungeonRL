@@ -1,6 +1,6 @@
 from bflib import dice, units
 from bflib.items import coins, listing
-from bflib.items.ammunition.common import Arrow, ShortbowArrow
+from bflib.items.ammunition.common import ShortbowArrow, LongbowArrow
 from bflib.items.weapons.ranged.base import RangedWeapon
 from bflib.rangeset import RangeSet
 from bflib.sizes import Size
@@ -32,7 +32,7 @@ class Longbow(Bow):
     melee_damage = dice.D2(1)
     ranged_range = RangeSet(units.Feet(70), units.Feet(140), units.Feet(210))
     ranged_damage = None
-    ranged_ammunition_type = Arrow
+    ranged_ammunition_type = LongbowArrow
 
     price = coins.Silver(2)
     size = Size.Large
