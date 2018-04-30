@@ -1,6 +1,7 @@
 from bflib import dice
+from core import contexts
 from core.effects.base import Effect
-from services import echo
+from messaging import StringBuilder, Actor, Verb
 
 
 class Burning(Effect):
@@ -15,11 +16,9 @@ class Burning(Effect):
         :return:
         """
         # You are on fire!
-        echo.see(
-            actor=game_object,
-            actor_message="You are on fire!",
-            observer_message="{} is on fire!".format(game_object.name),
-        )
+        context = contexts.Action(game_object, None)
+        message = StringBuilder(Actor, Verb("are", Actor), "on fire!")
+        game_object.game.echo.see(game_object, message, context)
 
     def update(self, game_object):
         """
@@ -30,21 +29,12 @@ class Burning(Effect):
         super().update(game_object)
         damage = dice.D6(self.power).roll()
         # TODO This should be elemental Fire Damage.
-        echo.see(
-            actor=game_object,
-            actor_message="You burn for {} damage!".format(damage),
-            observer_message="{} burns for {} damage!".format(
-                game_object.name, damage
-            ),
-        )
-
+        context = contexts.Action(game_object, None)
+        message = StringBuilder(Actor, Verb("burn", Actor), "for %s damage!" % damage)
+        game_object.game.echo.see(game_object, message, context)
         game_object.health.take_damage(damage)
 
     def on_finish(self, game_object):
-        echo.see(
-            actor=game_object,
-            actor_message="You are no longer burning.",
-            observer_message="{} is no longer burning.".format(
-                game_object.name
-            ),
-        )
+        context = contexts.Action(game_object, None)
+        message = StringBuilder(Actor, Verb("are", Actor), "no longer burning.")
+        game_object.game.echo.see(game_object, message, context)

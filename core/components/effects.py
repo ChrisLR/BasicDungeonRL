@@ -26,7 +26,7 @@ class Effects(Component):
 
     def round_update(self):
         for effect in self.finished_effects:
-            self.remove_effect(type(effect))
+            self.remove_effect(effect)
 
         for effect in self.active_effects.values():
             effect.update(self.host)

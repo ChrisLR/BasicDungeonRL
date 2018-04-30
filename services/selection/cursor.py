@@ -39,7 +39,7 @@ class CursorScene(UIScene):
             game_objects = level.get_objects_by_coordinates(self.cursor_position)
             self.selection.resolution = game_objects
             self.director.pop_scene()
-
+            
         action = self.action_mapping.get_lowercase(val)
         if not action:
             return
