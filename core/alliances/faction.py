@@ -16,3 +16,54 @@ Some reputations scores
     0 could be tolerated
 -1000 could be hated
 """
+
+
+class Faction(object):
+    def __init__(self, reputation_rules=None, enemy_factions=None, allied_factions=None):
+        self.name = ""
+        self.reputation_rules = reputation_rules
+        self.enemy_factions = enemy_factions or set()
+        self.allied_factions = allied_factions or set()
+        self.enemy_objects = set()
+        self.members = set()
+
+    def is_allied(self, game_object):
+        if game_object in self.enemy_objects:
+            return False
+
+        alliance = game_object.alliance
+        if alliance is None:
+            return False
+
+        if self._any_factions_in(alliance.factions, self.enemy_factions):
+            return False
+
+        if self._any_factions_in(alliance.factions, self.allied_factions):
+            return True
+
+        return False
+
+    def is_enemy(self, game_object):
+        if game_object in self.enemy_objects:
+            return True
+
+        alliance = game_object.alliance
+        if alliance is None:
+            return False
+
+        if self._any_factions_in(alliance.factions, self.enemy_factions):
+            return True
+
+        return True
+
+    def _any_factions_in(self, factions, faction_set):
+        return any(faction for faction in factions if faction in faction_set)
+
+    def add_ally_faction(self, faction):
+        self.allied_factions.add(faction)
+
+    def add_enemy_faction(self, faction):
+        self.enemy_factions.add(faction)
+
+    def add_enemy_object(self, game_object):
+        self.enemy_objects.add(game_object)

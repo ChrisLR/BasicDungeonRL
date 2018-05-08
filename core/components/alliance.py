@@ -16,10 +16,6 @@ class Alliance(Component):
         # or be in the same team.
         pass
 
-    def is_neutral(self, game_object):
-        # TODO Object must not be in personal hostiles nor enemy of any factions
-        pass
-
     def is_enemy(self, game_object):
         # TODO Object is known hostile by personal, faction or team.
         pass
