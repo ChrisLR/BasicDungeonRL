@@ -30,6 +30,9 @@ class Skills(Component):
             new = skill_type(points)
             self.base_skills[type(new)] = new
 
+    def set_skill(self, skill_type, value):
+        self.base_skills[skill_type] = skill_type(value)
+
     def respond_skill_value(self, query):
         query.respond(self.base_skills.values())
 
