@@ -1,47 +1,64 @@
 from bearlibterminal import terminal
 from clubsandwich.ui import (
     UIScene,
-    SingleLineTextInputView,
     LabelView,
     ButtonView,
     LayoutOptions,
     WindowView,
 )
 
-from bflib.characters.abilityscores import AbilityScoreSet
-from scenes.charactercreation.races import RaceSelectionScene
-from ui.views.validatedintstepperview import ValidatedIntStepperView
 from bflib.skills.listing import skill_listing
+from core import components
+from core.displaypriority import DisplayPriority
+from core.util.colors import Colors
+from ui.views.validatedintstepperview import ValidatedIntStepperView
+from functools import partial
 
 
 class SkillsSelectionScene(UIScene):
-    def __init__(self, game):
+    def __init__(self, game, ability_score_set, class_choices, race, name):
         self.covers_screen = True
         self.game = game
         self.skills = {}
         self.points_left = 3
-        labels = [
-            (LabelView("%s:" % skill.name, layout_options=LayoutOptions(**get_left_layout(i*2))),
-             for i, skill in enumerate(sorted(list(skill_listing), key=lambda skill: skill.name)))
-        ]
-        int_steppers = [
-            (
-             ValidatedIntStepperView(
-                validation_callback=self.validate_points,
+        self.ability_score_set = ability_score_set
+        self.class_choices = class_choices
+        self.race = race
+        self.name = name
+        self.player = self.game.factory.create_new_character(
+            ability_score_set=self.ability_score_set,
+            base_classes=self.class_choices,
+            base_race=self.race,
+            name=self.name,
+            symbol="@",
+            fg_color=Colors.WHITE,
+            bg_color=Colors.BLACK,
+            display_priority=DisplayPriority.Player
+        )
+        self.player.register_component(components.Player())
+        self.player.register_component(components.Skills())
+        self.player_skills = self.player.skills
+        self.game.player = self.player
+
+        sorted_skills = sorted(list(skill_listing), key=lambda skill: skill.name)
+        sub_views = []
+        for i, skill in enumerate(sorted_skills):
+            partial_validation = partial(self.validate_points, skill=skill)
+            sub_views.append(
+                LabelView("%s:" % skill.name,
+                          layout_options=LayoutOptions(**get_left_layout(i))))
+            sub_views.append(ValidatedIntStepperView(
+                validation_callback=partial_validation,
                 value=0,
                 callback=lambda value: self.set_skill(skill, value),
-                layout_options=LayoutOptions(**get_right_layout(i*2, width=5)),
-            )
-            for i, skill in enumerate(sorted(list(skill_listing), key=lambda skill: skill.name)))
-        ]
-        sub_views = []
-        sub_views.extend(zip(labels, int_steppers))
+                layout_options=LayoutOptions(**get_right_layout(i+1, width=5))))
+
         sub_views.append(
             ButtonView(
                 'Finish', self.finish,
-                layout_options=LayoutOptions(**get_left_layout(13, left=0.45))
+                layout_options=LayoutOptions(**get_left_layout(0.9, left=0.45))
             ))
-        views = [WindowView(title='Skill Selection', subviews=[sub_views])]
+        views = [WindowView(title='Skill Selection', subviews=sub_views)]
         super().__init__(views)
 
         self.name = ""
@@ -50,31 +67,29 @@ class SkillsSelectionScene(UIScene):
         self.name = value
 
     def set_skill(self, skill, value):
-        player_skills = self.game.player.skills
-        point_cost = player_skills.get_increase_cost(skill)
-        if self.points_left >= point_cost:
-            self.skills[skill] = value
-            self.points_left -= point_cost
+        self.skills[skill] = value
 
-    def validate_points(self, old_value, new_value):
-        if self.points_left > 0:
+    def validate_points(self, old_value, new_value, skill):
+        point_cost = self.player_skills.get_increase_cost(skill)
+        if new_value < 0:
+            return False
+
+        if new_value > old_value:
+            if self.points_left >= point_cost:
+                self.points_left -= point_cost
+                return True
+
+        if new_value < old_value:
+            self.points_left += point_cost
             return True
+
         return False
 
     def finish(self):
         if self.points_left <= 0:
-            player_skills = self.game.player.skills
             for skill, value in self.skills.items():
-                player_skills.set_skill(skill, value)
-
-            # TODO Gotta Chain this
-            # self.director.replace_scene(
-            #     RaceSelectionScene(
-            #         game=self.game,
-            #         ability_score_set=AbilityScoreSet(**self.stats),
-            #         name=self.name
-            #     )
-            # )
+                self.player_skills.set_skill(skill, value)
+            self.game.new_game()
 
     def terminal_read(self, val):
         super().terminal_read(val)

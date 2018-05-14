@@ -22,7 +22,7 @@ class Intimidate(Skill):
 
 @listing.register
 class Leadership(Skill):
-    name = "Intimidate"
+    name = "Leadership"
     related_stat = abilityscores.Charisma
     natural = True
     character_class = Fighter
