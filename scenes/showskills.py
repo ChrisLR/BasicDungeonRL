@@ -1,3 +1,5 @@
+from functools import partial
+
 from bearlibterminal import terminal
 from clubsandwich.ui import (
     UIScene,
@@ -8,37 +10,14 @@ from clubsandwich.ui import (
 )
 
 from bflib.skills.listing import skill_listing
-from core import components
-from core.displaypriority import DisplayPriority
-from core.util.colors import Colors
 from ui.views.validatedintstepperview import ValidatedIntStepperView
-from functools import partial
 
 
-class SkillsSelectionScene(UIScene):
-    def __init__(self, game, ability_score_set, class_choices, race, name):
+class ShowSkillsScene(UIScene):
+    def __init__(self, game):
         self.covers_screen = True
         self.game = game
-        self.skills = {}
-        self.points_left = 3
-        self.ability_score_set = ability_score_set
-        self.class_choices = class_choices
-        self.race = race
-        self.name = name
-        self.player = self.game.factory.create_new_character(
-            ability_score_set=self.ability_score_set,
-            base_classes=self.class_choices,
-            base_race=self.race,
-            name=self.name,
-            symbol="@",
-            fg_color=Colors.WHITE,
-            bg_color=Colors.BLACK,
-            display_priority=DisplayPriority.Player
-        )
-        self.player.register_component(components.Player())
-        self.player.register_component(components.Skills())
-        self.player_skills = self.player.skills
-        self.game.player = self.player
+        self.player_skills = self.game.player.skills
 
         sorted_skills = sorted(list(skill_listing), key=lambda skill: skill.name)
         sub_views = []
@@ -49,8 +28,8 @@ class SkillsSelectionScene(UIScene):
                           layout_options=LayoutOptions(**get_left_layout(i))))
             sub_views.append(ValidatedIntStepperView(
                 validation_callback=partial_validation,
-                value=0,
-                callback=partial(self.set_skill, skill=skill),
+                value=self.player_skills.get_base_skill_value(skill),
+                callback=lambda value: self.set_skill(skill, value),
                 layout_options=LayoutOptions(**get_right_layout(i+1, width=5))))
 
         sub_views.append(
@@ -61,35 +40,19 @@ class SkillsSelectionScene(UIScene):
         views = [WindowView(title='Skill Selection', subviews=sub_views)]
         super().__init__(views)
 
-        self.name = ""
-
-    def set_name(self, value):
-        self.name = value
-
-    def set_skill(self, value, skill):
-        self.skills[skill] = value
+    def set_skill(self, skill, value):
+        self.player_skills.set_skill(skill, value)
 
     def validate_points(self, old_value, new_value, skill):
         point_cost = self.player_skills.get_increase_cost(skill)
-        if new_value < 0:
-            return False
-
         if new_value > old_value:
-            if self.points_left >= point_cost:
-                self.points_left -= point_cost
+            if self.player_skills.skill_points >= point_cost:
+                self.player_skills.skill_points -= point_cost
                 return True
-
-        if new_value < old_value:
-            self.points_left += point_cost
-            return True
-
         return False
 
     def finish(self):
-        if self.points_left <= 0:
-            for skill, value in self.skills.items():
-                self.player_skills.set_skill(skill, value)
-            self.game.new_game()
+        self.director.pop_scene()
 
     def terminal_read(self, val):
         super().terminal_read(val)

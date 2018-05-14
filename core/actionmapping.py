@@ -27,6 +27,7 @@ class ActionMapping(object):
         }
         self.uppercase = {
             terminal.TK_W: "wield",
+            terminal.TK_S: "show_skills"
         }
 
     def get_lowercase(self, key):
