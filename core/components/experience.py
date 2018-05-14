@@ -48,6 +48,9 @@ class Experience(Component):
         self.level += 1
         self.host.echo.player(self.host, "You advance to level {}".format(self.level))
         self.host.health.on_level_up()
+        skills = self.host.skills
+        if skills:
+            skills.skill_points += 3
 
     def add_new_class(self):
         # This means we were in negative levels and must choose

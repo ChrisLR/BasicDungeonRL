@@ -10,6 +10,7 @@ class Skills(Component):
     def __init__(self, base_skills=None):
         super().__init__()
         self.base_skills = base_skills or {}
+        self.skill_points = 0
 
     def on_register(self, host):
         super().on_register(host)
