@@ -61,11 +61,6 @@ class SkillsSelectionScene(UIScene):
         views = [WindowView(title='Skill Selection', subviews=sub_views)]
         super().__init__(views)
 
-        self.name = ""
-
-    def set_name(self, value):
-        self.name = value
-
     def set_skill(self, value, skill):
         self.skills[skill] = value
 

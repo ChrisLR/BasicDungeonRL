@@ -117,6 +117,18 @@ class Level(GameObject):
             return self.objects_by_coords.get((coordinates.x, coordinates.y), set())
         return self.objects_by_coords.get(coordinates, set())
 
+    def get_objects_by_line(self, start_x, start_y, end_x, end_y):
+        current_x, current_y = start_x, start_y
+        objects = self.get_objects_by_coordinates((start_x, start_y))
+        while current_x != end_x and current_y != end_y:
+            delta_x = current_x - end_x
+            delta_y = current_y - end_y
+            if delta_x != 0:
+                current_x += 1 if delta_x > 0 else -1
+            if delta_y != 0:
+                current_y += 1 if delta_y > 0 else -1
+            objects.update(self.get_objects_by_coordinates((current_x, current_y)))
+
     def adjust_coordinates_for_object(self, game_object, new_coordinates):
         old_coordinates = game_object.location.get_local_coords()
         old_object_set = self.objects_by_coords.get(old_coordinates)

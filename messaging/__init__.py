@@ -8,7 +8,8 @@ from messaging.variables import (
     Target,
     Actor,
     TargetOne,
-    TargetTwo
+    TargetTwo,
+    Targets,
 )
 from messaging.verbs import Verb
 from messaging.pronouns import He, Him, His
