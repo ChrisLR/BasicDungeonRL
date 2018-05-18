@@ -4,7 +4,7 @@ from services.selection.base import TargetSelectionSet
 from core.tiles.base import Tile
 from core.util import distance
 from bflib import skills, sizes
-from messaging import StringBuilder, Actor, Verb, Targets
+from messaging import StringBuilder, Actor, Verb, Targets, Target
 from core import contexts
 import random
 
@@ -20,6 +20,7 @@ class Jump(Action):
         self.obstacles = None
         self.distance = None
         self.target_coords = None
+        self.non_blocking_tiles = None
 
     def can_execute(self, character, target_selection=None):
         if not target_selection:
@@ -49,6 +50,7 @@ class Jump(Action):
             )
             return False
 
+        self.non_blocking_tiles = obstacles
         self.obstacles = [obs for obs in obstacles if not isinstance(obs, Tile)]
         self.target_coords = target_coords
 
@@ -68,14 +70,42 @@ class Jump(Action):
             if obstacles_with_size:
                 message = StringBuilder(Actor, "successfully", Verb("jump", Actor), "over", Targets, "!")
             else:
-                message = StringBuilder(Actor, Verb("jump", Actor), "successfully.")
+                message = StringBuilder(Actor, Verb("jump", Actor), ".")
 
             character.location.set_local_coords(self.target_coords)
             self.game.echo.see(character, message, context)
         else:
             if obstacles_with_size:
                 tripped_on = random.choice(obstacles_with_size)
-                # TODO Enter Collision message, landing somewhere random near it
-                # TODO Enter Non Collision failure, with damage on a critical fail.
+                context = contexts.Action(character, tripped_on)
+                message = StringBuilder(
+                    Actor, Verb("collide", Actor), "with", Target, "and",
+                    Verb("fall", Actor), "!"
+                )
+                new_pos = None
+                level = character.location.level
+                possible_positions = [(x, y) for x in range(-1, 1) for y in range(-1, 1)]
+                while not new_pos:
+                    index = random.randint(len(possible_positions) - 1)
+                    try_pos = possible_positions.pop(index)
+                    if try_pos == character.location.get_local_coords():
+                        new_pos = try_pos
+                        break
+                    if not level.get_objects_by_coordinates(try_pos):
+                        new_pos = try_pos
+                        break
+                    if not possible_positions:
+                        new_pos = self.target_coords
+
+                character.location.set_local_coords(new_pos)
+                self.game.echo.see(character, message, context)
+            else:
+                # TODO Getting a 1 should fetch something to collide against
+                # TODO If there is nothing adjacent it should just trip and fall.
+                # TODO If there IS something hard to faceplant on, DAMAGE!
+                random_position = self.non_blocking_tiles
+                context = contexts.Action(character, None)
+                message = StringBuilder(Actor, Verb("jump", Actor), ".")
+                self.game.echo.see(character, message, context)
             
         return True
