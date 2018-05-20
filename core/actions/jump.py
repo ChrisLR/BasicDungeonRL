@@ -14,6 +14,7 @@ class Jump(Action):
     target_selection = TargetSelectionSet(
         selections=CursorSelection
     )
+    # TODO Cursor should use a maximum distance
 
     def __init__(self, game):
         super().__init__(game)
@@ -66,46 +67,61 @@ class Jump(Action):
         roll_result = character.skills.roll_check(skills.Jump)
 
         if roll_result >= required_roll:
-            context = contexts.MultipleTargetAction(character, obstacles_with_size)
-            if obstacles_with_size:
-                message = StringBuilder(Actor, "successfully", Verb("jump", Actor), "over", Targets, "!")
-            else:
-                message = StringBuilder(Actor, Verb("jump", Actor), ".")
-
-            character.location.set_local_coords(self.target_coords)
-            self.game.echo.see(character, message, context)
+            self._jump_successfully(character, obstacles_with_size)
+        elif roll_result == 1:
+            self._critical_failure_jump(character)
         else:
-            if obstacles_with_size:
-                tripped_on = random.choice(obstacles_with_size)
-                context = contexts.Action(character, tripped_on)
-                message = StringBuilder(
-                    Actor, Verb("collide", Actor), "with", Target, "and",
-                    Verb("fall", Actor), "!"
-                )
-                new_pos = None
-                level = character.location.level
-                possible_positions = [(x, y) for x in range(-1, 1) for y in range(-1, 1)]
-                while not new_pos:
-                    index = random.randint(len(possible_positions) - 1)
-                    try_pos = possible_positions.pop(index)
-                    if try_pos == character.location.get_local_coords():
-                        new_pos = try_pos
-                        break
-                    if not level.get_objects_by_coordinates(try_pos):
-                        new_pos = try_pos
-                        break
-                    if not possible_positions:
-                        new_pos = self.target_coords
-
-                character.location.set_local_coords(new_pos)
-                self.game.echo.see(character, message, context)
-            else:
-                # TODO Getting a 1 should fetch something to collide against
-                # TODO If there is nothing adjacent it should just trip and fall.
-                # TODO If there IS something hard to faceplant on, DAMAGE!
-                random_position = self.non_blocking_tiles
-                context = contexts.Action(character, None)
-                message = StringBuilder(Actor, Verb("jump", Actor), ".")
-                self.game.echo.see(character, message, context)
+            self._fail_jump(character)
             
         return True
+
+    def _jump_successfully(self, character, obstacles_with_size):
+        context = contexts.MultipleTargetAction(character, obstacles_with_size)
+        if obstacles_with_size:
+            message = StringBuilder(Actor, "successfully", Verb("jump", Actor), "over",
+                                    Targets, "!")
+        else:
+            message = StringBuilder(Actor, Verb("jump", Actor), ".")
+
+        self.game.echo.see(character, message, context)
+        character.location.set_local_coords(self.target_coords)
+
+    def _fail_jump(self, character):
+        new_pos = self._select_random_tile_with_offset(character, True)
+        context = contexts.Action(character, None)
+        message = StringBuilder(Actor, Verb("trip", Actor), "while trying to jump!")
+        self.game.echo.see(character, message, context)
+        character.location.set_local_coords(new_pos)
+
+    def _critical_failure_jump(self, character):
+        new_pos = self._select_random_tile_with_offset(character, False)
+        context = contexts.Action(character, None)
+        message = StringBuilder(Actor, Verb("trip", Actor), "and",
+                                Verb("faceplant", Actor), "into")
+        # TODO Faceplant on the ground, or into something blocking.
+        # TODO IF blocking, double damage
+        self.game.echo.see(character, message, context)
+        character.location.set_local_coords(new_pos)
+
+    def _select_random_tile_with_offset(self, character, safe=False):
+        level = character.location.level
+        start_x, start_y = character.location.get_local_coords()
+        end_x, end_y = self.target_coords
+        offset_x, offset_y = random.randint(-1, 1), random.randint(-1, 1)
+        possible_positions = [(x + offset_x, y + offset_y)
+                              for x in range(start_x, end_x)
+                              for y in range(start_y, end_y)]
+        new_pos = None
+        while not new_pos:
+            index = random.randint(len(possible_positions) - 1)
+            try_pos = possible_positions.pop(index)
+
+            if try_pos == character.location.get_local_coords():
+                return try_pos
+            if safe:
+                obstacles = level.get_objects_by_coordinates(try_pos)
+                tile = level.get_tile(try_pos)
+                if not obstacles and not (tile and tile.blocking):
+                    return True
+            if not possible_positions:
+                return self.target_coords

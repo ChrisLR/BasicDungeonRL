@@ -37,3 +37,21 @@ inverse_mapping = {
 
 def get_inverse_direction(direction):
     return inverse_mapping.get(direction)
+
+
+def get_direction_offset_by_delta(start, end):
+    start_x, start_y = start
+    end_x, end_y = end
+    x_offset = 0
+    if start_x > end_x:
+        x_offset = -1
+    elif start_x < end_x:
+        x_offset = 1
+
+    y_offset = 0
+    if start_y > end_y:
+        y_offset = -1
+    elif start_y < end_y:
+        y_offset = 1
+
+    return x_offset, y_offset
