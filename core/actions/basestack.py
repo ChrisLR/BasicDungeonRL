@@ -29,7 +29,7 @@ class ActionStack(object):
         if not action.can_select(self.game_object):
             return
         
-        if action.target_selection:
+        if action.target_selection is not None:
             self.action_resolutions.append(
                 ActionResolution(action, self.game_object, action.target_selection.copy(), self.game))
         else:

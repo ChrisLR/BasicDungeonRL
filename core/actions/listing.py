@@ -14,6 +14,8 @@ from core.actions.showskills import ShowSkills
 from core.actions.useability import UseAbility
 from core.actions.wear import Wear
 from core.actions.wield import Wield
+from core.actions.jump import Jump
+
 
 action_listing = {
     AddClass,
@@ -24,6 +26,7 @@ action_listing = {
     Get,
     Fire,
     Look,
+    Jump,
     WalkE,
     WalkN,
     WalkNE,

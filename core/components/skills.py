@@ -62,6 +62,12 @@ class Skills(Component):
     def get_skill_value(self, skill_type):
         return self.host.query.skills(skill_type)
 
+    def get_total_value(self, skill_type):
+        stat_bonus = self.get_stat_bonus(skill_type)
+        skill_value = self.get_skill_value(skill_type)
+
+        return stat_bonus + skill_value
+
     def roll_check(self, skill_type):
         skill_value = self.get_skill_value(skill_type)
         stat_bonus = self.get_stat_bonus(skill_type)

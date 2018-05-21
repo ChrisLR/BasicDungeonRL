@@ -22,6 +22,9 @@ class TargetSelectionSet(object):
     """
     A Set of Target Selection
     """
+    def __bool__(self):
+        return bool(self.targets)
+
     def __len__(self):
         return len(self.selections)
 

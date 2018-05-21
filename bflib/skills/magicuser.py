@@ -13,7 +13,7 @@ class DecipherScript(Skill):
 
 
 @listing.register
-class ArcaneSpellcraft():
+class ArcaneSpellcraft(Skill):
     name = "Arcane Spellcraft"
     related_stat = abilityscores.Intelligence
     natural = False

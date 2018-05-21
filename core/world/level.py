@@ -2,8 +2,8 @@ import inspect
 
 from clubsandwich.geom import Point
 from tcod import map as tcod_map
-
-from core import components
+from core.tiles.base import Tile
+from core import components, direction
 from core.gameobject import GameObject
 
 
@@ -117,8 +117,8 @@ class Level(GameObject):
             return self.objects_by_coords.get((coordinates.x, coordinates.y), set())
         return self.objects_by_coords.get(coordinates, set())
 
-    def get_objects_by_line(self, start_x, start_y, end_x, end_y):
-        coordinates = self.get_line_coordinates(start_x, start_y, end_x, end_y)
+    def get_objects_by_line(self, start, end):
+        coordinates = self.get_line_coordinates(start, end)
         object_sets = [self.get_objects_by_coordinates(coordinate)
                        for coordinate in coordinates]
         objects = []
@@ -127,25 +127,23 @@ class Level(GameObject):
 
         return objects
 
-    def get_tiles_by_line(self, start_x, start_y, end_x, end_y):
-        coordinates = self.get_line_coordinates(start_x, start_y, end_x, end_y)
+    def get_tiles_by_line(self, start, end):
+        coordinates = self.get_line_coordinates(start, end)
 
         return [self.get_tile(coordinate) for coordinate in coordinates]
 
-    def get_line_coordinates(self, start_x, start_y, end_x, end_y):
-        coordinates = [(start_x, start_y)]
-        current_x, current_y = start_x, start_y
-        while current_x != end_x and current_y != end_y:
-            delta_x = current_x - end_x
-            delta_y = current_y - end_y
-            if delta_x != 0:
-                current_x += 1 if delta_x > 0 else -1
-            if delta_y != 0:
-                current_y += 1 if delta_y > 0 else -1
+    def get_line_coordinates(self, start, end):
+        coordinates = [start]
+        current_x, current_y = start
+        while not (current_x, current_y) == end:
+            offset_x, offset_y = direction.get_direction_offset_by_delta(
+                (current_x, current_y), end
+            )
+            current_x += offset_x
+            current_y += offset_y
             coordinates.append((current_x, current_y))
 
         return coordinates
-
 
     def adjust_coordinates_for_object(self, game_object, new_coordinates):
         old_coordinates = game_object.location.get_local_coords()

@@ -29,7 +29,7 @@ class ActionResolution(object):
         self.game = game
         self.pending_filters = None
         self.pending_selections = None
-        self.target_selections = target_selection.copy() if target_selection else None
+        self.target_selections = target_selection.copy() if target_selection is not None else None
         if target_selection is None:
             return
 

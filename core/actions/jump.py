@@ -1,12 +1,14 @@
+import math
+import random
+
+from bflib import skills, sizes
+from core import contexts
 from core.actions.base import Action
-from services.selection import CursorSelection, filters
-from services.selection.base import TargetSelectionSet
 from core.tiles.base import Tile
 from core.util import distance
-from bflib import skills, sizes
-from messaging import StringBuilder, Actor, Verb, Targets, Target
-from core import contexts
-import random
+from messaging import StringBuilder, Actor, Verb, Targets
+from services.selection import CursorSelection
+from services.selection.base import TargetSelectionSet
 
 
 class Jump(Action):
@@ -39,11 +41,17 @@ class Jump(Action):
         target_coords = target_location.get_local_coords()
 
         self.distance = distance.manhattan_distance_to(start_coords, target_coords)
-        obstacles = start_location.level.get_objects_by_line(start_coords, target_coords)
+        max_distance = math.ceil(character.skills.get_total_value(skills.Jump) / 5) + 2
+        if max_distance <= 1:
+            max_distance = 2
+        if max_distance < self.distance:
+            self.game.echo.player(character, "You can't jump that far.")
+            return False
 
+        obstacles = start_location.level.get_objects_by_line(start_coords, target_coords)
         blocking_tiles = [tile for tile in obstacles
                           if isinstance(tile, Tile) and tile.blocking]
-        blocking_tile = next(blocking_tiles, None)
+        blocking_tile = blocking_tiles[0] if blocking_tiles else None
         if blocking_tile:
             self.game.echo.player(
                 character,
@@ -63,7 +71,7 @@ class Jump(Action):
             [sizes.size_in_feet(obstacle.size.score)
              for obstacle in obstacles_with_size]
         )
-        required_roll = self.distance + obstacle_penalties
+        required_roll = 5 + self.distance + obstacle_penalties
         roll_result = character.skills.roll_check(skills.Jump)
 
         if roll_result >= required_roll:
@@ -107,21 +115,26 @@ class Jump(Action):
         level = character.location.level
         start_x, start_y = character.location.get_local_coords()
         end_x, end_y = self.target_coords
-        offset_x, offset_y = random.randint(-1, 1), random.randint(-1, 1)
-        possible_positions = [(x + offset_x, y + offset_y)
-                              for x in range(start_x, end_x)
-                              for y in range(start_y, end_y)]
+        x_range = [x for x in range(start_x, end_x)]
+        y_range = [y for y in range(start_y, end_y)]
+        possible_positions = []
+        while x_range or y_range:
+            offset_x, offset_y = random.randint(-1, 1), random.randint(-1, 1)
+            x = x_range.pop() if x_range else start_x
+            y = y_range.pop() if y_range else start_y
+            possible_positions.append((x + offset_x, y + offset_y))
+
         new_pos = None
         while not new_pos:
-            index = random.randint(len(possible_positions) - 1)
+            if not possible_positions:
+                return start_x, start_y
+
+            index = random.randint(0, len(possible_positions) - 1)
             try_pos = possible_positions.pop(index)
 
             if try_pos == character.location.get_local_coords():
                 return try_pos
             if safe:
                 obstacles = level.get_objects_by_coordinates(try_pos)
-                tile = level.get_tile(try_pos)
-                if not obstacles and not (tile and tile.blocking):
-                    return True
-            if not possible_positions:
-                return self.target_coords
+                if not any(obstacle.blocking for obstacle in obstacles):
+                    return try_pos
