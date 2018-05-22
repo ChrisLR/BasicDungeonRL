@@ -19,11 +19,18 @@ class Dice(object):
         self.multiplier = multiplier
 
     def roll(self):
-        return (sum((random.randint(1, self.sides) for _ in range(0, self.amount))) + self.flat_bonus) * self.multiplier
+        rolls = [random.randint(1, self.sides) for _ in range(0, self.amount)]
+        rolls_with_bonus = [value + self.flat_bonus for value in rolls]
+        total = sum(rolls_with_bonus) * self.multiplier
+
+        return RollResult(sum(rolls), total)
 
     @classmethod
     def manual_roll(cls, amount, flat_bonus=0):
-        return sum((random.randint(1, cls.sides) for _ in range(0, amount))) + flat_bonus
+        rolls = [random.randint(1, cls.sides) for _ in range(0, amount)]
+        rolls_with_bonus = [value + flat_bonus for value in rolls]
+
+        return RollResult(sum(rolls), sum(rolls_with_bonus))
 
     @staticmethod
     def get_by_sides(sides):
@@ -104,3 +111,34 @@ dice_listing = (
     D20,
     D100,
 )
+
+
+class RollResult(object):
+    __slots__ = ("natural", "total")
+
+    def __init__(self, natural, total):
+        self.natural = natural
+        self.total = total
+
+    def __int__(self):
+        return self.total
+
+    def __ne__(self, other):
+        return int(self) != int(other)
+
+    def __eq__(self, other):
+        return int(self) == int(other)
+
+    def __lt__(self, other):
+        return int(self) < int(other)
+
+    def __gt__(self, other):
+        return int(self) > int(other)
+
+    @property
+    def critical(self):
+        return self.natural == 20
+
+    @property
+    def critical_failure(self):
+        return self.natural == 1
