@@ -37,7 +37,7 @@ class Healing(Effect):
         :return:
         """
         super().update(game_object)
-        health = self.dice.roll()
+        health = self.dice.roll_total()
         context = Action(game_object, None)
         message = StringBuilder(Actor, Verb("recover", Actor), "%s health!" % health)
 

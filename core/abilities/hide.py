@@ -25,7 +25,7 @@ class Hide(Ability):
                 return False
 
         hide_target = character.query.special_ability(HideAbility)
-        value = dice.D100(1).roll()
+        value = dice.D100(1).roll_total()
         if value > hide_target:
             if character.effects.has_effect(effects.Hidden):
                 character.effects.remove_effect(effects.Hidden)

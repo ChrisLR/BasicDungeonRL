@@ -93,14 +93,14 @@ class Health(Component):
                 self._base_max_health = new_hit_dice.sides * new_hit_dice.amount
             else:
                 penalty = self.host.query.special_ability(specialabilities.FeebleConstitution)
-                self._base_max_health = new_hit_dice.roll() - penalty
+                self._base_max_health = new_hit_dice.roll_total() - penalty
         else:
             if type(new_hit_dice) in self._hit_dices:
                 delta_amount = new_hit_dice.amount - current_hit_dice.amount
                 if delta_amount > 0:
                     health_gain = 0
                     for i in range(0, delta_amount):
-                        roll = new_hit_dice.manual_roll(1, new_hit_dice.flat_bonus - penalty)
+                        roll = new_hit_dice.manual_roll_total(1, new_hit_dice.flat_bonus - penalty)
                         health_gain += roll
                         self._health_rolls.append(roll)
 

@@ -29,7 +29,7 @@ class MeleeAttack(Attack):
         if not defender.health.conscious:
             modifier += 8
 
-        roll = dice.D20.manual_roll(1)
+        roll = dice.D20.manual_roll_total(1)
         if roll == 1:
             return False
 
@@ -49,9 +49,9 @@ class MeleeAttack(Attack):
 
         total_damage = 0
         if inspect.isclass(damage_dice):
-            total_damage += damage_dice.manual_roll(1)
+            total_damage += damage_dice.manual_roll_total(1)
         else:
-            total_damage += damage_dice.roll()
+            total_damage += damage_dice.roll_total()
         total_damage += attacker.stats.strength_modifier if attacker.stats else 0
         total_damage += other_modifier
         if total_damage <= 0:

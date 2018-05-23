@@ -45,7 +45,7 @@ class OpenLock(Ability):
     def execute(self, character, target_selection=None):
         open_lock_target = character.query.special_ability(OpenLockAbility)
         item = target_selection[0]
-        value = dice.D100(1).roll()
+        value = dice.D100(1).roll_total()
         if value > open_lock_target:
             context = contexts.Action(character, item)
             message = StringBuilder(Actor, Verb("fail", Actor), "at picking", Target, "'s lock!")

@@ -79,3 +79,11 @@ class TargetOne(Target):
 class TargetTwo(Target):
     def get_value(self, context):
         return context.target_two
+
+
+class Targets(Target):
+    def get_value(self, context):
+        return context.targets
+
+    def __str__(self):
+        return ",".join([value.name for value in self.value])

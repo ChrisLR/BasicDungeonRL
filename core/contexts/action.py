@@ -9,3 +9,9 @@ class TwoTargetAction(object):
         self.actor = actor
         self.target_one = target_one
         self.target_two = target_two
+
+
+class MultipleTargetAction(object):
+    def __init__(self, actor, targets):
+        self.actor = actor
+        self.targets = targets

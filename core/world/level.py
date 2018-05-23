@@ -2,8 +2,8 @@ import inspect
 
 from clubsandwich.geom import Point
 from tcod import map as tcod_map
-
-from core import components
+from core.tiles.base import Tile
+from core import components, direction
 from core.gameobject import GameObject
 
 
@@ -116,6 +116,34 @@ class Level(GameObject):
         if isinstance(coordinates, Point):
             return self.objects_by_coords.get((coordinates.x, coordinates.y), set())
         return self.objects_by_coords.get(coordinates, set())
+
+    def get_objects_by_line(self, start, end):
+        coordinates = self.get_line_coordinates(start, end)
+        object_sets = [self.get_objects_by_coordinates(coordinate)
+                       for coordinate in coordinates]
+        objects = []
+        for object_set in object_sets:
+            objects.extend(object_set)
+
+        return objects
+
+    def get_tiles_by_line(self, start, end):
+        coordinates = self.get_line_coordinates(start, end)
+
+        return [self.get_tile(coordinate) for coordinate in coordinates]
+
+    def get_line_coordinates(self, start, end):
+        coordinates = [start]
+        current_x, current_y = start
+        while not (current_x, current_y) == end:
+            offset_x, offset_y = direction.get_direction_offset_by_delta(
+                (current_x, current_y), end
+            )
+            current_x += offset_x
+            current_y += offset_y
+            coordinates.append((current_x, current_y))
+
+        return coordinates
 
     def adjust_coordinates_for_object(self, game_object, new_coordinates):
         old_coordinates = game_object.location.get_local_coords()

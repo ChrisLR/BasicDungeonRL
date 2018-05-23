@@ -34,6 +34,7 @@ from core.components.restrictions import Restrictions
 from core.components.savingthrows import SavingThrows
 from core.components.valuable import Valuable
 from core.components.shield import Shield
+from core.components.skills import Skills
 from core.components.size import Size
 from core.components.spawninfo import SpawnInfo
 from core.components.specialcontainer import SpecialContainer
@@ -78,6 +79,7 @@ component_names = {
     Ranged.NAME,
     Restrictions.NAME,
     SavingThrows.NAME,
+    Skills.NAME,
     Valuable.NAME,
     Shield.NAME,
     Size.NAME,
