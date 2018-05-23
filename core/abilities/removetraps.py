@@ -29,7 +29,7 @@ class RemoveTraps(Ability):
     def execute(self, character, target_selection=None):
         remove_trap_target = character.query.special_ability(RemoveTrapsAbility)
         item = target_selection[0]
-        value = dice.D100(1).roll()
+        value = dice.D100(1).roll_total()
         context = contexts.Action(character, item)
         if not target_selection[0].trap or value > remove_trap_target:
             self.game.echo.player(character, "You think there is no trap.")
@@ -38,7 +38,7 @@ class RemoveTraps(Ability):
             message = StringBuilder(Actor, Verb("found", Actor), "a", Target)
             self.game.player(character, message, context)
 
-        value = dice.D100(1).roll()
+        value = dice.D100(1).roll_total()
         message = StringBuilder(Actor, Verb("attempt", Actor), "to disarm", Target, "'s trap...")
         self.game.see(character, message, context)
         if value > remove_trap_target:

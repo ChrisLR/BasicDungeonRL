@@ -12,7 +12,7 @@ class SavingThrows(Component):
 
     def make(self, saving_throw):
         score = self.saving_throws_set.get(saving_throw)
-        roll = dice.D20(1).roll()
+        roll = dice.D20(1).roll_total()
         if roll >= score:
             return True
 

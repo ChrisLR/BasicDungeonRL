@@ -17,7 +17,7 @@ class MoveSilently(Ability):
     @classmethod
     def execute(cls, character, target_selection=None):
         hide_target = character.query.special_ability(MoveSilentlyAbility)
-        value = dice.D100(1).roll()
+        value = dice.D100(1).roll_total()
         if value > hide_target:
             return False
         return True

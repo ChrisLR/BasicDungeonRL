@@ -73,7 +73,7 @@ class RangedAttack(Attack):
             target_ac = 0
 
         modifier = self._get_attack_modifier(attacker, defender, fired_weapon, distance)
-        roll = dice.D20.manual_roll(1)
+        roll = dice.D20.manual_roll_total(1)
         if roll == 1:
             return False
 
@@ -90,7 +90,7 @@ class RangedAttack(Attack):
 
     def make_damage_roll(self, ammunition_spent):
         damage_dice = ammunition_spent.ammunition.ammunition_damage
-        total_damage = damage_dice.roll()
+        total_damage = damage_dice.roll_total()
 
         if total_damage <= 0:
             return 1

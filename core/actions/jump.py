@@ -1,7 +1,7 @@
 import math
 import random
 
-from bflib import skills, sizes
+from bflib import dice, skills, sizes
 from core import contexts
 from core.actions.base import Action
 from core.tiles.base import Tile
@@ -76,7 +76,7 @@ class Jump(Action):
 
         if roll_result >= required_roll:
             self._jump_successfully(character, obstacles_with_size)
-        elif roll_result == 1:
+        elif roll_result.critical_failure:
             self._critical_failure_jump(character)
         else:
             self._fail_jump(character)
@@ -103,13 +103,15 @@ class Jump(Action):
 
     def _critical_failure_jump(self, character):
         new_pos = self._select_random_tile_with_offset(character, False)
+        tile = character.location.level.get_tile(new_pos)
         context = contexts.Action(character, None)
         message = StringBuilder(Actor, Verb("trip", Actor), "and",
-                                Verb("faceplant", Actor), "into")
-        # TODO Faceplant on the ground, or into something blocking.
-        # TODO IF blocking, double damage
+                                Verb("faceplant", Actor), "into the %s!" % tile.name)
+
         self.game.echo.see(character, message, context)
+        damage = dice.D4(1).roll_total()
         character.location.set_local_coords(new_pos)
+        character.health.take_damage(damage, character)
 
     def _select_random_tile_with_offset(self, character, safe=False):
         level = character.location.level
@@ -122,7 +124,8 @@ class Jump(Action):
             offset_x, offset_y = random.randint(-1, 1), random.randint(-1, 1)
             x = x_range.pop() if x_range else start_x
             y = y_range.pop() if y_range else start_y
-            possible_positions.append((x + offset_x, y + offset_y))
+            if level.is_coordinate_in_bounds((x, y)):
+                possible_positions.append((x + offset_x, y + offset_y))
 
         new_pos = None
         while not new_pos:

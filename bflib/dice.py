@@ -25,12 +25,19 @@ class Dice(object):
 
         return RollResult(sum(rolls), total)
 
+    def roll_total(self):
+        return self.roll().total
+
     @classmethod
     def manual_roll(cls, amount, flat_bonus=0):
         rolls = [random.randint(1, cls.sides) for _ in range(0, amount)]
         rolls_with_bonus = [value + flat_bonus for value in rolls]
 
         return RollResult(sum(rolls), sum(rolls_with_bonus))
+
+    @classmethod
+    def manual_roll_total(cls, amount, flat_bonus=0):
+        return cls.manual_roll(amount, flat_bonus).total
 
     @staticmethod
     def get_by_sides(sides):
@@ -132,8 +139,23 @@ class RollResult(object):
     def __lt__(self, other):
         return int(self) < int(other)
 
+    def __le__(self, other):
+        return int(self) <= int(other)
+
     def __gt__(self, other):
         return int(self) > int(other)
+
+    def __ge__(self, other):
+        return int(self) >= int(other)
+
+    def __add__(self, other):
+        return int(self) + int(other)
+
+    def __sub__(self, other):
+        return int(self) - int(other)
+
+    def __mul__(self, other):
+        return int(self) * int(other)
 
     @property
     def critical(self):
