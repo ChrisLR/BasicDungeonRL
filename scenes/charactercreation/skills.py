@@ -15,7 +15,7 @@ from ui.views.validatedintstepperview import ValidatedIntStepperView
 from functools import partial
 
 
-class SkillsSelectionScene(UIScene):
+class SkillsSelection(UIScene):
     def __init__(self, game, ability_score_set, class_choices, race, name):
         self.covers_screen = True
         self.game = game
@@ -39,6 +39,7 @@ class SkillsSelectionScene(UIScene):
         self.player.register_component(components.Skills())
         self.player_skills = self.player.skills
         self.game.player = self.player
+        self.manager = None
 
         sorted_skills = sorted(list(skill_listing), key=lambda skill: skill.name)
         sub_views = []
@@ -84,7 +85,7 @@ class SkillsSelectionScene(UIScene):
         if self.points_left <= 0:
             for skill, value in self.skills.items():
                 self.player_skills.set_skill(skill, value)
-            self.game.new_game()
+            self.manager.next()
 
     def terminal_read(self, val):
         super().terminal_read(val)

@@ -8,11 +8,10 @@ from clubsandwich.ui import (
 )
 
 from bflib.characters import races
-from scenes.charactercreation.classes import ClassSelectionScene
 from ui.views import KeyAssignedListView, SelectableButtonView
 
 
-class RaceSelectionScene(UIScene):
+class RaceSelection(UIScene):
     _inactive_fg = '#ffffff'
     _active_fg = "#efff14"
     _disabled_fg = '#424242'
@@ -22,6 +21,7 @@ class RaceSelectionScene(UIScene):
         self.game = game
         self.ability_score_set = ability_score_set
         self.name = name
+        self.manager = None
 
         self.sorted_races = sorted(races.listing, key=lambda race: race.name)
         self.enabled_races, self.disabled_races = self.filter_race_choices()
@@ -78,14 +78,7 @@ class RaceSelectionScene(UIScene):
         if not self.race_choice:
             return
 
-        self.director.replace_scene(
-            ClassSelectionScene(
-                game=self.game,
-                ability_score_set=self.ability_score_set,
-                name=self.name,
-                race=self.race_choice
-            )
-        )
+        self.manager.next()
 
 
 def get_left_layout(top, **kwargs):

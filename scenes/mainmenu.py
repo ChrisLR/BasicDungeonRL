@@ -2,7 +2,7 @@ from clubsandwich.ui import LayoutOptions
 from clubsandwich.ui.misc_views import LabelView, ButtonView
 
 from clubsandwich.ui import UIScene
-from scenes.charactercreation.attributes import AttributeSelectionScene
+from scenes.charactercreation.attributes import AttributeSelection
 
 
 class MainMenuScene(UIScene):
@@ -18,7 +18,7 @@ class MainMenuScene(UIScene):
             ),
             ButtonView(
                 text="Play",
-                callback=lambda: self.director.replace_scene(AttributeSelectionScene(game)),
+                callback=lambda: self.director.replace_scene(AttributeSelection(game)),
                 layout_options=LayoutOptions(top=0.5, height=0.2, left=0.4, right=None, bottom=None, width=0.1),
             ),
             ButtonView(

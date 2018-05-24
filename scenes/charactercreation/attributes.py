@@ -9,14 +9,15 @@ from clubsandwich.ui import (
 )
 
 from bflib.characters.abilityscores import AbilityScoreSet
-from scenes.charactercreation.races import RaceSelectionScene
+from scenes.charactercreation.races import RaceSelection
 from ui.views.validatedintstepperview import ValidatedIntStepperView
 
 
-class AttributeSelectionScene(UIScene):
+class AttributeSelection(UIScene):
     def __init__(self, game):
         self.covers_screen = True
         self.game = game
+        self.manager = None
         stat_initial = 7
         stat_minimum = 3
         stat_maximum = 18
@@ -109,13 +110,7 @@ class AttributeSelectionScene(UIScene):
 
     def finish(self):
         if self.points_left <= 0:
-            self.director.replace_scene(
-                RaceSelectionScene(
-                    game=self.game,
-                    ability_score_set=AbilityScoreSet(**self.stats),
-                    name=self.name
-                )
-            )
+            self.manager.next()
 
     def terminal_read(self, val):
         super().terminal_read(val)

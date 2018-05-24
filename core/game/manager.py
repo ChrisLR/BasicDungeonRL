@@ -5,11 +5,14 @@ import ui
 from core import abilities, actions, attacks, factories, generators
 from core.displaypriority import DisplayPriority
 from core.util.gametime import GameTime
-from scenes.mainmenu import MainMenuScene
+from scenes.charactercreation import (
+    ClassSelection, AttributeSelection, RaceSelection, SkillsSelection
+)
 from scenes.game.scene import GameScene
 from services.echo import EchoService
 from core.outfits.outfitter import OutfitterService
 from core.actionmapping import ActionMapping
+from scenes.manager import SceneManager
 
 
 class Game(object):
@@ -30,9 +33,9 @@ class Game(object):
         self.outfit = OutfitterService(self)
         self.action_mapping = ActionMapping(self)
 
-    def start(self):
+    def start(self, scene_manager=None):
         if self.director is None:
-            self.director = MainLoop(MainMenuScene(self))
+            self.director = MainLoop(scene_manager)
             self.director.run()
 
     def new_game(self):
@@ -47,12 +50,20 @@ class Game(object):
 
 
 class MainLoop(DirectorLoop):
-    def __init__(self, scene):
+    def __init__(self, scene_manager=None):
         super().__init__()
-        self.scene = scene
+        if scene_manager is None:
+            SceneManager(
+                self, [
+                    AttributeSelection,
+                    RaceSelection,
+                    ClassSelection,
+                    SkillsSelection
+                ])
+        self.scene_manager = scene_manager
 
     def get_initial_scene(self):
-        return self.scene
+        return self.scene_manager.initial_scene
 
     def terminal_init(self):
         super().terminal_init()
