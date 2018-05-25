@@ -16,11 +16,11 @@ class RaceSelection(UIScene):
     _active_fg = "#efff14"
     _disabled_fg = '#424242'
 
-    def __init__(self, game, ability_score_set, name):
+    def __init__(self, game):
         self.covers_screen = True
         self.game = game
-        self.ability_score_set = ability_score_set
-        self.name = name
+        self.player = self.game.player
+        self.ability_score_set = self.player.stats.base_ability_score_set
         self.manager = None
 
         self.sorted_races = sorted(races.listing, key=lambda race: race.name)
@@ -78,6 +78,9 @@ class RaceSelection(UIScene):
         if not self.race_choice:
             return
 
+        character_factory = self.game.factory.get("character")
+        character_factory.set_classes(self.player, self.race_choice)
+        self.manager.next()
         self.manager.next()
 
 

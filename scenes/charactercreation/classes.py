@@ -9,7 +9,6 @@ from clubsandwich.ui import (
 
 from bflib.characters import classes
 from ui.views import SelectableButtonView, KeyAssignedListView
-from scenes.charactercreation.skills import SkillsSelection
 
 
 class ClassSelection(UIScene):
@@ -17,13 +16,12 @@ class ClassSelection(UIScene):
     _active_fg = "#efff14"
     _disabled_fg = '#424242'
 
-    def __init__(self, game, ability_score_set, name, race):
+    def __init__(self, game):
         self.covers_screen = True
         self.game = game
-        self.ability_score_set = ability_score_set
-        self.name = name
-        self.race = race
         self.manager = None
+        self.player = self.game.player
+        self.race = self.player.race.base_race
         if self.race.racial_class is None:
             self.sorted_classes = sorted(classes.listing, key=lambda c_class: c_class.name)
             self.enabled_classes, self.disabled_classes = self.filter_class_choices()
@@ -98,6 +96,8 @@ class ClassSelection(UIScene):
         if not self.class_choices:
             return
 
+        character_factory = self.game.factory.get("character")
+        character_factory.set_classes(self.player, self.class_choices)
         self.manager.next()
 
 

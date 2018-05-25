@@ -1,20 +1,25 @@
 class SceneManager(object):
-    def __init__(self, director, scenes=None):
+    def __init__(self, director, game, scenes=None):
         """
         A Manager to control the flow of scenes.
         :param director: The main loop director.
         :param scenes: The scenes to display in order.
         """
         self.director = director
+        self.game = game
         self.scenes = scenes or []
         self.current_index = None
-        for scene in self.scenes:
-            scene.manager = self
         self.callbacks = {}
+
+    def _prepare_scene(self, scene):
+        new_scene = scene(self.game)
+        new_scene.manager = self
+
+        return new_scene
 
     @property
     def initial_scene(self):
-        return self.scenes[0]
+        return self._prepare_scene(self.scenes[0])
 
     def register_transition_callback(self, scene, callback, **kwargs):
         """
@@ -35,7 +40,8 @@ class SceneManager(object):
             self.current_index += 1
 
         if not self.current_index > len(self.scenes):
-            next_scene = self.scenes[self.current_index]
+            next_scene = self.scenes[self.current_index](self.game)
+            next_scene = self._prepare_scene(next_scene)
             self.transition_callback(next_scene)
             self.director.replace_scene(next_scene)
 
@@ -47,6 +53,7 @@ class SceneManager(object):
 
         if not self.current_index <= 0:
             next_scene = self.scenes[self.current_index]
+            next_scene = self._prepare_scene(next_scene)
             self.transition_callback(next_scene)
             self.director.replace_scene(next_scene)
 

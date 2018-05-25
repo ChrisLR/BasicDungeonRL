@@ -3,16 +3,18 @@ from clubsandwich.director import DirectorLoop
 
 import ui
 from core import abilities, actions, attacks, factories, generators
+from core.actionmapping import ActionMapping
 from core.displaypriority import DisplayPriority
+from core.gameobject import GameObject
+from core.outfits.outfitter import OutfitterService
 from core.util.gametime import GameTime
 from scenes.charactercreation import (
     ClassSelection, AttributeSelection, RaceSelection, SkillsSelection
 )
+from scenes.mainmenu import MainMenuScene
 from scenes.game.scene import GameScene
-from services.echo import EchoService
-from core.outfits.outfitter import OutfitterService
-from core.actionmapping import ActionMapping
 from scenes.manager import SceneManager
+from services.echo import EchoService
 
 
 class Game(object):
@@ -35,7 +37,8 @@ class Game(object):
 
     def start(self, scene_manager=None):
         if self.director is None:
-            self.director = MainLoop(scene_manager)
+            self.player = GameObject(self)
+            self.director = MainLoop(self, scene_manager)
             self.director.run()
 
     def new_game(self):
@@ -50,15 +53,16 @@ class Game(object):
 
 
 class MainLoop(DirectorLoop):
-    def __init__(self, scene_manager=None):
+    def __init__(self, game, scene_manager):
         super().__init__()
         if scene_manager is None:
-            SceneManager(
-                self, [
+            scene_manager = SceneManager(
+                self, game, [
+                    MainMenuScene,
                     AttributeSelection,
                     RaceSelection,
                     ClassSelection,
-                    SkillsSelection
+                    SkillsSelection,
                 ])
         self.scene_manager = scene_manager
 

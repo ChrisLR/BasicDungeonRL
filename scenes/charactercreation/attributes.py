@@ -9,7 +9,6 @@ from clubsandwich.ui import (
 )
 
 from bflib.characters.abilityscores import AbilityScoreSet
-from scenes.charactercreation.races import RaceSelection
 from ui.views.validatedintstepperview import ValidatedIntStepperView
 
 
@@ -110,6 +109,10 @@ class AttributeSelection(UIScene):
 
     def finish(self):
         if self.points_left <= 0:
+            player = self.game.player
+            player.name = self.name
+            character_factory = self.game.factory.get("character")
+            character_factory.set_attributes(player, AbilityScoreSet(**self.stats))
             self.manager.next()
 
     def terminal_read(self, val):
