@@ -17,8 +17,8 @@ class SceneManager(object):
 
         return new_scene
 
-    @property
-    def initial_scene(self):
+    def prepare_initial_scene(self):
+        self.current_index = 0
         return self._prepare_scene(self.scenes[0])
 
     def register_transition_callback(self, scene, callback, **kwargs):
@@ -29,7 +29,7 @@ class SceneManager(object):
         :param kwargs: Additional kwargs to use when calling
         """
         if scene in self.callbacks:
-            self.callbacks.append((callback, kwargs))
+            self.callbacks[scene].append((callback, kwargs))
         else:
             self.callbacks[scene] = [(callback, kwargs)]
 
@@ -39,8 +39,8 @@ class SceneManager(object):
         else:
             self.current_index += 1
 
-        if not self.current_index > len(self.scenes):
-            next_scene = self.scenes[self.current_index](self.game)
+        if not self.current_index >= len(self.scenes):
+            next_scene = self.scenes[self.current_index]
             next_scene = self._prepare_scene(next_scene)
             self.transition_callback(next_scene)
             self.director.replace_scene(next_scene)

@@ -79,8 +79,7 @@ class RaceSelection(UIScene):
             return
 
         character_factory = self.game.factory.get("character")
-        character_factory.set_classes(self.player, self.race_choice)
-        self.manager.next()
+        character_factory.set_race(self.player, self.race_choice)
         self.manager.next()
 
 

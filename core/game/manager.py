@@ -37,7 +37,7 @@ class Game(object):
 
     def start(self, scene_manager=None):
         if self.director is None:
-            self.player = GameObject(self)
+            self.player = self.factory.get("character").create_blank_player()
             self.director = MainLoop(self, scene_manager)
             self.director.run()
 
@@ -64,10 +64,14 @@ class MainLoop(DirectorLoop):
                     ClassSelection,
                     SkillsSelection,
                 ])
+            scene_manager.register_transition_callback(
+                SkillsSelection,
+                game.new_game()
+            )
         self.scene_manager = scene_manager
 
     def get_initial_scene(self):
-        return self.scene_manager.initial_scene
+        return self.scene_manager.prepare_initial_scene()
 
     def terminal_init(self):
         super().terminal_init()

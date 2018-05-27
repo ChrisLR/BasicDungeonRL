@@ -21,6 +21,7 @@ class ClassSelection(UIScene):
         self.game = game
         self.manager = None
         self.player = self.game.player
+        self.ability_score_set = self.player.stats.base_ability_score_set
         self.race = self.player.race.base_race
         if self.race.racial_class is None:
             self.sorted_classes = sorted(classes.listing, key=lambda c_class: c_class.name)

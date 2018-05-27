@@ -7,7 +7,7 @@ class CharacterClass(Component):
     NAME = 'character_class'
     __slots__ = ["base_classes"]
 
-    def __init__(self, *base_classes):
+    def __init__(self, base_classes):
         super().__init__()
         self.base_classes = base_classes
 

@@ -34,11 +34,13 @@ class CharacterFactory(object):
         ))
         new_character.flags.add(flags.GameObjectFlags.Character)
 
+        return new_character
+
     def set_attributes(self, character, ability_score_set):
         character.register_component(components.CharacterStats(ability_score_set))
 
     def set_classes(self, character, base_classes):
-        character.register_component(components.CharacterClass(*base_classes))
+        character.register_component(components.CharacterClass(base_classes))
         character.register_component(components.Experience(base_classes))
 
     def set_race(self, character, base_race):
