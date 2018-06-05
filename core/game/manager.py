@@ -3,13 +3,18 @@ from clubsandwich.director import DirectorLoop
 
 import ui
 from core import abilities, actions, attacks, factories, generators
+from core.actionmapping import ActionMapping
 from core.displaypriority import DisplayPriority
+from core.gameobject import GameObject
+from core.outfits.outfitter import OutfitterService
 from core.util.gametime import GameTime
+from scenes.charactercreation import (
+    ClassSelection, AttributeSelection, RaceSelection, SkillsSelection
+)
 from scenes.mainmenu import MainMenuScene
 from scenes.game.scene import GameScene
+from scenes.manager import SceneManager
 from services.echo import EchoService
-from core.outfits.outfitter import OutfitterService
-from core.actionmapping import ActionMapping
 
 
 class Game(object):
@@ -30,29 +35,45 @@ class Game(object):
         self.outfit = OutfitterService(self)
         self.action_mapping = ActionMapping(self)
 
-    def start(self):
+    def start(self, scene_manager=None):
         if self.director is None:
-            self.director = MainLoop(MainMenuScene(self))
+            self.player = self.factory.get("character").create_blank_player()
+            self.director = MainLoop(self, scene_manager)
             self.director.run()
 
     def new_game(self):
+        self.factory.get('character').finalize_character(self.player)
         # generator = generators.TestingGenerator
         generator = generators.GoblinCampGenerator
         # generator = generators.SkeletonCrypt
         level = generator.generate(self)
         self.player.display.priority = DisplayPriority.Player
         generator.place_player(level, self.player)
-        self.director.replace_scene(GameScene(self))
+        self.player.vision.update_field_of_vision()
         self.running = True
 
 
 class MainLoop(DirectorLoop):
-    def __init__(self, scene):
+    def __init__(self, game, scene_manager):
         super().__init__()
-        self.scene = scene
+        if scene_manager is None:
+            scene_manager = SceneManager(
+                self, game, [
+                    MainMenuScene,
+                    AttributeSelection,
+                    RaceSelection,
+                    ClassSelection,
+                    SkillsSelection,
+                    GameScene,
+                ])
+            scene_manager.register_transition_callback(
+                GameScene,
+                game.new_game
+            )
+        self.scene_manager = scene_manager
 
     def get_initial_scene(self):
-        return self.scene
+        return self.scene_manager.prepare_initial_scene()
 
     def terminal_init(self):
         super().terminal_init()

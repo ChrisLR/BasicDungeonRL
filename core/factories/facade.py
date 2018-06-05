@@ -32,13 +32,3 @@ class Facade(object):
                 return new_object
 
         raise ValueError("No factory for base type {}".format(base_object_type))
-
-    def create_new_character(self, ability_score_set, base_classes, base_race, name,
-                             symbol, fg_color, bg_color, display_priority=0):
-        new_object = self.get("character").create_new(
-            ability_score_set, base_classes, base_race, name,
-            symbol, fg_color, bg_color, display_priority
-        )
-        new_object.game = self.game
-
-        return new_object

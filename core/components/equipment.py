@@ -13,20 +13,22 @@ class Equipment(Component):
     This component attaches itself to anything with a bodies.
     It represents equipment worn or wielded
     """
-    def __init__(self, armor_restrictions=None, weapon_restrictions=None,
-                 weapon_size_restrictions=None):
+    def __init__(self):
         super().__init__()
-        self.armor_restrictions = armor_restrictions
-        self.weapon_restrictions = weapon_restrictions
-        self.weapon_size_restrictions = weapon_size_restrictions
+        self.armor_restrictions = None
+        self.weapon_restrictions = None
+        self.weapon_size_restrictions = None
+
+    def on_register(self, host):
+        super().on_register(host)
+        host_restrictions = self.host.restrictions
+        if host_restrictions:
+            self.armor_restrictions = host_restrictions.armor
+            self.weapon_restrictions = host_restrictions.weapons
+            self.weapon_size_restrictions = host_restrictions.weapon_size
 
     def copy(self):
-        new_equipment = Equipment(
-            armor_restrictions=self.armor_restrictions,
-            weapon_restrictions=self.weapon_restrictions
-        )
-
-        return new_equipment
+        return Equipment()
 
     def remove(self, item):
         found_slots = False
