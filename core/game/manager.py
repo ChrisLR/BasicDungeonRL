@@ -42,13 +42,14 @@ class Game(object):
             self.director.run()
 
     def new_game(self):
+        self.factory.get('character').finalize_character(self.player)
         # generator = generators.TestingGenerator
         generator = generators.GoblinCampGenerator
         # generator = generators.SkeletonCrypt
         level = generator.generate(self)
         self.player.display.priority = DisplayPriority.Player
         generator.place_player(level, self.player)
-        self.director.replace_scene(GameScene(self))
+        self.player.vision.update_field_of_vision()
         self.running = True
 
 
@@ -63,10 +64,11 @@ class MainLoop(DirectorLoop):
                     RaceSelection,
                     ClassSelection,
                     SkillsSelection,
+                    GameScene,
                 ])
             scene_manager.register_transition_callback(
-                SkillsSelection,
-                game.new_game()
+                GameScene,
+                game.new_game
             )
         self.scene_manager = scene_manager
 

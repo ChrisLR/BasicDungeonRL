@@ -58,7 +58,7 @@ class SceneManager(object):
             self.director.replace_scene(next_scene)
 
     def transition_callback(self, scene):
-        callbacks = self.callbacks.get(scene)
+        callbacks = self.callbacks.get(type(scene))
         if callbacks:
             for callback, kwargs in callbacks:
                 callback(**kwargs)

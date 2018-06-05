@@ -7,7 +7,11 @@ class Restrictions(Component):
 
     def __init__(self):
         super().__init__()
-        self.restrictions = self.host.query.restrictions()
+        self.restrictions = None
+
+    def on_register(self, host):
+        super().on_register(host)
+        self.restrictions = host.query.restrictions()
 
     @property
     def ability_score(self):
