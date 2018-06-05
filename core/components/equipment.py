@@ -15,6 +15,12 @@ class Equipment(Component):
     """
     def __init__(self):
         super().__init__()
+        self.armor_restrictions = None
+        self.weapon_restrictions = None
+        self.weapon_size_restrictions = None
+
+    def on_register(self, host):
+        super().on_register(host)
         host_restrictions = self.host.restrictions
         if host_restrictions:
             self.armor_restrictions = host_restrictions.armor
