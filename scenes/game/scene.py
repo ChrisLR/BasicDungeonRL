@@ -21,7 +21,6 @@ class GameScene(UIScene):
         game.action_stack = ActionStack(game, game.player, self.update_turn)
         self.hud_view = HudView(game, layout_options=hud_view_layout_options)
         super().__init__(WindowView("", subviews=[self.hud_view, self.game_view, self.console]))
-        self.game.player.vision.update_field_of_vision()
         self.game.game_scene = self
 
     def terminal_update(self, is_active=False):
