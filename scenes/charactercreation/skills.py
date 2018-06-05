@@ -1,3 +1,5 @@
+from functools import partial
+
 from bearlibterminal import terminal
 from clubsandwich.ui import (
     UIScene,
@@ -8,37 +10,19 @@ from clubsandwich.ui import (
 )
 
 from bflib.skills.listing import skill_listing
-from core import components
-from core.displaypriority import DisplayPriority
-from core.util.colors import Colors
 from ui.views.validatedintstepperview import ValidatedIntStepperView
-from functools import partial
 
 
-class SkillsSelectionScene(UIScene):
-    def __init__(self, game, ability_score_set, class_choices, race, name):
+class SkillsSelection(UIScene):
+    def __init__(self, game):
         self.covers_screen = True
         self.game = game
         self.skills = {}
         self.points_left = 3
-        self.ability_score_set = ability_score_set
-        self.class_choices = class_choices
-        self.race = race
-        self.name = name
-        self.player = self.game.factory.create_new_character(
-            ability_score_set=self.ability_score_set,
-            base_classes=self.class_choices,
-            base_race=self.race,
-            name=self.name,
-            symbol="@",
-            fg_color=Colors.WHITE,
-            bg_color=Colors.BLACK,
-            display_priority=DisplayPriority.Player
-        )
-        self.player.register_component(components.Player())
-        self.player.register_component(components.Skills())
+        self.player = self.game.player
         self.player_skills = self.player.skills
         self.game.player = self.player
+        self.manager = None
 
         sorted_skills = sorted(list(skill_listing), key=lambda skill: skill.name)
         sub_views = []
@@ -84,7 +68,7 @@ class SkillsSelectionScene(UIScene):
         if self.points_left <= 0:
             for skill, value in self.skills.items():
                 self.player_skills.set_skill(skill, value)
-            self.game.new_game()
+            self.manager.next()
 
     def terminal_read(self, val):
         super().terminal_read(val)
