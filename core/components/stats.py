@@ -2,6 +2,7 @@ import copy
 
 from bflib.characters.abilityscores import \
     Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma, AbilityScoreSet
+from bflib.characters.abilityscores.base import AbilityScore
 from core.components.base import Component
 
 
@@ -22,6 +23,22 @@ class CharacterStats(Component):
             Intelligence: [],
             Wisdom: [],
             Charisma: [],
+        }
+        self._stat_mapping = {
+            Strength: self.strength,
+            Dexterity: self.dexterity,
+            Constitution: self.constitution,
+            Intelligence: self.intelligence,
+            Wisdom: self.wisdom,
+            Charisma: self.charisma,
+        }
+        self._stat_modifier_mapping = {
+            Strength: self.strength_modifier,
+            Dexterity: self.dexterity_modifier,
+            Constitution: self.constitution_modifier,
+            Intelligence: self.intelligence_modifier,
+            Wisdom: self.wisdom_modifier,
+            Charisma: self.charisma_modifier,
         }
 
     @property
@@ -83,6 +100,11 @@ class CharacterStats(Component):
     def charisma_modifier(self):
         modifiers = self.registered_modifiers[Charisma]
         return self.base_ability_score_set.charisma.modifier(sum(modifiers))
+
+    def get_modifier(self, stat):
+        if isinstance(stat, AbilityScore):
+            return self._stat_modifier_mapping.get(type(stat), 0)
+        return self._stat_modifier_mapping.get(stat, 0)
 
     def register_modifier(self, ability_score):
         self.registered_modifiers[type(ability_score)].append(ability_score)

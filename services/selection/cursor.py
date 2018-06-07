@@ -68,6 +68,7 @@ class CursorView(RectView):
     def draw(self, ctx):
         cursor_position = self.parent_scene.cursor_position
         screen_position = self.camera.transform(cursor_position)
-        screen_position.x += 1
-        screen_position.y += 1
-        ctx.print(screen_position, "X")
+        if screen_position is not None:
+            screen_position.x += 1
+            screen_position.y += 1
+            ctx.print(screen_position, "X")

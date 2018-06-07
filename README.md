@@ -13,7 +13,7 @@ This is an open source roguelike based on the Basic Fantasy Rpg.
 
 * **Chris LR** - *Initial work* - [ChrisLR](https://github.com/ChrisLR)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/ChrisLR/BasicDungeonRL/graphs/contributors) who participated in this project.
 
 ## License
 

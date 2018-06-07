@@ -12,7 +12,9 @@ class Experience(Component):
 
     def __init__(self, character_classes, starting_level=1):
         super().__init__()
-        self.level_tables = [character_class.level_table for character_class in character_classes]
+        self.level_tables = [
+            character_class.level_table
+            for character_class in character_classes]
         if starting_level is 1:
             # Default starting level applies the Minimal level (For negative levels)
             starting_level = min((level_table.min for level_table in self.level_tables))
@@ -48,6 +50,9 @@ class Experience(Component):
         self.level += 1
         self.host.echo.player(self.host, "You advance to level {}".format(self.level))
         self.host.health.on_level_up()
+        skills = self.host.skills
+        if skills:
+            skills.skill_points += 3
 
     def add_new_class(self):
         # This means we were in negative levels and must choose

@@ -42,7 +42,7 @@ class PickPocket(Ability):
         holder = target_selection.get("Holder")
         item = target_selection.get("Item")
         pick_pocket_target = character.query.special_ability(PickPocketAbility)
-        value = dice.D100(1).roll()
+        value = dice.D100(1).roll_total()
         context = contexts.TwoTargetAction(character, holder, item)
         if value > pick_pocket_target:
             if value == 100 or value >= pick_pocket_target * 2:
