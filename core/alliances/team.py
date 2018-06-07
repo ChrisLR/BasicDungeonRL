@@ -10,6 +10,16 @@ class Team(object):
         self.members = set()
         self.enemy_objects = set()
 
+    def make_member(self, game_object):
+        if game_object in self.enemy_objects:
+            self.enemy_objects.remove(game_object)
+        self.members.add(game_object)
+
+    def make_enemy(self, game_object):
+        if game_object in self.members:
+            self.members.remove(game_object)
+        self.enemy_objects.add(game_object)
+
     def is_allied(self, game_object):
         if game_object in self.members:
             return True

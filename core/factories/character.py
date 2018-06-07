@@ -54,6 +54,7 @@ class CharacterFactory(object):
         character.register_component(components.Gender(Gender.Male))
         character.register_component(components.Money())
         character.register_component(components.Health(True))
+        character.register_component(components.Alliance())
         self.game.outfit.outfit_starting_player(character)
 
 

@@ -12,13 +12,33 @@ class Alliance(Component):
         self.team = team
 
     def is_allied(self, game_object):
-        # TODO Object must not be in personal hostiles, must share at least one faction but not be in any enemy faction
-        # or be in the same team.
-        pass
+        if game_object in self.personal_hostiles:
+            return False
+
+        if self.team.is_allied(game_object):
+            return True
+
+        faction_ally = False
+        for faction in self.factions:
+            if faction.is_allied(game_object):
+                faction_ally = True
+            elif faction.is_enemy(game_object):
+                return False
+
+        return faction_ally
 
     def is_enemy(self, game_object):
-        # TODO Object is known hostile by personal, faction or team.
-        pass
+        if game_object in self.personal_hostiles:
+            return True
+
+        if self.team.is_allied(game_object):
+            return False
+
+        for faction in self.factions:
+            if faction.is_enemy(game_object):
+                return True
+
+        return False
 
     def copy(self):
         return Alliance(self.personal_hostiles, self.factions, self.team)

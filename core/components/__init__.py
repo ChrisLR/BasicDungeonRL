@@ -1,6 +1,7 @@
 from core.components.ai import AI
 from core.components.ammunition import Ammunition
 from core.components.armor import Armor
+from core.components.alliance import Alliance
 from core.components.base import Component
 from core.components.body import Body
 from core.components.character_class import CharacterClass
@@ -46,6 +47,7 @@ from core.components.vision import Vision, SimpleVision
 
 component_names = {
     AI.NAME,
+    Alliance.NAME,
     Ammunition.NAME,
     Armor.NAME,
     Body.NAME,
