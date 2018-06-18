@@ -27,6 +27,12 @@ class Faction(object):
         self.enemy_objects = set()
         self.members = set()
 
+    def add_member(self, game_object):
+        self.members.add(game_object)
+
+    def add_enemy_object(self, game_object):
+        self.enemy_objects.add(game_object)
+
     def is_allied(self, game_object):
         if game_object in self.enemy_objects:
             return False
@@ -64,6 +70,3 @@ class Faction(object):
 
     def add_enemy_faction(self, faction):
         self.enemy_factions.add(faction)
-
-    def add_enemy_object(self, game_object):
-        self.enemy_objects.add(game_object)
