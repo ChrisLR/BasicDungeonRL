@@ -1,10 +1,9 @@
-from bflib import items
 from bflib.monsters import humanoids
-from core import components, traps
-from core.tiles import floors, walls
+from core.alliances import Faction
+from core.tiles import floors
 from core.world.level import Level
-from core.alliances import Faction, Team
-import random
+from core.ai.personalities.warzone import WarzoneWarrior
+from core import components
 
 
 class WarzoneGenerator(object):
@@ -48,21 +47,25 @@ class WarzoneGenerator(object):
         # Orcs that help the player
         x = 20
         starting_y = 10
-        for y in range(10):
+        for y in range(2):
             self.build_warzone_orc(level, x, y + starting_y, ally_faction)
 
     def place_enemies(self, level, enemy_faction):
         # Orcs that attack the player
         x = 40
         starting_y = 10
-        for y in range(10):
+        for y in range(2):
             self.build_warzone_orc(level, x, y + starting_y, enemy_faction)
 
     def build_warzone_orc(self, level, x, y, faction=None):
         orc = self.monster_factory.create_new(humanoids.Orc)
         orc.location.level = level
         orc.location.set_local_coords((x, y))
+        level.add_object(orc)
         if faction is not None:
             faction.add_member(orc)
+            orc.alliance.add_faction(faction)
+
+        orc.register_component(components.AI(WarzoneWarrior))
 
         return orc

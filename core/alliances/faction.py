@@ -60,10 +60,12 @@ class Faction(object):
         if self._any_factions_in(alliance.factions, self.enemy_factions):
             return True
 
-        return True
+        return False
 
     def _any_factions_in(self, factions, faction_set):
-        return any(faction for faction in factions if faction in faction_set)
+        if factions:
+            return any(faction for faction in factions if faction in faction_set)
+        return False
 
     def add_ally_faction(self, faction):
         self.allied_factions.add(faction)

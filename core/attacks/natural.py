@@ -47,7 +47,9 @@ class NaturalAttack(MeleeAttack):
                 )
 
                 self.echo(attacker, defender, True, damage, sneak_attack=sneak_attack)
-                defender.health.take_damage(damage, attacker)
+                defender_health = defender.health
+                if defender_health:
+                    defender_health.take_damage(damage, attacker)
             else:
                 self.echo(attacker, defender, False, 0)
 

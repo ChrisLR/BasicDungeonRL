@@ -11,11 +11,14 @@ class Alliance(Component):
         self.factions = factions or set()
         self.team = team
 
+    def add_faction(self, faction):
+        self.factions.add(faction)
+
     def is_allied(self, game_object):
         if game_object in self.personal_hostiles:
             return False
 
-        if self.team.is_allied(game_object):
+        if self.team and self.team.is_allied(game_object):
             return True
 
         faction_ally = False
@@ -31,7 +34,7 @@ class Alliance(Component):
         if game_object in self.personal_hostiles:
             return True
 
-        if self.team.is_allied(game_object):
+        if self.team and self.team.is_allied(game_object):
             return False
 
         for faction in self.factions:
