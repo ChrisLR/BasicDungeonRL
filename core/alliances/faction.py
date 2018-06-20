@@ -19,8 +19,8 @@ Some reputations scores
 
 
 class Faction(object):
-    def __init__(self, reputation_rules=None, enemy_factions=None, allied_factions=None):
-        self.name = ""
+    def __init__(self, name="", reputation_rules=None, enemy_factions=None, allied_factions=None):
+        self.name = name
         self.reputation_rules = reputation_rules
         self.enemy_factions = enemy_factions or set()
         self.allied_factions = allied_factions or set()
@@ -38,11 +38,17 @@ class Faction(object):
             return False
 
         alliance = game_object.alliance
-        if alliance is None:
+        if not alliance:
             return False
 
         if self._any_factions_in(alliance.factions, self.enemy_factions):
             return False
+
+        try:
+            if self in alliance.factions:
+                return True
+        except TypeError:
+            print("WTF")
 
         if self._any_factions_in(alliance.factions, self.allied_factions):
             return True
@@ -54,7 +60,7 @@ class Faction(object):
             return True
 
         alliance = game_object.alliance
-        if alliance is None:
+        if not alliance:
             return False
 
         if self._any_factions_in(alliance.factions, self.enemy_factions):

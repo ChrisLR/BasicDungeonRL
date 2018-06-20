@@ -19,8 +19,8 @@ class WarzoneGenerator(object):
             for y in range(0, 50):
                 level.add_tile((x, y), floors.Grass)
 
-        self.ally_faction = Faction()
-        enemy_faction = Faction()
+        self.ally_faction = Faction("Ally")
+        enemy_faction = Faction("Enemy")
         self.ally_faction.add_enemy_faction(enemy_faction)
         enemy_faction.add_enemy_faction(self.ally_faction)
 
@@ -35,6 +35,7 @@ class WarzoneGenerator(object):
         player.location.set_local_coords((24, 24))
         level.add_object(player)
         self.ally_faction.add_member(player)
+        player.alliance.add_faction(self.ally_faction)
 
     def place_neutrals(self, level):
         # Orcs that do not get involved
@@ -47,14 +48,14 @@ class WarzoneGenerator(object):
         # Orcs that help the player
         x = 20
         starting_y = 10
-        for y in range(2):
+        for y in range(10):
             self.build_warzone_orc(level, x, y + starting_y, ally_faction)
 
     def place_enemies(self, level, enemy_faction):
         # Orcs that attack the player
-        x = 40
+        x = 30
         starting_y = 10
-        for y in range(2):
+        for y in range(10):
             self.build_warzone_orc(level, x, y + starting_y, enemy_faction)
 
     def build_warzone_orc(self, level, x, y, faction=None):
@@ -67,5 +68,6 @@ class WarzoneGenerator(object):
             orc.alliance.add_faction(faction)
 
         orc.register_component(components.AI(WarzoneWarrior))
+        orc.vision.fov_range = 20
 
         return orc
