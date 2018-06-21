@@ -47,6 +47,7 @@ class MonsterFactory(object):
             new.register_component(components.SimpleVision())
 
         new.register_component(components.Effects())
+        new.register_component(components.Alliance())
 
         return new
 

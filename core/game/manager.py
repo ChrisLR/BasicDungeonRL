@@ -44,9 +44,10 @@ class Game(object):
     def new_game(self):
         self.factory.get('character').finalize_character(self.player)
         # generator = generators.TestingGenerator
-        generator = generators.GoblinCampGenerator
+        # generator = generators.GoblinCampGenerator
         # generator = generators.SkeletonCrypt
-        level = generator.generate(self)
+        generator = generators.WarzoneGenerator(self)
+        level = generator.generate()
         self.player.display.priority = DisplayPriority.Player
         generator.place_player(level, self.player)
         self.player.vision.update_field_of_vision()
