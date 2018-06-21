@@ -10,6 +10,8 @@ class Direction(Enum):
     SouthWest = "South West"
     West = "West"
     NorthWest = "North West"
+    Up = "Up"
+    Down = "Down"
 
 
 move_direction_mapping = {
@@ -21,6 +23,8 @@ move_direction_mapping = {
     Direction.South: (0, 1),
     Direction.SouthWest: (-1, 1),
     Direction.West: (-1, 0),
+    Direction.Up: (0, 0),
+    Direction.Down: (0, 0),
 }
 
 inverse_mapping = {
@@ -31,7 +35,9 @@ inverse_mapping = {
     Direction.SouthEast: Direction.NorthWest,
     Direction.South: Direction.North,
     Direction.SouthWest: Direction.NorthEast,
-    Direction.West: Direction.East
+    Direction.West: Direction.East,
+    Direction.Up: Direction.Down,
+    Direction.Down: Direction.Up
 }
 
 
