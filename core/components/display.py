@@ -23,7 +23,7 @@ class Display(Component):
         bg_color = terminal.color_from_argb(255, *self.background_color)
         if self.game:
             player = self.game.player
-            if not player is self.host:
+            if player is not self.host:
                 player_alliance = player.alliance
                 if player_alliance and player_alliance.is_allied(self.host):
                     bg_color = terminal.color_from_argb(255, 0, 0, 125)
