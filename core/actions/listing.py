@@ -1,6 +1,7 @@
 from core.actions.addclass import AddClass
 from core.actions.bump import Bump
 from core.actions.close import Close
+from core.actions.climb import ClimbUp, ClimbDown
 from core.actions.drop import Drop
 from core.actions.eat import Eat
 from core.actions.fire import Fire
@@ -21,6 +22,8 @@ action_listing = {
     AddClass,
     Bump,
     Close,
+    ClimbUp,
+    ClimbDown,
     Drop,
     Eat,
     Get,
