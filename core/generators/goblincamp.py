@@ -1,7 +1,8 @@
+from core import components
 from core.generators.base import DesignPieceGenerator
 from core.generators.spawns import MapPieceSpawn
 from core.maps.goblincamp import huts
-from core.tiles import floors
+from core.tiles import floors, stairs
 from core.world.level import Level
 
 
@@ -27,3 +28,11 @@ class GoblinCampGenerator(DesignPieceGenerator):
         player.location.level = level
         player.location.set_local_coords((1, 1))
         level.add_object(player)
+
+    @classmethod
+    def place_stairs(cls, game, level):
+        pos = (10, 10)
+        stairs_down = stairs.WoodenStairsDown(game)
+        stairs_down.register_component(components.Exit.create_down())
+        tile = level.get_tile(pos)
+        

@@ -214,3 +214,17 @@ class Level(GameObject):
     @property
     def height(self):
         return self.max_y
+
+
+class LevelStub(object):
+    def __init__(self, game, generator):
+        self.game = game
+        self.generator = generator
+        self._level = None
+
+    @property
+    def level(self):
+        if self._level is None:
+            self._level = self.generator.generate(self.game)
+
+        return self._level

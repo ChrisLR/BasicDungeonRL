@@ -14,6 +14,7 @@ from core.components.display import Display
 from core.components.effects import Effects
 from core.components.equipment import Equipment
 from core.components.events import Events
+from core.components.exit import Exit
 from core.components.experience import Experience
 from core.components.gender import Gender
 from core.components.health import Health
