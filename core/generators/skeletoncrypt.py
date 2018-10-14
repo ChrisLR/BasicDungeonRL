@@ -26,10 +26,13 @@ class SkeletonCrypt(ConnectorBasedGenerator):
     ]
     max_amount_of_rooms = 50
 
-    @classmethod
-    def generate(cls):
-        level = Level(50, 50)
-        super()._generate(level)
+    def __init__(self, game):
+        super().__init__(game)
+        self.game = game
+
+    def generate(self, game):
+        level = Level(game, 50, 50)
+        self._generate(level)
 
         return level
 
@@ -46,3 +49,16 @@ class SkeletonCrypt(ConnectorBasedGenerator):
         )
         player.location.set_local_coords(coordinate)
         level.add_object(player)
+
+    @classmethod
+    def place_stairs(cls, level, tile):
+        first_room = level.rooms[0]
+        coordinate = spawns.get_unoccupied_position(
+            level=level,
+            origin_x=first_room.x,
+            origin_y=first_room.y,
+            width=first_room.width,
+            height=first_room.height,
+        )
+        tile.location.set_local_coords(coordinate)
+        level.add_tile(coordinate, tile)

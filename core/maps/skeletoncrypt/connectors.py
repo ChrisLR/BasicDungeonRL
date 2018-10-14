@@ -14,10 +14,10 @@ class DungeonSingleDoor(Connector):
             confirmed_other_coordinates.add(opposite_coordinate)
 
         for level_coordinate in confirmed_coordinates:
-            level.add_tile(level_coordinate, doors.DungeonDoor())
+            level.add_tile(level_coordinate, doors.DungeonDoor(level.game))
 
         for level_coordinate in confirmed_other_coordinates:
-            level.add_tile(level_coordinate, floors.DungeonFloor())
+            level.add_tile(level_coordinate, floors.DungeonFloor(level.game))
 
 
 class DungeonDoubleDoor(Connector):
@@ -35,10 +35,10 @@ class DungeonDoubleDoor(Connector):
             confirmed_other_coordinates.add(opposite_coordinate)
 
         for level_coordinate in confirmed_coordinates:
-            level.add_tile(level_coordinate, doors.DungeonDoor())
+            level.add_tile(level_coordinate, doors.DungeonDoor(level.game))
 
         for level_coordinate in confirmed_other_coordinates:
-            level.add_tile(level_coordinate, floors.DungeonFloor())
+            level.add_tile(level_coordinate, floors.DungeonFloor(level.game))
 
 
 class DungeonSingleFloor(Connector):
@@ -53,10 +53,10 @@ class DungeonSingleFloor(Connector):
             confirmed_other_coordinates.add(opposite_coordinate)
 
         for level_coordinate in confirmed_coordinates:
-            level.add_tile(level_coordinate, floors.DungeonFloor())
+            level.add_tile(level_coordinate, floors.DungeonFloor(level.game))
 
         for level_coordinate in confirmed_other_coordinates:
-            level.add_tile(level_coordinate, floors.DungeonFloor())
+            level.add_tile(level_coordinate, floors.DungeonFloor(level.game))
 
 
 class DungeonDoubleFloor(Connector):
@@ -71,7 +71,7 @@ class DungeonDoubleFloor(Connector):
             confirmed_other_coordinates.add(opposite_coordinate)
 
         for level_coordinate in confirmed_coordinates:
-            level.add_tile(level_coordinate, floors.DungeonFloor())
+            level.add_tile(level_coordinate, floors.DungeonFloor(level.game))
 
         for level_coordinate in confirmed_other_coordinates:
-            level.add_tile(level_coordinate, floors.DungeonFloor())
+            level.add_tile(level_coordinate, floors.DungeonFloor(level.game))
