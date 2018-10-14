@@ -1,4 +1,4 @@
-import tdl
+import tcod
 
 from core.components import Component
 from core.util.distance import manhattan_distance_to
@@ -31,8 +31,13 @@ class Vision(Component):
         if not self.host.location.level:
             return
 
+        location = self.host.location
+        inner_map = location.level.inner_map
         x, y = self.host.location.get_local_coords()
-        self.fov = tdl.map.quick_fov(x, y, self.is_transparent, 'basic', radius=self.fov_range)
+        inner_map.compute_fov(x, y, self.fov_range)
+        fov = [(x, y) for y, row in enumerate(inner_map.fov) for x, cell in enumerate(row) if cell]
+
+        self.fov = fov
 
     def is_transparent(self, x, y):
         if x <= 0 or y <= 0:
