@@ -93,7 +93,7 @@ class Level(GameObject):
         self.set_inner_walkable(coordinates, not tile.blocking)
         self.set_inner_transparent(coordinates, not tile.opaque)
         if not tile.location:
-            tile.register_component(components.Location())
+            tile.register_component(components.TileLocation())
             tile.location.level = self
             tile.location.set_local_coords(coordinates)
         else:
@@ -217,14 +217,17 @@ class Level(GameObject):
 
 
 class LevelStub(object):
-    def __init__(self, game, generator):
+    def __init__(self, game, generator, stairs_up=None):
         self.game = game
         self.generator = generator
         self._level = None
+        self.stairs_up = stairs_up
 
     @property
     def level(self):
         if self._level is None:
             self._level = self.generator.generate(self.game)
+            if self.stairs_up:
+                self.generator.place_stairs(self._level, self.stairs_up)
 
         return self._level

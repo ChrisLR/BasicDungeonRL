@@ -16,6 +16,10 @@ class Climb(Action):
         self.current_level = location.level
         if self.current_level:
             tile = self.current_level.get_tile(location.get_local_coords())
+            exit_component = tile.exit
+            if not exit_component:
+                return False
+
             level_exit = tile.exit.get_exit(self.direction)
             if level_exit:
                 self.level_exit = level_exit
@@ -24,9 +28,10 @@ class Climb(Action):
         return False
 
     def execute(self, character, target_selection=None):
-        new_level, new_position = self.level_exit
+        level_stub, exit_tile = self.level_exit
+        new_level = level_stub.level
         self.current_level.remove_object(character)
-        character.location.set_local_coords(new_position)
+        character.location.set_local_coords(exit_tile.location.get_local_coords())
         new_level.add_object(character)
 
         return True
