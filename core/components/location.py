@@ -54,3 +54,10 @@ class Location(Component):
         self._local_x, self._local_y = coordinates
         self.point.x = self._local_x
         self.point.y = self._local_y
+
+
+class TileLocation(Location):
+    def set_local_coords(self, coordinates):
+        self._local_x, self._local_y = coordinates
+        self.point.x = self._local_x
+        self.point.y = self._local_y

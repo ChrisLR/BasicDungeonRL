@@ -1,8 +1,9 @@
+from core import components
 from core.generators.base import DesignPieceGenerator
 from core.generators.spawns import MapPieceSpawn
 from core.maps.goblincamp import huts
-from core.tiles import floors
-from core.world.level import Level
+from core.tiles import floors, stairs
+from core.world.level import Level, LevelStub
 
 
 class GoblinCampGenerator(DesignPieceGenerator):
@@ -16,10 +17,14 @@ class GoblinCampGenerator(DesignPieceGenerator):
         MapPieceSpawn(50, huts.LargeHut),
     ]
 
-    @classmethod
-    def generate(cls, game):
-        level = Level(game, 50, 50)
+    def __init__(self, game):
+        self.game = game
+
+    def generate(self):
+        level = Level(self.game, 50, 50)
         super()._generate(level)
+        self.place_exit_stairs_temp(self.game, level)
+
         return level
 
     @classmethod
@@ -27,3 +32,22 @@ class GoblinCampGenerator(DesignPieceGenerator):
         player.location.level = level
         player.location.set_local_coords((1, 1))
         level.add_object(player)
+
+    @classmethod
+    def place_exit_stairs_temp(cls, game, level):
+        from core.generators.skeletoncrypt import SkeletonCrypt
+        stairs_down = stairs.WoodenStairsDown(game)
+        stairs_up = stairs.WoodenStairsUp(game)
+        next_level_stub = LevelStub(game, SkeletonCrypt(game), stairs_up)
+        previous_level_stub = LevelStub(game, cls(game))
+        pos = (10, 10)
+
+        stairs_down.register_component(components.Exit.create_down(next_level_stub, stairs_up))
+        stairs_down.register_component(components.TileLocation())
+        stairs_down.location.set_local_coords(pos)
+        stairs_up.register_component(components.Exit.create_up(previous_level_stub, stairs_down))
+        stairs_up.register_component(components.TileLocation())
+
+        previous_level_stub._level = level
+
+        level.add_tile(pos, stairs_down)

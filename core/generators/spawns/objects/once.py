@@ -24,15 +24,17 @@ class OnceSpawner(object):
             if random.randrange(1, 100) <= spawn_set.percent:
                 return spawn_set
 
-    @staticmethod
-    def spawn_set(game, spawn_set, origin):
+    @classmethod
+    def spawn_set(cls, game, spawn_set, origin):
         if spawn_set is None:
             return []
 
-        spawn_sets = [spawn_set]
+        spawn_sets = []
         spawned_objects = []
         if isinstance(spawn_set, SpawnChain):
-            spawn_sets.extend(spawn_set.spawn_sets)
+            cls.expand_spawn_chains(spawn_set, spawn_sets)
+        else:
+            spawn_sets.append(spawn_set)
 
         for spawn_set in spawn_sets:
             spawn_x, spawn_y = spawn_set.spawn_point
@@ -49,3 +51,11 @@ class OnceSpawner(object):
                 spawn_set.on_spawn(game, spawned_object, origin)
 
         return spawned_objects
+
+    @classmethod
+    def expand_spawn_chains(cls, spawn_chain, spawn_sets):
+        for spawn_set in spawn_chain.spawn_sets:
+            if isinstance(spawn_set, SpawnChain):
+                cls.expand_spawn_chains(spawn_set, spawn_sets)
+            else:
+                spawn_sets.append(spawn_set)

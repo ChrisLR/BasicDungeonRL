@@ -14,13 +14,14 @@ from core.components.display import Display
 from core.components.effects import Effects
 from core.components.equipment import Equipment
 from core.components.events import Events
+from core.components.exit import Exit
 from core.components.experience import Experience
 from core.components.gender import Gender
 from core.components.health import Health
 from core.components.inventory import Inventory
 from core.components.light import Light
 from core.components.liquidcontainer import LiquidContainer
-from core.components.location import Location
+from core.components.location import Location, TileLocation
 from core.components.lock import Lock
 from core.components.melee import Melee
 from core.components.money import Money
@@ -63,6 +64,7 @@ component_names = {
     Equipment.NAME,
     Events.NAME,
     Experience.NAME,
+    Exit.NAME,
     Gender.NAME,
     Health.NAME,
     Location.NAME,

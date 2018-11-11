@@ -1,5 +1,5 @@
 from bflib import monsters
-from core import components
+from core import bodies, components
 from core.ai import personalities
 from core.factories.recipes import listing
 from core.factories.recipes.base import Recipe
@@ -19,6 +19,8 @@ class SkeletonRecipe(Recipe):
     def build_components(monster_type, game):
         new_components = [
             components.AI(personalities.MindlessBerserk),
+            components.Body(bodies.HumanoidBody()),
+            components.Equipment()
         ]
 
         return new_components

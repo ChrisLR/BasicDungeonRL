@@ -15,21 +15,6 @@ class UndeadRecipe(Recipe):
     @staticmethod
     def build_components(monster_type, game):
         # TODO This method of assigning wear locations is bad.
-        new_components = [
-            components.Equipment(
-                wear_locations=[
-                    WearLocation.Head,
-                    WearLocation.Torso,
-                    WearLocation.Arms,
-                    WearLocation.Hands,
-                    WearLocation.Legs,
-                    WearLocation.Feet,
-                ],
-                wield_locations=[
-                    WieldLocation.LeftHand,
-                    WieldLocation.RightHand
-                ]
-            )
-        ]
+        new_components = []
 
         return new_components

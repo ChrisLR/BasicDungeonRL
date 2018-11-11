@@ -30,18 +30,17 @@ class ConnectorBasedGenerator(object):
     def __init__(self, game):
         self.game = game
 
-    @classmethod
-    def _generate(cls, level):
-        spawn_grid = cls._prepare_spawn_grid(level)
+    def _generate(self, level):
+        spawn_grid = self._prepare_spawn_grid(level)
         rejected_tiles = set()
         unresolved_connectors = []
 
-        center_coordinate = cls._get_center_coordinate(level)
-        ordered_pieces = cls._get_pieces_by_connectors_amount()
+        center_coordinate = self._get_center_coordinate(level)
+        ordered_pieces = self._get_pieces_by_connectors_amount()
         central_piece = ordered_pieces[0]
-        pointer_coord = cls._get_origin_from_piece_center(
+        pointer_coord = self._get_origin_from_piece_center(
             center_coordinate, central_piece)
-        cls._write_piece(
+        self._write_piece(
             level=level,
             piece=central_piece,
             spawn_grid=spawn_grid,
@@ -49,16 +48,16 @@ class ConnectorBasedGenerator(object):
             unresolved_connectors=unresolved_connectors
         )
         while unresolved_connectors:
-            if len(level.rooms) >= cls.max_amount_of_rooms:
+            if len(level.rooms) >= self.max_amount_of_rooms:
                 break
-            cls._resolve_next_connectors(
+            self._resolve_next_connectors(
                 level=level,
                 spawn_grid=spawn_grid,
                 unresolved_connectors=unresolved_connectors,
             )
 
         rejected_tiles.update(spawn_grid)
-        cls._fill_empty_tiles(level, rejected_tiles)
+        self._fill_empty_tiles(level, rejected_tiles)
 
     @classmethod
     def _prepare_spawn_grid(cls, level):
@@ -122,7 +121,7 @@ class ConnectorBasedGenerator(object):
 
         piece.write_tiles_level(level, pointer_x, pointer_y)
         for spawner in piece.spawners:
-            for spawned_object in spawner.spawn(self.game, offset_coords=(pointer_x, pointer_y)):
+            for spawned_object in spawner.spawn(self.game, origin=(pointer_x, pointer_y)):
                 level.add_object(spawned_object)
 
     @classmethod
@@ -164,9 +163,7 @@ class ConnectorBasedGenerator(object):
 
         return origin_x + offset_x, origin_y + offset_y
 
-    @classmethod
-    def _resolve_next_connectors(
-            cls, level, spawn_grid, unresolved_connectors):
+    def _resolve_next_connectors(self, level, spawn_grid, unresolved_connectors):
         """
         Here we must get all connectors currently in the list
         We copy this list and empty it so any future
@@ -184,11 +181,11 @@ class ConnectorBasedGenerator(object):
         step_connectors = unresolved_connectors.copy()
         unresolved_connectors.clear()
         for connector_link in step_connectors:
-            compatible_pieces = cls._get_compatible_pieces(
+            compatible_pieces = self._get_compatible_pieces(
                 origin_direction=connector_link.direction,
                 connector=connector_link.connector
             )
-            compatible_pieces = cls.filter_map_pieces_by_amounts(level, compatible_pieces)
+            compatible_pieces = self.filter_map_pieces_by_amounts(level, compatible_pieces)
             while compatible_pieces:
                 piece_spawn = compatible_pieces.pop(0)
                 chance = random.randint(0, 100)
@@ -196,15 +193,15 @@ class ConnectorBasedGenerator(object):
                     continue
 
                 piece = piece_spawn.map_piece
-                new_origin_coord = cls._get_origin_for_new_piece(
+                new_origin_coord = self._get_origin_for_new_piece(
                     direction=connector_link.direction,
                     new_piece=piece,
                     connector_coord=connector_link.coordinate,
                     connector=connector_link.connector,
                     old_origin=connector_link.origin
                 )
-                if cls._all_tiles_fit(piece, spawn_grid, new_origin_coord):
-                    cls._write_piece(
+                if self._all_tiles_fit(piece, spawn_grid, new_origin_coord):
+                    self._write_piece(
                         level=level,
                         piece=piece,
                         spawn_grid=spawn_grid,
