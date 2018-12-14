@@ -1,8 +1,8 @@
+from bfgame.tiles import floors, doors, walls
 from bflib import items
 from bflib.monsters.humanoids.goblins import Goblin
-from bfgame.generators import spawns
-from bfgame.maps.base import MapPiece
-from bfgame.tiles import floors, doors, walls
+from core.generators import spawns
+from core.maps.base import MapPiece
 
 
 class GoblinHut1(MapPiece):

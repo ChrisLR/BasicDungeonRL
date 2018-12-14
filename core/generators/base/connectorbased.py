@@ -6,7 +6,7 @@ from sortedcontainers import SortedSet
 from core.direction import (
     Direction, get_inverse_direction
 )
-from bfgame.maps.base.connectorlink import ConnectorLink
+from core.maps.base import ConnectorLink
 from core.world import Room
 
 

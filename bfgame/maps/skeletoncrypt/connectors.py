@@ -1,4 +1,4 @@
-from bfgame.maps.base.connector import Connector
+from core.maps.base.connector import Connector
 from bfgame.tiles import doors, floors
 
 

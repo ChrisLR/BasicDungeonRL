@@ -1,9 +1,9 @@
-from bflib import monsters
-from core.direction import Direction
-from bfgame.generators import spawns
-from bfgame.maps.base import MapPiece
 from bfgame.maps.skeletoncrypt import connectors
 from bfgame.tiles import floors, doors, walls
+from bflib import monsters
+from core.direction import Direction
+from core.generators import spawns
+from core.maps.base import MapPiece
 
 
 class LargeCellArea(MapPiece):

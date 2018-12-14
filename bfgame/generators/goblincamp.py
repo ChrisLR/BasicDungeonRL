@@ -1,8 +1,8 @@
 from bfgame import components
-from bfgame.generators.base import DesignPieceGenerator
-from bfgame.generators.spawns import MapPieceSpawn
 from bfgame.maps.goblincamp import huts
 from bfgame.tiles import floors, stairs
+from core.generators.base import DesignPieceGenerator
+from core.generators.spawns import MapPieceSpawn
 from core.world import Level, LevelStub
 
 

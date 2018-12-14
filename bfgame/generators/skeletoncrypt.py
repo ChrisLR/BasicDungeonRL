@@ -1,7 +1,7 @@
-from bfgame.generators.base import ConnectorBasedGenerator
-from bfgame.generators.spawns import MapPieceSpawn
+from core.generators.base import ConnectorBasedGenerator
+from core.generators.spawns import MapPieceSpawn
 from bfgame.maps.skeletoncrypt import tunnels, arena, cells, rooms
-from bfgame.generators import spawns
+from core.generators import spawns
 from bfgame.tiles import walls
 from core.world import Level
 

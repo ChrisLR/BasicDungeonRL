@@ -1,6 +1,6 @@
 from bflib.monsters import Deer
-from bfgame.generators.base import ConnectorBasedGenerator
-from bfgame.maps.base import MapPiece, Connector, ConnectorLink
+from core.generators.base import ConnectorBasedGenerator
+from core.maps.base import MapPiece, Connector, ConnectorLink
 from bfgame.generators.spawns import OnceSpawner, SpawnSet
 from core.direction import Direction
 from core.world import Level

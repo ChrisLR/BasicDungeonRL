@@ -1,6 +1,6 @@
 import random
 
-from bfgame.generators.spawns.objects.spawnchain import SpawnChain
+from core.generators.spawns.objects.spawnchain import SpawnChain
 
 
 class OnceSpawner(object):

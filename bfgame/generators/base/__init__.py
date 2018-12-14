@@ -1,3 +1,0 @@
-from bfgame.generators.base.connectorbased import ConnectorBasedGenerator
-from bfgame.generators.base.designpiece import DesignPieceGenerator
-from bfgame.generators.base.designpiecetunnels import TunneledDesignPieceGenerator

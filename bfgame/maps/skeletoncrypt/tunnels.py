@@ -1,5 +1,5 @@
 from core.direction import Direction
-from bfgame.maps.base.mappiece import MapPiece
+from core.maps.base import MapPiece
 from bfgame.maps.skeletoncrypt import connectors
 from bfgame.tiles import floors, walls
 
