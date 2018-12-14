@@ -1,10 +1,6 @@
 from bfgame.components.display import Display
-from bfgame.tiles.base import Tile
+from core.tiles.base import Floor
 from core.util.colors import Colors
-
-
-class Floor(Tile):
-    pass
 
 
 class DungeonFloor(Floor):

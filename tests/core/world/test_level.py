@@ -5,7 +5,7 @@ import pytest
 from bfgame import components
 from bfgame.displaypriority import DisplayPriority
 from core.gameobject import GameObject
-from bfgame.tiles.base import Tile
+from core.tiles.base import Tile
 from core.util.colors import Colors
 from core.world import Level
 

@@ -1,10 +1,6 @@
 from bfgame.components.display import Display
-from bfgame.tiles.base import Tile
+from core.tiles.base import Stairs
 from core.util.colors import Colors
-
-
-class Stairs(Tile):
-    pass
 
 
 class DungeonStairsUp(Stairs):

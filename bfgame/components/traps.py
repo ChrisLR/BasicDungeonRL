@@ -1,6 +1,6 @@
 from bfgame.components.base import Component
 from bfgame import events
-from bfgame.tiles.floors import Floor
+from core.tiles.base import Floor
 
 
 class Trap(Component):
