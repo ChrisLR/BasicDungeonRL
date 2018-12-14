@@ -6,7 +6,7 @@ from bfgame import abilities, actions, attacks, factories, generators
 from bfgame.actionmapping import ActionMapping
 from bfgame.displaypriority import DisplayPriority
 from bfgame.outfits.outfitter import OutfitterService
-from bfgame.util.gametime import GameTime
+from core.util import GameTime
 from scenes.charactercreation import (
     ClassSelection, AttributeSelection, RaceSelection, SkillsSelection
 )

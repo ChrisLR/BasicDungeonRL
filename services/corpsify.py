@@ -1,6 +1,6 @@
 from bflib.items.base import Item
 from bfgame import components
-from bfgame.util.colors import Colors
+from core.util.colors import Colors
 
 
 def turn_into_corpse(game_object):

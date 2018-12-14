@@ -5,7 +5,7 @@ from bflib import dice, skills, sizes
 from bfgame import contexts
 from bfgame.actions.base import Action
 from bfgame.tiles.base import Tile
-from bfgame.util import distance
+from core.util import distance
 from messaging import StringBuilder, Actor, Verb, Targets
 from services.selection import CursorSelection
 from services.selection.base import TargetSelectionSet

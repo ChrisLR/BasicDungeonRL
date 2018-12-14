@@ -5,7 +5,7 @@ from bflib.items import Dagger
 from bfgame.displaypriority import DisplayPriority
 from bfgame.factories.character import CharacterFactory
 from bfgame.factories.items import ItemFactory
-from bfgame.util.colors import Colors
+from core.util.colors import Colors
 
 
 @pytest.fixture

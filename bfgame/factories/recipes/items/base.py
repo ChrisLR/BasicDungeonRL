@@ -3,7 +3,7 @@ from bfgame import components
 from bfgame.displaypriority import DisplayPriority
 from bfgame.factories.recipes import listing
 from bfgame.factories.recipes.base import Recipe
-from bfgame.util.colors import Colors
+from core.util.colors import Colors
 
 
 # noinspection PyTypeChecker

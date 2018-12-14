@@ -1,6 +1,6 @@
 from bfgame.components.display import Display
 from bfgame.tiles.base import Tile
-from bfgame.util.colors import Colors
+from core.util.colors import Colors
 
 
 class Wall(Tile):

@@ -3,7 +3,7 @@ from bfgame import bodies, components, flags
 from core.gameobject import GameObject
 from core.gender import Gender
 from bfgame.displaypriority import DisplayPriority
-from bfgame.util.colors import Colors
+from core.util.colors import Colors
 
 
 class CharacterFactory(object):

@@ -1,9 +1,8 @@
 from bflib.monsters.base import Monster
 from bfgame import components
-from bfgame.ai import personalities
 from bfgame.displaypriority import DisplayPriority
 from bfgame.factories.recipes import listing, Recipe
-from bfgame.util.colors import Colors
+from core.util.colors import Colors
 
 
 # noinspection PyTypeChecker

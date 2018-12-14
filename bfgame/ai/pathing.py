@@ -1,7 +1,7 @@
 from tcod import path
 from clubsandwich.geom import Point
 from core.direction import move_direction_mapping
-from bfgame.util.distance import manhattan_distance_to
+from core.util import manhattan_distance_to
 
 
 class ComputedPath(object):

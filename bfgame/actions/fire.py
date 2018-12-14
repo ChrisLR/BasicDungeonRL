@@ -1,5 +1,5 @@
 from bfgame.actions.base import Action
-from bfgame.util import distance
+from core.util import distance
 from services.selection import CursorSelection, filters
 from services.selection.base import TargetSelectionSet
 

@@ -1,7 +1,5 @@
-import tcod
-
 from bfgame.components import Component
-from bfgame.util.distance import manhattan_distance_to
+from core.util import manhattan_distance_to
 
 
 class Vision(Component):
