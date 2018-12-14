@@ -2,12 +2,12 @@ import random
 
 import pytest
 
-from core import components
-from core.displaypriority import DisplayPriority
+from bfgame import components
+from bfgame.displaypriority import DisplayPriority
 from core.gameobject import GameObject
-from core.tiles.base import Tile
-from core.util.colors import Colors
-from core.world.level import Level
+from bfgame.tiles.base import Tile
+from bfgame.util.colors import Colors
+from core.world import Level
 
 
 @pytest.fixture

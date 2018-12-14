@@ -3,7 +3,7 @@ import pytest
 from bflib import skills
 from bflib.characters import classes
 from bflib.characters.abilityscores import AbilityScoreSet
-from core import components
+from bfgame import components
 from core.gameobject import GameObject
 
 

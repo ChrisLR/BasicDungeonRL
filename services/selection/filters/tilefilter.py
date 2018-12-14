@@ -1,4 +1,4 @@
-from core.tiles.base import Tile
+from bfgame.tiles.base import Tile
 from services.selection.filters.base import SelectionFilter
 
 

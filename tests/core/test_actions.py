@@ -1,9 +1,9 @@
 from bflib.items import Backpack
 from bflib.keywords.items import WearLocation, WieldLocation
-from core import actions, components
-from core.factories.items import ItemFactory
-from core.tiles import doors
-from core.world.level import Level
+from bfgame import actions, components
+from bfgame.factories.items import ItemFactory
+from bfgame.tiles import doors
+from core.world import Level
 
 
 def test_action_open_door(sample_player):

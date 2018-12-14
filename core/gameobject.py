@@ -1,5 +1,5 @@
-from core.components.events import Events
-from core.components.query import Query
+from bfgame.components.events import Events
+from bfgame.components.query import Query
 
 
 class GameObject(object):
@@ -90,7 +90,7 @@ class GameObject(object):
         if component:
             return component
 
-        from core.components import component_names
+        from bfgame.components import component_names
         if item in component_names:
             return NoneVoid()
 
