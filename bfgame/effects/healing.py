@@ -2,7 +2,7 @@ from bflib import effects
 from bflib.dice import D6
 from bfgame.contexts import Action
 from bfgame.effects.base import Effect
-from messaging import StringBuilder, Actor, Verb
+from core.messaging import StringBuilder, Actor, Verb
 
 
 class Healing(Effect):

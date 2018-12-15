@@ -8,7 +8,7 @@ from clubsandwich.ui import (
 )
 
 from bflib.characters import classes
-from ui.views import SelectableButtonView, KeyAssignedListView
+from core.ui.views import SelectableButtonView, KeyAssignedListView
 
 
 class ClassSelection(UIScene):

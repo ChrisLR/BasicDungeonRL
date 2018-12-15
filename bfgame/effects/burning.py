@@ -1,7 +1,7 @@
 from bflib import dice
 from bfgame import contexts
 from bfgame.effects.base import Effect
-from messaging import StringBuilder, Actor, Verb
+from core.messaging import StringBuilder, Actor, Verb
 
 
 class Burning(Effect):

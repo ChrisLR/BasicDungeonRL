@@ -3,7 +3,7 @@ from bflib.characters.specialabilities import OpenLock as OpenLockAbility
 from bfgame import contexts
 from bfgame.abilities.base import Ability
 from bfgame.components import Lock
-from messaging import StringBuilder, Actor, Verb, Target
+from core.messaging import StringBuilder, Actor, Verb, Target
 from services import selection
 from services.selection import filters
 

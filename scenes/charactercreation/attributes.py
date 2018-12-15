@@ -9,7 +9,7 @@ from clubsandwich.ui import (
 )
 
 from bflib.characters.abilityscores import AbilityScoreSet
-from ui.views.validatedintstepperview import ValidatedIntStepperView
+from core.ui.views import ValidatedIntStepperView
 
 
 class AttributeSelection(UIScene):

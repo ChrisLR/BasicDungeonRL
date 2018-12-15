@@ -1,7 +1,7 @@
 from bflib import units
 from bfgame import contexts
 from bfgame.components import Component
-from messaging import StringBuilder, Actor, Target, Verb
+from core.messaging import StringBuilder, Actor, Target, Verb
 
 
 class Equipment(Component):

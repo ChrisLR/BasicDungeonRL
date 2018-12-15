@@ -2,7 +2,7 @@ from bflib import dice
 from bflib.characters.specialabilities import Hide as HideAbility
 from bfgame import contexts, effects
 from bfgame.abilities.base import Ability
-from messaging import StringBuilder, Actor, Verb
+from core.messaging import StringBuilder, Actor, Verb
 
 
 class Hide(Ability):

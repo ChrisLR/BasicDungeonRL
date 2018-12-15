@@ -4,7 +4,7 @@ from bfgame.abilities.base import Ability
 from bfgame import contexts
 from services import selection
 from services.selection import filters, TargetSelectionSet, TargetSelectionChain
-from messaging import StringBuilder, Actor, Verb, TargetOne, TargetTwo
+from core.messaging import StringBuilder, Actor, Verb, TargetOne, TargetTwo
 
 
 class PickPocket(Ability):

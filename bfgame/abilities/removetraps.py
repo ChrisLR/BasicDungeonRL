@@ -3,7 +3,7 @@ from bflib.characters.specialabilities import RemoveTraps as RemoveTrapsAbility
 from bfgame import components, contexts
 from bfgame.abilities.base import Ability
 from services.selection import DirectionalSelection, filters, TargetSelectionSet
-from messaging import StringBuilder, Actor, Verb, Target
+from core.messaging import StringBuilder, Actor, Verb, Target
 
 
 class RemoveTraps(Ability):

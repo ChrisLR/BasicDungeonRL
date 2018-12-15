@@ -1,6 +1,6 @@
-from messaging.variables import MessageVariable
-from messaging.verbs import Verb
-from messaging.pronouns import Pronoun
+from core.messaging.variables import MessageVariable
+from core.messaging.verbs import Verb
+from core.messaging.pronouns import Pronoun
 
 
 class StringBuilder(object):

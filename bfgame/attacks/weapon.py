@@ -4,7 +4,7 @@ from bflib.dice import D4
 from bfgame import contexts, events
 from bfgame.attacks import listing
 from bfgame.attacks.base import MeleeAttack
-from messaging import StringBuilder, Attacker, Defender, Verb, His, AttackerWeapon
+from core.messaging import StringBuilder, Attacker, Defender, Verb, His, AttackerWeapon
 
 
 @listing.register

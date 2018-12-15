@@ -1,7 +1,7 @@
 from bearlibterminal import terminal
 from clubsandwich.director import DirectorLoop
 
-import ui
+from core import ui
 from bfgame import abilities, actions, attacks, factories, generators
 from bfgame.actionmapping import ActionMapping
 from bfgame.displaypriority import DisplayPriority

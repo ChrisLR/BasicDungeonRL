@@ -1,7 +1,7 @@
 from bfgame.actions.base import Action
 from bfgame import contexts, events
 from services.selection import DirectionalSelection, TargetSelectionSet
-from messaging import StringBuilder, Verb, Actor, Target
+from core.messaging import StringBuilder, Verb, Actor, Target
 
 
 class Open(Action):

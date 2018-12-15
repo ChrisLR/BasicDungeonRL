@@ -7,7 +7,7 @@ from clubsandwich.ui import UIScene, WindowView
 from bfgame.actions.basestack import ActionStack
 from scenes.game.views.game import GameView
 from scenes.game.views.hud import HudView
-from ui.views import ScrollingTextView
+from core.ui.views import ScrollingTextView
 
 
 class GameScene(UIScene):

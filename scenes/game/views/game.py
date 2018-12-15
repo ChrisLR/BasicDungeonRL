@@ -1,7 +1,7 @@
 from clubsandwich.geom import Point, Size
 from clubsandwich.ui import RectView
 
-from ui.camera import Camera
+from core.ui.camera import Camera
 
 
 class GameView(RectView):

@@ -5,7 +5,7 @@ from bearlibterminal import terminal
 from clubsandwich.ui import ButtonView, UIScene, WindowView, LayoutOptions
 
 from services.selection.filters.base import SelectionFilter
-from ui.views import KeyAssignedListView, SelectableButtonView
+from core.ui.views import KeyAssignedListView, SelectableButtonView
 
 
 class HierarchyFilterView(UIScene):

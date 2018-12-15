@@ -2,7 +2,7 @@ from bflib import dice
 from bfgame import contexts, events
 from bfgame.attacks import listing
 from bfgame.attacks.base import Attack
-from messaging import StringBuilder, Attacker, Defender, Verb, His, AttackerWeapon, Ammunition
+from core.messaging import StringBuilder, Attacker, Defender, Verb, His, AttackerWeapon, Ammunition
 
 
 @listing.register

@@ -1,6 +1,6 @@
 from bfgame import contexts
 from bfgame.components.base import Component
-from messaging import StringBuilder, Actor, TargetOne, TargetTwo, His, Verb
+from core.messaging import StringBuilder, Actor, TargetOne, TargetTwo, His, Verb
 
 
 class Inventory(Component):

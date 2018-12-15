@@ -10,7 +10,7 @@ from clubsandwich.ui import (
 )
 
 from bflib.skills.listing import skill_listing
-from ui.views.validatedintstepperview import ValidatedIntStepperView
+from core.ui.views import ValidatedIntStepperView
 
 
 class ShowSkillsScene(UIScene):

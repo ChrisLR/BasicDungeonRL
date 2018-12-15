@@ -6,7 +6,7 @@ from bfgame import contexts
 from bfgame.actions.base import Action
 from core.tiles.base import Tile
 from core.util import distance
-from messaging import StringBuilder, Actor, Verb, Targets
+from core.messaging import StringBuilder, Actor, Verb, Targets
 from services.selection import CursorSelection
 from services.selection.base import TargetSelectionSet
 
