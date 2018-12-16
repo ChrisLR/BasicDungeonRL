@@ -1,7 +1,7 @@
+from bfgame.effects.base import Effect
 from bflib import effects
 from bflib.dice import D6
-from bfgame.contexts import Action
-from bfgame.effects.base import Effect
+from core.contexts import Action
 from core.messaging import StringBuilder, Actor, Verb
 
 

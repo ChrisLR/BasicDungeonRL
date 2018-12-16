@@ -1,6 +1,6 @@
 from bflib import dice
 from bflib.characters.specialabilities import OpenLock as OpenLockAbility
-from bfgame import contexts
+from core import contexts
 from bfgame.abilities.base import Ability
 from bfgame.components import Lock
 from core.messaging import StringBuilder, Actor, Verb, Target

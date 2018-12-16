@@ -2,7 +2,7 @@ import math
 import random
 
 from bflib import dice, skills, sizes
-from bfgame import contexts
+from core import contexts
 from bfgame.actions.base import Action
 from core.tiles.base import Tile
 from core.util import distance

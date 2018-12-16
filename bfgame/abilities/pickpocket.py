@@ -1,7 +1,7 @@
 from bflib import dice
 from bflib.characters.specialabilities import PickPockets as PickPocketAbility
 from bfgame.abilities.base import Ability
-from bfgame import contexts
+from core import contexts
 from services import selection
 from services.selection import filters, TargetSelectionSet, TargetSelectionChain
 from core.messaging import StringBuilder, Actor, Verb, TargetOne, TargetTwo

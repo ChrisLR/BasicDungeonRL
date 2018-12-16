@@ -1,4 +1,5 @@
-from bfgame import events, queries
+from bfgame import queries
+from core import events
 from bfgame.effects.base import Effect
 from services import echo
 

@@ -1,8 +1,8 @@
-from bfgame.events.base import Event
+from core.events.base import Event
 
 
-class Attacking(Event):
-    name = "Attacking"
+class Opened(Event):
+    name = "Opened"
     __slots__ = "actor"
 
     def __init__(self, actor):

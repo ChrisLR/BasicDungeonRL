@@ -1,8 +1,8 @@
 import inspect
 
-from bflib.characters import specialabilities
 from bfgame.components.base import Component
-from bfgame.contexts.combat import Combat
+from bflib.characters import specialabilities
+from core.contexts.combat import Combat
 from core.messaging import StringBuilder, Defender, Verb
 from services import corpsify
 

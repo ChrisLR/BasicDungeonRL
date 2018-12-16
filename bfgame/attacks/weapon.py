@@ -1,7 +1,8 @@
 from bflib import attacks
 from bflib.characters import specialabilities
 from bflib.dice import D4
-from bfgame import contexts, events
+from core import contexts
+from core import events
 from bfgame.attacks import listing
 from bfgame.attacks.base import MeleeAttack
 from core.messaging import StringBuilder, Attacker, Defender, Verb, His, AttackerWeapon

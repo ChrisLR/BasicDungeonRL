@@ -1,5 +1,5 @@
 from bfgame.components.base import Component
-from bfgame.events import event_listing
+from core.events import event_listing
 
 
 class Events(Component):

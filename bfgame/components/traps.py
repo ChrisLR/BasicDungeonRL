@@ -1,5 +1,5 @@
 from bfgame.components.base import Component
-from bfgame import events
+from core import events
 from core.tiles.base import Floor
 
 

@@ -1,6 +1,6 @@
-from bflib import units
-from bfgame import contexts
 from bfgame.components import Component
+from bflib import units
+from core import contexts
 from core.messaging import StringBuilder, Actor, Target, Verb
 
 

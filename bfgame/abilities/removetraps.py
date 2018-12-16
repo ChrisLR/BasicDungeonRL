@@ -1,9 +1,10 @@
+from bfgame import components
+from bfgame.abilities.base import Ability
 from bflib import dice
 from bflib.characters.specialabilities import RemoveTraps as RemoveTrapsAbility
-from bfgame import components, contexts
-from bfgame.abilities.base import Ability
-from services.selection import DirectionalSelection, filters, TargetSelectionSet
+from core import contexts
 from core.messaging import StringBuilder, Actor, Verb, Target
+from services.selection import DirectionalSelection, filters, TargetSelectionSet
 
 
 class RemoveTraps(Ability):

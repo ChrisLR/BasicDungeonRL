@@ -2,7 +2,7 @@ from bfgame.actions.base import Action
 from services import echo, selection
 from services.selection import filters
 from core.messaging import StringBuilder, Verb, Actor, Target
-from bfgame import contexts
+from core import contexts
 
 
 class Put(Action):
