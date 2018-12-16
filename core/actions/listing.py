@@ -1,22 +1,21 @@
 from bfgame.actions.addclass import AddClass
-from bfgame.actions.bump import Bump
-from bfgame.actions.close import Close
 from bfgame.actions.climb import ClimbUp, ClimbDown
-from bfgame.actions.drop import Drop
-from bfgame.actions.eat import Eat
 from bfgame.actions.fire import Fire
-from bfgame.actions.get import Get
-from bfgame.actions.look import Look
-from bfgame.actions.move import WalkE, WalkN, WalkNE, WalkNW, WalkS, WalkSE, WalkSW, WalkW
-from bfgame.actions.open import Open
-from bfgame.actions.put import Put
-from bfgame.actions.remove import Remove
+from bfgame.actions.jump import Jump
 from bfgame.actions.showskills import ShowSkills
 from bfgame.actions.useability import UseAbility
-from bfgame.actions.wear import Wear
-from bfgame.actions.wield import Wield
-from bfgame.actions.jump import Jump
-
+from core.actions.bump import Bump
+from core.actions.close import Close
+from core.actions.drop import Drop
+from core.actions.eat import Eat
+from core.actions.get import Get
+from core.actions.look import Look
+from core.actions.move import WalkE, WalkN, WalkNE, WalkNW, WalkS, WalkSE, WalkSW, WalkW
+from core.actions.open import Open
+from core.actions.put import Put
+from core.actions.remove import Remove
+from core.actions.wear import Wear
+from core.actions.wield import Wield
 
 action_listing = {
     AddClass,

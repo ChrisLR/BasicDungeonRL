@@ -1,4 +1,4 @@
-from bfgame.actions.base import Action
+from core.actions.base import Action
 from bfgame.components.character_class import CharacterClass
 from services.selection import TargetSelectionSet
 from services.selection.characterclasses import CharacterClasses

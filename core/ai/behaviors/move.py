@@ -1,6 +1,6 @@
 from core.ai.behaviors import Behavior
 from core.ai.pathing import ComputedPath
-from bfgame.actions.move import Walk
+from core.actions.move import Walk
 from core import direction
 
 

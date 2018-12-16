@@ -1,10 +1,10 @@
 from bearlibterminal import terminal
 from clubsandwich.director import DirectorLoop
 
-from bfgame import abilities, actions, factories, generators
+from bfgame import abilities, factories, generators
 from bfgame.actionmapping import ActionMapping
 from bfgame.outfits.outfitter import OutfitterService
-from core import attacks, ui
+from core import actions, attacks, ui
 from core.displaypriority import DisplayPriority
 from core.util import GameTime
 from scenes.charactercreation import (

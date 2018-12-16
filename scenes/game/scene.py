@@ -4,7 +4,7 @@ from bearlibterminal import terminal
 from clubsandwich.ui import LayoutOptions
 from clubsandwich.ui import WindowView
 
-from bfgame.actions.basestack import ActionStack
+from core.actions.basestack import ActionStack
 from core.ui import CoreUIScene
 from core.ui.views import ScrollingTextView
 from scenes.game.views.game import GameView

@@ -1,4 +1,4 @@
-from bfgame.actions.base import Action
+from core.actions.base import Action
 from services.selection import DirectionalSelection, filters
 from services.selection.base import TargetSelectionSet
 

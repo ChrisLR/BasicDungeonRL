@@ -1,4 +1,4 @@
-from bfgame.actions import listing
+from core.actions import listing
 
 
 class Facade(object):

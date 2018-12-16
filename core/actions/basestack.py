@@ -1,5 +1,5 @@
-from bfgame.actions.base import Action
-from bfgame.actions.baseresolution import ActionResolution
+from core.actions.base import Action
+from core.actions.baseresolution import ActionResolution
 
 
 class ActionStack(object):

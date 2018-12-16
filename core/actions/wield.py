@@ -1,19 +1,13 @@
-from bfgame import components
-from bfgame.actions.base import Action
+from core.actions.base import Action
 from services import selection
 from services.selection import filters
 
 
-# noinspection PyAbstractClass
-class WearableFilter(filters.Component):
-    component = components.Wearable
-
-
-class Wear(Action):
-    name = "wear"
+class Wield(Action):
+    name = "wield"
     target_selection = selection.TargetSelectionSet(
-        selections=(selection.Inventory, selection.Wielded),
-        filters=(WearableFilter, filters.ListBased),
+        selections=selection.Inventory,
+        filters=filters.ListBased,
     )
 
     def can_execute(self, character, target_selection=None):
@@ -26,10 +20,7 @@ class Wear(Action):
 
     def execute(self, character, target_selection=None):
         for target in target_selection:
-            if target in character.equipment.get_wielded_items():
-                character.equipment.remove(target)
-
-            if not character.equipment.wear(target):
+            if not character.equipment.wield(target):
                 return False
             else:
                 character.inventory.remove(target)

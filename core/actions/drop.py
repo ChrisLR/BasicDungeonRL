@@ -1,5 +1,5 @@
 from core import contexts
-from bfgame.actions.base import Action
+from core.actions.base import Action
 from core.messaging import StringBuilder, Verb, Actor, Target
 from services.selection import AllItems, filters, TargetSelectionSet
 

@@ -1,4 +1,4 @@
-from bfgame.actions.base import Action
+from core.actions.base import Action
 from core.gameobject import GameObject
 from services.selection import TargetSelectionChain
 
