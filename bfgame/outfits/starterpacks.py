@@ -1,6 +1,6 @@
 from bflib import items
 from bflib.characters import classes
-from bfgame.outfits.base import Outfit
+from core.outfits.base import Outfit
 
 
 class BasicPack(Outfit):

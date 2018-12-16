@@ -1,5 +1,5 @@
 from bfgame.outfits import starterpacks
-from bfgame.outfits.base import Outfit
+from core.outfits.base import Outfit
 from bfgame.outfits.outfitter import OutfitterService
 
 

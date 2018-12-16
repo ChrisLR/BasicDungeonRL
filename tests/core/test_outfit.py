@@ -1,5 +1,5 @@
 from bflib import items
-from bfgame.outfits.base import Outfit
+from core.outfits.base import Outfit
 
 
 def test_outfit_equip_worn_items(sample_player):
