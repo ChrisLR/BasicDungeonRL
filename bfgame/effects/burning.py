@@ -27,7 +27,7 @@ class Burning(Effect):
         :return:
         """
         super().update(game_object)
-        damage = dice.D6(self.power).rol_total()
+        damage = dice.D6(self.power).roll_total()
         # TODO This should be elemental Fire Damage.
         context = contexts.Action(game_object, None)
         message = StringBuilder(Actor, Verb("burn", Actor), "for %s damage!" % damage)

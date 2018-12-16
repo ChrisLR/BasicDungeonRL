@@ -1,9 +1,9 @@
-from bflib.monsters import humanoids
-from bfgame.alliances import Faction
-from bfgame.tiles import floors
-from core.world import Level
-from bfgame.ai.personalities.warzone import WarzoneWarrior
 from bfgame import components
+from bfgame.ai.personalities import WarzoneWarrior
+from bfgame.tiles import floors
+from bflib.monsters import humanoids
+from core.alliances import Faction
+from core.world import Level
 
 
 class WarzoneGenerator(object):

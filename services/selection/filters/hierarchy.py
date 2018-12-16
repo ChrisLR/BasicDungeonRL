@@ -1,14 +1,15 @@
-import collections
 import functools
 
+import collections
 from bearlibterminal import terminal
-from clubsandwich.ui import ButtonView, UIScene, WindowView, LayoutOptions
+from clubsandwich.ui import ButtonView, WindowView, LayoutOptions
 
-from services.selection.filters.base import SelectionFilter
+from core.ui import CoreUIScene
 from core.ui.views import KeyAssignedListView, SelectableButtonView
+from services.selection.filters.base import SelectionFilter
 
 
-class HierarchyFilterView(UIScene):
+class HierarchyFilterView(CoreUIScene):
     covers_screen = False
 
     def __init__(self, host_filter, hierarchy):

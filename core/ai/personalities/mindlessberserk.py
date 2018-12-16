@@ -1,22 +1,12 @@
 import random
 
-from bflib import dice, monsters
-from bfgame.ai import behaviors
-from bfgame.ai.personalities.base import Personality
+from core.ai import behaviors
+from core.ai.personalities import Personality
 
 
-class Goblin(Personality):
+class MindlessBerserk(Personality):
     @classmethod
     def get_behavior(cls, host, last_behavior, short_term_state):
-        # Goblins gain +1 if they see allied Warrior,
-        # +2 if they see allied kings
-        # A lone goblin by default will flee from anything larger than itself
-        # They should roll for morale Once at first sight,
-        # Adding +1 if they outnumber their opponents
-        # They should roll each time a goblin is slain if there are less goblins
-        # than enemies.
-
-        # Their combat behavior is simple, Advance and Attack.
         cls.seek_threats(host, short_term_state)
         if short_term_state.enemies:
             target_point = cls.get_closest_enemy_point(
@@ -43,15 +33,6 @@ class Goblin(Personality):
             short_term_state.known_objects.add(host)
             return
 
-        # TODO Factions will be taken into consideration
-        # TODO Long Term State must be taken into consideration
-        # TODO Anyone attacking allies are seen as enemies
-        # TODO Line of Vision must be taken into consideration
-
-        if game_object.monster.base_monster is monsters.Goblin:
-            short_term_state.add_ally(game_object)
-            return
-
         if game_object.combat and game_object.health:
             short_term_state.add_enemy(game_object)
 
@@ -72,7 +53,6 @@ class Goblin(Personality):
             enemy.location.point
             for enemy in enemies
             if enemy.health.dead is False
-            and host.vision.can_see_object(enemy)
         ]
         if living_enemies:
             return host.location.point.get_closest_point(living_enemies)
@@ -82,13 +62,10 @@ class Goblin(Personality):
         if last_behavior and not last_behavior.finished:
             return last_behavior
 
-        if random.randint(0, 100) < 10:
-            level = host.location.level
-            target_coordinate = (
-                random.randint(1, level.max_x),
-                random.randint(1, level.max_y)
-            )
-    
-            return behaviors.Move(host, target_coordinate)
-        else:
-            return behaviors.Wait(host, dice.D6(1))
+        level = host.location.level
+        target_coordinate = (
+            random.randint(1, level.max_x),
+            random.randint(1, level.max_y)
+        )
+
+        return behaviors.Move(host, target_coordinate)

@@ -1,7 +1,5 @@
-class Ability(object):
-    name = ""
-    # Either a TargetSelectionSet or a TargetSelectionChain
-    target_selection = None
+from bfgame.actions.base import Action
 
-    def __init__(self, game):
-        self.game = game
+
+class Ability(Action):
+    pass

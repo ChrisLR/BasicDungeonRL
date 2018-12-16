@@ -1,6 +1,5 @@
 from bearlibterminal import terminal
 from clubsandwich.ui import (
-    UIScene,
     SingleLineTextInputView,
     LabelView,
     ButtonView,
@@ -9,10 +8,11 @@ from clubsandwich.ui import (
 )
 
 from bflib.characters.abilityscores import AbilityScoreSet
+from core.ui import CoreUIScene
 from core.ui.views import ValidatedIntStepperView
 
 
-class AttributeSelection(UIScene):
+class AttributeSelection(CoreUIScene):
     def __init__(self, game):
         self.covers_screen = True
         self.game = game

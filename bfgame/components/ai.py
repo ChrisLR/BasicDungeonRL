@@ -1,5 +1,5 @@
 from bfgame.components.base import Component
-from bfgame.ai.shorttermstate import ShortTermState
+from core.ai.shorttermstate import ShortTermState
 
 
 class AI(Component):

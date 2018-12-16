@@ -1,7 +1,8 @@
 from bearlibterminal import terminal
-from clubsandwich.ui import UIScene, LabelView
+from clubsandwich.ui import LabelView
 
 from core.direction import move_direction_mapping
+from core.ui import CoreUIScene
 from services.selection.base import Selection
 
 
@@ -24,7 +25,7 @@ class DirectionalSelection(Selection):
         self.resolution = targets
 
 
-class DirectionalView(UIScene):
+class DirectionalView(CoreUIScene):
     covers_screen = False
 
     def __init__(self, game, selection):
@@ -45,4 +46,3 @@ class DirectionalView(UIScene):
         if hasattr(action, 'direction'):
             self.selection.select_targets(action.direction)
             self.director.pop_scene()
-

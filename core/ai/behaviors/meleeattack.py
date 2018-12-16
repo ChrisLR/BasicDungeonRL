@@ -1,4 +1,4 @@
-from bfgame.ai.behaviors.base import Behavior
+from core.ai.behaviors import Behavior
 
 
 class MeleeAttack(Behavior):
