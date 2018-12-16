@@ -1,7 +1,7 @@
-from bflib.keywords.items import WearLocation, WieldLocation
 from bflib.monsters.humanoids.base import Humanoid
 
-from bfgame import bodies, components
+from bfgame import components
+from core import bodies
 from bfgame.factories.recipes import listing, Recipe
 from bfgame.factories.recipes.monsters import MonsterRecipe
 

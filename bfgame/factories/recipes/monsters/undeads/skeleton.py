@@ -1,5 +1,6 @@
 from bflib import monsters
-from bfgame import bodies, components
+from bfgame import components
+from core import bodies
 from core.ai import personalities
 from bfgame.factories.recipes import listing
 from bfgame.factories.recipes.base import Recipe

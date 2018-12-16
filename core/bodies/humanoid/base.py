@@ -1,8 +1,7 @@
 from bflib import attacks, dice
-from bfgame import bodyparts
-from core import materials
-from bfgame.bodies.base import Body
-from bfgame.bodies.blood import Blood
+from core import materials, bodyparts
+from core.bodies import Body
+from core.bodies import Blood
 
 
 class HumanoidBody(Body):
