@@ -1,7 +1,7 @@
 from bflib import traps as base_traps
 from bfgame.attacks.ranged import RangedAttack
 from bfgame.effects import get_core_effect_from_base
-from bfgame.traps.base import Trap
+from core.traps.base import Trap
 from services import echo
 
 

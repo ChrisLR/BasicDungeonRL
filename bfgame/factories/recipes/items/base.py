@@ -1,6 +1,6 @@
 from bflib.items.base import Item
 from bfgame import components
-from bfgame.displaypriority import DisplayPriority
+from core.displaypriority import DisplayPriority
 from bfgame.factories.recipes import listing
 from bfgame.factories.recipes.base import Recipe
 from core.util.colors import Colors

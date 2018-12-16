@@ -1,6 +1,6 @@
 from bflib.keywords.items import WearLocation, WieldLocation
 from bflib.items.itemslot import ItemSlot
-from bfgame.threatlevels import ThreatLevel
+from core.threatlevels import ThreatLevel
 
 
 class BodyPart(object):

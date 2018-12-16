@@ -1,5 +1,5 @@
 from bfgame.components.base import Component
-from bfgame.queries import listing
+from core.queries import listing
 
 
 class Query(Component):

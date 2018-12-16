@@ -1,5 +1,5 @@
 from services.selection.filters.base import SelectionFilter
-from bfgame.flags import GameObjectFlags
+from core.flags import GameObjectFlags
 
 
 class ExcludeItemFlags(SelectionFilter):

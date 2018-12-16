@@ -1,7 +1,8 @@
 import random
 
 from bflib.monsters.base import Monster
-from bfgame import components, flags
+from bfgame import components
+from core import flags
 from bfgame.factories.recipes import listing
 from bfgame.factories.treasure import TreasureFactory
 from core.gameobject import GameObject

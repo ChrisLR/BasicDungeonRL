@@ -1,7 +1,7 @@
 import abc
 import random
 
-from bfgame.threatlevels import ThreatLevel
+from core.threatlevels import ThreatLevel
 
 
 class Body(object):

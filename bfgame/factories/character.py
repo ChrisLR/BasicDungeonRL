@@ -1,9 +1,9 @@
 from bflib.characters.base import Character
-from bfgame import components, flags
-from core import bodies
+from bfgame import components
+from core import bodies, flags
 from core.gameobject import GameObject
 from core.gender import Gender
-from bfgame.displaypriority import DisplayPriority
+from core.displaypriority import DisplayPriority
 from core.util.colors import Colors
 
 

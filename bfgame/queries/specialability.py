@@ -1,8 +1,8 @@
 from collections import Iterable
 from inspect import isclass
 
-from bfgame.queries import listing
-from bfgame.queries.base import CumulativeQuery
+from core.queries import listing
+from core.queries.base import CumulativeQuery
 
 
 @listing.register_query

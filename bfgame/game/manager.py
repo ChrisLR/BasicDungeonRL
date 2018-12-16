@@ -4,7 +4,7 @@ from clubsandwich.director import DirectorLoop
 from core import ui
 from bfgame import abilities, actions, attacks, factories, generators
 from bfgame.actionmapping import ActionMapping
-from bfgame.displaypriority import DisplayPriority
+from core.displaypriority import DisplayPriority
 from bfgame.outfits.outfitter import OutfitterService
 from core.util import GameTime
 from scenes.charactercreation import (

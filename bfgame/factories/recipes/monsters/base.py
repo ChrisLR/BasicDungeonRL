@@ -1,6 +1,6 @@
 from bflib.monsters.base import Monster
 from bfgame import components
-from bfgame.displaypriority import DisplayPriority
+from core.displaypriority import DisplayPriority
 from bfgame.factories.recipes import listing, Recipe
 from core.util.colors import Colors
 

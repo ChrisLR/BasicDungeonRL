@@ -1,5 +1,5 @@
 from bflib.items.base import Item
-from bfgame import flags
+from core import flags
 from bfgame.factories.recipes import listing
 from core.gameobject import GameObject
 
