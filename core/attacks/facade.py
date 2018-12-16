@@ -1,7 +1,6 @@
 import random
 
-from bfgame.attacks import listing
-from bfgame.attacks import natural, weapon, ranged
+from core.attacks import listing
 
 
 class Facade(object):

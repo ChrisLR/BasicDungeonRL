@@ -1,8 +1,8 @@
 from bflib import dice
 from core import contexts
 from core import events
-from bfgame.attacks import listing
-from bfgame.attacks.base import Attack
+from core.attacks import listing
+from core.attacks.base import Attack
 from core.messaging import StringBuilder, Attacker, Defender, Verb, His, AttackerWeapon
 
 

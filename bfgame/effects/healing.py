@@ -1,4 +1,4 @@
-from bfgame.effects.base import Effect
+from core.effects.base import Effect
 from bflib import effects
 from bflib.dice import D6
 from core.contexts import Action

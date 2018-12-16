@@ -1,17 +1,17 @@
 from bearlibterminal import terminal
 from clubsandwich.director import DirectorLoop
 
-from core import ui
-from bfgame import abilities, actions, attacks, factories, generators
+from bfgame import abilities, actions, factories, generators
 from bfgame.actionmapping import ActionMapping
-from core.displaypriority import DisplayPriority
 from bfgame.outfits.outfitter import OutfitterService
+from core import attacks, ui
+from core.displaypriority import DisplayPriority
 from core.util import GameTime
 from scenes.charactercreation import (
     ClassSelection, AttributeSelection, RaceSelection, SkillsSelection
 )
-from scenes.mainmenu import MainMenuScene
 from scenes.game.scene import GameScene
+from scenes.mainmenu import MainMenuScene
 from scenes.manager import SceneManager
 from services.echo import EchoService
 

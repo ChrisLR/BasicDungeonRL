@@ -1,4 +1,4 @@
-from bfgame.effects.base import Effect
+from core.effects.base import Effect
 from bflib import dice
 from core import contexts
 from core.messaging import StringBuilder, Actor, Verb

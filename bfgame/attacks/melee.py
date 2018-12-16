@@ -1,10 +1,7 @@
-from bflib import dice
 import inspect
 
-
-class Attack(object):
-    def __init__(self, game):
-        self.game = game
+from bflib import dice
+from core.attacks.base import Attack
 
 
 class MeleeAttack(Attack):
