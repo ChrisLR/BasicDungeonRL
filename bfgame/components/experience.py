@@ -1,6 +1,5 @@
 from bflib.characters import specialabilities
-from bfgame.components.base import Component
-from services import echo
+from core.components.base import Component
 
 
 class Experience(Component):

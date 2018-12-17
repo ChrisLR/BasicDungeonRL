@@ -1,8 +1,9 @@
 from bflib import units
-from bfgame.components.base import Component
-from bfgame.components.contained import Contained
+from core.components import listing, Component
+from core.components.contained import Contained
 
 
+@listing.register
 class Container(Component):
     NAME = "container"
     __slots__ = ["container_type", "containable_items", "items_held", "liquid_held",

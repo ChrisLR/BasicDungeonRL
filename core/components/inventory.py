@@ -1,4 +1,4 @@
-from bfgame.components.base import Component
+from core.components.base import Component
 from core import contexts
 from core.messaging import StringBuilder, Actor, TargetOne, TargetTwo, His, Verb
 

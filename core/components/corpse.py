@@ -1,6 +1,7 @@
-from bfgame.components.base import Component
+from core.components import listing, Component
 
 
+@listing.register
 class Corpse(Component):
     NAME = 'corpse'
     __slots__ = ["base_character"]

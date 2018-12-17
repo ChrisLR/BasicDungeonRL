@@ -1,6 +1,7 @@
-from bfgame.components.base import Component
+from core.components import listing, Component
 
 
+@listing.register
 class Armor(Component):
     NAME = "armor"
     __slots__ = ['armor_class', 'armor_type']

@@ -1,6 +1,6 @@
-from bflib import attacks, dice
+from bflib import attacks
 from bflib.tables.attackbonus import AttackBonusTable
-from bfgame.components.base import Component
+from core.components.base import Component
 from bflib.characters import specialabilities
 
 

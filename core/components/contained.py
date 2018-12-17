@@ -1,6 +1,7 @@
-from bfgame.components.base import Component
+from core.components import listing, Component
 
 
+@listing.register
 class Contained(Component):
     NAME = "contained"
     __slots__ = ["parent_container"]

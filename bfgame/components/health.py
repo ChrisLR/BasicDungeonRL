@@ -1,6 +1,6 @@
 import inspect
 
-from bfgame.components.base import Component
+from core.components.base import Component
 from bflib.characters import specialabilities
 from core.contexts.combat import Combat
 from core.messaging import StringBuilder, Defender, Verb

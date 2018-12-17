@@ -1,8 +1,8 @@
-from bfgame.components.base import Component
+from core.components.base import Component
 
 
-class Weight(Component):
-    NAME = "weight"
+class Size(Component):
+    NAME = "size"
     __slots__ = ["base_score"]
 
     def __init__(self, base_score):
@@ -14,4 +14,4 @@ class Weight(Component):
         return self.base_score
 
     def copy(self):
-        return Weight(self.base_score)
+        return Size(self.base_score)

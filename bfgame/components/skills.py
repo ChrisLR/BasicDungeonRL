@@ -1,6 +1,6 @@
 from bflib import dice
 from bfgame import queries
-from bfgame.components.base import Component
+from core.components.base import Component
 
 
 class Skills(Component):

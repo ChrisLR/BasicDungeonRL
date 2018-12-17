@@ -1,5 +1,5 @@
-from bfgame.components.events import Events
-from bfgame.components.query import Query
+from core.components.events import Events
+from core.components.query import Query
 
 
 class GameObject(object):

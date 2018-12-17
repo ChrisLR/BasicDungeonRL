@@ -1,7 +1,8 @@
-from bfgame.components.base import Component
+from core.components import listing, Component
 from core.events import event_listing
 
 
+@listing.register
 class Events(Component):
     NAME = "events"
     __slots__ = ["mapping"]

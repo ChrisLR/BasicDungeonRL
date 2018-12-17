@@ -1,4 +1,4 @@
-from bfgame.components.display import Display
+from core.components.display import Display
 from core.tiles.base import Stairs
 from core.util.colors import Colors
 

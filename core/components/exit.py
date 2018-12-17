@@ -1,7 +1,8 @@
-from bfgame.components.base import Component
+from core.components import listing, Component
 from core.direction import Direction
 
 
+@listing.register
 class Exit(Component):
     """
     A component that maps triggers to move an object to another level/position

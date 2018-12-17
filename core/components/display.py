@@ -1,8 +1,9 @@
 from bearlibterminal import terminal
 
-from bfgame.components.base import Component
+from core.components import listing, Component
 
 
+@listing.register
 class Display(Component):
     NAME = "display"
     __slots__ = ["foreground_color", "background_color", "ascii_character", "priority"]
