@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class SpawnInfo(Component):
     NAME = "spawn_info"
     __slots__ = ["appearing_set"]

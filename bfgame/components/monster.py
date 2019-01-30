@@ -1,7 +1,8 @@
 from bfgame import queries
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Monster(Component):
     NAME = "monster"
     __slots__ = ["base_monster"]

@@ -1,8 +1,9 @@
-from bflib.items import Chest
-from bfgame import components
+from bfgame import components as bf_components
 from bfgame.factories.recipes import listing
 from bfgame.factories.recipes.base import Recipe
 from bfgame.factories.recipes.items.base import ItemRecipe
+from bflib.items import Chest
+from core import components
 
 
 # noinspection PyTypeChecker
@@ -21,7 +22,7 @@ class ChestRecipe(Recipe):
                 weight_limit=item_type.weight_limit
             ),
             components.Openable(),
-            components.Lock(False)
+            bf_components.Lock(False)
         ]
 
         return new_components

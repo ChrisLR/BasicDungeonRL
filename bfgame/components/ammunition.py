@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Ammunition(Component):
     NAME = "ammunition"
     __slots__ = ['ammunition_type', 'ammunition_damage']

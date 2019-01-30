@@ -1,4 +1,4 @@
-from bfgame.components import Openable
+from core.components import Openable
 from core.gameobject import GameObject
 
 

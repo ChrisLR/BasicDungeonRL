@@ -1,8 +1,9 @@
 from bflib.movement import MovementSet
 from bflib.units import FeetPerGameTurn
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Movement(Component):
     NAME = "movement"
     __slots__ = ["movement_set"]

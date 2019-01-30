@@ -1,8 +1,8 @@
 from core.components import listing
+from core.components.base import Component
 from core.components.ai import AI
 from core.components.alliance import Alliance
 from core.components.armor import Armor
-from core.components.base import Component
 from core.components.body import Body
 from core.components.consumable import Consumable
 from core.components.contained import Contained
@@ -23,6 +23,6 @@ from core.components.query import Query
 from core.components.ranged import Ranged
 from core.components.size import Size
 from core.components.specialcontainer import SpecialContainer
-from core.components.vision import Vision
+from core.components.vision import Vision, SimpleVision
 from core.components.wearable import Wearable
 from core.components.weight import Weight

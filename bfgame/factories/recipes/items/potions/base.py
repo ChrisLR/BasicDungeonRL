@@ -1,8 +1,9 @@
-from bflib.items.potions.base import Potion
-from bfgame import components, effects
+from bfgame import effects
 from bfgame.factories.recipes import listing
 from bfgame.factories.recipes.base import Recipe
 from bfgame.factories.recipes.items.base import ItemRecipe
+from bflib.items.potions.base import Potion
+from core import components
 
 
 # noinspection PyTypeChecker

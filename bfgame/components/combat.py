@@ -1,9 +1,10 @@
 from bflib import attacks
-from bflib.tables.attackbonus import AttackBonusTable
-from core.components.base import Component
 from bflib.characters import specialabilities
+from bflib.tables.attackbonus import AttackBonusTable
+from core.components import Component, listing
 
 
+@listing.register
 class Combat(Component):
     NAME = "combat"
     __slots__ = []

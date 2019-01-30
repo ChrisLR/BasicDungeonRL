@@ -1,12 +1,13 @@
 import inspect
 
-from core.components.base import Component
 from bflib.characters import specialabilities
+from core.components import Component, listing
 from core.contexts.combat import Combat
 from core.messaging import StringBuilder, Defender, Verb
 from services import corpsify
 
 
+@listing.register
 class Health(Component):
     NAME = 'health'
     __slots__ = ["first_enforced_maximum", "_hit_dices", "_health_rolls",

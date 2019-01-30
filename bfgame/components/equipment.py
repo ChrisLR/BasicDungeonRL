@@ -1,9 +1,10 @@
-from bfgame.components import Component
 from bflib import units
 from core import contexts
+from core.components import Component, listing
 from core.messaging import StringBuilder, Actor, Target, Verb
 
 
+@listing.register
 class Equipment(Component):
     NAME = "equipment"
     __slots__ = ["armor_restrictions", "weapon_restrictions", "weapon_size_restrictions",

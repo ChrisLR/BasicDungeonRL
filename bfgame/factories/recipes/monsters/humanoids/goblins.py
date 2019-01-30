@@ -1,10 +1,10 @@
-from bflib import monsters
-from bfgame import components
 from bfgame.ai import personalities
 from bfgame.factories.recipes import listing
 from bfgame.factories.recipes.base import Recipe
 from bfgame.factories.recipes.monsters.humanoids.base import HumanoidRecipe
 from bfgame.outfits.monsters import goblins as goblin_outfits
+from bflib import monsters
+from core import components
 
 
 # noinspection PyTypeChecker

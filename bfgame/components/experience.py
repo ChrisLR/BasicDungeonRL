@@ -1,7 +1,8 @@
 from bflib.characters import specialabilities
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Experience(Component):
     NAME = 'experience'
     __slots__ = ["experience_pools", "level"]

@@ -1,7 +1,9 @@
-from core.components.base import Component
 from clubsandwich.geom import Point
 
+from core.components import Component, listing
 
+
+@listing.register
 class Location(Component):
     NAME = "location"
     __slots__ = ["area", "level", "_local_x", "_local_y", "region", "world_x", "world_y"]

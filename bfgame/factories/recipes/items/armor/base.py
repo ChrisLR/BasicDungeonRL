@@ -1,8 +1,8 @@
-from bflib.items.armor.base import Armor
-from bfgame import components
 from bfgame.factories.recipes import listing
 from bfgame.factories.recipes.base import Recipe
 from bfgame.factories.recipes.items.base import ItemRecipe
+from bflib.items.armor.base import Armor
+from core import components
 
 
 # noinspection PyTypeChecker

@@ -1,11 +1,12 @@
 import copy
 
-from bflib.characters.abilityscores import \
-    Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma, AbilityScoreSet
+from bflib.characters.abilityscores import (
+    Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma, AbilityScoreSet)
 from bflib.characters.abilityscores.base import AbilityScore
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class CharacterStats(Component):
     NAME = 'stats'
     __slots__ = ["base_ability_score_set", "registered_modifiers"]

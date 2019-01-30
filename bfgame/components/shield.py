@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Shield(Component):
     NAME = "shield"
     __slots__ = ["armor_class_melee", "armor_class_missile"]

@@ -1,6 +1,7 @@
-from bfgame.components import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Restrictions(Component):
     NAME = 'restrictions'
     __slots__ = ["restrictions"]

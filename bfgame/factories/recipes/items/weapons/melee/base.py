@@ -1,9 +1,9 @@
-from bflib.items.weapons.melee.base import MeleeWeapon
-from bflib.items.weapons.types import get_melee_weapon_types
-from bfgame import components
 from bfgame.factories.recipes import listing
 from bfgame.factories.recipes.base import Recipe
 from bfgame.factories.recipes.items.base import ItemRecipe
+from bflib.items.weapons.melee.base import MeleeWeapon
+from bflib.items.weapons.types import get_melee_weapon_types
+from core import components
 
 
 # noinspection PyTypeChecker

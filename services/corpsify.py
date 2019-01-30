@@ -1,5 +1,5 @@
 from bflib.items.base import Item
-from bfgame import components
+from core import components
 from core.util.colors import Colors
 
 

@@ -2,8 +2,8 @@ import inspect
 
 from clubsandwich.geom import Point
 from tcod import map as tcod_map
-from bfgame import components
-from core import direction
+
+from core import components, direction
 from core.gameobject import GameObject
 
 

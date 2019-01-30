@@ -1,7 +1,8 @@
-from bflib.monsters.base import Monster
-from bfgame import components
-from core.displaypriority import DisplayPriority
+from bfgame import components as bf_components
 from bfgame.factories.recipes import listing, Recipe
+from bflib.monsters.base import Monster
+from core import components
+from core.displaypriority import DisplayPriority
 from core.util.colors import Colors
 
 
@@ -20,16 +21,16 @@ class MonsterRecipe(Recipe):
         new_components = [
             components.Display(Colors.RED, Colors.BLACK, name[0], DisplayPriority.Enemy),
             components.Location(),
-            components.Monster(monster_type),
+            bf_components.Monster(monster_type),
             components.Effects(),
-            components.Health(),
-            components.Combat(),
+            bf_components.Health(),
+            bf_components.Combat(),
             components.Size(monster_type.size),
-            components.SavingThrows(monster_type.save_as),
-            components.SpawnInfo(monster_type.no_appearing),
-            components.Morale(monster_type.morale),
-            components.Money(),
-            components.Movement(monster_type.movement),
+            bf_components.SavingThrows(monster_type.save_as),
+            bf_components.SpawnInfo(monster_type.no_appearing),
+            bf_components.Morale(monster_type.morale),
+            bf_components.Money(),
+            bf_components.Movement(monster_type.movement),
             components.Weight(monster_type.weight),
         ]
 

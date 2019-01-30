@@ -1,6 +1,6 @@
 from bflib.characters.base import Character
-from bfgame import components
-from core import bodies, flags
+from bfgame import components as bf_components
+from core import bodies, components, flags
 from core.gameobject import GameObject
 from core.gender import Gender
 from core.displaypriority import DisplayPriority
@@ -21,12 +21,12 @@ class CharacterFactory(object):
     def create_blank_player(self):
         new_character = GameObject(game=self.game, blocking=True)
         new_character.register_component(components.Location())
-        new_character.register_component(components.Combat())
+        new_character.register_component(bf_components.Combat())
         new_character.register_component(components.Inventory())
         new_character.register_component(components.Effects())
         new_character.register_component(components.Vision(20))
         new_character.register_component(components.Player())
-        new_character.register_component(components.Skills())
+        new_character.register_component(bf_components.Skills())
         new_character.register_component(components.Display(
             self._player_fg_color,
             self._player_bg_color,
@@ -38,23 +38,23 @@ class CharacterFactory(object):
         return new_character
 
     def set_attributes(self, character, ability_score_set):
-        character.register_component(components.CharacterStats(ability_score_set))
+        character.register_component(bf_components.CharacterStats(ability_score_set))
 
     def set_classes(self, character, base_classes):
-        character.register_component(components.CharacterClass(base_classes))
-        character.register_component(components.Experience(base_classes))
+        character.register_component(bf_components.CharacterClass(base_classes))
+        character.register_component(bf_components.Experience(base_classes))
 
     def set_race(self, character, base_race):
-        character.register_component(components.Race(base_race))
+        character.register_component(bf_components.Race(base_race))
         character.register_component(components.Body(assign_racial_body(base_race)))
 
     def finalize_character(self, character):
-        character.register_component(components.Restrictions())
-        character.register_component(components.Equipment())
+        character.register_component(bf_components.Restrictions())
+        character.register_component(bf_components.Equipment())
         # TODO People will want to choose this
         character.register_component(components.Gender(Gender.Male))
-        character.register_component(components.Money())
-        character.register_component(components.Health(True))
+        character.register_component(bf_components.Money())
+        character.register_component(bf_components.Health(True))
         character.register_component(components.Alliance())
         self.game.outfit.outfit_starting_player(character)
 

@@ -1,7 +1,8 @@
 from bflib.items.containers import base as base_container_types
-from bfgame.components import Component
+from core.components import Component, listing
 
 
+@listing.register
 class SpecialContainer(Component):
     NAME = "specialcontainer"
     __slots__ = ["container_type", "containable_items", "items_held",

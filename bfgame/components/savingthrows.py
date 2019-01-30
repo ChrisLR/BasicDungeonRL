@@ -1,7 +1,8 @@
-from core.components.base import Component
 from bflib import dice
+from core.components import Component, listing
 
 
+@listing.register
 class SavingThrows(Component):
     NAME = "saving_throws"
     __slots__ = ["saving_throws_set"]

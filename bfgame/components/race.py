@@ -1,7 +1,8 @@
-from bfgame.components import Component
 from bfgame import queries
+from core.components import Component, listing
 
 
+@listing.register
 class Race(Component):
     NAME = 'race'
     __slots__ = ["base_race"]

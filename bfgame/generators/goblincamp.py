@@ -1,6 +1,6 @@
-from bfgame import components
 from bfgame.maps.goblincamp import huts
 from bfgame.tiles import floors, stairs
+from core import components
 from core.generators.base import DesignPieceGenerator
 from core.generators.spawns import MapPieceSpawn
 from core.world import Level, LevelStub

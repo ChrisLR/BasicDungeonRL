@@ -1,7 +1,8 @@
-from core.components.base import Component
-from core.queries import listing
+from core.components import Component, listing
+from core.queries import listing as query_listing
 
 
+@listing.register
 class Query(Component):
     NAME = "query"
     __slots__ = ["mapping"]
@@ -12,7 +13,7 @@ class Query(Component):
         self.initialize_query_types()
 
     def initialize_query_types(self):
-        for query in listing.query_listing:
+        for query in query_listing.query_listing:
             self.mapping[query] = {}
 
     def register_responder(self, query_type, responder, func):
@@ -31,7 +32,7 @@ class Query(Component):
         return query.result
 
     def __getattr__(self, item):
-        query_type = listing.get_by_name(item)
+        query_type = query_listing.get_by_name(item)
         if query_type is None:
             raise AttributeError("No queries by the name {}".format(item))
 

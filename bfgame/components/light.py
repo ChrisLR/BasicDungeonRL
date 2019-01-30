@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Light(Component):
     NAME = "light"
     __slots__ = ["bright_light_radius", "dim_light_radius", "fuel",

@@ -1,8 +1,9 @@
-from bflib import dice
 from bfgame import queries
-from core.components.base import Component
+from bflib import dice
+from core.components import Component, listing
 
 
+@listing.register
 class Skills(Component):
     NAME = "skills"
     __slots__ = ["base_skills"]

@@ -1,6 +1,7 @@
-from bfgame.components import Component
+from core.components import Component, listing
 
 
+@listing.register
 class LiquidContainer(Component):
     NAME = "liquidcontainer"
     __slots__ = ["container_type", "liquid_held", "volume_limit"]

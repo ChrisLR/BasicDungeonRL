@@ -1,8 +1,9 @@
-from bflib.items.base import Item
-from bfgame import components
-from core.displaypriority import DisplayPriority
+from bfgame import components as bf_components
 from bfgame.factories.recipes import listing
 from bfgame.factories.recipes.base import Recipe
+from bflib.items.base import Item
+from core import components
+from core.displaypriority import DisplayPriority
 from core.util.colors import Colors
 
 
@@ -26,7 +27,7 @@ class ItemRecipe(Recipe):
         ]
 
         if item_type.price:
-            new_components.append(components.Valuable(item_type.price))
+            new_components.append(bf_components.Valuable(item_type.price))
 
         if item_type.wear_locations:
             new_components.append(components.Wearable(item_type.wear_locations))

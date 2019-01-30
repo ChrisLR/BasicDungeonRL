@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Money(Component):
     NAME = 'money'
     __slots__ = ["coins"]

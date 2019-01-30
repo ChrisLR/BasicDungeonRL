@@ -1,8 +1,9 @@
-from core.components.base import Component
 from core import events
+from core.components import Component, listing
 from core.tiles.base import Floor
 
 
+@listing.register
 class Trap(Component):
     NAME = "trap"
     __slots__ = ["core_trap"]

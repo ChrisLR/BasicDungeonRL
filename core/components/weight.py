@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Weight(Component):
     NAME = "weight"
     __slots__ = ["base_score"]
