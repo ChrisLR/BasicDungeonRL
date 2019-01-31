@@ -1,11 +1,11 @@
-from bflib import monsters
-from bfgame import components
-from core import bodies
-from core.ai import personalities
+from bfgame import components as bf_components
 from bfgame.factories.recipes import listing
 from bfgame.factories.recipes.base import Recipe
 from bfgame.factories.recipes.monsters.undeads.base import UndeadRecipe
 from bfgame.outfits.monsters import skeletons as skeleton_outfits
+from bflib import monsters
+from core import bodies, components
+from core.ai import personalities
 
 
 # noinspection PyTypeChecker
@@ -21,7 +21,7 @@ class SkeletonRecipe(Recipe):
         new_components = [
             components.AI(personalities.MindlessBerserk),
             components.Body(bodies.HumanoidBody()),
-            components.Equipment()
+            bf_components.Equipment()
         ]
 
         return new_components
