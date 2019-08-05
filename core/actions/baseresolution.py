@@ -1,6 +1,6 @@
 from core.actions.base import Action
 from core.gameobject import GameObject
-from services.selection import TargetSelectionSet, TargetSelectionChain
+from services.selection import TargetSelectionChain
 
 
 class ActionResolution(object):

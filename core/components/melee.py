@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Melee(Component):
     NAME = "melee"
     __slots__ = ["melee_damage", "weapon_type"]

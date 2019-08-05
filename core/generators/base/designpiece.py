@@ -2,7 +2,7 @@ import random
 
 from sortedcontainers import SortedSet
 
-from core.world.room import Room
+from core.world import Room
 
 
 class DesignPieceGenerator(object):

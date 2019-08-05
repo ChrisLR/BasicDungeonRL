@@ -1,7 +1,8 @@
 from core.actions.base import Action
-from core import contexts, events
+from core import contexts
+from core import events
 from services.selection import DirectionalSelection, TargetSelectionSet
-from messaging import StringBuilder, Verb, Actor, Target
+from core.messaging import StringBuilder, Verb, Actor, Target
 
 
 class Open(Action):

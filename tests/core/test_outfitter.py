@@ -1,6 +1,6 @@
-from core.outfits import starterpacks
+from bfgame.outfits import starterpacks
 from core.outfits.base import Outfit
-from core.outfits.outfitter import OutfitterService
+from bfgame.outfits.outfitter import OutfitterService
 
 
 def test_get_starter_package(sample_player):

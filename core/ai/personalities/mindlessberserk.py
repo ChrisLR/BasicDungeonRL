@@ -1,7 +1,7 @@
 import random
 
 from core.ai import behaviors
-from core.ai.personalities.base import Personality
+from core.ai.personalities import Personality
 
 
 class MindlessBerserk(Personality):

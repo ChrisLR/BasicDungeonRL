@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Wearable(Component):
     NAME = "wearable"
     __slots__ = ["wear_locations"]

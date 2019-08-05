@@ -1,7 +1,6 @@
 import random
 
 from core.attacks import listing
-from core.attacks import natural, weapon, ranged
 
 
 class Facade(object):

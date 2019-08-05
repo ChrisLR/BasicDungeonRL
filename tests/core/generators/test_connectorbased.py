@@ -1,11 +1,10 @@
 from bflib.monsters import Deer
 from core.generators.base import ConnectorBasedGenerator
 from core.maps.base import MapPiece, Connector, ConnectorLink
-from core.generators.spawns import OnceSpawner, SpawnSet
-from core.generators.spawns.maps import MapPieceSpawn
+from bfgame.generators.spawns import OnceSpawner, SpawnSet
 from core.direction import Direction
-from core.world.level import Level
-from core.tiles import floors
+from core.world import Level
+from bfgame.tiles import floors
 import pytest
 
 

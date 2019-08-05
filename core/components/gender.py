@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import listing, Component
 
 
+@listing.register
 class Gender(Component):
     NAME = "gender"
     __slots__ = ["gender"]

@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Size(Component):
     NAME = "size"
     __slots__ = ["base_score"]

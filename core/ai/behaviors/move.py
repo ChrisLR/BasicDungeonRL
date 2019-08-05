@@ -1,4 +1,4 @@
-from core.ai.behaviors.base import Behavior
+from core.ai.behaviors import Behavior
 from core.ai.pathing import ComputedPath
 from core.actions.move import Walk
 from core import direction

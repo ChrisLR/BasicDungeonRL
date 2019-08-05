@@ -2,7 +2,6 @@ from functools import partial
 
 from bearlibterminal import terminal
 from clubsandwich.ui import (
-    UIScene,
     LabelView,
     ButtonView,
     LayoutOptions,
@@ -10,10 +9,11 @@ from clubsandwich.ui import (
 )
 
 from bflib.skills.listing import skill_listing
-from ui.views.validatedintstepperview import ValidatedIntStepperView
+from core.ui import CoreUIScene
+from core.ui.views import ValidatedIntStepperView
 
 
-class SkillsSelection(UIScene):
+class SkillsSelection(CoreUIScene):
     def __init__(self, game):
         self.covers_screen = True
         self.game = game

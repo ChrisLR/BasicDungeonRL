@@ -1,17 +1,17 @@
 from functools import partial
 
 from clubsandwich.ui import (
-    UIScene,
     ButtonView,
     LayoutOptions,
     WindowView,
 )
 
 from bflib.characters import races
-from ui.views import KeyAssignedListView, SelectableButtonView
+from core.ui import CoreUIScene
+from core.ui.views import KeyAssignedListView, SelectableButtonView
 
 
-class RaceSelection(UIScene):
+class RaceSelection(CoreUIScene):
     _inactive_fg = '#ffffff'
     _active_fg = "#efff14"
     _disabled_fg = '#424242'

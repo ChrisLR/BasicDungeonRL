@@ -3,8 +3,8 @@ import pytest
 from bflib.characters import classes, races, abilityscores
 from bflib.items import Dagger
 from core.displaypriority import DisplayPriority
-from core.factories.character import CharacterFactory
-from core.factories.items import ItemFactory
+from bfgame.factories.character import CharacterFactory
+from bfgame.factories.items import ItemFactory
 from core.util.colors import Colors
 
 

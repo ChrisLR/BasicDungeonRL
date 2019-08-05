@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import listing, Component
 
 
+@listing.register
 class Alliance(Component):
     NAME = 'alliance'
     __slots__ = ["effects"]

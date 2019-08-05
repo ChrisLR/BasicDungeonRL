@@ -1,9 +1,8 @@
-import tcod
-
-from core.components import Component
-from core.util.distance import manhattan_distance_to
+from core.components import Component, listing
+from core.util import manhattan_distance_to
 
 
+@listing.register
 class Vision(Component):
     NAME = 'vision'
     __slots__ = ["fov", "fov_range"]
@@ -49,6 +48,7 @@ class Vision(Component):
         return True
 
 
+@listing.register
 class SimpleVision(Component):
     NAME = 'vision'
     __slots__ = ["fov", "fov_range"]

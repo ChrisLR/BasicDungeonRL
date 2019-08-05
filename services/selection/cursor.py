@@ -1,8 +1,9 @@
 from bearlibterminal import terminal
 from clubsandwich.geom import Point
-from clubsandwich.ui import UIScene, LabelView, RectView
+from clubsandwich.ui import LabelView, RectView
 
 from core.direction import move_direction_mapping
+from core.ui import CoreUIScene
 from services.selection.base import Selection
 
 
@@ -12,7 +13,7 @@ class CursorSelection(Selection):
         self.game.director.push_scene(self.view)
 
 
-class CursorScene(UIScene):
+class CursorScene(CoreUIScene):
     covers_screen = False
 
     def __init__(self, game, selection, executor):

@@ -1,8 +1,9 @@
+from core.components import Component, listing
 from core import contexts
-from core.components.base import Component
-from messaging import StringBuilder, Actor, TargetOne, TargetTwo, His, Verb
+from core.messaging import StringBuilder, Actor, TargetOne, TargetTwo, His, Verb
 
 
+@listing.register
 class Inventory(Component):
     NAME = "inventory"
     __slots__ = []

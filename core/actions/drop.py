@@ -1,6 +1,6 @@
 from core import contexts
 from core.actions.base import Action
-from messaging import StringBuilder, Verb, Actor, Target
+from core.messaging import StringBuilder, Verb, Actor, Target
 from services.selection import AllItems, filters, TargetSelectionSet
 
 

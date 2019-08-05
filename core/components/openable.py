@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Openable(Component):
     NAME = "openable"
     __slots__ = ["closed", "on_state_change_callback"]

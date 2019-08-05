@@ -1,9 +1,9 @@
 from clubsandwich.ui import LayoutOptions
-from clubsandwich.ui import UIScene
+from core.ui import CoreUIScene
 from clubsandwich.ui.misc_views import LabelView, ButtonView
 
 
-class MainMenuScene(UIScene):
+class MainMenuScene(CoreUIScene):
     ID = "MainMenu"
 
     def __init__(self, game):

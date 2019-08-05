@@ -1,7 +1,7 @@
 from core.actions.base import Action
-from services import echo, selection
+from services import selection
 from services.selection import filters
-from messaging import StringBuilder, Verb, Actor, Target
+from core.messaging import StringBuilder, Verb, Actor, Target
 from core import contexts
 
 

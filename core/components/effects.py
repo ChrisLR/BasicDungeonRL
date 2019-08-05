@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import listing, Component
 
 
+@listing.register
 class Effects(Component):
     NAME = "effects"
     __slots__ = ["active_effects", "finished_effects"]

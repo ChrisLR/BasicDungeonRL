@@ -6,8 +6,8 @@ from sortedcontainers import SortedSet
 from core.direction import (
     Direction, get_inverse_direction
 )
-from core.maps.base.connectorlink import ConnectorLink
-from core.world.room import Room
+from core.maps.base import ConnectorLink
+from core.world import Room
 
 
 class ConnectorBasedGenerator(object):

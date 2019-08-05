@@ -1,14 +1,15 @@
 import functools
+
 import collections
-
 from bearlibterminal import terminal
-from clubsandwich.ui import ButtonView, UIScene, WindowView, LayoutOptions
+from clubsandwich.ui import ButtonView, WindowView, LayoutOptions
 
+from core.ui import CoreUIScene
+from core.ui.views import KeyAssignedListView, SelectableButtonView
 from services.selection.filters.base import SelectionFilter
-from ui.views import KeyAssignedListView, SelectableButtonView
 
 
-class ListFilterView(UIScene):
+class ListFilterView(CoreUIScene):
     covers_screen = False
 
     def __init__(self, host_filter, targets):

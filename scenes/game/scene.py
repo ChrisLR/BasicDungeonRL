@@ -2,15 +2,16 @@ import time
 
 from bearlibterminal import terminal
 from clubsandwich.ui import LayoutOptions
-from clubsandwich.ui import UIScene, WindowView
+from clubsandwich.ui import WindowView
 
 from core.actions.basestack import ActionStack
+from core.ui import CoreUIScene
+from core.ui.views import ScrollingTextView
 from scenes.game.views.game import GameView
 from scenes.game.views.hud import HudView
-from ui.views import ScrollingTextView
 
 
-class GameScene(UIScene):
+class GameScene(CoreUIScene):
     def __init__(self, game):
         console_layout_options = LayoutOptions(top=None, height=12, bottom=0, left=1, right=None, width=0.99)
         game_view_layout_options = LayoutOptions(top=10, height=30, bottom=None, left=0, right=None, width=0.99)

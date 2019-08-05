@@ -1,6 +1,7 @@
-from core.components.base import Component
+from core.components import Component, listing
 
 
+@listing.register
 class Ranged(Component):
     NAME = "ranged"
     __slots__ = ["range_set", "ammunition_type"]

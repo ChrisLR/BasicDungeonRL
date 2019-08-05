@@ -2,16 +2,16 @@ from functools import partial
 
 from clubsandwich.ui import (
     ButtonView,
-    UIScene,
     LayoutOptions,
     WindowView,
 )
 
 from bflib.characters import classes
-from ui.views import SelectableButtonView, KeyAssignedListView
+from core.ui import CoreUIScene
+from core.ui.views import SelectableButtonView, KeyAssignedListView
 
 
-class ClassSelection(UIScene):
+class ClassSelection(CoreUIScene):
     _inactive_fg = '#ffffff'
     _active_fg = "#efff14"
     _disabled_fg = '#424242'

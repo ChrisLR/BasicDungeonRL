@@ -1,7 +1,8 @@
-from core.components.base import Component
 from core.ai.shorttermstate import ShortTermState
+from core.components import listing, Component
 
 
+@listing.register
 class AI(Component):
     NAME = 'ai'
     __slots__ = ["last_behavior", "personality"]
