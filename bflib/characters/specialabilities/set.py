@@ -13,4 +13,3 @@ class SpecialAbilitySet(object):
                 yield special_ability
         else:
             yield self.special_abilities
-            raise StopIteration
