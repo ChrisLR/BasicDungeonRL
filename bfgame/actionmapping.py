@@ -29,6 +29,7 @@ class ActionMapping(object):
             terminal.TK_KP_MINUS: "climb_down",
         }
         self.uppercase = {
+            terminal.TK_C: "chat",
             terminal.TK_W: "wield",
             terminal.TK_S: "show_skills"
         }

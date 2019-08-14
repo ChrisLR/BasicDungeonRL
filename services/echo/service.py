@@ -23,3 +23,17 @@ class EchoService(object):
     def player(self, actor, message, context=None):
         if actor.player:
             self._echo(message, context)
+
+    def see_m(self, actor, target, actor_message, target_message, observer_message):
+        """
+        A simpler way to use see messages without context.
+        """
+        player = self.game.player
+        if actor is player:
+            return self._echo(actor_message)
+
+        if player and player.vision.can_see_object(actor):
+            if target is player:
+                self._echo(target_message)
+            else:
+                self._echo(observer_message)

@@ -1,8 +1,7 @@
-from bflib import traps as base_traps
 from bfgame.attacks.ranged import RangedAttack
 from bfgame.effects import get_core_effect_from_base
+from bflib import traps as base_traps
 from core.traps.base import Trap
-from services import echo
 
 
 class Projectile(Trap):
@@ -51,8 +50,9 @@ class Projectile(Trap):
         Applying damage if needed
         :returns: True if Touched, False if not
         """
+        # TODO Traps are broken
         attack = RangedAttack(cls.base_trap.attack, host, target)
-        attack.execute()
+        attack.execute(host, target, cls.base_trap, )
         if attack.total_damage:
             target.health.take_damage(attack.total_damage)
             cls.on_hit_echo(host, target, attack.total_damage)
@@ -75,25 +75,42 @@ class Arrow(Projectile):
 
     @classmethod
     def on_trigger_echo(cls, host, origin_target):
-        echo.see(
-            host, "",
-            "An arrow shoots from {} towards {} !".format(
-                host.name, echo.name_or_you(origin_target))
+        echo = host.game.echo
+        actor_message = "Your trap shoots an arrow towards {}!".format(origin_target.name)
+        observer_message = "An arrow shoots from {} towards {}!".format(
+            origin_target.name, origin_target.name
+        )
+        target_message = "An arrow shoots from {} towards you!".format(origin_target.name)
+        echo.see_m(
+            actor=host,
+            target=origin_target,
+            actor_message=actor_message,
+            observer_message=observer_message,
+            target_message=target_message
         )
 
     @classmethod
     def on_hit_echo(cls, host, target, total_damage):
+        echo = host.game.echo
+        actor_message = "It hits {} for {} damage!".format(target.name, total_damage)
+        target_message = "It hits you for {} damage!".format(total_damage)
         echo.see(
-            host, "",
-            "It hits {} for {} damage!".format(
-                echo.name_or_you(target), total_damage)
+            actor=host,
+            target=target,
+            actor_message=actor_message,
+            observer_message=actor_message,
+            target_message=target_message
         )
 
     @classmethod
     def on_miss_echo(cls, host, target):
+        echo = host.game.echo
+        actor_message = "It misses {}!".format(target.name)
+        target_message = "It misses you!"
         echo.see(
-            host, "",
-            "It misses {} !".format(
-                echo.name_or_you(target))
+            actor=host,
+            target=target,
+            actor_message=actor_message,
+            observer_message=actor_message,
+            target_message=target_message
         )
-3

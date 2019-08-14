@@ -42,8 +42,8 @@ class Game(object):
 
     def new_game(self):
         self.factory.get('character').finalize_character(self.player)
-        # generator = generators.TestingGenerator
-        generator = generators.GoblinCampGenerator(self)
+        generator = generators.TestingGenerator(self)
+        #generator = generators.GoblinCampGenerator(self)
         # generator = generators.SkeletonCrypt
         # generator = generators.WarzoneGenerator(self)
         level = generator.generate()

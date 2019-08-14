@@ -1,4 +1,5 @@
 from bfgame.actions.addclass import AddClass
+from bfgame.actions.chat import Chat
 from bfgame.actions.climb import ClimbUp, ClimbDown
 from bfgame.actions.fire import Fire
 from bfgame.actions.jump import Jump
@@ -20,6 +21,7 @@ from core.actions.wield import Wield
 action_listing = {
     AddClass,
     Bump,
+    Chat,
     Close,
     ClimbUp,
     ClimbDown,

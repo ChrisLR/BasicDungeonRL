@@ -9,6 +9,7 @@ from core.components.contained import Contained
 from core.components.container import Container
 from core.components.corpse import Corpse
 from core.components.display import Display
+from core.components.dialogs import Dialog, Talker
 from core.components.effects import Effects
 from core.components.events import Events
 from core.components.exit import Exit
