@@ -1,5 +1,5 @@
 from services.selection.filters.component import Component
-from services.selection.filters.conscious import Conscious
+from services.selection.filters.conscious import Conscious, NotConscious
 from services.selection.filters.hierarchy import (
     Hierarchy, SingleHierarchy)
 from services.selection.filters.listfilter import (

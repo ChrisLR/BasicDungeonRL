@@ -9,7 +9,7 @@ class Chat(Action):
     name = "chat"
     target_selection = TargetSelectionSet(
         selections=DirectionalSelection,
-        filters=filters.Conscious
+        filters=filters.NotConscious
     )
 
     def __init__(self, game):

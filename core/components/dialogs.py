@@ -10,10 +10,14 @@ class Dialog(Component):
         super().__init__()
         self.dialog_tree = dialog_tree
 
+    def get_options(self, talker, progress_id=None):
+        return self.dialog_tree.get_options(talker, progress_id)
+
     def copy(self):
         return Dialog(self.dialog_tree)
 
 
+@listing.register
 class Talker(Component):
     NAME = "talker"
     __slots__ = ["progress"]
@@ -25,7 +29,7 @@ class Talker(Component):
     def talk_to(self, game_object):
         dialog = game_object.dialog
         if dialog:
-            return dialog.get_choices(self.host)
+            return dialog.get_options(self.host)
 
     def say(self, dialog_id, key):
         self._progress[dialog_id] = key

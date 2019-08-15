@@ -1,7 +1,8 @@
-from clubsandwich.ui import RectView, LabelView, LayoutOptions
+from clubsandwich.ui import WindowView, LabelView, LayoutOptions
+from core.ui import CoreUIScene
 
 
-class DialogScene(RectView):
+class DialogScene(CoreUIScene):
     def __init__(self, game, actor, chat_target, **kwargs):
         self.game = game
         self.actor = actor
@@ -12,11 +13,10 @@ class DialogScene(RectView):
         self._subviews = []
         options = actor.talker.talk_to(chat_target)
         keys = (letter for letter in 'ABCDEFGHJKILMNOPQRSTUVWXYZ')
-        self.create_multiple_label_value_pairs(((next(keys), option) for option in options))
+        self.create_multiple_label_value_pairs(
+            ((next(keys), option) for option in options))
 
-        super().__init__(
-            subviews=self._subviews, fill=True, **kwargs
-        )
+        super().__init__(WindowView("", subviews=self._subviews), **kwargs)
 
     def draw(self, ctx):
         for label_value_pair in self.label_value_pairs:
@@ -47,22 +47,22 @@ class DialogScene(RectView):
 
         return label, value
 
-    def create_label_value_pair(self, label_text, value_lambda):
+    def create_label_value_pair(self, label_text, value):
         label_layout, value_layout = self.get_next_layout_pair()
         label_view = LabelView(
             label_text,
             layout_options=label_layout,
         )
-        current_value = value_lambda()
+        current_value = value.ask_text
         value_view = LabelView(
             current_value,
             layout_options=value_layout,
         )
-        setattr(value_view, 'update_value', value_lambda)
+
         self.label_value_pairs.append((label_view, value_view))
         self._subviews.append(label_view),
         self._subviews.append(value_view)
 
-    def create_multiple_label_value_pairs(self, *label_value_pairs):
+    def create_multiple_label_value_pairs(self, label_value_pairs):
         for label_value_pair in label_value_pairs:
             self.create_label_value_pair(*label_value_pair)
