@@ -1,13 +1,16 @@
 from clubsandwich.ui import WindowView, LabelView, LayoutOptions
+
 from core.ui import CoreUIScene
 
 
 class DialogScene(CoreUIScene):
+    covers_screen = False
+
     def __init__(self, game, actor, chat_target, **kwargs):
         self.game = game
         self.actor = actor
         self.chat_target = chat_target
-        self.last_top = 0.2
+        self.last_top = 0.6
         self.last_left = 0
         self.label_value_pairs = []
         self._subviews = []
@@ -16,7 +19,12 @@ class DialogScene(CoreUIScene):
         self.create_multiple_label_value_pairs(
             ((next(keys), option) for option in options))
 
-        super().__init__(WindowView("", subviews=self._subviews), **kwargs)
+        window_view = WindowView(
+            title="Chatting with %s" % chat_target.name,
+            subviews=self._subviews,
+            layout_options=LayoutOptions.row_bottom(0.3)
+        )
+        super().__init__(views=[window_view], **kwargs)
 
     def draw(self, ctx):
         for label_value_pair in self.label_value_pairs:
