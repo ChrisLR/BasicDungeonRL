@@ -13,6 +13,9 @@ class DialogTree(object):
             return self.root_nodes
 
         current_node = self._nodes.get(progress_id)
+        if not current_node.children:
+            return []
+
         child_nodes = [
             child for child in current_node.children
             if child.requirements is None

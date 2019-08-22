@@ -29,7 +29,10 @@ class Talker(Component):
     def talk_to(self, game_object):
         dialog = game_object.dialog
         if dialog:
-            return dialog.get_options(self.host)
+            return dialog.dialog_tree
 
-    def say(self, dialog_id, key):
-        self._progress[dialog_id] = key
+    def say(self, dialog_tree, key):
+        self._progress[dialog_tree.dialog_id] = key
+        return dialog_tree.get_options(self.host, key)
+
+
