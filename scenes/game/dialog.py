@@ -1,6 +1,7 @@
-from clubsandwich.ui import WindowView, LabelView, LayoutOptions
 from bearlibterminal import terminal
-from core.ui import CoreUIScene, ScrollingTextView
+from clubsandwich.ui import WindowView, LabelView, LayoutOptions
+
+from core.ui import CoreUIScene
 
 
 class DialogScene(CoreUIScene):
@@ -38,13 +39,6 @@ class DialogScene(CoreUIScene):
         )
         self.end = False
         super().__init__(views=[self.window_view], **kwargs)
-
-    def draw(self, ctx):
-        for label_value_pair in self.label_value_pairs:
-            _, value_view = label_value_pair
-            updated_value = value_view.update_value()
-            value_view.text = updated_value
-        super().draw(ctx)
 
     def get_next_layout_pair(self):
         self.last_top += 0.1
@@ -110,16 +104,12 @@ class DialogScene(CoreUIScene):
                     view = next(views, None)
                     if view is None:
                         key_view, value_view = self.create_label_value_pair(key, option)
+                        self.option_view.content_view.add_subviews([key_view, value_view])
+                        self.option_view.content_view.layout_subviews()
                     else:
                         key_view, value_view = view
                     self.keyed_options[key] = option
                     value_view.text = option.ask_text
             else:
-                # TODO There must be a better way to do this
-                for label_view, value_view in self.label_value_pairs:
-                    label_view.text = ""
-                    value_view.text = ""
-
-                # TODO Not centered
-                self.label_value_pairs[0][1].text = "Press any key to exit"
+                self.option_view.content_view.remove_subviews(self._subviews)
                 self.end = True
