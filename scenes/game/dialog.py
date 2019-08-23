@@ -95,7 +95,7 @@ class DialogScene(CoreUIScene):
         if option is not None:
             self.reply_label.text = option.reply_text
             # TODO Very not convenient, make this simpler
-            self.options = self.actor.talker.say(self.dialog_tree, option.key)
+            self.options = self.actor.talker.say(self.dialog_tree, option)
             if self.options:
                 keys = (letter for letter in 'ABCDEFGHJKILMNOPQRSTUVWXYZ')
                 views = (view_pair for view_pair in self.label_value_pairs)

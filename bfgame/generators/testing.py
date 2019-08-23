@@ -40,15 +40,25 @@ class TestingGenerator(object):
         monster = self.game.factory.route(animals.Deer)
         monster.location.level = level
         monster.location.set_local_coords((14, 14))
+        dialog_node_4 = dialog.DialogNode("Do you need any help?", "Yes! Kill the spider", on_select=self.place_spiders)
         dialog_node_3 = dialog.DialogNode("Indeed", "Glad to hear we agree")
         dialog_node_2 = dialog.DialogNode("Uh?", "Didn't you hear? I said BBBBBBBBBBBB")
-        dialog_node = dialog.DialogNode("Hello", "Bbbbbbbbbbbbbb", [dialog_node_2, dialog_node_3])
+        dialog_node = dialog.DialogNode("Hello", "Bbbbbbbbbbbbbb", [dialog_node_2, dialog_node_3, dialog_node_4])
 
         dialog_tree = dialog.DialogTree("deer", [dialog_node])
         monster.register_component(core_components.Dialog(dialog_tree))
 
         monster.vision.fov_range = 0
         level.add_object(monster)
+
+    def place_spiders(self):
+        player = self.game.player
+        monster = self.game.factory.route(animals.GiantBlackWidow)
+        level = player.location.level
+        monster.location.level = level
+        monster.location.set_local_coords((10, 10))
+        level.add_object(monster)
+        self.game.echo.player(player, "A giant spider poofs into existence nearby!")
 
     def place_trapped_floor(self, level):
         tile = level.get_tile((22, 22))

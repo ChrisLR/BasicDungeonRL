@@ -31,7 +31,8 @@ class Talker(Component):
         if dialog:
             return dialog.dialog_tree
 
-    def say(self, dialog_tree, key):
+    def say(self, dialog_tree, option):
+        key = dialog_tree.select(option)
         self._progress[dialog_tree.dialog_id] = key
         return dialog_tree.get_options(self.host, key)
 
