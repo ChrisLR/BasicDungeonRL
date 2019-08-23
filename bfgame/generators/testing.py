@@ -40,7 +40,7 @@ class TestingGenerator(object):
         monster = self.game.factory.route(animals.Deer)
         monster.location.level = level
         monster.location.set_local_coords((14, 14))
-        dialog_node_2 = dialog.DialogNode("Uh?", "BBBBBBBBBBBBBBBBBB")
+        dialog_node_2 = dialog.DialogNode("Uh?", "Didn't you hear? I said BBBBBBBBBBBB")
         dialog_node = dialog.DialogNode("Hello", "Bbbbbbbbbbbbbb", [dialog_node_2])
 
         dialog_tree = dialog.DialogTree("deer", [dialog_node])

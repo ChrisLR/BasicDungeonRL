@@ -1,6 +1,6 @@
 from clubsandwich.ui import WindowView, LabelView, LayoutOptions
 from bearlibterminal import terminal
-from core.ui import CoreUIScene
+from core.ui import CoreUIScene, ScrollingTextView
 
 
 class DialogScene(CoreUIScene):
@@ -13,6 +13,8 @@ class DialogScene(CoreUIScene):
         self.last_top = 0.2
         self.last_left = 0
         self.label_value_pairs = []
+        self.reply_label = LabelView("")
+        self.reply_label.layout_options.column_right(0.5)
         self.keyed_options = {}
         self._subviews = []
         self.dialog_tree = actor.talker.talk_to(chat_target)
@@ -21,11 +23,20 @@ class DialogScene(CoreUIScene):
         self.create_multiple_label_value_pairs(
             ((next(keys), option) for option in self.options))
 
+        self.option_view = WindowView(
+            title="", subviews=self._subviews,
+            layout_options=LayoutOptions.column_left(0.5)
+        )
+        self.reply_view = WindowView(
+            title="", subviews=[self.reply_label],
+            layout_options=LayoutOptions.column_right(0.5)
+        )
         self.window_view = WindowView(
             title="Chatting with %s" % chat_target.name,
-            subviews=self._subviews,
+            subviews=[self.option_view, self.reply_view],
             layout_options=LayoutOptions.row_bottom(0.3)
         )
+        self.end = False
         super().__init__(views=[self.window_view], **kwargs)
 
     def draw(self, ctx):
@@ -74,27 +85,41 @@ class DialogScene(CoreUIScene):
         self._subviews.append(label_view),
         self._subviews.append(value_view)
 
+        return label_view, value_view
+
     def create_multiple_label_value_pairs(self, label_value_pairs):
         for label_value_pair in label_value_pairs:
             self.create_label_value_pair(*label_value_pair)
 
     def terminal_read(self, val):
         super().terminal_read(val)
+        if self.end is True:
+            self.game.director.pop_scene(self)
         char = chr(terminal.state(terminal.TK_WCHAR)).upper()
         # TODO Display the NPC reply Here
         option = self.keyed_options.get(char)
         if option is not None:
+            self.reply_label.text = option.reply_text
             # TODO Very not convenient, make this simpler
             self.options = self.actor.talker.say(self.dialog_tree, option.key)
             if self.options:
-                self.window_view.remove_subviews(self._subviews)
-                self.label_value_pairs.clear()
-                self.keyed_options.clear()
-                self._subviews.clear()
                 keys = (letter for letter in 'ABCDEFGHJKILMNOPQRSTUVWXYZ')
-                self.create_multiple_label_value_pairs(
-                    ((next(keys), option) for option in self.options))
-                self.window_view.add_subviews(self._subviews)
+                views = (view_pair for view_pair in self.label_value_pairs)
+                for option in self.options:
+                    key = next(keys)
+                    view = next(views, None)
+                    if view is None:
+                        key_view, value_view = self.create_label_value_pair(key, option)
+                    else:
+                        key_view, value_view = view
+                    self.keyed_options[key] = option
+                    value_view.text = option.ask_text
             else:
-                # TODO Npc has no further options, close the dialog
-                pass
+                # TODO There must be a better way to do this
+                for label_view, value_view in self.label_value_pairs:
+                    label_view.text = ""
+                    value_view.text = ""
+
+                # TODO Not centered
+                self.label_value_pairs[0][1].text = "Press any key to exit"
+                self.end = True
