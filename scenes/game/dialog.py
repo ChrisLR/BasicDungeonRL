@@ -89,6 +89,8 @@ class DialogScene(CoreUIScene):
         super().terminal_read(val)
         if self.end is True:
             self.game.director.pop_scene(self)
+            return
+
         char = chr(terminal.state(terminal.TK_WCHAR)).upper()
         # TODO Display the NPC reply Here
         option = self.keyed_options.get(char)

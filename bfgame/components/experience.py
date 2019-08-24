@@ -48,7 +48,7 @@ class Experience(Component):
 
     def level_up(self):
         self.level += 1
-        self.host.echo.player(self.host, "You advance to level {}".format(self.level))
+        self.host.game.echo.player(self.host, "You advance to level {}".format(self.level))
         self.host.health.on_level_up()
         skills = self.host.skills
         if skills:
