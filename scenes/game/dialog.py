@@ -72,6 +72,7 @@ class DialogScene(CoreUIScene):
         value_view = LabelView(
             current_value,
             layout_options=value_layout,
+            align_horz='left'
         )
         ''
         self.keyed_options[label_text] = value
