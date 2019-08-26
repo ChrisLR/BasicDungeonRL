@@ -57,7 +57,7 @@ class SpecialAbility(CumulativeQuery):
 
     @property
     def result(self):
-        amount_of_filters = len(self.abilities)
+        amount_of_filters = len(self.abilities) if self.abilities is not None else None
         if amount_of_filters == 1:
             return sum(self._result.values())
 

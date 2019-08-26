@@ -20,6 +20,7 @@ class OnlyWithLocks(filters.Component):
 
 class OpenLock(Ability):
     name = "Open Lock"
+    requires = {OpenLockAbility}
     target_selection = selection.TargetSelectionSet(
         selections=selection.DirectionalSelection,
         filters=(OnlyWithLocks, filters.SingleListBased))

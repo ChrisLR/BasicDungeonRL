@@ -9,6 +9,7 @@ from core.messaging import StringBuilder, Actor, Verb, TargetOne, TargetTwo
 
 class PickPocket(Ability):
     name = "Pick Pocket"
+    requires = {PickPocketAbility}
     target_selection = TargetSelectionChain(
         TargetSelectionSet(
             selections=selection.DirectionalSelection,

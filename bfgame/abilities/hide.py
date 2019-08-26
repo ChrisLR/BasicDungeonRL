@@ -8,6 +8,7 @@ from core.messaging import StringBuilder, Actor, Verb
 
 class Hide(Ability):
     name = "Hide"
+    requires = {HideAbility}
     target_selection = None
 
     def can_execute(self, character, target_selection=None):
@@ -34,12 +35,12 @@ class Hide(Ability):
             context = contexts.Action(character, None)
             self.game.echo.see(
                 actor=character,
-                message=StringBuilder(Actor, Verb("attempt",Actor),  "to hide."),
+                message=StringBuilder(Actor, Verb("fail", Actor),  "to hide."),
                 context=context
             )
             return False
         else:
-            self.game.echo.player(character, "You attempt to hide.")
+            self.game.echo.player(character, "You manage to hide.")
             if not character.effects.has_effect(effects.Hidden):
                 character.effects.add_effect(effects.Hidden(None))
 

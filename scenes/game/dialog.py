@@ -74,7 +74,6 @@ class DialogScene(CoreUIScene):
             layout_options=value_layout,
             align_horz='left'
         )
-        ''
         self.keyed_options[label_text] = value
         self.label_value_pairs.append((label_view, value_view))
         self._subviews.append(label_view),

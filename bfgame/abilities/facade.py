@@ -13,3 +13,6 @@ class Facade(object):
 
     def get_abilities(self):
         return [ability(self.game) for ability in listing.ability_listing]
+
+    def get_all_types(self):
+        return listing.ability_listing

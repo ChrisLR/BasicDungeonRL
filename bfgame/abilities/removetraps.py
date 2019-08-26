@@ -9,6 +9,7 @@ from services.selection import DirectionalSelection, filters, TargetSelectionSet
 
 class RemoveTraps(Ability):
     name = "Remove Traps"
+    requires = {RemoveTrapsAbility}
     target_selection = TargetSelectionSet(
         selections=DirectionalSelection,
         filters=filters.SingleListBased)

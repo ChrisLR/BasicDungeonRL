@@ -1,14 +1,14 @@
 from bfgame import queries
 from core import events
 from core.effects.base import Effect
-from services import echo
 
 
 class Hidden(Effect):
     name = "Hidden"
 
-    def __init__(self, duration=None):
+    def __init__(self, actor, duration=None):
         super().__init__(duration, None, None)
+        self.actor = actor
         self._moved = False
 
     def on_start(self, game_object):
@@ -19,12 +19,17 @@ class Hidden(Effect):
     @property
     def finished(self):
         if self._moved:
+            self.actor.game.echo.see(
+                actor=self.actor,
+                actor_message="You come out of hiding!",
+                observer_message="{} comes out of hiding!".format(self.actor.name)
+            )
             return True
         return super().finished
 
     def _attacking(self, event):
         self._moved = True
-        echo.see(
+        event.actor.game.echo.see(
             actor=event.actor,
             actor_message="You come out of hiding!",
             observer_message="{} comes out of hiding!".format(event.actor.name)
@@ -33,8 +38,9 @@ class Hidden(Effect):
     def _moved_listener(self, event):
         # TODO This hack is bad
         from bfgame.abilities.movesilently import MoveSilently
+        move_silently = MoveSilently(event.actor.game)
 
-        if not MoveSilently.can_execute(event.actor) or not MoveSilently.execute(event.actor):
+        if not move_silently.can_execute(event.actor) or not move_silently.execute(event.actor):
             self._moved = True
 
     def _visibility_responder(self, query):

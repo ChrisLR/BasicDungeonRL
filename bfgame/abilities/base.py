@@ -2,4 +2,5 @@ from core.actions.base import Action
 
 
 class Ability(Action):
-    pass
+    requires = set()
+    use_manually = True
